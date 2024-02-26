@@ -1,10 +1,10 @@
 # NeoBoard - Dashboard Empresarial
 
-![Versão](https://img.shields.io/github/v/release/LiedsonLB/neoboard)
-![Contribuidores](https://img.shields.io/github/contributors/LiedsonLB/neoboard)
+[![Versão](https://img.shields.io/github/v/release/LiedsonLB/neoboard)](https://github.com/LiedsonLB/neoboard/releases)
+[![Contribuidores](https://img.shields.io/github/contributors/LiedsonLB/neoboard)](https://github.com/LiedsonLB/neoboard/graphs/contributors)
 [![Licença: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Pull Requests Abertos](https://img.shields.io/github/issues-pr/LiedsonLB/neoboard)
-![Última Atualização](https://img.shields.io/github/last-commit/LiedsonLB/neoboard)
+[![Pull Requests Abertos](https://img.shields.io/github/issues-pr/LiedsonLB/neoboard)](https://github.com/LiedsonLB/neoboard/pulls)
+[![Última Atualização](https://img.shields.io/github/last-commit/LiedsonLB/neoboard)](https://github.com/LiedsonLB/neoboard/commits/master)
 
 ![NeoBoard](./public/img/readme_img/neoboard_logo.png)
 
