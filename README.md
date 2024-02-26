@@ -2,7 +2,7 @@
 
 ![Versão](https://img.shields.io/github/v/release/LiedsonLB/neoboard)
 ![Contribuidores](https://img.shields.io/github/contributors/LiedsonLB/neoboard)
-![Licença](https://img.shields.io/github/license/LiedsonLB/neoboard)
+[![Licença](https://img.shields.io/github/license/LiedsonLB/neoboard)](LICENSE)
 ![Pull Requests Abertos](https://img.shields.io/github/issues-pr/LiedsonLB/neoboard)
 ![Última Atualização](https://img.shields.io/github/last-commit/LiedsonLB/neoboard)
 
