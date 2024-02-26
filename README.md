@@ -1,5 +1,11 @@
 # NeoBoard - Dashboard Empresarial
 
+![Versão](https://img.shields.io/github/v/release/LiedsonLB/neoboard)
+![Contribuidores](https://img.shields.io/github/contributors/LiedsonLB/neoboard)
+![Licença](https://img.shields.io/github/license/LiedsonLB/neoboard)
+![Pull Requests Abertos](https://img.shields.io/github/issues-pr/LiedsonLB/neoboard)
+![Última Atualização](https://img.shields.io/github/last-commit/LiedsonLB/neoboard)
+
 ![NeoBoard](./public/img/readme_img/neoboard_logo.png)
 
 NeoBoard é um dashboard empresarial inovador projetado para fornecer insights valiosos por meio de diversas sessões de dados. Com uma interface intuitiva e funcionalidades poderosas, o NeoBoard capacita empresas a tomar decisões informadas e estratégicas.
@@ -85,6 +91,32 @@ NeoBoard é um dashboard empresarial inovador projetado para fornecer insights v
 
 - [Chart.js](https://www.chartjs.org/)
 
+# Conhecimentos utilizados:
+<div style="display: flex; flex-wrap: wrap; gap: 5px; justify-content:center">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML" height="30" width="40">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" alt="CSS" height="30" width="40">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-plain.svg" alt="typescript" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="nodejs" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" alt="npm" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" height="30" width="40">        
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="github" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="vscode" height="30" width="40">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" height="30" width="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Git" height="30" width="40"/>     
+</div>
+
+## Autores
+
+- [Liedson Barros 👑(Scrum Master)](https://github.com/LiedsonLB)
+- [Pedro Lucas](https://github.com/PL251431)
+- [Kaio Simeão](https://github.com/KaioSimeao)
+- [Francisco Douglas](https://github.com/DouglaSantos777)
+
 ## Lista de Presença das Reuniões
 
 [Google Sheets](https://docs.google.com/spreadsheets/d/1aLPvppBixNkQL8woJ6ycX3q-zcAxLUGQJkBnxcQIC94/edit?usp=sharing) - Reunião diária às 21h
@@ -99,9 +131,9 @@ NeoBoard é um dashboard empresarial inovador projetado para fornecer insights v
 
 ## Releases
 
-- 1° Release ❌
-- 2° Release ❌
-- 3° Release ❌
+- Release v1.0❌
+- Release v2.0❌
+- Release v3.0❌
 
 ## Imagens do Projeto
 
@@ -114,3 +146,7 @@ NeoBoard é um dashboard empresarial inovador projetado para fornecer insights v
 ### Interface de Login e Cadastro 
 ![Interface do Usuário](./public/img/readme_img/neoboard_login.png)
 ![Interface do Usuário](./public/img/readme_img/neoboard_cadaster.png)
+
+## Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
