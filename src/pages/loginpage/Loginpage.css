@@ -16,12 +16,11 @@ body {
   box-sizing: border-box;
   font-family: var(--font-Krub);
   overflow: hidden;
-  /* conteudo que passe as dimensoes é o cultado */
+
 }
 
 .container {
   display: flex;
-  /* um do lado do outro */
   height: 100vh;
 }
 
@@ -37,7 +36,6 @@ body {
   background: var(--white-color);
   display: flex;
   flex-direction: column;
-  /* elementos filhos dispostos em colunas */
   align-items: center;
   justify-content: center;
   padding: 1rem;
@@ -53,7 +51,6 @@ body {
 
 .left-image {
   width: 100%;
-  /* porc. da largura disponivel */
   max-width: 300px;
   position: absolute;
   bottom: 5rem;

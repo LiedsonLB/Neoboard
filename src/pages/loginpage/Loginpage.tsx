@@ -3,28 +3,28 @@ import '../loginpage/Loginpage.css'
 
 const LoginPage = () => {
   return (
-    <div class="container">
-        <div class="left">
-            <div class="background"></div>
-            <img src="img/neoboard_logo.png" alt="NeoBoard logo" class="logo">
-            <img src="img/loginImg.png" alt="img login" class="left-image">
+    <div className="container">
+        <div className="left">
+            <div className="background"></div>
+            <img src="img/neoboard_logo.png" alt="NeoBoard logo" className="logo"/>
+            <img src="img/loginImg.png" alt="img login" className="left-image"/>
         </div>
-        <div class="right">
-            <h2 class="title">Seja Bem-Vindo Novamente</h2>
-            <h3 class="subtitle">Preencha os campos corretamente</h3>
+        <div className="right">
+            <h2 className="title">Seja Bem-Vindo Novamente</h2>
+            <h3 className="subtitle">Preencha os campos corretamente</h3>
             <form>
-                <div class="input-field">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" placeholder="example@gmail.com" class="email">
+                <div className="input-field">
+                    <label>Email:</label>
+                    <input type="email" name="email" placeholder="example@gmail.com" className="email"/>
                 </div>
-                <div class="input-field">
-                    <label for="senha">Senha:</label>
-                    <input type="password" name="senha" placeholder="senha" class="password">
+                <div className="input-field">
+                    <label>Senha:</label>
+                    <input type="password" name="senha" placeholder="senha" className="password"/>
                 </div>
-                <button type="submit" class="login-btn">Logar</button>
+                <button type="submit" className="login-btn">Logar</button>
             </form>
-            <p class="singup-text">Ainda não tem conta? <a href="#">Cadastre-se</a></p>
-            <button class="login-google">Login com o Google</button>
+            <p className="singup-text">Ainda não tem conta? <a href="#">Cadastre-se</a></p>
+            <button className="login-google">Login com o Google</button>
         </div>
     </div>
   )
