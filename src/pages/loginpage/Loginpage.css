@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+  --primary-color: #1B2947;
+  --secondy-color: #5B7FFF;
+  --white-color: #FFFFFF;
+  --gray-color: #EBEDF1;
+  --black-color: #1F1F1F;
+  --font-Krona: 'Krona One', sans-serif;
+  --font-Krub: 'Krub', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-Krub);
+  overflow: hidden;
+
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left {
+  flex: 1;
+  background: var(--primary-color);
+  position: relative;
+  width: 40%;
+}
+
+.right {
+  flex: 1;
+  background: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.logo {
+  width: 200px;
+  height: 100px;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+.left-image {
+  width: 100%;
+  max-width: 300px;
+  position: absolute;
+  bottom: 5rem;
+  left: 60%;
+  transform: translateX(-50%);
+}
+
+.title {
+  font-family: var(--font-Krona);
+
+}
+
+.subtitle {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.email,
+.password {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--gray-color);
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.login-btn{
+  box-sizing: content-box;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 1px;
+  cursor: pointer;
+  background: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+}
+
+.login-google {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 1px;
+  cursor: pointer;
+  background: var(--white-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 2px;
+}
+
+.login-btn:hover {
+  background-color: var(--secondy-color);
+}
+
+.login-google:hover {
+  background-color: var(--gray-color);
+}
+
+.singup-text {
+  margin-top: 20px;
+}
+
+.singup-text a {
+  color: var(--secondy-color);
+  text-decoration: none;
+}
+
+.singup-text a:hover {
+  text-decoration: underline;
+}

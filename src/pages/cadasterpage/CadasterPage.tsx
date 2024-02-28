@@ -2,7 +2,7 @@ import React from 'react'
 
 const CadasterPage = () => {
   return (
-    <div>CadasterPage</div>
+    <h2>Cadaster Page</h2>
   )
 }
 
