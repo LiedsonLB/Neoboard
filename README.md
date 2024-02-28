@@ -1,4 +1,4 @@
-# NeoBoard - Dashboard Empresarial.
+# NeoBoard - Dashboard Empresarial
 
 [![Versão](https://img.shields.io/github/v/release/LiedsonLB/neoboard)](https://github.com/LiedsonLB/neoboard/releases)
 [![Forks](https://img.shields.io/github/forks/LiedsonLB/neoboard)](https://github.com/LiedsonLB/neoboard/network/members)
