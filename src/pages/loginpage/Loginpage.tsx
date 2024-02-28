@@ -6,7 +6,7 @@ const LoginPage = () => {
     <div className="container">
         <div className="left">
             <div className="background"></div>
-            <img src="img/neoboard_logo.png" alt="NeoBoard logo" className="logo"/>
+            <img src="neoboardCopia\public\img/readme_img/neoboard_logo.png" alt="NeoBoard logo" className="logo"/>
             <img src="img/loginImg.png" alt="img login" className="left-image"/>
         </div>
         <div className="right">
