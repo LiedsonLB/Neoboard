@@ -38,7 +38,7 @@
 #text-apresent {
     transition: 1s;
     font-size: 5em;
-    animation: openText 2s ease-in;
+    animation: openText 1s ease-in;
     font-weight: 100;
 }
 
