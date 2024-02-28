@@ -74,7 +74,7 @@ const LoginPage = () => {
                                 Ainda não tem conta? <a onClick={handleCadaster}>Cadastre-se</a>
                             </p>
                         </div>
-                        <button className="login-google">Login com o Google</button>
+                        <button className="login-google" onClick={handleSignin}>Login com o Google</button>
                     </div>
                 </div>
             </div>
