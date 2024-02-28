@@ -4,8 +4,37 @@ import { Link } from 'react-router-dom'
 const CadasterPage = () => {
   return (
     <>
-      <h2>Cadaster Page</h2>
-      <p>Voltar Para o Login: <Link to={"/"}>Login</Link></p>
+      <div className="background-color"></div>
+    <div className="container">
+        <div className="left">
+            <h2 className="title">Então você é novo aqui?</h2>
+            <p className="subtitle">Preencha os campos corretamente</p>
+            <div className="singup-field">
+                <form>
+                    <div className="input-field">
+                        <label for="user">Nome de Usuário:</label>
+                        <input type="text" name="user" placeholder="SeuNome" className="user"/>
+                    </div>
+                    <div className="input-field">
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" placeholder="example@gmail.com" className="email"/>
+                    </div>
+                    <div className="input-field">
+                        <label for="senha">Senha:</label>
+                        <input type="password" name="senha" placeholder="senha" className="password"/>
+                    </div>
+                    <button type="submit" className="singup-btn">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+        <div className="right">
+            <img src="img/cadasterImg.png" alt="img-singup" className="right-image"/>
+            <div className="container-logo">
+                <img src="img/icon_neoboard.png" alt="Neoboard-logo" className="logo"/>
+                <p className="logo-name">NeoBoard</p>
+            </div>
+        </div>
+    </div>
     </>
   )
 }
