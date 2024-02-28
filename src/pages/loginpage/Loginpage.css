@@ -119,16 +119,13 @@ body {
 
 .singup-text {
   margin-top: 20px;
-
 }
 
 .singup-text a {
   color: var(--secondy-color);
   text-decoration: none;
-
 }
 
 .singup-text a:hover {
   text-decoration: underline;
-
 }

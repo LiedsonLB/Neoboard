@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../loginpage/Loginpage.css'
+import InitialPage from '../initialpage/InitialPage';
 
 const LoginPage = () => {
+    const [apresention, setApresention] = useState("")
+
+
+
   return (
-<<<<<<< HEAD
-    <div>
-      <h1>Login Page</h1>
-=======
     <div className="container">
         <div className="left">
             <div className="background"></div>
@@ -30,7 +31,6 @@ const LoginPage = () => {
             <p className="singup-text">Ainda não tem conta? <a href="#">Cadastre-se</a></p>
             <button className="login-google">Login com o Google</button>
         </div>
->>>>>>> 3310b34002507560d44ccbe4605f374170497241
     </div>
   )
 }
