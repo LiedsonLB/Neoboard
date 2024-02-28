@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../loginpage/Loginpage.css'
+import InitialPage from '../initialpage/InitialPage';
 
 const LoginPage = () => {
+    const [apresention, setApresention] = useState("")
+
+
+
   return (
     <div className="container">
         <div className="left">

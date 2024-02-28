@@ -4,6 +4,7 @@ import LoginPage from "../pages/loginpage/Loginpage.tsx"
 import ErrorPage from "../pages/errorpage/Errorpage.tsx"
 import HomePage from "../pages/homepage/HomePage.tsx"
 import CadasterPage from "../pages/cadasterpage/CadasterPage.tsx"
+import InitialPage from "../pages/initialpage/InitialPage.tsx"
 
 function Routers() {
     return(
@@ -12,6 +13,7 @@ function Routers() {
                 <Route path="/" element={<LoginPage/>} />
                 <Route path="/cadaster" element={<CadasterPage/>} />
                 <Route path="/home" element={<HomePage/>} />
+                <Route path="/initial" element={<InitialPage/>} />
                 <Route path="*" element={<ErrorPage/>} />
             </Routes>
         </BrowserRouter>
