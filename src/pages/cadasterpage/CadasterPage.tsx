@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 const CadasterPage = () => {
   return (
@@ -12,15 +11,15 @@ const CadasterPage = () => {
             <div className="singup-field">
                 <form>
                     <div className="input-field">
-                        <label for="user">Nome de Usuário:</label>
+                        <label>Nome de Usuário:</label>
                         <input type="text" name="user" placeholder="SeuNome" className="user"/>
                     </div>
                     <div className="input-field">
-                        <label for="email">Email:</label>
+                        <label>Email:</label>
                         <input type="email" name="email" placeholder="example@gmail.com" className="email"/>
                     </div>
                     <div className="input-field">
-                        <label for="senha">Senha:</label>
+                        <label>Senha:</label>
                         <input type="password" name="senha" placeholder="senha" className="password"/>
                     </div>
                     <button type="submit" className="singup-btn">Cadastrar</button>
