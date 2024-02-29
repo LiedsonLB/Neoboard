@@ -4,6 +4,7 @@ import InitialPage from '../initialpage/InitialPage.tsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth, provider } from '../../services/firebase';
 import { signInWithPopup } from 'firebase/auth';
+import CadasterPage from '../cadasterpage/CadasterPage.tsx';
 
 const LoginPage = () => {
   const [showInitialPage, setShowInitialPage] = useState(true);
