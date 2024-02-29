@@ -6,6 +6,7 @@ import Loading from "./components/loading/Loading.tsx";
 import Routers from "./routers/Routers.tsx";
 import HomePage from "./pages/homepage/HomePage.tsx";
 import { useNavigate } from "react-router-dom";
+import CadasterPage from "./pages/cadasterpage/CadasterPage.tsx";
 
 const App = () => {
   const [user, loading] = useAuthState(auth);
@@ -13,7 +14,7 @@ const App = () => {
 
   if (loading) return <Loading />;
 
-  if (!user) return <LoginPage />;
+  if (!user) return <CadasterPage />;
 
   return (
     <HomePage/>
