@@ -20,6 +20,7 @@ const CadasterPage = () => {
                         <input type="email" name="email" placeholder="example@gmail.com" className="email"/>
                     </div>
                     <div className="input-field-sign">
+                    
                         <label>Senha:</label>
                         <input type="password" name="senha" placeholder="senha" className="password"/>
                     </div>
