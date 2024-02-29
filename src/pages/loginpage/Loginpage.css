@@ -59,6 +59,7 @@
   object-fit: cover;
   height: 100%;
   width: 100%;
+  filter: hue-rotate(322deg) brightness(0.8) contrast(1.3);
 }
 
 .title {
@@ -132,6 +133,7 @@ label {
   background: var(--primary-color);
   color: var(--white-color);
   border: none;
+  transition: .8s;
 }
 
 .login-google {
@@ -144,6 +146,7 @@ label {
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
   border-radius: 2px;
+  transition: .8s;
 }
 
 .login-btn:hover {
@@ -183,10 +186,28 @@ label {
   bottom: 15%;
 }
 
+#link-cadaster {
+  text-decoration: underline;
+  color: var(--secondy-color);
+  cursor: pointer;
+}
+
 .container-line {
   position: relative;
 }
 
 .subtitle {
   font-size: 1.5rem;
+}
+
+.password-container {
+  position: relative;
+}
+
+#see-password-login {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  cursor: pointer;
+  color: var(--primary-color);
 }
