@@ -12,6 +12,8 @@ const App = () => {
 
   if (loading) return <Loading />;
 
+  if (!user) return <CadasterPage />;
+
   return (
     <Routes>
       {user ? (
