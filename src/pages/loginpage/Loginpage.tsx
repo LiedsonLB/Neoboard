@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import '../loginpage/Loginpage.css';
 import InitialPage from '../initialpage/InitialPage.tsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth, provider } from '../../services/firebase';
 import { signInWithPopup } from 'firebase/auth';
-import CadasterPage from '../cadasterpage/CadasterPage.tsx';
 
 const LoginPage = () => {
-  const [showInitialPage, setShowInitialPage] = useState(true);
+    const [showInitialPage, setShowInitialPage] = useState(true);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = `NeoBoard | Logue Agora`;
+    }, []);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -24,23 +27,20 @@ const LoginPage = () => {
 
     const handleSignin = () => {
         signInWithPopup(auth, provider).then((result) => {
-        // Tratar o resultado após a autenticação com sucesso
-        const user = result.user;
-        console.log('Usuário autenticado:', user);
+            const user = result.user;
+            console.log('Usuário autenticado:', user);
         })
-        .catch((error) => {
-        // Tratar erros durante a autenticação
-        console.error('Erro ao autenticar:', error);
-        });
+            .catch((error) => {
+                console.error('Erro ao autenticar:', error);
+            });
     };
 
     function handleCadaster() {
         navigate("/cadaster");
     }
 
-  return (
-    <>
-      {showInitialPage && <InitialPage />}
+    return (
+        <>
             <div className="background-color"></div>
             <div className="container">
                 <div className="left">
@@ -54,7 +54,7 @@ const LoginPage = () => {
                 </div>
                 <div className="right">
                     <h2 className="title">Seja Bem-Vindo Novamente</h2>
-                    <p className="subtitle">Preencha os campos corretamente</p>
+                    <p className="subtitle">Preencha corretamente os campos</p>
                     <div className="login-field">
                         <form>
                             <div className="input-field">
@@ -72,7 +72,7 @@ const LoginPage = () => {
                         <div className="container-line">
                             <hr id="line" />
                             <p className="singup-text">
-                                Ainda não tem conta? <a onClick={handleCadaster}>Cadastre-se</a>
+                                Ainda não tem conta? <span id='link-cadaster' onClick={handleCadaster}>Cadastre-se</span>
                             </p>
                         </div>
                         <button className="login-google" onClick={handleSignin}>Login com o Google</button>
@@ -80,7 +80,7 @@ const LoginPage = () => {
                 </div>
             </div>
         </>
-  )
+    )
 }
 
 export default LoginPage

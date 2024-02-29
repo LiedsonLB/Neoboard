@@ -44,7 +44,7 @@
 
 @keyframes openText {
     0% {
-        font-size: 20em;
+        font-size: 15em;
     }
     100% {
         font-size: 5em;
