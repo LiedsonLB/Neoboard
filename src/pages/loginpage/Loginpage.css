@@ -199,3 +199,15 @@ label {
 .subtitle {
   font-size: 1.5rem;
 }
+
+.password-container {
+  position: relative;
+}
+
+#see-password-login {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  cursor: pointer;
+  color: var(--primary-color);
+}

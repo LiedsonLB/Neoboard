@@ -9,6 +9,7 @@ const CadasterPage = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         document.title = `NeoBoard | Cadastre-se`;
@@ -18,6 +19,10 @@ const CadasterPage = () => {
         e.preventDefault();
         signUp(email, password, username);
     }
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const signUp = async (email, password, username) => {
         try {
@@ -72,14 +77,20 @@ const CadasterPage = () => {
                             </div>
                             <div className="input-field-sign">
                                 <label>Senha:</label>
-                                <input
-                                    type="password"
-                                    name="senha"
-                                    placeholder="senha"
-                                    className="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
+                                <div className='password-container'>
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        name="senha"
+                                        placeholder="senha"
+                                        className="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+                                        id='see-password-cadaster'
+                                        onClick={togglePasswordVisibility}
+                                    />
+                                </div>
                             </div>
                             <button type="submit" className="singup-btn" onClick={handlecadaster}>
                                 Cadastrar

@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import '../loginpage/Loginpage.css';
-import InitialPage from '../initialpage/InitialPage.tsx';
 import { useNavigate } from 'react-router-dom';
 import { auth, provider } from '../../services/firebase';
 import { signInWithPopup } from 'firebase/auth';
 
 const LoginPage = () => {
-    const [showInitialPage, setShowInitialPage] = useState(true);
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         document.title = `NeoBoard | Logue Agora`;
     }, []);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setShowInitialPage(false);
-        }, 2000);
-
-        return () => clearTimeout(timeout);
-    }, []);
-
     const handleLogin = (e) => {
         e.preventDefault();
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     const handleSignin = () => {
@@ -59,11 +56,31 @@ const LoginPage = () => {
                         <form>
                             <div className="input-field">
                                 <label>Email:</label>
-                                <input type="email" name="email" placeholder="example@gmail.com" className="email" />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="example@gmail.com"
+                                    className="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
                             </div>
                             <div className="input-field">
                                 <label>Senha:</label>
-                                <input type="password" name="senha" placeholder="senha" className="password" />
+                                <div className='password-container'>
+                                    <input
+                                            type={showPassword ? "text" : "password"}
+                                            name="senha"
+                                            placeholder="senha"
+                                            className="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+                                        id='see-password-cadaster'
+                                        onClick={togglePasswordVisibility}
+                                    />
+                                </div>
                             </div>
                             <button type="submit" className="login-btn" onClick={handleLogin}>
                                 Logar

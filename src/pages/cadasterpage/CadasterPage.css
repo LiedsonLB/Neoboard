@@ -20,7 +20,6 @@
     font-family: var(--font-Krona);
     font-size: 2rem;
     font-weight: 500;
-
 }
 
 .subtitle-sign {
@@ -52,7 +51,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-
 }
 
 .input-field-sign {
@@ -65,7 +63,6 @@
 label {
     color: var(--black-color);
     font-weight: 500;
-
 }
 
 .user,
@@ -85,9 +82,19 @@ label {
 .email:focus,
 .password:focus {
     border: 2px solid var(--secondy-color);
-
-
 }
+
+.password-container {
+    position: relative;
+}
+
+#see-password-cadaster {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    cursor: pointer;
+    color: var(--primary-color);
+ }
 
 .singup-btn {
     box-sizing: border-box;
@@ -104,10 +111,10 @@ label {
 
 .singup-btn:hover {
     background-color: var(--secondy-color);
-
 }
 
 .right-sign {
+    flex: 1;
     position: relative;
     width: 50%;
     display: flex;
@@ -145,7 +152,6 @@ label {
     align-items: center;
     width: 100%;
 }
-
 
 .right-image {
     width: 80%;
