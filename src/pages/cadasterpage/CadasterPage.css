@@ -20,7 +20,6 @@
     font-family: var(--font-Krona);
     font-size: 2rem;
     font-weight: 500;
-
 }
 
 .subtitle-sign {
@@ -52,7 +51,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-
 }
 
 .input-field-sign {
@@ -65,7 +63,6 @@
 label {
     color: var(--black-color);
     font-weight: 500;
-
 }
 
 .user,
@@ -97,7 +94,7 @@ label {
     right: 20px;
     cursor: pointer;
     color: var(--primary-color);
-}
+ }
 
 .singup-btn {
     box-sizing: border-box;
@@ -109,11 +106,11 @@ label {
     background: var(--primary-color);
     color: var(--white-color);
     border: none;
+    transition: .8s;
 }
 
 .singup-btn:hover {
     background-color: var(--secondy-color);
-
 }
 
 .right-sign {
@@ -123,7 +120,7 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    flex-direction: column;
 }
 
 .logo-sign {
@@ -148,8 +145,17 @@ label {
     gap: 10px;
 }
 
+#container-img-cadaster {
+    display: flex;
+    height: 70%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .right-image {
-    width: 90%;
+    width: 80%;
     position: absolute;
     bottom: 0;
+    filter: hue-rotate(27deg) brightness(0.8) contrast(1.3);
 }
