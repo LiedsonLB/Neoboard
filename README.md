@@ -111,12 +111,16 @@ NeoBoard é um dashboard empresarial inovador projetado para fornecer insights v
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Git" height="30" width="40"/>     
 </div>
 
-## Autores
+## Equipe
 
 - [Liedson Barros 👑(Scrum Master)](https://github.com/LiedsonLB)
 - [Pedro Lucas](https://github.com/PL251431)
 - [Kaio Simeão](https://github.com/KaioSimeao)
 - [Francisco Douglas](https://github.com/DouglaSantos777)
+
+Co-authored-by: Pedro Lucas <PL251431@users.noreply.github.com><br>
+Co-authored-by: Kaio Simeão <KaioSimeao@users.noreply.github.com> <br>
+Co-authored-by: Douglas Santos <DouglaSantos777@users.noreply.github.com>
 
 ## Lista de Presença das Reuniões
 
