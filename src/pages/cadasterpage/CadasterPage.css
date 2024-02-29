@@ -1,35 +1,35 @@
-.background-color-sign{
+.background-color-sign {
     position: absolute;
     background-color: var(--primary-color);
     top: 0;
-    right: 0; 
-    width: 45%; 
-    height: 100%; 
+    right: 0;
+    width: 45%;
+    height: 100%;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 100%);
     z-index: -1;
-    }
-    
-    .container-sign {
+}
+
+.container-sign {
     position: relative;
     display: flex;
     height: 100vh;
     width: 100%;
-    }
-    
-    .title-sign{
+}
+
+.title-sign {
     font-family: var(--font-Krona);
     font-size: 2rem;
     font-weight: 500;
-    
-    }
-    
-    .subtitle-sign{
+
+}
+
+.subtitle-sign {
     margin-top: 5px;
     margin-bottom: 5px;
     font-size: 1.5rem;
-    }
-    
-    .left-sign {
+}
+
+.left-sign {
     flex: 1;
     background: var(--white-color);
     display: flex;
@@ -39,38 +39,38 @@
     padding: 1rem;
     width: 50%;
     gap: 2rem;
-    }
-    
-    .singup-field-sign{
+}
+
+.singup-field-sign {
     display: flex;
     flex-direction: column;
     max-width: 80%;
     width: 100%;
-    }
-    
-    .signup-field-sign form{
+}
+
+.signup-field-sign form {
     display: flex;
     flex-direction: column;
     width: 100%;
-    
-    }
-    
-    .input-field-sign{
+
+}
+
+.input-field-sign {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    }
-    
-    label{
+}
+
+label {
     color: var(--black-color);
     font-weight: 500;
-    
-    }
-    
-    .user,
-    .email,
-    .password{
+
+}
+
+.user,
+.email,
+.password {
     width: 100%;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -79,17 +79,27 @@
     outline: none;
     border-radius: 2px;
     color: var(--black-color);
-    }
-    
-    .user:focus,
-    .email:focus,
-    .password:focus{
+}
+
+.user:focus,
+.email:focus,
+.password:focus {
     border: 2px solid var(--secondy-color);
-    
-    
-    }
-    
-    .singup-btn{
+}
+
+.password-container {
+    position: relative;
+}
+
+#see-password-cadaster {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.singup-btn {
     box-sizing: border-box;
     width: 100%;
     padding: 1rem;
@@ -99,35 +109,35 @@
     background: var(--primary-color);
     color: var(--white-color);
     border: none;
-    }
-    
-    .singup-btn:hover{
+}
+
+.singup-btn:hover {
     background-color: var(--secondy-color);
-    
-    }
-    
-    .right-sign{
+
+}
+
+.right-sign {
     flex: 1;
     position: relative;
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    }
-    
-    .logo-sign{
+
+}
+
+.logo-sign {
     width: 5em;
     filter: brightness(2);
-    }
-    
-    .logo-name{
+}
+
+.logo-name {
     color: var(--white-color);
     font-size: 2rem;
     font-style: var(--font-Krona);
-    }
-    
-    .container-logo-sign{
+}
+
+.container-logo-sign {
     position: absolute;
     padding: 2.3rem;
     z-index: 3;
@@ -136,11 +146,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    }
-    
-    .right-image{
+}
+
+.right-image {
     width: 90%;
     position: absolute;
     bottom: 0;
-
-    }
+}
