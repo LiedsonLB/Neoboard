@@ -5,6 +5,7 @@ import { auth, provider } from '../../services/firebase';
 import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginPage = () => {
+
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,7 +17,6 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-    
         try {
             await signInWithEmailAndPassword(auth, email, password);
     
@@ -36,9 +36,10 @@ const LoginPage = () => {
             const user = result.user;
             console.log('Usuário autenticado:', user);
         })
-            .catch((error) => {
-                console.error('Erro ao autenticar:', error);
-            });
+        .catch((error) => {
+            console.error('Erro ao autenticar:', error);
+        });
+
     };
 
     function handleCadaster() {
