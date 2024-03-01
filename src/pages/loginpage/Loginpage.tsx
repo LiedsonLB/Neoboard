@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../loginpage/Loginpage.css';
 import { useNavigate } from 'react-router-dom';
 import { auth, provider } from '../../services/firebase';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -11,22 +11,11 @@ const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
-        document.title = NeoBoard | Logue Agora;
+        document.title = `NeoBoard | Logue Agora`;
     }, []);
 
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
-
-        try {
-            await SignIn(email, password);
-            console.log('Login bem-sucedido!');
-        } catch (error) {
-            console.error('Erro ao fazer login:', error.message);
-        }
-    };
-
-    const SignIn = async (email, password) => {
-        await signInWithEmailAndPassword(auth, email, password);
     };
 
     const togglePasswordVisibility = () => {
@@ -57,7 +46,7 @@ const LoginPage = () => {
                         <p className="logo-name">NeoBoard</p>
                     </div>
                     <div id='container-img'>
-                        <img src="img/login_img.png" alt="img login" className="left-image" />
+                        <img src="img/loginImg.png" alt="img login" className="left-image" />
                     </div>
                 </div>
                 <div className="right">
@@ -80,14 +69,14 @@ const LoginPage = () => {
                                 <label>Senha:</label>
                                 <div className='password-container'>
                                     <input
-                                        type={showPassword ? "text" : "password"}
-                                        name="senha"
-                                        placeholder="senha"
-                                        className="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                            type={showPassword ? "text" : "password"}
+                                            name="senha"
+                                            placeholder="senha"
+                                            className="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
                                     />
-                                    <i className={fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}}
+                                    <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
                                         id='see-password-cadaster'
                                         onClick={togglePasswordVisibility}
                                     />

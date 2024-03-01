@@ -12,7 +12,7 @@ const CadasterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
-        document.title = NeoBoard | Cadastre-se;
+        document.title = `NeoBoard | Cadastre-se`;
     }, []);
 
     function handlecadaster(e) {
@@ -86,5 +86,30 @@ const CadasterPage = () => {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
-                                    <i className={fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}}
+                                    <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
                                         id='see-password-cadaster'
+                                        onClick={togglePasswordVisibility}
+                                    />
+                                </div>
+                            </div>
+                            <button type="submit" className="singup-btn" onClick={handlecadaster}>
+                                Cadastrar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div className="right-sign">
+                    <div id="container-img-cadaster">
+                        <img src="img/cadasterImg.png" alt="img-singup" className="right-image" />
+                    </div>
+                    <div className="container-logo-sign">
+                        <img src="img/icon_neoboard.png" alt="Neoboard-logo" className="logo-sign" />
+                        <p className="logo-name">NeoBoard</p>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};
+
+export default CadasterPage;
