@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../loginpage/Loginpage.css';
 import { useNavigate } from 'react-router-dom';
 import { auth, provider } from '../../services/firebase';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -14,9 +14,18 @@ const LoginPage = () => {
         document.title = `NeoBoard | Logue Agora`;
     }, []);
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+    
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+    
+            console.log('Login bem-sucedido!');
+        } catch (error) {
+            console.error('Erro ao fazer login:', error.message);
+        }
     };
+
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);

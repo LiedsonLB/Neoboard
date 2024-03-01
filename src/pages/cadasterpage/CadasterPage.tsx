@@ -40,7 +40,7 @@ const CadasterPage = () => {
                 console.error("Usuário não encontrado após criação.");
             }
         } catch (error) {
-            console.error("Erro ao cadastrar e fazer login:", error.message);
+            console.error("Erro ao cadastrar:", error.message);
         }
     };
 
