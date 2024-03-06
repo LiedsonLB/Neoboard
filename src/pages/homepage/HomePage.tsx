@@ -12,7 +12,7 @@ const HomePage = () => {
   const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
-    document.title = `NeoBoard | ${user?.displayName?.split(" ")[0] || "Home"}`;
+    document.title = `NeoBoard | ${user?.displayName || "Home"}, bem vindo!!`;
   }, [user]);
 
   useEffect(() => {
