@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../loginpage/Loginpage.css';
 import { useNavigate } from 'react-router-dom';
 import { auth, provider } from '../../services/firebase';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginPage = () => {
 
@@ -18,16 +18,14 @@ const LoginPage = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await SignIn(email, password);
+            await signInWithEmailAndPassword(auth, email, password);
+    
             console.log('Login bem-sucedido!');
         } catch (error) {
             console.error('Erro ao fazer login:', error.message);
         }
     };
 
-    const SignIn = async (email, password) => {
-        await signInWithEmailAndPassword(auth, email, password);
-    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -81,12 +79,12 @@ const LoginPage = () => {
                                 <label>Senha:</label>
                                 <div className='password-container'>
                                     <input
-                                        type={showPassword ? "text" : "password"}
-                                        name="senha"
-                                        placeholder="senha"
-                                        className="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                            type={showPassword ? "text" : "password"}
+                                            name="senha"
+                                            placeholder="senha"
+                                            className="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
                                     />
                                     <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
                                         id='see-password-cadaster'

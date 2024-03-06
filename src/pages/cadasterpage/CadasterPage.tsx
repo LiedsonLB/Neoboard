@@ -12,7 +12,7 @@ const CadasterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
-        document.title = `NeoBoard | Cadastre-se`
+        document.title = `NeoBoard | Cadastre-se`;
     }, []);
 
     function handlecadaster(e) {
@@ -40,7 +40,7 @@ const CadasterPage = () => {
                 console.error("Usuário não encontrado após criação.");
             }
         } catch (error) {
-            console.error("Erro ao cadastrar e fazer login:", error.message);
+            console.error("Erro ao cadastrar:", error.message);
         }
     };
 
