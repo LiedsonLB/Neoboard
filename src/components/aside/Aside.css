@@ -1,8 +1,8 @@
 aside {
     display: flex;
     flex-direction: column;
-    width: 20%;
-    height: 100%;
+    width: 20vw;
+    height: 100vh;
     background-color: var(--primary-color);
     overflow: hidden;
     gap: 1rem;
@@ -61,6 +61,30 @@ aside {
     animation: animation .5s;
   }
 
+  #acount-info {
+    color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #acount-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+  }
+
+  #acount-email, #acount-userName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 160px;
+  }
+
+  #acount-email {
+    color: var(--secondy-color);
+  }
+
 a {
     display: flex;
     align-items: center;
@@ -69,7 +93,7 @@ a {
     width: 100%;
     height: 100%;
     padding-block: 1rem;
-    gap: 5px;
+    gap: 10px;
     cursor: pointer;
     padding-inline: .7rem;
 }

@@ -13,7 +13,7 @@ const HomePage = () => {
     const [user, loading] = useAuthState(auth);
 
     useEffect(() => {
-      document.title = `NeoBoard | ${user?.displayName || "Home"}, bem vindo!!`;
+        document.title = `NeoBoard | ${user?.displayName || "Home"}, bem vindo!!`;
     }, [user]);
 
     useEffect(() => {
@@ -28,8 +28,11 @@ const HomePage = () => {
 
     return (
         <>
-            <div id="home-screen">
-                <Aside />
+            <div id="homepage">
+                <Aside user={user}/>
+                <div id="home-screen">
+                    {/* <Home user={user} /> */}
+                </div>
             </div>
         </>
     )

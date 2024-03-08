@@ -1,5 +1,11 @@
+#homepage {
+    display: flex;
+    overflow-y: auto;
+}
 #home-screen {
-    position: relative;
-    width: 100%;
+    width: 80vw;
     height: 100vh;
+    display: flex;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
