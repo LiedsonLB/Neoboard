@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoLogOutOutline } from 'react-icons/io5';
 import { signOut } from 'firebase/auth'
 import { auth } from '../../services/firebase'
 import '../aside/Aside.css'
 
-const Aside = () => {
+const Aside = ( {user} ) => {
+    const [photo, setPhoto] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+        if (user) {
+            setName(user.displayName ?? "");
+            setEmail(user.email ?? "");
+            setPhoto(user.photoURL ?? "img/no_profile.png");
+        }
+    }, [user])
+
   return (
     <aside id="container-home">
         <header>
@@ -15,6 +27,13 @@ const Aside = () => {
         </header>
         <div id="description">
             <p>Informe-se sobre:</p>
+        </div>
+        <div style={{display: "flex", gap:"10px"}}>
+            <img id='acount-photo' src={photo} alt="photoUser" />
+            <div id='acount-info'>
+                <h4 id='acount-userName'>{name}</h4>
+                <p id='acount-email'>{email}</p>
+            </div>
         </div>
         <nav id="navigation-home">
             <ul>
