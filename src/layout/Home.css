@@ -331,3 +331,44 @@
   }
 }
 
+#payments{
+padding: 3rem;
+width: 100%;
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+
+#payments h1{
+display: flex;
+margin: 10px;
+color: var(--primary-color);
+font-family: var(--font-Krona);
+}
+
+#payments-forms{
+background: var(--white-color);
+display: flex;
+flex-direction: row;
+width: 100%;
+justify-content: space-around;
+align-items: center;
+}
+
+#payments-forms ul{
+width: 30%;
+display: flex;
+flex-direction: column;
+font-size: 1.5rem;
+justify-content: space-around;
+gap: 10px;
+color: var(--primary-color);
+margin-inline: 5rem;
+}
+
+#payments-chart{
+height: 400px;
+width: 90%;
+text-align: center;
+background-color: #ff5151;
+}
