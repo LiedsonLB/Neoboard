@@ -22,6 +22,7 @@
     color: var(--primary-color);
     font-family: var(--font-Krona), sans-serif;
     padding: 1rem;
+    animation: slideInUp 1s ease forwards;
 }
 
 #container-present {
@@ -33,6 +34,7 @@
     width: 90%;
     margin: 0 auto;
     padding-block: 2rem;
+    animation: scaleIn 1s ease forwards;
 }
 
 #card-presents {
@@ -119,6 +121,28 @@
     margin-top: 20px;
 }
 
+.periods-btn {
+    opacity: 0;
+    animation: slideInUp 1s ease forwards;
+}
+
+.periods-btn.active {
+    background-color: var(--primary-color);
+    color: var(--white-color) !important;
+  }
+
+#periods .periods-btn:nth-child(1){
+    animation-delay: 0s;
+}
+
+#periods .periods-btn:nth-child(2){
+    animation-delay: 0.2s;
+}
+
+#periods .periods-btn:nth-child(3){
+    animation-delay: 0.4s;
+}
+
 #periods button {
     color: var(--primary-color);
     height: 1.7rem;
@@ -143,16 +167,30 @@
     margin-top: 20px;
 }
 
+
 #cards-finance {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
+#cards-finance .card-des:nth-child(1) {
+    animation-delay: 0s;
+}
+
+#cards-finance .card-des:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+#cards-finance .card-des:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
 .card-des {
     background-color: var(--primary-color);
     border-radius: 10px;
     padding: 1rem;
+    animation: fadeInAndUp 1s ease forwards;
 }
 
 .men-info {
@@ -193,7 +231,7 @@
 .card-obj {
     display: flex;
     align-items: center;
-    gap: 60px;
+    justify-content: space-between;
 }
 
 
@@ -218,14 +256,10 @@
     margin-bottom: 1rem;
 }
 
-#column-chart {
+#column-chart, #pie-chart {
     background: var(--white-color);
     border-radius: 10px;
-}
-
-#pie-chart {
-    background: var(--white-color);
-    border-radius: 10px;
+    padding: 1rem;
 }
 
 #ranking-container {

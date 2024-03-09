@@ -1,56 +1,86 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, registerables } from 'chart.js';
+ChartJS.register(...registerables);
+
+interface MesInfo {
+  mes: string;
+  valor: number;
+  color: string;
+}
 
 const LineChart = () => {
-  const [meses, setMeses] = useState([]);
+  const [meses, setMeses] = useState<MesInfo[]>([]);
 
   useEffect(() => {
-    const info = [
+    const info: MesInfo[] = [
       {
-        mes: 'janeiro',
+        mes: 'Janeiro',
         valor: 1000,
-        color: 'pink'
+        color: 'pink',
       },
       {
-        mes: 'fevereiro',
+        mes: 'Fevereiro',
         valor: 2000,
-        color: 'blue'
+        color: 'blue',
       },
       {
-        mes: 'março',
+        mes: 'Março',
         valor: 3000,
-        color: 'yellow'
+        color: 'yellow',
       },
       {
-        mes: 'abril',
+        mes: 'Abril',
         valor: 7000,
-        color: 'green'
+        color: 'green',
       },
       {
         mes: 'Maio',
         valor: 1,
-        color: 'red'
+        color: 'red',
       },
     ];
 
     setMeses(info);
-  }, []); // Utilizando useEffect para inicializar os meses apenas uma vez
+  }, []);
 
   const labels = meses.map((item) => item.mes);
   const valores = meses.map((item) => item.valor);
-  const colors = meses.map((item) => item.color);
 
   const data = {
     labels: labels,
     datasets: [
       {
+        label: 'Valores Mensais',
         data: valores,
-        backgroundColor: colors,
+        fill: true,
+        backgroundColor: 'rgba(91, 127, 255, 0.2)', // Gradiente de cor de fundo
+        borderColor: '#5B7FFF',
+        borderWidth: 2,
+        pointBackgroundColor: '#5B7FFF', // Cor dos pontos
+        pointBorderColor: '#fff', // Cor da borda dos pontos
+        pointBorderWidth: 2, // Largura da borda dos pontos
+        pointRadius: 5, // Raio dos pontos
       },
     ],
   };
 
-  return <Line data={data} />;
+  const options = {
+    scales: {
+      x: {
+        grid: {
+          display: false, // Ocultar linhas de grade no eixo X
+        },
+      },
+      y: {
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)', // Cor das linhas de grade no eixo Y
+        },
+      },
+    },
+  };
+
+  return <Line data={data} options={options} />;
 };
 
 export default LineChart;

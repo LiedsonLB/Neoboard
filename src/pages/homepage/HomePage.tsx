@@ -4,6 +4,7 @@ import { auth } from '../../services/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from '../../components/loading/Loading.tsx';
 import Aside from '../../components/aside/Aside.tsx';
+import Home from '../../layout/Home.tsx';
 
 const HomePage = () => {
     const [photo, setPhoto] = useState("");
@@ -29,9 +30,9 @@ const HomePage = () => {
     return (
         <>
             <div id="homepage">
-                <Aside user={user}/>
+                <Aside user={user} />
                 <div id="home-screen">
-                    {/* <Home user={user} /> */}
+                    <Home user={user} />
                 </div>
             </div>
         </>
