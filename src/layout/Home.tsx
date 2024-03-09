@@ -1,5 +1,5 @@
 import React from 'react'
-import "../layouts/Home.css"
+import "../layout/Home.css"
 
 const Home = ( {user} ) => {
 
@@ -104,7 +104,7 @@ const Home = ( {user} ) => {
                     <ul>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="scale-container">
                                     <div className="product-scale">
                                         <div className="scale">
@@ -115,7 +115,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 20%</p>
+                                <p>Picolé de Flocos: 20%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -124,7 +124,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 80%</p>
+                                <p>Picolé de Flocos: 80%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -133,7 +133,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 90%</p>
+                                <p>Picolé de Flocos: 90%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -142,7 +142,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 10%</p>
+                                <p>Picolé de Flocos: 10%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -156,7 +156,7 @@ const Home = ( {user} ) => {
                     <ul>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="scale-container">
                                     <div className="product-scale">
                                         <div className="scale">
@@ -167,7 +167,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -176,7 +176,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -185,7 +185,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -194,7 +194,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -208,7 +208,7 @@ const Home = ( {user} ) => {
                     <ul>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="scale-container">
                                     <div className="product-scale">
                                         <div className="scale">
@@ -219,7 +219,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -228,7 +228,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -237,7 +237,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
@@ -246,7 +246,7 @@ const Home = ( {user} ) => {
                         </li>
                         <li><img className="img-product" src="img/product.png" alt="product"/>
                             <div className="product-name">
-                                <p>Picole de Flocos: 50%</p>
+                                <p>Picolé de Flocos: 50%</p>
                                 <div className="product-scale">
                                     <div className="scale">
                                     </div>
