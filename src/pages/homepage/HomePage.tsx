@@ -30,9 +30,9 @@ const HomePage = () => {
     return (
         <>
             <div id="homepage">
-                <Aside user={user}/>
+                <Aside user={user} />
                 <div id="home-screen">
-                     <Home user={user} /> 
+                    <Home user={user} />
                 </div>
             </div>
         </>

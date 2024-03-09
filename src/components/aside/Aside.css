@@ -37,6 +37,10 @@ aside {
     color: var(--white-color);
   }
 
+  .user-acount {
+    animation: scaleIn 1s ease forwards;
+  }
+
   aside ul {
     color: var(--white-color);
     border-radius: 3px;
@@ -53,12 +57,36 @@ aside {
     display: flex;
     width: 90%;
     list-style: none;
+    animation: fadeInLeft 1s ease;
+  }
+
+  aside ul li:nth-child(1) {
+    animation-delay: 0s;
+  }
+  
+  aside ul li:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  aside ul li:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  aside ul li:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+  
+  aside ul li:nth-child(5) {
+    animation-delay: 0.8s;
+  }
+  
+  aside ul li:nth-child(6) {
+    animation-delay: 1.0s;
   }
 
   aside ul li:hover{
     background-color: var(--secondy-color);
     transition: .5s;
-    animation: animation .5s;
   }
 
   #acount-info {
