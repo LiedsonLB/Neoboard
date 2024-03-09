@@ -121,8 +121,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 <span className="icon red">25.06% </span>
                             </div>
                         </div>
-                    </div>
-                </div>
+                  </div>
 
                 <div id="collect-charts">
                     <span>
@@ -135,9 +134,8 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         <div id="pie-chart">
                             <DoughnutChart />
                         </div>
-                    </div>
+                     </div>
                 </div>
-            </div>
 
             <section id="ranking-container">
                 <h1>Ranking Mensal</h1>
@@ -300,8 +298,64 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     </div>
                 </div>
             </section>
-        </main>
-    )
-}
 
-export default Home
+      <section id="payments">
+        <h1>Formas de pagamento</h1>
+        <div id="payments-forms">
+          <ul>
+            <li>
+              <div className="pay-type">
+                <h4>Dinheiro</h4>
+              </div>
+            </li>
+
+            <li>
+              <div className="pay-type">
+                <h4>Pix</h4>
+              </div>
+            </li>
+
+            <li>
+              <div className="pay-type">
+                <h4>Cartão (Crédito)</h4>
+              </div>
+            </li>
+
+            <li>
+              <div className="pay-type">
+                <h4>Cartão (Débito)</h4>
+              </div>
+            </li>
+
+            <li>
+              <div className="pay-type">
+                <h4>Boleto</h4>
+              </div>
+            </li>
+
+            <li>
+              <div className="pay-type">
+                <h4>Cheque</h4>
+              </div>
+            </li>
+
+            <li>
+              <div className="pay-type">
+                <h4>Transferência</h4>
+              </div>
+            </li>
+
+            <li>
+              <div className="pay-type">
+                <h4>Em Dívida</h4>
+              </div>
+            </li>
+          </ul>
+          <div id="payments-chart"></div>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default Home;
