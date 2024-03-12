@@ -107,6 +107,7 @@ label {
     color: var(--white-color);
     border: none;
     transition: .8s;
+    font-weight: bold;
 }
 
 .singup-btn:hover {

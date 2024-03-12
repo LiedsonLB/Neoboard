@@ -84,9 +84,19 @@ aside {
     animation-delay: 1.0s;
   }
 
-  aside ul li:hover{
+  aside ul li:nth-child(7) {
+    animation-delay: 1.2s;
+  }
+
+  aside ul li:hover {
     background-color: var(--secondy-color);
     transition: .5s;
+  }
+
+  #logoutBtn {
+    background-color: var(--secondy-color);
+    transition: .5s;
+    margin-top: 1.5rem;
   }
 
   #acount-info {
@@ -138,18 +148,6 @@ a {
     text-align: center;
     font-size: 1.2rem;
     left: 1rem;
-  }
-
-  #logout-home {
-    margin-top: auto;
-    color: var(--white-color);
-    display: flex;
-    align-items: center;
-    margin-left: 1.1rem;
-    position: relative;
-    top: 6rem;
-    right: 1rem;
-    width: 100%;
   }
 
   #logout-home h2 {
