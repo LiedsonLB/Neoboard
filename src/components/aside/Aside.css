@@ -21,7 +21,6 @@ aside header {
 aside header img {
   max-width: 60px;
   height: auto;
-  filter: brightness(2);
 }
 
 aside header span h2 {
