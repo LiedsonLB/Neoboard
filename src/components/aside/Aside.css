@@ -87,15 +87,18 @@ aside ul li:nth-child(7) {
   animation-delay: 1.2s;
 }
 
+aside ul li:nth-child(8) {
+  animation-delay: 1.4s;
+}
+
 aside ul li:hover {
   background-color: var(--secondy-color);
   transition: .5s;
 }
 
 #logoutBtn {
-  background-color: var(--secondy-color);
   transition: .5s;
-  margin-top: 1.5rem;
+  margin-top: 4rem;
 }
 
 #acount-info {

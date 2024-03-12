@@ -240,10 +240,12 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             </li>
                         </ul>
                         <div id="payments-chart">
-                            <PaymentMethodsChart />
+                            <div id='chart-payment'>
+                                <PaymentMethodsChart />
+                            </div>
                         </div>
                     </div>
-                </section>        
+                </section>
             </div>
         </main>
     );
