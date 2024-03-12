@@ -134,6 +134,7 @@ label {
   color: var(--white-color);
   border: none;
   transition: .8s;
+  font-weight: bold;
 }
 
 .login-google {
@@ -147,6 +148,7 @@ label {
   border: 1px solid var(--primary-color);
   border-radius: 2px;
   transition: .8s;
+  font-weight: bold;
 }
 
 .login-btn:hover {

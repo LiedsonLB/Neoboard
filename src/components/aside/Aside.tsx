@@ -28,7 +28,7 @@ const Aside = ( {user} ) => {
         <div id="description">
             <p>Informe-se sobre:</p>
         </div>
-        <div className='user-acount' style={{display: "flex", gap:"10px"}}>
+        <div className='user-acount' style={{display: "flex", gap:"10px"}} data-toggle="tooltip" title="liedson.b9@gmail.com">
             <img id='acount-photo' src={photo} alt="photoUser" />
             <div id='acount-info'>
                 <h4 id='acount-userName'>{name}</h4>
@@ -38,7 +38,7 @@ const Aside = ( {user} ) => {
         <nav id="navigation-home">
             <ul>
                 <li>
-                    <a onClick={() => { signOut(auth) }}>
+                    <a href='#'>
                         <span className="icon"><IoGridOutline /></span>
                         <span className="title-home">
                             <h4>DashBoard</h4>
@@ -82,6 +82,14 @@ const Aside = ( {user} ) => {
                         <span className="icon"><IoDocumentTextOutline /></span>
                         <span className="title-home">
                             <h4>Enviar Relatório</h4>
+                        </span>
+                    </a>
+                </li>
+                <li id='logoutBtn'>
+                    <a href="" onClick={() => { signOut(auth) }}>
+                        <span className="icon"><IoLogOutOutline /></span>
+                        <span className="title-home">
+                            <h4>Logout</h4>
                         </span>
                     </a>
                 </li>

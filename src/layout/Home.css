@@ -17,24 +17,24 @@
 }
 
 #title-main {
-    display: flex;
-    font-size: .8rem;
-    color: var(--primary-color);
-    font-family: var(--font-Krona), sans-serif;
-    padding: 1rem;
-    animation: slideInUp 1s ease forwards;
+  display: flex;
+  font-size: .8rem;
+  color: var(--primary-color);
+  font-family: var(--font-Krona), sans-serif;
+  padding: 1rem;
+  animation: slideInUp 1s ease forwards;
 }
 
 #container-present {
-    display: flex;
-    justify-content: center;
-    border-radius: 20px;
-    background-color: var(--secondy-color);
-    max-height: 210px;
-    width: 90%;
-    margin: 0 auto;
-    padding-block: 2rem;
-    animation: scaleIn 1s ease forwards;
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: var(--secondy-color);
+  max-height: 210px;
+  width: 90%;
+  margin: 0 auto;
+  padding-block: 2rem;
+  animation: scaleIn 1s ease forwards;
 }
 
 #card-presents {
@@ -53,6 +53,7 @@
 #card-text {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1rem;
   letter-spacing: 1.5px;
   height: 100%;
@@ -115,30 +116,29 @@
 
 #periods {
   display: flex;
-  gap: 1rem;
   margin-top: 20px;
 }
 
 .periods-btn {
-    opacity: 0;
-    animation: slideInUp 1s ease forwards;
+  opacity: 0;
+  animation: slideInUp 1s ease forwards;
 }
 
 .periods-btn.active {
-    background-color: var(--primary-color);
-    color: var(--white-color) !important;
-  }
-
-#periods .periods-btn:nth-child(1){
-    animation-delay: 0s;
+  background-color: var(--primary-color) !important;
+  color: var(--white-color) !important;
 }
 
-#periods .periods-btn:nth-child(2){
-    animation-delay: 0.2s;
+#periods .periods-btn:nth-child(1) {
+  animation-delay: 0s;
 }
 
-#periods .periods-btn:nth-child(3){
-    animation-delay: 0.4s;
+#periods .periods-btn:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+#periods .periods-btn:nth-child(3) {
+  animation-delay: 0.4s;
 }
 
 #periods button {
@@ -146,9 +146,11 @@
   height: 1.7rem;
   width: 15%;
   text-align: center;
-  border-radius: 7px;
+  background: var(--white-color);
   border-color: var(--primary-color);
-  border: 1.7px solid var(--primary-color);
+  border: 1.7px solid transparent;
+  font-family: var(--font-krub);
+  font-weight: bold;
 }
 
 #periods button:hover {
@@ -173,22 +175,22 @@
 }
 
 #cards-finance .card-des:nth-child(1) {
-    animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 #cards-finance .card-des:nth-child(2) {
-    animation-delay: 0.2s;
+  animation-delay: 0.2s;
 }
 
 #cards-finance .card-des:nth-child(3) {
-    animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 
 .card-des {
-    background-color: var(--primary-color);
-    border-radius: 10px;
-    padding: 1rem;
-    animation: fadeInAndUp 1s ease forwards;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  padding: 1rem;
+  animation: fadeInAndUp 1s ease forwards;
 }
 
 .men-info {
@@ -224,10 +226,10 @@
   align-items: center;
 }
 
-.card-obj {;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.card-obj {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .user-men img {
@@ -250,15 +252,16 @@
   margin-bottom: 1rem;
 }
 
-#column-chart, #pie-chart {
-    background: var(--white-color);
-    border-radius: 10px;
-    padding: 1rem;
+#column-chart,
+#pie-chart {
+  background: var(--white-color);
+  border-radius: 10px;
+  padding: 1rem;
 }
 
 #ranking-container {
   background-color: var(--primary-color);
-  padding: 2rem;
+  padding: 1rem;
   color: var(--white-color);
   width: 99%;
   margin: 0 auto;
@@ -291,7 +294,7 @@
 .ranking ul {
   display: flex;
   flex-direction: column;
-  padding-inline: 1rem;
+  padding-inline: 0.5rem;
   padding-bottom: 2rem;
 }
 
@@ -365,44 +368,185 @@
   }
 }
 
-#payments{
-padding: 3rem;
-width: 100%;
-display: flex;
-flex-direction: column;
-gap: 20px;
+#payments {
+  padding: 3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-#payments h1{
-display: flex;
-margin: 10px;
-color: var(--primary-color);
-font-family: var(--font-Krona);
+#payments h1 {
+  display: flex;
+  margin: 10px;
+  color: var(--primary-color);
+  font-family: var(--font-Krona);
 }
 
-#payments-forms{
-background: var(--white-color);
-display: flex;
-flex-direction: row;
-width: 100%;
-justify-content: space-around;
-align-items: center;
+#payments-forms {
+  background: var(--white-color);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
 }
 
-#payments-forms ul{
-width: 30%;
-display: flex;
-flex-direction: column;
-font-size: 1.5rem;
-justify-content: space-around;
-gap: 10px;
-color: var(--primary-color);
-margin-inline: 5rem;
+#payments-forms h6 {
+  margin-bottom: 1rem;
 }
 
-#payments-chart{
-height: 400px;
-width: 90%;
-text-align: center;
-background-color: #ff5151;
+#payments-forms ul {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  justify-content: space-around;
+  gap: 10px;
+  color: var(--primary-color);
+  margin-inline: 5rem;
+}
+
+#payments-chart {
+  height: 400px;
+  width: 90%;
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.pay-type p {
+  font-size: 1rem;
+}
+
+#payments-forms ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#payments-forms ul li {
+  display: flex;
+  align-items: center;
+  animation: fadeInLeft 1s ease;
+}
+
+#payments-forms ul li::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: pink;
+  display: inline-block;
+  margin-right: 0.5em;
+  border-radius: 5px;
+}
+
+#payments-forms ul li:nth-child(2) {
+  animation-delay: 0s;
+}
+
+#payments-forms ul li:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+#payments-forms ul li:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+#payments-forms ul li:nth-child(5) {
+  animation-delay: 0.6s;
+}
+
+#payments-forms ul li:nth-child(6) {
+  animation-delay: 0.8s;
+}
+
+#payments-forms ul li:nth-child(7) {
+  animation-delay: 1s;
+}
+
+#payments-forms ul li:nth-child(8) {
+  animation-delay: 1.2s;
+
+}
+
+#payments-forms ul li:nth-child(9) {
+  animation-delay: 1.4s;
+}
+
+#payments-forms ul li:nth-child(2)::before {
+  background-color: #2ecc71;
+}
+
+#payments-forms ul li:nth-child(3)::before {
+  background-color: #3498db;
+}
+
+#payments-forms ul li:nth-child(4)::before {
+  background-color: #e74c3c;
+}
+
+#payments-forms ul li:nth-child(5)::before {
+  background-color: #f39c12;
+}
+
+#payments-forms ul li:nth-child(6)::before {
+  background-color: #9b59b6;
+}
+
+#payments-forms ul li:nth-child(7)::before {
+  background-color: #f1c40f;
+}
+
+#payments-forms ul li:nth-child(8)::before {
+  background-color: #1abc9c;
+}
+
+#payments-forms ul li:nth-child(9)::before {
+  background-color: #1f1f1f;
+}
+
+#container-doughnut-datas {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#container-doughnut-datas ul {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  justify-content: space-around;
+  gap: 10px;
+  color: var(--primary-color);
+  list-style: none;
+  margin: 1rem auto;
+}
+
+.doughnut-datas {
+  display: flex;
+  align-items: center;
+  animation: fadeInLeft 1s ease;
+}
+
+.doughnut-datas::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: pink;
+  display: inline-block;
+  margin-right: 0.5em;
+  border-radius: 100px;
+}
+
+.doughnut-datas:nth-child(1)::before {
+  background-color: #D9D9D9;
+}
+
+.doughnut-datas:nth-child(2)::before {
+  background-color: #1B2947;
+}
+
+.doughnut-datas:nth-child(3)::before {
+  background-color: #5B7FFF;
 }

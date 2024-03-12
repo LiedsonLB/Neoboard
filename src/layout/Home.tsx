@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import "../layout/Home.css"
 import LineChart from '../components/charts/LineChart.tsx';
 import DoughnutChart from '../components/charts/DoughtnoutChart.tsx';
+import PaymentMethodsChart from '../components/charts/PolarChart.tsx';
+import { FaChartLine, FaChartPie, FaDollarSign } from 'react-icons/fa';
 
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");
@@ -23,7 +25,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         despesas: 0,
         lucro: 0,
     }
- 
+
 
     // useEffect para chamar a função updateCharts quando o componente é montado
     useEffect(() => {
@@ -51,9 +53,6 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 <div id="msg-descrip">
                                     <p>Fique por dentro dos dados e estatísticas de sua empresa</p>
                                 </div>
-                            </div>
-                            <div id="new-btn">
-                                <button className="btn-nov"><strong>Novidades</strong></button>
                             </div>
                         </div>
                         <div id="present-img">
@@ -87,12 +86,12 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <img src="img/no_profile.png" alt="profile" />
+                                <FaChartLine size={100} style={{ color: '#5B7FFF'}}/>
                             </div>
                             <div className="men-info">
-                                <p>Faturamento Mensal</p>
+                                <p>Faturamento {dataPeriod}</p>
                                 <h1>R$ <span>{dataCards.faturamento}</span></h1>
-                                <span className="icon red"> 12.06% </span>
+                                <span className="icon"> 0% </span>
                             </div>
                         </div>
                     </div>
@@ -100,12 +99,12 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <img src="img/no_profile.png" alt="profile" />
+                                <FaChartPie size={100} style={{ color: '#5B7FFF'}}/>
                             </div>
                             <div className="men-info">
-                                <p>Despesa Mensal</p>
+                                <p>Despesa {dataPeriod}</p>
                                 <h1>R$ <span>{dataCards.despesas}</span></h1>
-                                <span className="icon green"> 16.00% </span>
+                                <span className="icon"> 0% </span>
                             </div>
                         </div>
                     </div>
@@ -113,19 +112,20 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <img src="img/no_profile.png" alt="profile" />
+                                <FaDollarSign  size={100} style={{ color: '#5B7FFF'}}/>
                             </div>
                             <div className="men-info">
-                                <p>Lucro Mensal</p>
+                                <p>Lucro {dataPeriod}</p>
                                 <h1>R$ {dataCards.lucro}</h1>
-                                <span className="icon red">25.06% </span>
+                                <span className="icon">0% </span>
                             </div>
                         </div>
-                  </div>
+                    </div>
+                </div>
 
                 <div id="collect-charts">
                     <span>
-                        <h3>Arrecadação Mensal:</h3>
+                        <h3>Arrecadação {dataPeriod}:</h3>
                     </span>
                     <div id="charts-main">
                         <div id="column-chart">
@@ -134,228 +134,124 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         <div id="pie-chart">
                             <DoughnutChart />
                         </div>
-                     </div>
-                </div>
-
-            <section id="ranking-container">
-                <h1>Ranking Mensal</h1>
-                <div id="ranking-types">
-                    <div className="ranking">
-                        <p className="ranking-title">Produtos Vendidos</p>
-                        <ul>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="scale-container">
-                                        <div className="product-scale">
-                                            <div className="scale">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 20%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 80%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 90%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 10%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="ranking">
-                        <p className="ranking-title">Arrecadação Regional</p>
-                        <ul>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="scale-container">
-                                        <div className="product-scale">
-                                            <div className="scale">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="ranking">
-                        <p className="ranking-title">Funcionários</p>
-                        <ul>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="scale-container">
-                                        <div className="product-scale">
-                                            <div className="scale">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><img className="img-product" src="img/product.png" alt="product" />
-                                <div className="product-name">
-                                    <p>Picole de Flocos: 50%</p>
-                                    <div className="product-scale">
-                                        <div className="scale">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </div>
-            </section>
 
-      <section id="payments">
-        <h1>Formas de pagamento</h1>
-        <div id="payments-forms">
-          <ul>
-            <li>
-              <div className="pay-type">
-                <h4>Dinheiro</h4>
-              </div>
-            </li>
+                <section id="ranking-container">
+                    <h1>Ranking {dataPeriod}</h1>
+                    <div id="ranking-types">
+                        <div className="ranking">
+                            <p className="ranking-title">Produtos Vendidos</p>
+                            <ul>
+                                <li><img className="img-product" src="img/product.png" alt="product" />
+                                    <div className="product-name">
+                                        <p>Picole de Flocos: 50%</p>
+                                        <div className="scale-container">
+                                            <div className="product-scale">
+                                                <div className="scale">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="ranking">
+                            <p className="ranking-title">Arrecadação Regional</p>
+                            <ul>
+                                <li><img className="img-product" src="img/product.png" alt="product" />
+                                    <div className="product-name">
+                                        <p>Picole de Flocos: 50%</p>
+                                        <div className="scale-container">
+                                            <div className="product-scale">
+                                                <div className="scale">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="ranking">
+                            <p className="ranking-title">Funcionários</p>
+                            <ul>
+                                <li><img className="img-product" src="img/product.png" alt="product" />
+                                    <div className="product-name">
+                                        <p>Picole de Flocos: 50%</p>
+                                        <div className="scale-container">
+                                            <div className="product-scale">
+                                                <div className="scale">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
 
-            <li>
-              <div className="pay-type">
-                <h4>Pix</h4>
-              </div>
-            </li>
+                <section id="payments">
+                    <h1>Dados de pagamento {dataPeriod}</h1>
+                    <div id="payments-forms">
+                        <ul>
+                            <h6>Formas disponíveis:</h6>
+                            <li>
+                                <div className="pay-type">
+                                    <p>Dinheiro</p>
+                                </div>
+                            </li>
 
-            <li>
-              <div className="pay-type">
-                <h4>Cartão (Crédito)</h4>
-              </div>
-            </li>
+                            <li>
+                                <div className="pay-type">
+                                    <p>Pix</p>
+                                </div>
+                            </li>
 
-            <li>
-              <div className="pay-type">
-                <h4>Cartão (Débito)</h4>
-              </div>
-            </li>
+                            <li>
+                                <div className="pay-type">
+                                    <p>Cartão (Crédito)</p>
+                                </div>
+                            </li>
 
-            <li>
-              <div className="pay-type">
-                <h4>Boleto</h4>
-              </div>
-            </li>
+                            <li>
+                                <div className="pay-type">
+                                    <p>Cartão (Débito)</p>
+                                </div>
+                            </li>
 
-            <li>
-              <div className="pay-type">
-                <h4>Cheque</h4>
-              </div>
-            </li>
+                            <li>
+                                <div className="pay-type">
+                                    <p>Boleto</p>
+                                </div>
+                            </li>
 
-            <li>
-              <div className="pay-type">
-                <h4>Transferência</h4>
-              </div>
-            </li>
+                            <li>
+                                <div className="pay-type">
+                                    <p>Cheque</p>
+                                </div>
+                            </li>
 
-            <li>
-              <div className="pay-type">
-                <h4>Em Dívida</h4>
-              </div>
-            </li>
-          </ul>
-          <div id="payments-chart"></div>
-        </div>
-      </section>
-    </main>
-  );
+                            <li>
+                                <div className="pay-type">
+                                    <p>Transferência</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div className="pay-type">
+                                    <p>Em Dívida</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div id="payments-chart">
+                            <PaymentMethodsChart />
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    );
 };
 
 export default Home;
