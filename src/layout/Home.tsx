@@ -10,13 +10,10 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
     const handlePeriodClick = (period) => {
         setDataPeriod(period);
-        // Aqui você pode adicionar lógica adicional para atualizar os gráficos com base no período selecionado
-        // Por exemplo, chamar uma função que busca dados correspondentes ao novo período.
         updateCharts(period);
     };
 
     const updateCharts = (period) => {
-        // Lógica para atualizar os gráficos com base no novo período
         console.log(`Atualizando gráficos para o período: ${period}`);
     };
 
@@ -26,11 +23,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         lucro: 0,
     }
 
-
-    // useEffect para chamar a função updateCharts quando o componente é montado
     useEffect(() => {
         updateCharts(dataPeriod);
-    }, [dataPeriod]); // O array vazio assegura que o useEffect seja executado apenas uma vez no montante do componente
+    }, [dataPeriod]);
 
     return (
         <main id="main-page">
