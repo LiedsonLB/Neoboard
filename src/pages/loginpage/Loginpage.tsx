@@ -81,7 +81,7 @@ const LoginPage = () => {
                                     <input
                                             type={showPassword ? "text" : "password"}
                                             name="senha"
-                                            placeholder="senha"
+                                            placeholder="password487@"
                                             className="password"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}

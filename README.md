@@ -9,7 +9,7 @@
 
 ![NeoBoard](./public/img/readme_img/neoboard_logo.png)
 
-NeoBoard é um dashboard empresarial inovador projetado para fornecer insights valiosos por meio de diversas sessões de dados. Com uma interface intuitiva e funcionalidades poderosas, o NeoBoard capacita empresas a tomar decisões informadas e estratégicas.
+NeoBoard é uma plataforma de dashboard empresarial projetada para gerenciar informações de forma mais eficiente. Com interface e funcionalidades intuitivas, esta ferramenta auxilia empresas a otimizarem o processo de tomada de decisão, com organização e estratégia.
 
 ## Design
 
