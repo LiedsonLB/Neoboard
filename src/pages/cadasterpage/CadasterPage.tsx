@@ -81,7 +81,7 @@ const CadasterPage = () => {
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         name="senha"
-                                        placeholder="senha"
+                                        placeholder="password48@37"
                                         className="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}

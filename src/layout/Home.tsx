@@ -10,13 +10,10 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
     const handlePeriodClick = (period) => {
         setDataPeriod(period);
-        // Aqui você pode adicionar lógica adicional para atualizar os gráficos com base no período selecionado
-        // Por exemplo, chamar uma função que busca dados correspondentes ao novo período.
         updateCharts(period);
     };
 
     const updateCharts = (period) => {
-        // Lógica para atualizar os gráficos com base no novo período
         console.log(`Atualizando gráficos para o período: ${period}`);
     };
 
@@ -26,11 +23,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         lucro: 0,
     }
 
-
-    // useEffect para chamar a função updateCharts quando o componente é montado
     useEffect(() => {
         updateCharts(dataPeriod);
-    }, [dataPeriod]); // O array vazio assegura que o useEffect seja executado apenas uma vez no montante do componente
+    }, [dataPeriod]);
 
     return (
         <main id="main-page">
@@ -86,7 +81,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <FaChartLine size={100} style={{ color: '#5B7FFF'}}/>
+                                <FaChartLine size={100} style={{ color: '#5B7FFF' }} />
                             </div>
                             <div className="men-info">
                                 <p>Faturamento {dataPeriod}</p>
@@ -99,7 +94,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <FaChartPie size={100} style={{ color: '#5B7FFF'}}/>
+                                <FaChartPie size={100} style={{ color: '#5B7FFF' }} />
                             </div>
                             <div className="men-info">
                                 <p>Despesa {dataPeriod}</p>
@@ -112,7 +107,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <FaDollarSign  size={100} style={{ color: '#5B7FFF'}}/>
+                                <FaDollarSign size={100} style={{ color: '#5B7FFF' }} />
                             </div>
                             <div className="men-info">
                                 <p>Lucro {dataPeriod}</p>
@@ -245,7 +240,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             </li>
                         </ul>
                         <div id="payments-chart">
-                            <PaymentMethodsChart />
+                            <div id='chart-payment'>
+                                <PaymentMethodsChart />
+                            </div>
                         </div>
                     </div>
                 </section>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoLogOutOutline } from 'react-icons/io5';
+import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoHelpOutline, IoPaperPlaneOutline, IoLogOutOutline } from 'react-icons/io5';
 import { signOut } from 'firebase/auth'
 import { auth } from '../../services/firebase'
 import '../aside/Aside.css'
@@ -82,6 +82,14 @@ const Aside = ( {user} ) => {
                         <span className="icon"><IoDocumentTextOutline /></span>
                         <span className="title-home">
                             <h4>Enviar Relatório</h4>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span className="icon"><IoPaperPlaneOutline/></span>
+                        <span className="title-home">
+                            <h4>Fale conosco</h4>
                         </span>
                     </a>
                 </li>
