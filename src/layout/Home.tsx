@@ -81,7 +81,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <FaChartLine size={100} style={{ color: '#5B7FFF'}}/>
+                                <FaChartLine size={100} style={{ color: '#5B7FFF' }} />
                             </div>
                             <div className="men-info">
                                 <p>Faturamento {dataPeriod}</p>
@@ -94,7 +94,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <FaChartPie size={100} style={{ color: '#5B7FFF'}}/>
+                                <FaChartPie size={100} style={{ color: '#5B7FFF' }} />
                             </div>
                             <div className="men-info">
                                 <p>Despesa {dataPeriod}</p>
@@ -107,7 +107,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
-                                <FaDollarSign  size={100} style={{ color: '#5B7FFF'}}/>
+                                <FaDollarSign size={100} style={{ color: '#5B7FFF' }} />
                             </div>
                             <div className="men-info">
                                 <p>Lucro {dataPeriod}</p>
@@ -243,7 +243,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             <PaymentMethodsChart />
                         </div>
                     </div>
-                </section>
+                </section>        
             </div>
         </main>
     );
