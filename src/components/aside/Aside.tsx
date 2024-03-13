@@ -24,8 +24,7 @@ const Aside = ( {user} ) => {
             <span id="title-home">
                 <h2>NeoBoard</h2>
             </span>
-        </header>    
-        <div className='user-acount' style={{display: "flex", gap:"10px"}} data-toggle="tooltip" title="liedson.b9@gmail.com">
+        <div className='user-acount' style={{display: "flex", gap:"10px"}} data-toggle="tooltip" title="liedson.b9@gmail.com" onClick={() => signOut(auth)}>
             <img id='acount-photo' src={photo} alt="photoUser" />
             <div id='acount-info'>
                 <h4 id='acount-userName'>{name}</h4>
