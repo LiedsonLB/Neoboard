@@ -5,6 +5,7 @@ import DoughnutChart from '../components/charts/DoughtnoutChart.tsx';
 import PaymentMethodsChart from '../components/charts/PolarChart.tsx';
 import { FaChartLine, FaChartPie, FaDollarSign } from 'react-icons/fa';
 import { useSpring, animated } from 'react-spring';
+import ColumnChart from '../components/charts/ColumnChart.tsx';
 
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");
@@ -263,12 +264,12 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     <h1>De olho nas despesas</h1>
                     <div id="expenses-data">
                         <div id="expense-chart">
-
+                            <ColumnChart />
                         </div>
                         <div id="expense-calendar">
-                            <img src="img\Calendario.png" alt="calendar" />
+                            
                             <div id="calendar-description">
-                                <p>Clique na data e veja a dívida que você tem naquele dia</p>
+                                <p>Clique na data e veja a despesa que você tem naquele dia</p>
                             </div>
                         </div>
                     </div>
