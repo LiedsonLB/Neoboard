@@ -259,7 +259,25 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         </div>
                     </div>
                 </section>
+                <section id="expenses">
+                    <h1>De olho nas despesas</h1>
+                    <div id="expenses-data">
+                        <div id="expense-chart">
+
+                        </div>
+                        <div id="expense-calendar">
+                            <img src="img\Calendario.png" alt="calendar" />
+                            <div id="calendar-description">
+                                <p>Clique na data e veja a dívida que você tem naquele dia</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
+            <footer id="footer">
+                <hr/>
+                <p>Todos os direitos reservados a &copy; Neoboard 2024</p>
+            </footer>
         </main>
     );
 };

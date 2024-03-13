@@ -25,6 +25,7 @@ const Aside = ( {user} ) => {
                 <h2>NeoBoard</h2>
             </span>
         </header>
+        
         <div className='user-acount' style={{display: "flex", gap:"10px"}} data-toggle="tooltip" title="liedson.b9@gmail.com">
             <img id='acount-photo' src={photo} alt="photoUser" />
             <div id='acount-info'>
