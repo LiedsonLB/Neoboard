@@ -4,9 +4,22 @@ import LineChart from '../components/charts/LineChart.tsx';
 import DoughnutChart from '../components/charts/DoughtnoutChart.tsx';
 import PaymentMethodsChart from '../components/charts/PolarChart.tsx';
 import { FaChartLine, FaChartPie, FaDollarSign } from 'react-icons/fa';
+import { useSpring, animated } from 'react-spring';
 
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");
+
+    const dataCards = {
+        faturamento: 1000,
+        despesas: 2000,
+        lucro: 100000,
+    }
+
+    const AnimatedNumber = ({ value }) => {
+        const props = useSpring({ value, from: { value: 0 }, reset: true });
+      
+        return <animated.span>{props.value.interpolate((val) => Math.floor(val))}</animated.span>;
+      };
 
     const handlePeriodClick = (period) => {
         setDataPeriod(period);
@@ -16,12 +29,6 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     const updateCharts = (period) => {
         console.log(`Atualizando gráficos para o período: ${period}`);
     };
-
-    const dataCards = {
-        faturamento: 0,
-        despesas: 0,
-        lucro: 0,
-    }
 
     useEffect(() => {
         updateCharts(dataPeriod);
@@ -85,7 +92,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             </div>
                             <div className="men-info">
                                 <p>Faturamento {dataPeriod}</p>
-                                <h1>R$ <span>{dataCards.faturamento}</span></h1>
+                                <h1>
+                                    R$ <AnimatedNumber value={dataCards.faturamento} />
+                                </h1>
                                 <span className="icon"> 0% </span>
                             </div>
                         </div>
@@ -98,7 +107,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             </div>
                             <div className="men-info">
                                 <p>Despesa {dataPeriod}</p>
-                                <h1>R$ <span>{dataCards.despesas}</span></h1>
+                                <h1>
+                                    R$ <AnimatedNumber value={dataCards.despesas} />
+                                </h1>
                                 <span className="icon"> 0% </span>
                             </div>
                         </div>
@@ -111,7 +122,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             </div>
                             <div className="men-info">
                                 <p>Lucro {dataPeriod}</p>
-                                <h1>R$ {dataCards.lucro}</h1>
+                                <h1>
+                                    R$ <AnimatedNumber value={dataCards.lucro} />    
+                                </h1>
                                 <span className="icon">0% </span>
                             </div>
                         </div>

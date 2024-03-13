@@ -22,7 +22,7 @@ const PaymentMethodsChart = () => {
     });
 
     const options = {
-        cutout: '50%',
+        cutout: '70%',
         scale: {
             ticks: {
                 beginAtZero: true,

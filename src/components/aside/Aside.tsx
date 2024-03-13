@@ -25,15 +25,15 @@ const Aside = ( {user} ) => {
                 <h2>NeoBoard</h2>
             </span>
         </header>
-        <div id="description">
-            <p>Informe-se sobre:</p>
-        </div>
         <div className='user-acount' style={{display: "flex", gap:"10px"}} data-toggle="tooltip" title="liedson.b9@gmail.com">
             <img id='acount-photo' src={photo} alt="photoUser" />
             <div id='acount-info'>
                 <h4 id='acount-userName'>{name}</h4>
                 <p id='acount-email'>{email}</p>
             </div>
+        </div>
+        <div id="description">
+            <p>Informe-se sobre:</p>
         </div>
         <nav id="navigation-home">
             <ul>
