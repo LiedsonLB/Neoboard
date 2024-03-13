@@ -51,7 +51,7 @@ const ColumnChart = () => {
     labels: labels,
     datasets: [
       {
-        label: 'Despesas Mensais',
+        label: 'Gráfico de despesas',
         data: valoresDespesas,
         backgroundColor: 'rgba(91, 127, 255, 0.2)',
         borderColor: '#5B7FFF',
