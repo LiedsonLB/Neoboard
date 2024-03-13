@@ -56,7 +56,8 @@ aside ul li {
   display: flex;
   width: 90%;
   list-style: none;
-  animation: fadeInLeft 1s ease;
+  opacity: 0;
+  animation: fadeInLeft 1s ease forwards;
 }
 
 aside ul li:nth-child(1) {
