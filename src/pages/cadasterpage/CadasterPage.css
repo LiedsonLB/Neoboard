@@ -40,6 +40,13 @@
     gap: 2rem;
 }
 
+#singup-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
 .singup-field-sign {
     display: flex;
     flex-direction: column;

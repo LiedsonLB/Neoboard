@@ -49,19 +49,24 @@ const LoginPage = () => {
     return (
         <>
             <div className="background-color"></div>
-            <div className="container">
-                <div className="left">
-                    <div className="container-logo">
-                        <img src="img/icon_neoboard.png" alt="NeoBoard logo" className="logo" />
+            <main className="container">
+                <section className="left">
+                    <header className="container-logo">
+                        <figure>
+                            <img src="img/icon_neoboard.png" alt="NeoBoard logo" className="logo" />
+                        </figure>
                         <p className="logo-name">NeoBoard</p>
-                    </div>
-                    <div id='container-img'>
+                    </header>
+                    <figure id='container-img'>
                         <img src="img/loginImg.png" alt="img login" className="left-image" />
-                    </div>
-                </div>
-                <div className="right">
-                    <h2 className="title">Seja Bem-Vindo Novamente</h2>
-                    <p className="subtitle">Preencha corretamente os campos</p>
+                    </figure>
+                </section>
+
+                <section className="right">
+                    <header id="login-header">
+                        <h2 className="title">Seja Bem-Vindo Novamente</h2>
+                        <p className="subtitle">Preencha corretamente os campos</p>
+                    </header>
                     <div className="login-field">
                         <form>
                             <div className="input-field">
@@ -79,12 +84,12 @@ const LoginPage = () => {
                                 <label>Senha:</label>
                                 <div className='password-container'>
                                     <input
-                                            type={showPassword ? "text" : "password"}
-                                            name="senha"
-                                            placeholder="password487@"
-                                            className="password"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
+                                        type={showPassword ? "text" : "password"}
+                                        name="senha"
+                                        placeholder="password487@"
+                                        className="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                     <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
                                         id='see-password-cadaster'
@@ -104,8 +109,8 @@ const LoginPage = () => {
                         </div>
                         <button className="login-google" onClick={handleSignin}>Login com o Google</button>
                     </div>
-                </div>
-            </div>
+                </section>
+            </main>
         </>
     )
 }
