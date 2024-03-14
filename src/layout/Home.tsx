@@ -54,7 +54,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                     <p>Bem-vindo(a)! Tenha um excelente dia!</p>
                                 </div>
                                 <div id="msg-descrip">
-                                    <p>Fique por dentro dos dados e estatísticas de sua empresa</p>
+                                    <p>Fique por dentro dos dados e estatísticas de sua empresa.</p>
                                 </div>
                             </div>
                         </div>
