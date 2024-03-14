@@ -197,7 +197,7 @@
 .men-info {
   display: flex;
   flex-direction: column;
-  text-align: end;
+  text-align: flex-end;
   color: var(--white-color);
 }
 
@@ -239,7 +239,7 @@
   display: flex;
 }
 
-#collect-charts span h3 {
+#collect-charts header h3 {
   color: var(--secondy-color);
   font-weight: 400;
   margin-block: 1.5rem;

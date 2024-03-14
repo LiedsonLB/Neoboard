@@ -81,6 +81,14 @@
   margin: auto;
 }
 
+#login-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+
 .login-field {
   display: flex;
   flex-direction: column;
