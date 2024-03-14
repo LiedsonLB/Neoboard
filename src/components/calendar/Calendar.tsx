@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../calendar/calendar.css';
+import '../calendar/Calendar.css';
 
 interface Event {
   date: Date;
@@ -43,7 +43,7 @@ const Calendar: React.FC<CalendarProps> = () => {
 
     const renderCalendar = (month: number, year: number): void => {
       daysContainer.innerHTML = '';
-      monthElement.innerText = ${getMonthName(month)} ${year};
+      monthElement.innerText = `${getMonthName(month)} ${year}`;
 
       const firstDayOfMonth = new Date(year, month, 1).getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -145,7 +145,7 @@ const Calendar: React.FC<CalendarProps> = () => {
       const day = date.getDate();
       const month = date.getMonth() + 1;
       const year = date.getFullYear();
-      return ${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')};
+      return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     };
 
     const handlePrevMonthClick = () => {
