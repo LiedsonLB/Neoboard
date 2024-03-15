@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import "../layout/Home.css"
-import LineChart from '../components/charts/LineChart.tsx';
-import DoughnutChart from '../components/charts/DoughtnoutChart.tsx';
-import PaymentMethodsChart from '../components/charts/PolarChart.tsx';
+import "./Home.css"
+import LineChart from '../../components/charts/LineChart.tsx';
+import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
+import PaymentMethodsChart from '../../components/charts/PolarChart.tsx';
 import { FaChartLine, FaChartPie, FaDollarSign } from 'react-icons/fa';
 import { useSpring, animated } from 'react-spring';
-import ColumnChart from '../components/charts/ColumnChart.tsx';
-import Calendar from '../components/calendar/Calendar.tsx';
+import ColumnChart from '../../components/charts/ColumnChart.tsx';
+import Calendar from '../../components/calendar/Calendar.tsx';
 
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");

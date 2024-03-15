@@ -1,16 +1,20 @@
-const express = require('express')
-const app = express()
+import express from "express";
+import routes from "./routes";
 
-app.use(express.json())
+class App{
+  constructor(){
+    this.server = express();
+    this.middlewares()
+    this.routes()
+  }
 
-app.get("/login", async (req, res) => {
-    
-})
+  middlewares(){
+    this.server.use(express.json())
+  }
 
-app.post("/cadaster", async (req, res) => {
+  routes(){
+    this.server.use(routes)
+  }
+}
 
-})
-
-app.listen(4000, () => {
-    console.log("Api rodando na porta 4000")
-})
+export default new App().server;

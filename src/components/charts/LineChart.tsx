@@ -21,7 +21,7 @@ const LineChart = () => {
       },
       {
         mes: 'Fevereiro',
-        valor: 2000,
+        valor: 7000,
         color: 'blue',
       },
       {
@@ -36,7 +36,7 @@ const LineChart = () => {
       },
       {
         mes: 'Maio',
-        valor: 4500,
+        valor: 1000,
         color: 'red',
       },
     ];
@@ -54,14 +54,13 @@ const LineChart = () => {
         label: 'Valores Mensais',
         data: valores,
         fill: true,
-        backgroundColor: 'rgba(91, 127, 255, 0.2)',
+        backgroundColor: 'rgba(91, 127, 255, 0.3)',
         borderColor: '#5B7FFF',
-        borderWidth: 1,
+        borderWidth: 2,
         pointBackgroundColor: '#5B7FFF', // Cor dos pontos
         pointBorderColor: '#fff',
-        pointBorderWidth: 0,
+        pointBorderWidth: 2,
         pointRadius: 5,
-        tension: 0.5
       },
     ],
   };

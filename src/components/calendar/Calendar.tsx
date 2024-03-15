@@ -9,7 +9,12 @@ interface Event {
 interface CalendarProps {}
 
 const Calendar: React.FC<CalendarProps> = () => {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<Event[]>([
+    { date: new Date(2024, 2, 15), description: 'Entrega da 1° Realese' },
+    { date: new Date(2024, 7, 6), description: 'Aniversário do Liedson' },
+    { date: new Date(2024, 11, 25), description: 'Natal' },
+    { date: new Date(2024, 2, 31), description: 'Páscoa' },
+  ]);
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
 
@@ -37,6 +42,14 @@ const Calendar: React.FC<CalendarProps> = () => {
     const eventDateInput = document.getElementById('eventDate') as HTMLInputElement;
     const eventDescriptionInput = document.getElementById('eventDescription') as HTMLInputElement;
 
+    const isSameDay = (date1: Date, date2: Date): boolean => {
+      return (
+        date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getDate() === date2.getDate()
+      );
+    };
+
     const getEventsForDate = (date: Date): Event[] => {
       return events.filter(event => isSameDay(event.date, date));
     };
@@ -59,11 +72,14 @@ const Calendar: React.FC<CalendarProps> = () => {
         if (day <= daysInMonth) {
           dayElement.innerText = day.toString();
           const date = new Date(year, month, day);
-
-          if (getEventsForDate(date).length > 0) {
+      
+          const eventsForDate = getEventsForDate(date);
+          if (eventsForDate.length > 0) {
             dayElement.classList.add('has-events');
+            dayElement.setAttribute('data-toggle', 'tooltip');
+            dayElement.setAttribute('title', eventsForDate.map(event => event.description).join(', '));
           }
-
+      
           dayElement.addEventListener('click', () => {
             const selectedDate = new Date(year, month, day);
             renderEvents(selectedDate);
@@ -118,14 +134,6 @@ const Calendar: React.FC<CalendarProps> = () => {
       if (eventsContainer) {
         eventsContainer.innerHTML = html;
       }
-    };
-
-    const isSameDay = (date1: Date, date2: Date): boolean => {
-      return (
-        date1.getFullYear() === date2.getFullYear() &&
-        date1.getMonth() === date2.getMonth() &&
-        date1.getDate() === date2.getDate()
-      );
     };
 
     const addEvent = (date: Date, description: string): void => {

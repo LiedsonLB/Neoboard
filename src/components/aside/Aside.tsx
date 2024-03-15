@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoHelpOutline, IoPaperPlaneOutline, IoLogOutOutline } from 'react-icons/io5';
+import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoPaperPlaneOutline, IoLogOutOutline } from 'react-icons/io5';
 import { signOut } from 'firebase/auth'
 import { auth } from '../../services/firebase'
 import '../aside/Aside.css'
 
-const Aside = ( {user} ) => {
+const Aside = ( {user, changeComponent} ) => {
     const [photo, setPhoto] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -26,82 +26,61 @@ const Aside = ( {user} ) => {
             </span>
         </header>
         
-        <div className='user-acount' style={{display: "flex", gap:"10px"}} data-toggle="tooltip" title="liedson.b9@gmail.com" onClick={() => signOut(auth)}>
+        <div className='user-acount' style={{display: "flex"}} data-toggle="tooltip" title={email}>
             <img id='acount-photo' src={photo} alt="photoUser" />
             <div id='acount-info'>
                 <h4 id='acount-userName'>{name}</h4>
                 <p id='acount-email'>{email}</p>
             </div>
+            <button onClick={() => signOut(auth)}><IoLogOutOutline /></button>
         </div>
         <div id="description">
             <p>Informe-se sobre:</p>
         </div>
         <nav id="navigation-home">
             <ul>
-                <li>
-                    <a href='#'>
+                <li onClick={() => changeComponent('DashBoard')}>
                         <span className="icon"><IoGridOutline /></span>
                         <span className="title-home">
                             <h4>DashBoard</h4>
                         </span>
-                    </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li onClick={() => changeComponent('Produtos')}>
                         <span className="icon"><IoBasketOutline /></span>
                         <span className="title-home">
                             <h4>Produtos</h4>
                         </span>
-                    </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li onClick={() => changeComponent('Regioes')}>
                         <span className="icon"><IoLocationOutline /></span>
                         <span className="title-home">
                             <h4>Regiões</h4>
                         </span>
-                    </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li onClick={() => changeComponent('Funcionarios')}>
                         <span className="icon"><IoPeopleOutline /></span>
                         <span className="title-home">
                             <h4>Funcionários</h4>
                         </span>
-                    </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li onClick={() => changeComponent('Financeiro')}>
                         <span className="icon"><IoBarChartOutline /></span>
                         <span className="title-home">
                             <h4>Financeiro</h4>
                         </span>
-                    </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li onClick={() => changeComponent('Relatorio')}>
                         <span className="icon"><IoDocumentTextOutline /></span>
                         <span className="title-home">
                             <h4>Enviar Relatório</h4>
                         </span>
-                    </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <span className="icon"><IoPaperPlaneOutline/></span>
-                        <span className="title-home">
-                            <h4>Fale conosco</h4>
-                        </span>
-                    </a>
-                </li>
-                <li id='logoutBtn'>
-                    <a href="" onClick={() => { signOut(auth) }}>
-                        <span className="icon"><IoLogOutOutline /></span>
-                        <span className="title-home">
-                            <h4>Logout</h4>
-                        </span>
-                    </a>
-                </li>
+                <li onClick={() => changeComponent('FAQ')}>
+                    <span className="icon"><IoPaperPlaneOutline/></span>
+                    <span className="title-home">
+                        <h4>Fale conosco</h4>
+                    </span>
+                </li >
             </ul>
         </nav>
     </aside>

@@ -197,8 +197,14 @@
 .men-info {
   display: flex;
   flex-direction: column;
-  text-align: flex-end;
+  text-align: end;
   color: var(--white-color);
+  font-size: 1.2rem;
+}
+
+.men-info p {
+  font-size: 1rem;
+  margin-bottom: .5rem;
 }
 
 .icon {
@@ -436,7 +442,8 @@ align-items: center;
 #payments-forms ul li {
   display: flex;
   align-items: center;
-  animation: fadeInLeft 1s ease;
+  opacity: 0;
+  animation: fadeInLeft 1s ease forwards;
 }
 
 #payments-forms ul li::before {
