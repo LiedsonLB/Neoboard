@@ -120,10 +120,6 @@ NeoBoard é uma plataforma de dashboard empresarial projetada para gerenciar inf
 - [Kaio Simeão](https://github.com/KaioSimeao)
 - [Francisco Douglas](https://github.com/DouglaSantos777)
 
-Co-authored-by: Pedro Lucas <PL251431@users.noreply.github.com><br>
-Co-authored-by: Kaio Simeão <KaioSimeao@users.noreply.github.com> <br>
-Co-authored-by: Douglas Santos <DouglaSantos777@users.noreply.github.com>
-
 ## Lista de Presença das Reuniões
 
 [Google Sheets](https://docs.google.com/spreadsheets/d/1aLPvppBixNkQL8woJ6ycX3q-zcAxLUGQJkBnxcQIC94/edit?usp=sharing) - Reunião diária às 21h
@@ -138,21 +134,22 @@ Co-authored-by: Douglas Santos <DouglaSantos777@users.noreply.github.com>
 
 ## Releases
 
-- Release v1.0❌
-- Release v2.0❌
-- Release v3.0❌
+- Release v1.0 ✅
+- Release v2.0 ❌
+- Release v3.0 ❌
 
 ## Imagens do Projeto
 
 ### Dashboard Geral
-![Dashboard Geral](./public/img/readme_img/neoboard_interface.png)
+![Dashboard Geral](./public/img/readme_img/neoboardDash.png)
+![Dashboard Geral](./public/img/readme_img/neoboardDash2.png)
 
 ### Dashboard Produtos
 ![Gráficos Interativos](./public/img/readme_img/neoboard_products.png)
 
 ### Interface de Login e Cadastro 
-![Interface do Usuário](./public/img/readme_img/neoboard_login.png)
-![Interface do Usuário](./public/img/readme_img/neoboard_cadaster.png)
+![Interface do Usuário](./public/img/readme_img/neoboardLogin.png)
+![Interface do Usuário](./public/img/readme_img/neoboardCadaster.png)
 
 ## Licença
 

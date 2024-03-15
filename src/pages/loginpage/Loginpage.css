@@ -59,6 +59,7 @@
   height: 100%;
   width: 100%;
   filter: hue-rotate(322deg) brightness(0.8) contrast(1.3);
+  animation: floatAnimation 4s ease-in-out infinite alternate;
 }
 
 .title {

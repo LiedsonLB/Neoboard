@@ -53,7 +53,7 @@ const HomePage = () => {
         case 'FAQ':
             return <FAQ />
         default:
-            return <Home />;
+            return <Home user={user} />;
         }
     };
 
