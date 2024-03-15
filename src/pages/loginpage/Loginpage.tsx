@@ -52,9 +52,7 @@ const LoginPage = () => {
             <main className="container">
                 <section className="left">
                     <header className="container-logo">
-                        <figure>
-                            <img src="img/icon_neoboard.png" alt="NeoBoard logo" className="logo" />
-                        </figure>
+                        <img src="img/icon_neoboard.png" alt="NeoBoard logo" className="logo" />
                         <p className="logo-name">NeoBoard</p>
                     </header>
                     <figure id='container-img'>
@@ -92,7 +90,7 @@ const LoginPage = () => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                     <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
-                                        id='see-password-cadaster'
+                                        id='see-password-login'
                                         onClick={togglePasswordVisibility}
                                     />
                                 </div>
