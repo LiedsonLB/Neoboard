@@ -47,10 +47,12 @@ const CadasterPage = () => {
     return (
         <>
             <div className="background-color-sign"></div>
-            <div className="container-sign">
-                <div className="left-sign">
+            <main className="container-sign">
+                <section className="left-sign">
+                    <header id="singup-header">
                     <h2 className="title-sign">Então você é novo aqui?</h2>
                     <p className="subtitle-sign">Preencha corretamente os campos</p>
+                    </header>
                     <div className="singup-field-sign">
                         <form>
                             <div className="input-field-sign">
@@ -97,17 +99,20 @@ const CadasterPage = () => {
                             </button>
                         </form>
                     </div>
-                </div>
-                <div className="right-sign">
-                    <div id="container-img-cadaster">
+                </section>
+
+                <section className="right-sign">
+                    <figure id="container-img-cadaster">
                         <img src="img/cadasterImg.png" alt="img-singup" className="right-image" />
-                    </div>
-                    <div className="container-logo-sign">
+                    </figure>
+                    <header className="container-logo-sign">
+                        <figure>
                         <img src="img/icon_neoboard.png" alt="Neoboard-logo" className="logo-sign" />
+                        </figure>
                         <p className="logo-name">NeoBoard</p>
-                    </div>
-                </div>
-            </div>
+                    </header>
+                </section>
+            </main>
         </>
     );
 };

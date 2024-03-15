@@ -59,6 +59,7 @@
   height: 100%;
   width: 100%;
   filter: hue-rotate(322deg) brightness(0.8) contrast(1.3);
+  animation: floatAnimation 4s ease-in-out infinite alternate;
 }
 
 .title {
@@ -80,6 +81,14 @@
   position: relative;
   margin: auto;
 }
+
+#login-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
 
 .login-field {
   display: flex;
@@ -151,7 +160,7 @@ label {
 }
 
 .login-btn:hover {
-  background-color: var(--secondy-color);
+  background-color: var(--hover-color);
 }
 
 .login-google:hover {

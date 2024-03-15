@@ -4,12 +4,19 @@ import { auth } from '../../services/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from '../../components/loading/Loading.tsx';
 import Aside from '../../components/aside/Aside.tsx';
-import Home from '../../layout/Home.tsx';
+import Home from '../../layout/dashboard/Home.tsx';
+import Produtos from '../../layout/produtos/Produtos.tsx';
+import Regioes from '../../layout/regioes/Regioes.tsx';
+import Financeiro from '../../layout/financeiro/Financeiro.tsx';
+import Relatorio from '../../layout/relatorio/Relatorio.tsx';
+import Funcionarios from '../../layout/funcionarios/Funcionarios.tsx';
+import FAQ from '../../layout/FAQ/FAQ.tsx';
 
 const HomePage = () => {
     const [photo, setPhoto] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [currentComponent, setCurrentComponent] = useState('Dashboard')
 
     const [user, loading] = useAuthState(auth);
 
@@ -25,14 +32,39 @@ const HomePage = () => {
         }
     }, [user])
 
+    const changeComponent = (componentName) => {
+        setCurrentComponent(componentName);
+    };
+
+    const renderComponent = () => {
+        switch (currentComponent) {
+        case 'Dashboard':
+            return <Home user={user} />;
+        case 'Produtos':
+            return <Produtos />;
+        case 'Regioes':
+            return <Regioes />;
+        case 'Funcionarios':
+            return <Funcionarios />;
+        case 'Financeiro':
+            return <Financeiro />;
+        case 'Relatorio':
+            return <Relatorio />;
+        case 'FAQ':
+            return <FAQ />
+        default:
+            return <Home />;
+        }
+    };
+
     if (loading) return <Loading />;
 
     return (
         <>
             <div id="homepage">
-                <Aside user={user} />
+                <Aside user={user} changeComponent={(component) => setCurrentComponent(component)} />
                 <div id="home-screen">
-                    <Home user={user} />
+                    {renderComponent()}
                 </div>
             </div>
         </>

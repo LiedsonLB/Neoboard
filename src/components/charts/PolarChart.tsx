@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PolarArea } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 
 const PaymentMethodsChart = () => {
     const [paymentData, setPaymentData] = useState({
@@ -22,24 +22,20 @@ const PaymentMethodsChart = () => {
     });
 
     const options = {
-        cutout: '70%',
-        scale: {
-            ticks: {
-                beginAtZero: true,
-            },
-            gridLines: {
-                color: 'rgba(0, 0, 0, 0.1)',
-            },
-        },
+        cutout: '0%',
         plugins: {
             legend: {
                 display: false,
-                position: 'bottom' as 'bottom',
+                position: 'left' as 'left',
             },
         },
     };
 
-    return <PolarArea data={paymentData} options={options} />;
+    return (
+        <div style={{ width: '100%', height: '100%' }}>
+            <Pie data={paymentData} options={options} style={{ width: '100%', height: '100%' }} />
+        </div>
+    );
 };
 
 export default PaymentMethodsChart;

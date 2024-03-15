@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import "../layout/Home.css"
-import LineChart from '../components/charts/LineChart.tsx';
-import DoughnutChart from '../components/charts/DoughtnoutChart.tsx';
-import PaymentMethodsChart from '../components/charts/PolarChart.tsx';
+import "./Home.css"
+import LineChart from '../../components/charts/LineChart.tsx';
+import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
+import PaymentMethodsChart from '../../components/charts/PolarChart.tsx';
 import { FaChartLine, FaChartPie, FaDollarSign } from 'react-icons/fa';
 import { useSpring, animated } from 'react-spring';
-import ColumnChart from '../components/charts/ColumnChart.tsx';
+import ColumnChart from '../../components/charts/ColumnChart.tsx';
+import Calendar from '../../components/calendar/Calendar.tsx';
 
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");
@@ -18,9 +19,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
     const AnimatedNumber = ({ value }) => {
         const props = useSpring({ value, from: { value: 0 }, reset: true });
-      
+
         return <animated.span>{props.value.interpolate((val) => Math.floor(val))}</animated.span>;
-      };
+    };
 
     const handlePeriodClick = (period) => {
         setDataPeriod(period);
@@ -37,13 +38,13 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
     return (
         <main id="main-page">
-            <div id="container-main">
-                <div id="title-main">
+            <section id="container-main">
+                <header id="title-main">
                     <span>
                         <h1>Análise do Mês</h1>
                     </span>
-                </div>
-                <div id="container-present">
+                </header>
+                <article id="container-present">
                     <div id="card-presents">
                         <div id="card-text">
                             <div id="user-welc">
@@ -58,13 +59,13 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 </div>
                             </div>
                         </div>
-                        <div id="present-img">
+                        <figure id="present-img">
                             <img src="img/homeImg.png" alt="present-img" />
-                        </div>
+                        </figure>
                     </div>
-                </div>
+                </article>
 
-                <div id="periods">
+                <section id="periods">
                     <button
                         className={`periods-btn ${dataPeriod === 'Semanal' ? 'active' : ''}`}
                         onClick={() => handlePeriodClick('Semanal')}
@@ -83,9 +84,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     >
                         Anual
                     </button>
-                </div>
+                </section>
 
-                <div id="cards-finance">
+                <section id="cards-finance">
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
@@ -124,18 +125,18 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             <div className="men-info">
                                 <p>Lucro {dataPeriod}</p>
                                 <h1>
-                                    R$ <AnimatedNumber value={dataCards.lucro} />    
+                                    R$ <AnimatedNumber value={dataCards.lucro} />
                                 </h1>
                                 <span className="icon">0% </span>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div id="collect-charts">
-                    <span>
+                <section id="collect-charts">
+                    <header>
                         <h3>Arrecadação {dataPeriod}:</h3>
-                    </span>
+                    </header>
                     <div id="charts-main">
                         <div id="column-chart">
                             <LineChart />
@@ -144,10 +145,12 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             <DoughnutChart />
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <section id="ranking-container">
-                    <h1>Ranking {dataPeriod}</h1>
+                    <header>
+                        <h1>Ranking {dataPeriod}</h1>
+                    </header>
                     <div id="ranking-types">
                         <div className="ranking">
                             <p className="ranking-title">Produtos Vendidos</p>
@@ -260,6 +263,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         </div>
                     </div>
                 </section>
+
                 <section id="expenses">
                     <h1>De olho nas despesas</h1>
                     <div id="expenses-data">
@@ -267,16 +271,17 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             <ColumnChart />
                         </div>
                         <div id="expense-calendar">
-                            
+                            <Calendar />
                             <div id="calendar-description">
                                 <p>Clique na data e veja a despesa que você tem naquele dia</p>
                             </div>
                         </div>
                     </div>
                 </section>
-            </div>
+            </section>
+
             <footer id="footer">
-                <hr/>
+                <hr />
                 <p>Todos os direitos reservados a &copy; Neoboard 2024</p>
             </footer>
         </main>

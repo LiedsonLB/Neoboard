@@ -199,6 +199,12 @@
   flex-direction: column;
   text-align: end;
   color: var(--white-color);
+  font-size: 1.2rem;
+}
+
+.men-info p {
+  font-size: 1rem;
+  margin-bottom: .5rem;
 }
 
 .icon {
@@ -239,7 +245,7 @@
   display: flex;
 }
 
-#collect-charts span h3 {
+#collect-charts header h3 {
   color: var(--secondy-color);
   font-weight: 400;
   margin-block: 1.5rem;
@@ -436,7 +442,8 @@ align-items: center;
 #payments-forms ul li {
   display: flex;
   align-items: center;
-  animation: fadeInLeft 1s ease;
+  opacity: 0;
+  animation: fadeInLeft 1s ease forwards;
 }
 
 #payments-forms ul li::before {

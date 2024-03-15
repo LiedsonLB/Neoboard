@@ -15,19 +15,19 @@ aside header {
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  gap: 5px;
 }
 
 aside header img {
-  max-width: 60px;
+  max-width: 50px;
   height: auto;
+  margin-right: .5rem;
 }
 
 aside header span h2 {
-  font-size: 2em;
+  font-size: 1.5em;
   color: var(--white-color);
   font-weight: 400;
-  margin-right: 1.3em;
+  margin-right: 5em;
   margin-top: .7em;
   text-align: center;
 }
@@ -54,10 +54,20 @@ aside ul li {
   padding: 0;
   border-radius: 10px;
   display: flex;
-  width: 90%;
   list-style: none;
   opacity: 0;
   animation: fadeInLeft 1s ease forwards;
+  display: flex;
+  align-items: center;
+  color: var(--white-color);
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  padding-block: 1rem;
+  gap: 10px;
+  cursor: pointer;
+  padding-inline: .7rem;
+  user-select: none;
 }
 
 aside ul li:nth-child(1) {
@@ -113,6 +123,7 @@ aside ul li:hover {
   width: 50px;
   height: 50px;
   border-radius: 100px;
+  margin-right: .5rem;
 }
 
 #acount-email,
@@ -120,24 +131,12 @@ aside ul li:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 160px;
+  max-width: 150px;
+  font-size: .9rem;
 }
 
 #acount-email {
   color: var(--secondy-color);
-}
-
-a {
-  display: flex;
-  align-items: center;
-  color: var(--white-color);
-  text-decoration: none;
-  width: 100%;
-  height: 100%;
-  padding-block: 1rem;
-  gap: 10px;
-  cursor: pointer;
-  padding-inline: .7rem;
 }
 
 a:hover {
@@ -162,4 +161,16 @@ aside ul h2 {
 
 .icon {
   font-size: 1.5rem;
+}
+
+.user-acount button{
+  border: none;
+  background: transparent;
+  font-size: 1.6rem;
+  color: var(--white-color);
+  cursor: pointer;
+}
+
+.user-acount button:hover{
+  color: var(--hover-color);
 }

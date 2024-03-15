@@ -10,8 +10,8 @@ const DoughnutChart = () => {
       {
         data: [300, 100, 50],
         backgroundColor: ['#D9D9D9', '#1B2947', '#5B7FFF'],
-        hoverBackgroundColor: ['#D9D9D9', '#1B2947', '#5B7FFF'],
-        borderWidth: 0,
+        borderWidth: 5,
+        hoverBorderColor: '#ffffff'
       },
     ],
   };
@@ -26,7 +26,7 @@ const DoughnutChart = () => {
   } as const;
 
   const containerStyle = {
-    width: '90%', // Ajuste a largura da área do gráfico conforme necessário
+    width: '90%',
     margin: '0 auto'
   };
 
