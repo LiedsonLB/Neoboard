@@ -12,8 +12,8 @@
 .container {
   position: relative;
   display: flex;
-  height: 100vh;
   width: 100%;
+  max-height: 100vh;
 }
 
 .left {
@@ -59,13 +59,14 @@
   height: 100%;
   width: 100%;
   filter: hue-rotate(322deg) brightness(0.8) contrast(1.3);
-  animation: floatAnimation 4s ease-in-out infinite alternate;
 }
 
 .title {
   font-family: var(--font-Krona);
   font-size: 2rem;
   font-weight: 500;
+  width: 100%;
+  height: 100%;
 }
 
 .right {
@@ -75,9 +76,8 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  width: 60%;
+  width: 55%;
   gap: 2rem;
-  height: 90%;
   position: relative;
   margin: auto;
 }
@@ -85,8 +85,9 @@
 #login-header {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 20px;
   align-items: center;
+  text-align: center;
 }
 
 
@@ -208,6 +209,8 @@ label {
 
 .subtitle {
   font-size: 1.5rem;
+  width: 100%;
+  height: 100%;
 }
 
 .password-container {
@@ -220,4 +223,139 @@ label {
   right: 20px;
   cursor: pointer;
   color: var(--primary-color);
+}
+
+@media screen and (max-width: 580px) {
+  .container {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+
+  .background-color {
+    clip-path: none;
+    display: none;
+ 
+  }
+
+  .left {
+    width: 100%;
+    height: auto;
+    background-color: var(--primary-color);
+    transition: .5s;
+    display: none;
+    
+  }
+
+  .container-logo {
+    width: 100%;
+    padding: 2rem;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
+  .container-logo p {
+    font-size: 1.5rem;
+  }
+
+  #container-img {
+    max-width: 50%;
+  
+  }
+
+  .left-image {
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .right {
+    width: 100%;
+    height: 100vh;
+    transition: .5s;
+    justify-content: space-around;
+  }
+
+  #login-header {
+    text-align: center;
+    gap: 20px;
+    padding: 1em;
+    margin-top: 2em;
+  }
+
+  #login-header h2 {
+    font-size: 1.3em;
+  }
+
+  #login-header p {
+    font-size: 1.2em;
+  }
+
+  .login-field {
+    width: 100%;
+    height: auto;
+  }
+
+  .login-field form {
+    width: 100%;
+    }
+
+}
+
+@media screen and (min-width:580px) and (max-width:1000px) {
+  .left {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-block: 3rem;
+  }
+
+  .container-logo {
+    width: 100%;
+    padding: 2.3rem;
+    font-size: 0.8rem;
+    align-items: center;
+    text-align: center;
+    
+   
+  }
+
+  .container-logo p {
+    font-size: 1.7rem;
+  }
+
+  #container-img {
+    width: 50vw;
+  }
+
+  .left-image {
+    min-width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .right {
+    width: 100%;
+    height: auto;
+  }
+
+  #login-header {
+    text-align: center;
+    gap: 20px;
+    margin-top: 1rem;
+  }
+
+  #login-header h2 {
+    width: 100%;
+    font-size: 1.5em;
+  }
+
+  #login-header p {
+    width: 100%;
+    font-size: 1.3em;
+  }
+
+
 }
