@@ -6,7 +6,7 @@ const PaymentMethodsChart = () => {
         labels: ['Dinheiro', 'Pix', 'Cartão (Crédito)', 'Cartão (Débito)', 'Boleto', 'Cheque', 'Transferência', 'Em Dívida'],
         datasets: [
             {
-                data: [2000, 1500, 3000, 2500, 0, 0, 0, 800],
+                data: [2000, 1500, 3000, 2500, 1000, 2000, 400, 800],
                 backgroundColor: [
                     '#2ecc71',
                     '#3498db',

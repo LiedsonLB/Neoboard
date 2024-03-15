@@ -39,7 +39,7 @@ const Aside = ( {user, changeComponent} ) => {
         </div>
         <nav id="navigation-home">
             <ul>
-                <li onClick={() => changeComponent('DashBoard')}>
+                <li onClick={() => changeComponent('Dashboard')}>
                         <span className="icon"><IoGridOutline /></span>
                         <span className="title-home">
                             <h4>DashBoard</h4>
