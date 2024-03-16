@@ -282,7 +282,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
             <footer id="footer">
                 <hr />
-                <p>Todos os direitos reservados a &copy; Neoboard 2024</p>
+                <p>Todos os direitos reservados a &copy;Neoboard 2024</p>
             </footer>
         </main>
     );
