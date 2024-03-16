@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../loginpage/Loginpage.css';
 import { useNavigate } from 'react-router-dom';
 import { auth, provider } from '../../services/firebase';
-import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
 const LoginPage = () => {
 
@@ -10,6 +10,8 @@ const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [mensagem, setMensagem] = useState('');
+    const [alert, setAlert] = useState(false);
 
     useEffect(() => {
         document.title = `NeoBoard | Logue Agora`;
@@ -25,6 +27,18 @@ const LoginPage = () => {
             console.error('Erro ao fazer login:', error.message);
         }
     };
+
+    const handleResetSenha = () => {
+        sendPasswordResetEmail(auth, email)
+          .then(() => {
+            setAlert(true);
+            setMensagem('Um e-mail de redefinição de senha foi enviado para o seu e-mail.');
+          })
+          .catch((error) => {
+            setAlert(false);
+            setMensagem('Preencha o seu Email corretamente');
+          });
+      };
 
 
     const togglePasswordVisibility = () => {
@@ -106,6 +120,14 @@ const LoginPage = () => {
                             </p>
                         </div>
                         <button className="login-google" onClick={handleSignin}>Login com o Google</button>
+                        <span id='link-cadaster' onClick={handleResetSenha} style={{width: 'fit-content', margin: '1.5rem auto'}}>Esqueci minha senha</span>
+                        {mensagem && <p 
+                            style={{
+                                padding: '.5rem',
+                                textAlign: "center",
+                                color: alert ? '#74ff74' : '#ff5151'
+                            }}
+                        >{mensagem}</p>}
                     </div>
                 </section>
             </main>

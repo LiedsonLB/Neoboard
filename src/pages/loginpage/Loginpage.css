@@ -64,8 +64,14 @@
 
 .title {
   font-family: var(--font-Krona);
-  font-size: 2rem;
+  font-size: 1.1rem;
   font-weight: 500;
+  width: 100%;
+  height: 100%;
+}
+
+.subtitle {
+  font-size: 1rem;
   width: 100%;
   height: 100%;
 }
@@ -208,11 +214,6 @@ label {
   position: relative;
 }
 
-.subtitle {
-  font-size: 1.5rem;
-  width: 100%;
-  height: 100%;
-}
 
 .password-container {
   position: relative;
@@ -226,10 +227,10 @@ label {
   color: var(--primary-color);
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 752px) {
   .container {
     flex-direction: column-reverse;
-    height: auto;
+    height: 100vh;
   }
 
   .background-color {
@@ -244,7 +245,6 @@ label {
     background-color: var(--primary-color);
     transition: .5s;
     display: none;
-    
   }
 
   .container-logo {
@@ -273,24 +273,25 @@ label {
 
   .right {
     width: 100%;
-    height: 100vh;
+    max-height: 90vh;
+    margin: auto;
     transition: .5s;
     justify-content: space-around;
+    padding: 2rem;
   }
 
   #login-header {
     text-align: center;
     gap: 20px;
     padding: 1em;
-    margin-top: 2em;
   }
 
   #login-header h2 {
-    font-size: 1.3em;
+    font-size: 1.1em;
   }
 
   #login-header p {
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   .login-field {
@@ -304,7 +305,7 @@ label {
 
 }
 
-@media screen and (min-width:580px) and (max-width:1000px) {
+@media screen and (min-width:753px) and (max-width:1000px) {
   .left {
     width: 100%;
     height: auto;
@@ -318,8 +319,6 @@ label {
     font-size: 0.8rem;
     align-items: center;
     text-align: center;
-    
-   
   }
 
   .container-logo p {
@@ -350,12 +349,12 @@ label {
 
   #login-header h2 {
     width: 100%;
-    font-size: 1.5em;
+    font-size: 1.1em;
   }
 
   #login-header p {
     width: 100%;
-    font-size: 1.3em;
+    font-size: 1em;
   }
 
 
