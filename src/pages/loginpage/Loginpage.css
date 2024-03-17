@@ -7,13 +7,14 @@
   background-color: var(--primary-color);
   clip-path: polygon(0% 0%, 100% 0%, 50% 100%, 0% 100%);
   z-index: -1;
+  margin: auto;
+
 }
 
 .container {
   position: relative;
   display: flex;
   width: 100%;
-  max-height: 100vh;
 }
 
 .left {
@@ -23,6 +24,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: 100%;
+
 }
 
 .logo {
@@ -36,11 +39,11 @@
 }
 
 .container-logo {
-  padding: 2.3rem;
   display: flex;
   align-items: center;
   gap: 10px;
   width: 100%;
+  padding: 2rem;
 }
 
 #container-img {
@@ -48,7 +51,7 @@
   height: 70%;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%;
 }
 
 .left-image {
@@ -95,6 +98,7 @@
   gap: 20px;
   align-items: center;
   text-align: center;
+  margin-block: ;
 }
 
 
@@ -184,6 +188,8 @@ label {
   background-color: var(--white-color);
   width: 60%;
   transform: translateY(10px);
+  width: fit-content;
+  padding-inline: 1em;
 }
 
 .singup-text a {
@@ -229,22 +235,26 @@ label {
 
 @media screen and (max-width: 752px) {
   .container {
-    flex-direction: column-reverse;
-    height: 100vh;
+    flex-direction: column;
+    height: 100%;
   }
 
   .background-color {
-    clip-path: none;
+    width: 100%;
+    height: 20%;
+    clip-path: polygon(0% 0%, 100% 0%, 0% 100%, 0% 100%);
+    z-index: 1;
     display: none;
- 
+   
   }
 
   .left {
     width: 100%;
     height: auto;
-    background-color: var(--primary-color);
     transition: .5s;
-    display: none;
+    background-color: var(--primary-color);
+    transition: .2s;
+
   }
 
   .container-logo {
@@ -260,6 +270,7 @@ label {
 
   #container-img {
     max-width: 50%;
+    display: none;
   
   }
 
@@ -273,7 +284,7 @@ label {
 
   .right {
     width: 100%;
-    max-height: 90vh;
+    height: 100%;
     margin: auto;
     transition: .5s;
     justify-content: space-around;
@@ -308,14 +319,13 @@ label {
 @media screen and (min-width:753px) and (max-width:1000px) {
   .left {
     width: 100%;
-    height: auto;
     display: block;
-    margin-block: 3rem;
+    height: 100%;
+    transition: .2s;
   }
 
   .container-logo {
     width: 100%;
-    padding: 2.3rem;
     font-size: 0.8rem;
     align-items: center;
     text-align: center;
@@ -326,25 +336,26 @@ label {
   }
 
   #container-img {
-    width: 50vw;
+    width: 90%;
+    margin-bottom:5rem;
   }
 
   .left-image {
-    min-width: 100%;
-    height: auto;
+    width: 100%;
     align-items: center;
     justify-content: center;
   }
 
   .right {
     width: 100%;
-    height: auto;
+    display: block;
+    transition: .2s;
   }
 
   #login-header {
     text-align: center;
     gap: 20px;
-    margin-top: 1rem;
+    margin-block: 2rem;
   }
 
   #login-header h2 {
