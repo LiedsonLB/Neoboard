@@ -50,10 +50,10 @@ const CadasterPage = () => {
             <main className="container-sign">
                 <section className="left-sign">
                     <header id="singup-header">
-                    <h2 className="title-sign">Então você é novo aqui?</h2>
-                    <p className="subtitle-sign">Preencha corretamente os campos</p>
+                        <h2 className="title-sign">Então você é novo aqui?</h2>
+                        <p className="subtitle-sign">Preencha corretamente os campos</p>
                     </header>
-                    <div className="singup-field-sign">
+                    <div className="singup-field">
                         <form>
                             <div className="input-field-sign">
                                 <label>Nome de Usuário:</label>
@@ -102,15 +102,16 @@ const CadasterPage = () => {
                 </section>
 
                 <section className="right-sign">
-                    <figure id="container-img-cadaster">
-                        <img src="img/cadasterImg.png" alt="img-singup" className="right-image" />
-                    </figure>
                     <header className="container-logo-sign">
                         <figure>
-                        <img src="img/icon_neoboard.png" alt="Neoboard-logo" className="logo-sign" />
+                            <img src="img/icon_neoboard.png" alt="Neoboard-logo" className="logo-sign" />
                         </figure>
                         <p className="logo-name">NeoBoard</p>
                     </header>
+                    <figure id="container-img-cadaster">
+                        <img src="img/cadasterImg.png" alt="img-singup" className="right-image" />
+                    </figure>
+
                 </section>
             </main>
         </>
