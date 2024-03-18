@@ -57,18 +57,18 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         lucro: 100000,
     }
 
-    const AnimatedNumber = ({ value }) => {
+    const AnimatedNumber = ({ value }: { value: number }) => {
         const props = useSpring({ value, from: { value: 0 }, reset: true });
 
-        return <animated.span>{props.value.interpolate((val) => Math.floor(val))}</animated.span>;
+        return <animated.span>{props.value.interpolate((val: number) => Math.floor(val))}</animated.span>;
     };
 
-    const handlePeriodClick = (period) => {
+    const handlePeriodClick = (period: string) => {
         setDataPeriod(period);
         updateCharts(period);
     };
 
-    const updateCharts = (period) => {
+    const updateCharts = (period: string) => {
         console.log(`Atualizando gráficos para o período: ${period}`);
     };
 

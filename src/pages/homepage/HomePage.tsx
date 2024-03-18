@@ -1,5 +1,6 @@
 import '../homepage/HomePage.css'
 import React, { useEffect, useState } from 'react'
+// @ts-ignore
 import { auth } from '../../services/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from '../../components/loading/Loading.tsx';
@@ -16,7 +17,7 @@ const HomePage = () => {
     const [photo, setPhoto] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [currentComponent, setCurrentComponent] = useState('Dashboard')
+    const [currentComponent, setCurrentComponent] = useState<String>('Dashboard')
 
     const [user, loading] = useAuthState(auth);
 
@@ -32,37 +33,37 @@ const HomePage = () => {
         }
     }, [user])
 
-    const changeComponent = (componentName) => {
+    const changeComponent = (componentName: String) => {
         setCurrentComponent(componentName);
     };
 
     const renderComponent = () => {
         switch (currentComponent) {
-        case 'Dashboard':
-            return <Home user={user} />;
-        case 'Produtos':
-            return <Produtos />;
-        case 'Regioes':
-            return <Regioes />;
-        case 'Funcionarios':
-            return <Funcionarios />;
-        case 'Financeiro':
-            return <Financeiro />;
-        case 'Relatorio':
-            return <Relatorio />;
-        case 'FAQ':
-            return <FAQ />
-        default:
-            return <Home user={user} />;
+            case 'Dashboard':
+                return <Home user={{ displayName: user ? user.displayName || undefined : undefined }} />;
+            case 'Produtos':
+                return <Produtos />;
+            case 'Regioes':
+                return <Regioes />;
+            case 'Funcionarios':
+                return <Funcionarios />;
+            case 'Financeiro':
+                return <Financeiro />;
+            case 'Relatorio':
+                return <Relatorio />;
+            case 'FAQ':
+                return <FAQ />;
+            default:
+                return <Home user={{ displayName: user ? user.displayName || undefined : undefined }} />;
         }
-    };
+    };      
 
     if (loading) return <Loading />;
 
     return (
         <>
             <div id="homepage">
-                <Aside user={user} changeComponent={(component) => setCurrentComponent(component)} />
+                <Aside user={user} changeComponent={(component: String) => setCurrentComponent(component)} />
                 <div id="home-screen">
                     {renderComponent()}
                 </div>

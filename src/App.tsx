@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore
 import { auth } from "./services/firebase";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import LoginPage from "./pages/loginpage/Loginpage.tsx";
