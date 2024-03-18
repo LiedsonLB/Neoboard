@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// @ts-ignore
 import { auth } from '../../services/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import './CadasterPage.css';
@@ -7,15 +8,15 @@ import { useNavigate } from 'react-router-dom';
 const CadasterPage = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         document.title = `NeoBoard | Cadastre-se`;
     }, []);
 
-    function handlecadaster(e) {
+    function handlecadaster(e: any) {
         e.preventDefault();
         signUp(email, password, username);
     }
@@ -24,7 +25,7 @@ const CadasterPage = () => {
         setShowPassword(!showPassword);
     };
 
-    const signUp = async (email, password, username) => {
+    const signUp = async (email: string, password: string, username: string) => {
 
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -39,7 +40,7 @@ const CadasterPage = () => {
             } else {
                 console.error("Usuário não encontrado após criação.");
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error("Erro ao cadastrar:", error.message);
         }
     };

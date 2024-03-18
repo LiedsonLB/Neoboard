@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoPaperPlaneOutline, IoLogOutOutline } from 'react-icons/io5';
 import { signOut } from 'firebase/auth'
+// @ts-ignore
 import { auth } from '../../services/firebase'
 import '../aside/Aside.css'
 
-const Aside = ( {user, changeComponent} ) => {
+interface Props {
+    user: any | null;
+    changeComponent: (component: string) => void;
+}
+
+const Aside = ( {user, changeComponent}: Props ) => {
     const [photo, setPhoto] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");

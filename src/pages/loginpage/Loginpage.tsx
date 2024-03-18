@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../loginpage/Loginpage.css';
 import { useNavigate } from 'react-router-dom';
+// @ts-ignore
 import { auth, provider } from '../../services/firebase';
 import { signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
@@ -17,13 +18,13 @@ const LoginPage = () => {
         document.title = `NeoBoard | Logue Agora`;
     }, []);
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: any) => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
     
             console.log('Login bem-sucedido!');
-        } catch (error) {
+        } catch (error: any) {
             console.error('Erro ao fazer login:', error.message);
         }
     };
@@ -34,9 +35,10 @@ const LoginPage = () => {
             setAlert(true);
             setMensagem('Um e-mail de redefinição de senha foi enviado para o seu e-mail.');
           })
-          .catch((error) => {
+          .catch((error: any) => {
             setAlert(false);
             setMensagem('Preencha o seu Email corretamente');
+            console.log('error ao preencher email: ', error)
           });
       };
 
