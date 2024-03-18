@@ -1,8 +1,5 @@
 class Event {
-    date: Date;
-    description: string;
-
-    constructor(date: Date, description: string) {
+    constructor(date, description) {
         this.date = date;
         this.description = description;
     }
