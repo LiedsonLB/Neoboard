@@ -12,52 +12,55 @@
 .container-sign {
     position: relative;
     display: flex;
-    height: 100vh;
     width: 100%;
 }
 
 .title-sign {
     font-family: var(--font-Krona);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 500;
+    width: 100%;
+    height: 100%;
 }
 
 .subtitle-sign {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    width: 100%;
+    height: 100%;
 }
 
 .left-sign {
-    flex: 1;
     background: var(--white-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    width: 50%;
-    gap: 2rem;
+    width: 55%;
+    gap: 1.5rem;
+    margin-block: 5em;
 }
 
 #singup-header {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 20px;
     align-items: center;
+    text-align: center;
 }
 
-.singup-field-sign {
+.singup-field {
     display: flex;
     flex-direction: column;
-    max-width: 80%;
-    width: 100%;
+    width: 90%;
+    margin: auto;
 }
 
-.signup-field-sign form {
+.signup-field form {
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 20px;
 }
 
 .input-field-sign {
@@ -122,13 +125,14 @@ label {
 }
 
 .right-sign {
-    flex: 1;
     position: relative;
-    width: 50%;
+    width: 45%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    height: 100%;
+    gap: 2em;
 }
 
 .logo-sign {
@@ -142,27 +146,133 @@ label {
 }
 
 .container-logo-sign {
-    position: absolute;
-    padding: 2.3rem;
-    z-index: 3;
-    top: 0;
-    right: 0;
     display: flex;
     align-items: center;
+    justify-content: end;
     gap: 10px;
+    width: 100%;
+    padding: 2rem;
 }
 
 #container-img-cadaster {
     display: flex;
-    height: 70%;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
 .right-image {
-    width: 80%;
-    position: absolute;
-    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    height: 100%;
+    width: 85%;
     animation: floatAnimation 4s ease-in-out infinite alternate;
+}
+
+@media screen and (max-width: 752px) {
+    .container-sign {
+        flex-direction: column-reverse;
+        height: 100%;
+    }
+
+    .background-color-sign {
+        width: 100%;
+        clip-path: polygon(0% 0%, 100% 0%, 0% 100%, 0% 100%);
+        z-index: 1;
+        display: none;
+    }
+
+    .right-sign {
+        width: 100%;
+        background-color: var(--primary-color);
+        transition: .5s;
+    }
+
+    .container-logo-sign {
+        width: 100%;
+        font-size: 0.7rem;
+        text-align: center;
+        padding: 1em;
+    }
+
+    .container-logo-sign p {
+        font-size: 1.5rem;
+    }
+
+    #container-img-cadaster {
+        max-width: 50%;
+        display: none;
+    }
+
+    .right-image {
+        width: 100%;
+        height: auto;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .left-sign {
+        width: 100%;
+        height: 100%;
+        margin: 2em auto;
+        transition: .5s;
+        padding: 1.5em;
+        gap: 2em;
+    }
+
+    #singup-header {
+        text-align: center;
+        gap: 20px;
+    }
+
+    #singup-header h2 {
+        font-size: 1.1em;
+    }
+
+    #singup-header p {
+        font-size: 1em;
+    }
+
+    .singup-field {
+        width: 100%;
+        height: auto;
+    }
+
+    .singup-field form {
+        width: 100%;
+    }
+
+}
+
+@media screen and (min-width:753px) and (max-width:1000px) {
+    .right-sign {
+        transition: .5s;
+    }
+
+    .container-logo-sign {
+        width: 100%;
+        text-align: center;
+        padding: 1em;
+        font-size: .8em;
+        transition: .5s;
+    }
+
+    .right-image {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3em;
+        transition: 1s;
+    }
+
+    .left-sign {
+        width: 50%;
+        margin: 1em;
+        transition: .5s;
+        padding: 1.5em;
+    }
+
+
 }
