@@ -7,7 +7,6 @@
   background-color: var(--primary-color);
   clip-path: polygon(0% 0%, 100% 0%, 50% 100%, 0% 100%);
   z-index: -1;
-
 }
 
 .container {
@@ -24,8 +23,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
-
 }
 
 .logo {
@@ -309,7 +306,6 @@ label {
   .login-field form {
     width: 100%;
     }
-
 }
 
 @media screen and (min-width:753px) and (max-width:1000px) {
@@ -363,6 +359,4 @@ label {
     width: 100%;
     font-size: 1.1em;
   }
-
-
 }
