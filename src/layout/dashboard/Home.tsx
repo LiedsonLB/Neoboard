@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import "./Home.css"
+import Loading from '../../components/loading/Loading.tsx';
 import LineChart from '../../components/charts/LineChart.tsx';
 import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
 import PaymentMethodsChart from '../../components/charts/PolarChart.tsx';
@@ -8,8 +10,46 @@ import { useSpring, animated } from 'react-spring';
 import ColumnChart from '../../components/charts/ColumnChart.tsx';
 import Calendar from '../../components/calendar/Calendar.tsx';
 
+interface Produto {
+    img: string | undefined;
+    id: number;
+    nome: string;
+    imagem: string;
+    vendido: number;
+}
+
+interface Event {
+    date: Date;
+    description: string;
+}
+
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");
+    const [produtos, setProdutos] = useState<Produto[]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await axios.get('http://localhost:4000/produtos');
+                setProdutos(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erro ao buscar dados:', error);
+                setLoading(false);
+            }
+
+            try {
+                const eventsResponse = await axios.get('http://localhost:4000/eventos');
+                setEvents(eventsResponse.data);
+            } catch (error) {
+                console.error('Erro ao buscar dados dos eventos:', error);
+            }
+        }
+
+        fetchData();
+    }, []);
 
     const dataCards = {
         faturamento: 1000,
@@ -152,22 +192,29 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         <h1>Ranking {dataPeriod}</h1>
                     </header>
                     <div id="ranking-types">
-                        <div className="ranking">
-                            <p className="ranking-title">Produtos Vendidos</p>
-                            <ul>
-                                <li><img className="img-product" src="img/product.png" alt="product" />
-                                    <div className="product-name">
-                                        <p>Picole de Flocos: 50%</p>
-                                        <div className="scale-container">
-                                            <div className="product-scale">
-                                                <div className="scale">
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div className="ranking">
+                    <p className="ranking-title">Produtos Vendidos</p>
+                    {loading ? (
+                        <Loading />
+                    ) : (
+                        <ul>
+                        {produtos.map(produto => (
+                            <li key={produto.id}>
+                            <img className="img-product" src={produto.img} alt={produto.nome}/>
+                            <div className="product-name">
+                                <p>{produto.nome}: {produto.vendido}%</p>
+                                <div className="scale-container">
+                                <div className="product-scale">
+                                    <div className="scale" style={{ width: `${produto.vendido}%` }}>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
+                                </div>
+                                </div>
+                            </div>
+                            </li>
+                        ))}
+                        </ul>
+                    )}
+                    </div>
                         <div className="ranking">
                             <p className="ranking-title">Arrecadação Regional</p>
                             <ul>
@@ -271,7 +318,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             <ColumnChart />
                         </div>
                         <div id="expense-calendar">
-                            <Calendar />
+                            <Calendar events={events}/>
                             <div id="calendar-description">
                                 <p>Clique na data e veja a despesa que você tem naquele dia</p>
                             </div>

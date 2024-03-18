@@ -6,17 +6,25 @@ interface Event {
   description: string;
 }
 
-interface CalendarProps {}
+interface CalendarProps {
+  events?: Event[];
+}
 
-const Calendar: React.FC<CalendarProps> = () => {
-  const [events, setEvents] = useState<Event[]>([
-    { date: new Date(2024, 2, 15), description: 'Entrega da 1° Realese' },
-    { date: new Date(2024, 7, 6), description: 'Aniversário do Liedson' },
-    { date: new Date(2024, 11, 25), description: 'Natal' },
-    { date: new Date(2024, 2, 31), description: 'Páscoa' },
-  ]);
+const Calendar: React.FC<CalendarProps> = ({ events }: CalendarProps) => {
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
+  const [calendarEvents, setCalendarEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    if (events) {
+      const parsedEvents = events.map(event => ({
+        date: new Date(event.date),
+        description: event.description,
+      }));
+
+      setCalendarEvents(parsedEvents);
+    }
+  }, [events]);
 
   const getMonthName = (month: number): string => {
     const monthNames = [
@@ -43,6 +51,10 @@ const Calendar: React.FC<CalendarProps> = () => {
     const eventDescriptionInput = document.getElementById('eventDescription') as HTMLInputElement;
 
     const isSameDay = (date1: Date, date2: Date): boolean => {
+      if (!(date1 instanceof Date) || !(date2 instanceof Date)) {
+        return false;
+      }
+      
       return (
         date1.getFullYear() === date2.getFullYear() &&
         date1.getMonth() === date2.getMonth() &&
@@ -51,43 +63,41 @@ const Calendar: React.FC<CalendarProps> = () => {
     };
 
     const getEventsForDate = (date: Date): Event[] => {
-      return events.filter(event => isSameDay(event.date, date));
-    };
+      if (calendarEvents) {
+        return calendarEvents.filter(event => isSameDay(event.date, date));
+      }
+      return [];
+    };    
 
     const renderCalendar = (month: number, year: number): void => {
       daysContainer.innerHTML = '';
       monthElement.innerText = `${getMonthName(month)} ${year}`;
-
+      
       const firstDayOfMonth = new Date(year, month, 1).getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       const totalDaysInCalendar = 6 * 7;
-
+    
       for (let i = 0; i < firstDayOfMonth; i++) {
         const emptyDay = document.createElement('li');
         daysContainer.appendChild(emptyDay);
       }
-
+    
       for (let day = 1; day <= totalDaysInCalendar; day++) {
         const dayElement = document.createElement('li');
         if (day <= daysInMonth) {
           dayElement.innerText = day.toString();
           const date = new Date(year, month, day);
-      
+    
           const eventsForDate = getEventsForDate(date);
           if (eventsForDate.length > 0) {
             dayElement.classList.add('has-events');
             dayElement.setAttribute('data-toggle', 'tooltip');
             dayElement.setAttribute('title', eventsForDate.map(event => event.description).join(', '));
           }
-      
-          dayElement.addEventListener('click', () => {
-            const selectedDate = new Date(year, month, day);
-            renderEvents(selectedDate);
-          });
         }
         daysContainer.appendChild(dayElement);
       }
-    };
+    };        
 
     renderCalendar(currentMonth, currentYear);
 
@@ -120,32 +130,36 @@ const Calendar: React.FC<CalendarProps> = () => {
     };
 
     const renderEvents = (date?: Date): void => {
-      events.sort((a, b) => a.date.getTime() - b.date.getTime());
+      if (events) {
+        events.sort((a, b) => a.date.getTime() - b.date.getTime());
 
-      let html = '<ul>';
+        let html = '<ul>';
 
-      events.forEach(event => {
-        const formattedDateTime = formatDateTime(event.date);
-        html += <li><strong>${formattedDateTime}:</strong> ${event.description}</li>;
-      });
+        events.forEach(event => {
+          const formattedDateTime = formatDateTime(event.date);
+          html += `<li><strong>${formattedDateTime}:</strong> ${event.description}</li>`;
+        });
 
-      html += '</ul>';
-      const eventsContainer = document.getElementById('eventsContainer');
-      if (eventsContainer) {
-        eventsContainer.innerHTML = html;
+        html += '</ul>';
+        const eventsContainer = document.getElementById('eventsContainer');
+        if (eventsContainer) {
+          eventsContainer.innerHTML = html;
+        }
       }
     };
 
     const addEvent = (date: Date, description: string): void => {
       const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
 
-      const existingEventIndex = events.findIndex(event => isSameDay(event.date, formattedDate));
+      if (events) {
+        const existingEventIndex = events.findIndex(event => isSameDay(event.date, formattedDate));
 
-      if (existingEventIndex !== -1) {
-        events[existingEventIndex].description = description;
-      } else {
-        const newEvents = [...events, { date: formattedDate, description }];
-        setEvents(newEvents);
+        if (existingEventIndex !== -1) {
+          events[existingEventIndex].description = description;
+        } else {
+          const newEvents = [...events, { date: formattedDate, description }];
+          setCalendarEvents(newEvents);
+        }
       }
     };
 
