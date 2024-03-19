@@ -174,3 +174,9 @@ aside ul h2 {
 .user-acount button:hover{
   color: var(--hover-color);
 }
+
+@media screen and (max-width: 1238px) {
+  aside {
+  display: none;
+}
+}
