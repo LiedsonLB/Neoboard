@@ -253,9 +253,9 @@
   background-color: var(--primary-color);
   padding: 1rem;
   color: var(--white-color);
-  margin: 0 auto;
-  width: 100%;
-  overflow-x: hidden;
+  width: 99%;
+  margin: 2rem auto;
+  border-radius: 10px;
 }
 
 #ranking-container h1 {
@@ -274,6 +274,7 @@
 .ranking {
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
 }
 
 .ranking-title {
