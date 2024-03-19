@@ -127,14 +127,14 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     </button>
                 </section>
 
-                <section id="cards-finance">
+                <section id="cards-finance">       
                     <div className="card-des">
                         <div className="card-obj">
                             <div className="user-men">
                                 <FaChartLine size={100} style={{ color: '#5B7FFF' }} />
                             </div>
-                            <div className="men-info">
-                                <p>Faturamento {dataPeriod}</p>
+                            <div className="men-info">                              
+                            <span><p>Faturamento {dataPeriod}</p></span>
                                 <h1>
                                     R$ <AnimatedNumber value={dataCards.faturamento} />
                                 </h1>
@@ -149,7 +149,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 <FaChartPie size={100} style={{ color: '#5B7FFF' }} />
                             </div>
                             <div className="men-info">
-                                <p>Despesa {dataPeriod}</p>
+                                <span><p>Despesa {dataPeriod}</p></span>
                                 <h1>
                                     R$ <AnimatedNumber value={dataCards.despesas} />
                                 </h1>
@@ -164,7 +164,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 <FaDollarSign size={100} style={{ color: '#5B7FFF' }} />
                             </div>
                             <div className="men-info">
-                                <p>Lucro {dataPeriod}</p>
+                                <span><p>Lucro {dataPeriod}</p></span>
                                 <h1>
                                     R$ <AnimatedNumber value={dataCards.lucro} />
                                 </h1>
@@ -269,7 +269,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 </ul>
                             )}
                         </div>
-                    </div>
+                    </div>         
                 </section>
 
                 <section id="payments">

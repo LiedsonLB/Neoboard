@@ -7,5 +7,11 @@
     height: 100vh;
     display: flex;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
 }
+
+@media screen and (max-width: 1238px) {
+    #home-screen {
+    width: 100vw;
+    }
+  }
