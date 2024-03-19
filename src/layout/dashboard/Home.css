@@ -271,7 +271,8 @@
   padding: 1rem;
   color: var(--white-color);
   width: 99%;
-  margin: 0 auto;
+  margin: 2rem auto;
+  border-radius: 10px;
 }
 
 #ranking-container h1 {
@@ -289,6 +290,7 @@
 .ranking {
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
 }
 
 .ranking-title {
