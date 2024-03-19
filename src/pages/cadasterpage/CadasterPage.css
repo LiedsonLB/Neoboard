@@ -1,10 +1,11 @@
 .background-color-sign {
-    position: absolute;
+    position: fixed;
     background-color: var(--primary-color);
     top: 0;
     right: 0;
     width: 45%;
-    height: 100%;
+    min-height: 100vh;
+    max-height: 720px;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 100%);
     z-index: -1;
 }
@@ -13,7 +14,7 @@
     position: relative;
     display: flex;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .title-sign {
@@ -40,6 +41,7 @@
     width: 55%;
     gap: 1.5rem;
     margin-block: 5em;
+    height: auto;
 }
 
 #singup-header {
@@ -126,13 +128,22 @@ label {
 }
 
 .right-sign {
-    position: relative;
     width: 45%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: column;
-    height: 100%;
+    height: auto;
+
+}
+
+.container-logo-sign {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+    width: 100%;
+    padding: 2em;
 }
 
 .logo-sign {
@@ -143,16 +154,9 @@ label {
     color: var(--white-color);
     font-size: 2rem;
     font-style: var(--font-Krona);
+    margin-top: 1em;
 }
 
-.container-logo-sign {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    gap: 10px;
-    width: 100%;
-    padding-inline: 2em;
-}
 
 #container-img-cadaster {
     display: flex;
@@ -173,7 +177,7 @@ label {
 @media screen and (max-width: 752px) {
     .container-sign {
         flex-direction: column-reverse;
-        height: 100%;
+        min-height: auto;
     }
 
     .background-color-sign {
@@ -189,8 +193,13 @@ label {
         transition: .5s;
     }
 
+    #container-img-cadaster {
+        max-width: 50%;
+        display: none;
+    }
+
     .container-logo-sign {
-        width: 100%;
+        justify-content: center;
         font-size: 0.7rem;
         text-align: center;
         padding: 1em;
@@ -198,11 +207,6 @@ label {
 
     .container-logo-sign p {
         font-size: 1.5rem;
-    }
-
-    #container-img-cadaster {
-        max-width: 50%;
-        display: none;
     }
 
     .right-image {
@@ -227,7 +231,7 @@ label {
     }
 
     #singup-header h2 {
-        font-size: 1.1em;
+        font-size: 1.3em;
     }
 
     #singup-header p {
@@ -248,6 +252,7 @@ label {
 @media screen and (min-width:753px) and (max-width:1000px) {
     .right-sign {
         transition: .5s;
+        display: block;
     }
 
     .container-logo-sign {
@@ -258,9 +263,15 @@ label {
         transition: .5s;
     }
 
+    #container-img-cadaster {
+        display: flex;
+        width: 20em;
+        height: 70%;
+    }
+
     .right-image {
         width: 100%;
-        height: 80%;
+        height: 100%;
         align-items: center;
         justify-content: center;
         margin-top: 3em;
