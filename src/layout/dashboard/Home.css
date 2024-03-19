@@ -6,7 +6,7 @@
   background-color: var(--gray-color);
   height: auto;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 #container-main {
@@ -44,11 +44,6 @@
   gap: 1rem;
 }
 
-@media (max-width: 768px) {
-  #card-presents {
-    gap: 0;
-  }
-}
 
 #card-text {
   display: flex;
@@ -58,12 +53,6 @@
   letter-spacing: 1.5px;
   height: 100%;
   margin-left: 1rem;
-}
-
-@media (max-width: 768px) {
-  #card-text {
-    gap: 0;
-  }
 }
 
 #user-welc {
@@ -162,16 +151,10 @@
 }
 
 #cards-finance {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-
-#cards-finance {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  margin-top: 20px;
 }
 
 #cards-finance .card-des:nth-child(1) {
@@ -270,8 +253,9 @@
   background-color: var(--primary-color);
   padding: 1rem;
   color: var(--white-color);
-  width: 99%;
   margin: 0 auto;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 #ranking-container h1 {
@@ -284,6 +268,7 @@
   display: grid;
   width: 100%;
   grid-template-columns: repeat(3, 1fr);
+  overflow-x: auto;
 }
 
 .ranking {
@@ -426,9 +411,9 @@
   align-items: center;
 }
 
-#chart-payment{
-display: flex;
-align-items: center;
+#chart-payment {
+  display: flex;
+  align-items: center;
 }
 
 .pay-type p {
@@ -583,9 +568,9 @@ align-items: center;
   font-family: var(--font-Krona);
 }
 
-#expenses-data{
-display: flex;
-gap: 20px;
+#expenses-data {
+  display: flex;
+  gap: 20px;
 }
 
 #expense-chart {
@@ -598,25 +583,146 @@ gap: 20px;
   border-radius: 10px;
 }
 
-#expense-calendar{
+#expense-calendar {
   min-width: 360px;
   min-height: 400px;
 }
 
-#expense-calendar img{
-width: 100%;
-height: 90%;
+#expense-calendar img {
+  width: 100%;
+  height: 90%;
 }
 
-#footer{
-background-color: var(--primary-color);
-width: 100%;
-text-align: center;
-color: var(--white-color);
-font-size: 1.3rem;
-padding: 2rem;
-display: flex;
-flex-direction: column;
-gap: 2rem;
-font-weight: bold;
+#footer {
+  background-color: var(--primary-color);
+  width: 100%;
+  text-align: center;
+  color: var(--white-color);
+  font-size: 1.3rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 657px) {
+  #container-present {
+    max-height: auto;
+  }
+
+  #card-presents {
+    flex-direction: column;
+  }
+
+  #container-main {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  #title-main {
+    display: flex;
+    font-size: .8rem;
+    color: var(--primary-color);
+    font-family: var(--font-Krona), sans-serif;
+    animation: slideInUp 1s ease forwards;
+  }
+
+  #container-present {
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: var(--secondy-color);
+    max-height: 23em;
+    width: 90%;
+    animation: scaleIn 1s ease forwards;
+  }
+
+  #card-presents {
+    display: flex;
+    align-items: center;
+    border-radius: 20px;  
+  }
+
+  #present-img {
+    max-height: 50%;
+  }
+
+  #card-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #cards-finance { 
+  grid-template-columns: repeat(3,);
+  overflow-x:auto;
+  }
+
+  #charts-main {
+    display: grid;
+    grid-template-columns: repeat(1, 100%);
+    gap: 10px;
+    height: 50%;
+  }
+
+
+  #ranking-container {
+    overflow-x: hidden;
+    
+  }
+
+  #ranking-types {
+    width: 100%;
+    padding: 1em;
+  }
+
+  #payments-forms {
+    flex-direction: column-reverse;
+
+  }
+
+  #payments-forms ul {
+    width: 50%;
+    margin-bottom: 2em;
+  }
+
+  #expenses-data {
+    flex-direction: column;
+  }
+
+  #expense-chart {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 657px) and (max-width: 838px) {
+  #card-presents {
+    gap: 0;
+  }
+
+  #cards-finance {
+    display: grid;
+    gap: 10px;
+  }
+
+  #ranking-types {
+    width: 100%;
+    padding: 1em;
+  }
+
+
+  #payments-forms {
+    flex-direction: column-reverse;
+
+  }
+
+  #payments-forms ul {
+    width: 40%;
+    margin-bottom: 2em;
+  }
+
 }
