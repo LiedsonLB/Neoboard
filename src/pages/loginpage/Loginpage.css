@@ -1,28 +1,27 @@
 .background-color {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 45%;
-  height: 100%;
+  height: 100vh; /* Alterado de 100% para 100vh */  
   background-color: var(--primary-color);
   clip-path: polygon(0% 0%, 100% 0%, 50% 100%, 0% 100%);
   z-index: -1;
 }
 
 .container {
-  position: relative;
   display: flex;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .left {
-  position: relative;
-  width: 50%;
+  width: 45%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: auto;
 }
 
 .logo {
@@ -88,7 +87,7 @@
   gap: 1.5rem;
   position: relative;
   margin: auto;
-  
+  height: auto;
 }
 
 #login-header {
@@ -252,7 +251,7 @@ label {
   }
 
   .container-logo {
-    width: 100%;
+    justify-content: center;
     font-size: 0.7rem;
     text-align: center;
     padding: 1em;
@@ -328,8 +327,8 @@ label {
   }
 
   #container-img {
-    width: 90%;
-    margin-bottom:5rem;
+    width: 100%;
+    margin-top:4rem;
   }
 
   .left-image {
