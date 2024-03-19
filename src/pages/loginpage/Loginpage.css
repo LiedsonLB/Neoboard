@@ -1,9 +1,11 @@
+/*teste test testando*/
+
 .background-color {
   position: fixed;
   top: 0;
   left: 0;
   width: 45%;
-  height: 100vh; /* Alterado de 100% para 100vh */  
+  height: 100vh;
   background-color: var(--primary-color);
   clip-path: polygon(0% 0%, 100% 0%, 50% 100%, 0% 100%);
   z-index: -1;
@@ -241,7 +243,7 @@ label {
     clip-path: polygon(0% 0%, 100% 0%, 0% 100%, 0% 100%);
     z-index: 1;
     display: none;
-   
+
   }
 
   .left {
@@ -264,7 +266,7 @@ label {
   #container-img {
     max-width: 50%;
     display: none;
-  
+
   }
 
   .left-image {
@@ -304,7 +306,7 @@ label {
 
   .login-field form {
     width: 100%;
-    }
+  }
 }
 
 @media screen and (min-width:753px) and (max-width:1000px) {
@@ -328,7 +330,7 @@ label {
 
   #container-img {
     width: 100%;
-    margin-top:4rem;
+    margin-top: 4rem;
   }
 
   .left-image {
@@ -357,5 +359,19 @@ label {
   #login-header p {
     width: 100%;
     font-size: 1.1em;
+  }
+
+  .login-google {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    background: var(--white-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 2px;
+    transition: .8s;
+    font-weight: bold;
   }
 }
