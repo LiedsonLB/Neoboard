@@ -14,6 +14,7 @@
   flex-direction: column;
   width: 95%;
   margin: 0 auto;
+
 }
 
 #title-main {
@@ -363,7 +364,7 @@
 }
 
 #payments {
-  padding: 3rem;
+  padding: 3em;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -624,11 +625,7 @@
   }
 
   #title-main {
-    display: flex;
-    font-size: .8rem;
-    color: var(--primary-color);
-    font-family: var(--font-Krona), sans-serif;
-    animation: slideInUp 1s ease forwards;
+    justify-content: center;
   }
 
   #container-present {
@@ -637,18 +634,18 @@
     border-radius: 20px;
     background-color: var(--secondy-color);
     max-height: 23em;
-    width: 90%;
+    width: 100%;
     animation: scaleIn 1s ease forwards;
   }
 
   #card-presents {
     display: flex;
     align-items: center;
-    border-radius: 20px;  
+    border-radius: 20px;
   }
 
   #present-img {
-    max-height: 50%;
+    max-height: 72%;
   }
 
   #card-text {
@@ -658,9 +655,24 @@
     text-align: center;
   }
 
-  #cards-finance { 
-  grid-template-columns: repeat(3,);
-  overflow-x:auto;
+  #periods {
+    justify-content: center;
+  }
+
+  #periods button {
+    padding: 1.2em 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #cards-finance {
+    overflow-x: auto;
+    grid-template-columns: repeat(1, 3fr);
+  }
+
+  #collect-charts header h3 {
+  text-align: center;
   }
 
   #charts-main {
@@ -670,15 +682,25 @@
     height: 50%;
   }
 
-
   #ranking-container {
-    overflow-x: hidden;
-    
+    overflow-x: auto;
   }
+
+  #ranking-container h1 {
+  text-align: center;
+  }  
 
   #ranking-types {
     width: 100%;
     padding: 1em;
+  }
+
+  #payments {
+    padding: 0;
+  }
+
+  #payments h1 {
+    text-align: center;
   }
 
   #payments-forms {
@@ -686,21 +708,44 @@
 
   }
 
+  #payments-forms ul h6 {
+    text-align: center;
+  }
+
   #payments-forms ul {
-    width: 50%;
-    margin-bottom: 2em;
+    width: 95%;
+    margin-bottom: 2rem;
+  }
+
+  #expenses {
+    width: 100%;
+  }
+
+  #expenses h1 {
+    justify-content: center;
   }
 
   #expenses-data {
     flex-direction: column;
+    width: 100%;
+    align-items: center;
   }
 
   #expense-chart {
     width: 100%;
+    height: auto;
+  }
+
+  #expense-calendar {
+    align-items: center;
+  }
+
+  #expense-calendar .calendar {
+    width: 80vw;
   }
 }
 
-@media screen and (min-width: 657px) and (max-width: 838px) {
+@media screen and (min-width: 657px) and (max-width: 1000px) {
   #card-presents {
     gap: 0;
   }
@@ -708,6 +753,9 @@
   #cards-finance {
     display: grid;
     gap: 10px;
+    overflow-x: auto;
+    grid-template-columns: repeat(2, 1fr);
+
   }
 
   #ranking-types {
@@ -715,15 +763,29 @@
     padding: 1em;
   }
 
-
   #payments-forms {
     flex-direction: column-reverse;
-
   }
 
   #payments-forms ul {
-    width: 40%;
-    margin-bottom: 2em;
+    margin-bottom: 2rem;
+  }
+
+  #payments-forms ul h6 {
+    text-align: center;
+  }
+
+  #payments-forms ul li {
+    width: 30vw;
+  }
+
+  #expenses-data {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #expense-chart {
+    width: auto;
   }
 
 }
