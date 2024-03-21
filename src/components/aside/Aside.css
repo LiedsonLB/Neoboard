@@ -64,7 +64,7 @@
   #togle-btn {
     display: flex;
     flex-direction: column;
-    padding-top:1rem;
+    padding-top: .5rem;
     padding-left: 1rem;
     justify-content: center;
   }
@@ -140,16 +140,23 @@
     list-style: none;
     opacity: 0;
     animation: fadeInLeft 1s ease forwards;
+    animation-delay: 0s;
     display: flex;
     align-items: center;
     color: var(--white-color);
     text-decoration: none;
     width: 100%;
     height: 100%;
-    padding: 1rem;
+    padding: .9rem;
     gap: 10px;
     cursor: pointer;
+    -webkit-user-select: none;
     user-select: none;
+    justify-content: start;
+  }
+
+  aside.closed ul li {
+    justify-content: end;
   }
   
   aside ul li:nth-child(1) {

@@ -22,7 +22,7 @@
   font-size: .8rem;
   color: var(--primary-color);
   font-family: var(--font-Krona), sans-serif;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   animation: slideInUp 1s ease forwards;
 }
 
@@ -559,7 +559,7 @@
 }
 
 #expenses {
-  padding: 2rem;
+  padding: 2rem 0rem;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -590,7 +590,7 @@
 }
 
 #expense-calendar {
-  min-width: 360px;
+  min-width: 400px;
   min-height: 400px;
 }
 
@@ -751,7 +751,7 @@
   }
 
   #expense-calendar .calendar {
-    width: 80vw;
+    width: 98vw;
     margin: auto;
   }
 }
@@ -802,7 +802,4 @@
   #expense-chart {
     width: auto;
   }
-
-  #card-presents {}
-
 }

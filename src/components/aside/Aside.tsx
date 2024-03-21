@@ -14,7 +14,7 @@ const Aside = ({ user, changeComponent }: Props) => {
     const [photo, setPhoto] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         if (user) {
