@@ -73,7 +73,7 @@
     gap: 10px;
 }
 
-label {
+.input-field label {
     color: var(--black-color);
     font-weight: 500;
 }
