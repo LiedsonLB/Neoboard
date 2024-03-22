@@ -82,7 +82,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
             <section id="container-main">
                 <header id="title-main">
                     <span>
-                        <h1>Análise do Mês</h1>
+                        <h1>Análise {dataPeriod}</h1>
                     </span>
                 </header>
                 <article id="container-present">
