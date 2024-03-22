@@ -89,6 +89,7 @@
     outline: none;
     border-radius: 2px;
     color: var(--black-color);
+    font-family: var(--font-Krub);
 }
 
 .user:focus,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoPaperPlaneOutline, IoLogOutOutline, IoMenuOutline, IoCloseOutline, IoExitOutline, IoChevronDownOutline, IoChevronDownCircleOutline } from 'react-icons/io5';
+import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoPaperPlaneOutline, IoLogOutOutline, IoMenuOutline, IoCloseOutline, IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import { signOut } from 'firebase/auth'
 // @ts-ignore
 import { auth } from '../../services/firebase'
@@ -15,7 +15,6 @@ const Aside = ({ user, changeComponent }: Props) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -27,15 +26,6 @@ const Aside = ({ user, changeComponent }: Props) => {
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
-    };
-
-    const handleLogout = () => {
-        setShowLogoutConfirmation(!showLogoutConfirmation);
-    };
-
-    const handleLogoutConfirm = () => {
-        setShowLogoutConfirmation(false);
-        signOut(auth);
     };
 
     return (
@@ -59,12 +49,7 @@ const Aside = ({ user, changeComponent }: Props) => {
                         <h4 id='acount-userName'>{name}</h4>
                         <p id='acount-email'>{email}</p>
                     </div>
-                    <div id='logout-menu'>
-                        <button onClick={handleLogout} id='logout-btn'><IoChevronDownOutline /></button>
-                        {showLogoutConfirmation && (                         
-                                <button onClick={handleLogoutConfirm} id='option-logout'><IoExitOutline />Sair  </button>                           
-                        )}
-                    </div>
+                    <button onClick={() => signOut(auth)}><IoLogOutOutline /></button>
                 </div>
                 <div id="description">
                     <p>Informe-se sobre:</p>

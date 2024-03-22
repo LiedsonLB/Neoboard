@@ -21,21 +21,21 @@ const FAQ = () => {
               <span className='icon-faq-email'><IoMail /></span>
               <span><p className='faq-contacts'>Email</p></span>
               <span><p>neoboard@neo.com</p></span>
-              <a href="mailto:liedson.b9@gmail.com">escrever email <IoChevronForwardOutline /></a>
+              <a href="mailto:liedson.b9@gmail.com">Escrever Email<IoChevronForwardOutline /></a>
             </div>
 
             <div className='social-card'>
               <span className='icon-faq-zap'><IoLogoWhatsapp /></span>
               <span><p className='faq-contacts'>Whatsapp</p></span>
               <span><p>+5586998635571</p></span>
-              <a href="https://wa.me/86998635571">conversar no Whatsapp <IoChevronForwardOutline /></a>
+              <a href="https://wa.me/86998635571">Conversar no Whatsapp<IoChevronForwardOutline /></a>
             </div>
 
             <div className='social-card'>
               <span className='icon-faq-linkedin'><IoLogoLinkedin /></span>
               <span><p className='faq-contacts'>Linkedin</p></span>
               <span><p>in/neoboard</p></span>
-              <a href="https://www.linkedin.com/in/liedsonlb/">contato no linkedin &gt;</a>
+              <a href="https://www.linkedin.com/in/liedsonlb/">Contato no Linkedin<IoChevronForwardOutline /></a>
             </div>
           </div>
         </section>
@@ -67,8 +67,7 @@ const FAQ = () => {
               <div className="input-faq-msg">
                 <label>Mensagem:</label>
                 <div className='faq-msg'>
-                  <input
-                    type={"text"}
+                  <textarea
                     name="msg"
                     placeholder="Envie sua mensagem..."
                     className="msg-faq"

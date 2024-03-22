@@ -44,19 +44,16 @@ aside {
 }
 
 #aside-home.closed .user-acount {
- 
+  flex-direction: column;
 }
 
 
 #aside-home.closed #acount-photo {
-  margin-left: .3rem;
+  margin-left: .6rem;
 }
 
 #aside-home.closed .user-acount button {
-margin-right: 1.4rem;
-margin-top: .5rem;
-top: 0;
-margin-left: 0;
+  font-size: 1.8em;
 }
 
 #aside-home.closed #navigation-home ul {
@@ -201,7 +198,7 @@ aside ul li:hover {
 
 #logoutBtn {
   transition: .5s;
-  margin-top: rem;
+  margin-top: 4rem;
 }
 
 #acount-info {
@@ -254,82 +251,17 @@ aside ul h2 {
   font-size: 1.5rem;
 }
 
-#logout-menu {
-  display: flex;
-  flex-direction: column;
-  align-items:center;
-  justify-content: space-between;
-  margin-left: 1em;
-}
-
 .user-acount button {
   border: none;
-  position: absolute;
   background: transparent;
   font-size: 1.6rem;
   color: var(--white-color);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  top: .4rem;
-  margin-left: 2rem;
-  
 }
 
 .user-acount button:hover {
   color: var(--hover-color);
 }
-
-.logout-options{
-display: flex; 
-flex-direction: column;
-align-items: center;
-
-}
-
-#option-logout {
-  background-color: white; 
-  border-radius: 2px;
-  padding: .2rem .8rem;
-  font-size: 1rem;
-  color: black;
-  margin-top: 1.6rem;
-  animation: slideInUp .1s ease forwards;
-}
-
-#option-logout:hover {
-  background-color: rgb(242, 238, 238);
-}
-
-#aside-home.closed #logout-btn{
-  border: none;
-  background: transparent;
-  font-size: 1.6rem;
-  color: var(--white-color);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-
-}
-
-#aside-home.closed #logout-btn:hover{
-  color: var(--hover-color);
-}
-
-#aside-home.closed #option-logout {
-  background-color: white; 
-  border-radius: 2px;
-  padding: .2rem .5rem;
-  font-size: 1rem;
-  color: black;
-  margin-top: 3rem;
-  margin-right: 4.5rem;
-}
-
-#aside-home.closed #option-logout:hover{
-  background-color: rgb(242, 238, 238);
-}
-
 
 @media screen and (max-width: 750px) {
   #aside-container {
