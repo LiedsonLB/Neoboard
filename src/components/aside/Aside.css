@@ -1,7 +1,10 @@
 #aside-container {
   display: flex;
-  flex-direction: row-reverse;
   height: 100vh;
+  position: fixed;
+  z-index: 2;
+  flex-direction: column;
+  background-color: var(--primary-color);
 }
 
 aside {
@@ -14,11 +17,6 @@ aside {
   gap: 1rem;
   padding: 1rem 1rem;
   transition: width 0.3s ease;
-}
-
-#aside-container {
-  flex-direction: column;
-  background-color: var(--primary-color);
 }
 
 #aside-home.closed {
@@ -65,7 +63,7 @@ aside {
   display: flex;
   flex-direction: column;
   padding-top: .5rem;
-  padding-left: 1rem;
+  padding-left: .9rem;
   justify-content: center;
 }
 
@@ -263,15 +261,16 @@ aside ul h2 {
   color: var(--hover-color);
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 749px) {
   #aside-container {
     background: transparent;
-
+    position: fixed;
+    z-index: 2;
   }
 
   aside {
-    padding-top: 4rem;
-    min-width: 100vw;
+    padding-top: 4.63rem;
+
   }
 
   #aside-home.closed {
@@ -283,7 +282,6 @@ aside ul h2 {
     display: flex;
     flex-direction: column;
     z-index: 2;
-    padding: .5rem;
     background: none;
   }
 
@@ -303,4 +301,21 @@ aside ul h2 {
     color: var(--white-color);
     cursor: pointer;
   }
+}
+
+@media screen and (min-width: 750px) and (max-width: 1078px) {
+  #aside-container {
+    background: transparent;
+    position: fixed;
+    z-index: 2;
+  }
+
+  #togle-btn {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    background: var(--primary-color);
+  }
+
+
 }

@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  margin-left: 79px;
   background-color: var(--gray-color);
   overflow-y: auto;
   overflow-x: auto;
@@ -145,6 +146,10 @@
   border: 1.7px solid transparent;
   font-family: var(--font-krub);
   font-weight: bold;
+  padding: 1.2em 4em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #periods button:hover {
@@ -243,7 +248,7 @@
   display: grid;
   grid-template-columns: 70% 30%;
   height: 400px;
-  gap: 10px;
+  gap: 20px;
   margin-bottom: 1rem;
 }
 
@@ -576,27 +581,23 @@
 
 #expenses-data {
   display: flex;
-  gap: 20px;
+  justify-content: space-around;
+  gap: 10px;
 }
 
 #expense-chart {
   height: 400px;
-  width: 65%;
+  width: 60%;
   background-color: var(--white-color);
   display: flex;
   align-items: center;
   padding: 0.5rem;
   border-radius: 10px;
+
 }
 
-#expense-calendar {
-  min-width: 400px;
-  min-height: 400px;
-}
-
-#expense-calendar img {
-  width: 100%;
-  height: 90%;
+#calendar-description {
+  text-align: center;
 }
 
 #footer {
@@ -612,9 +613,9 @@
   font-weight: bold;
 }
 
-@media screen and (max-width: 657px) {
-  #container-present {
-    max-height: auto;
+@media screen and (max-width: 750px) {
+  #main-page {
+    margin-left: 0;
   }
 
   #card-presents {
@@ -624,7 +625,7 @@
   #container-main {
     display: flex;
     flex-direction: column;
-    width: 95%;
+    width: 90%;
     margin: 0 auto;
   }
 
@@ -637,9 +638,14 @@
     justify-content: center;
     border-radius: 20px;
     background-color: var(--secondy-color);
-    max-height: 23em;
+    max-height: 25em;
     width: 100%;
     animation: scaleIn 1s ease forwards;
+  }
+
+  #user-welc {
+    justify-content: center;
+
   }
 
   #card-presents {
@@ -661,24 +667,19 @@
   }
 
   #user-welc {
-  text-align: center;
-  
+    text-align: center;
+
   }
 
   #periods {
     justify-content: center;
   }
 
-  #periods button {
-    padding: 1.2em 4em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   #cards-finance {
     overflow-x: auto;
     grid-template-columns: repeat(1, 3fr);
+    justify-content: center;
+
   }
 
   #collect-charts header h3 {
@@ -707,6 +708,7 @@
 
   #payments {
     padding: 0;
+    align-items: center;
   }
 
   #payments h1 {
@@ -747,18 +749,27 @@
   }
 
   #expense-calendar {
+    width: 100%;
     align-items: center;
   }
 
   #expense-calendar .calendar {
-    width: 98vw;
+    width: 90vw;
     margin: auto;
   }
 }
 
-@media screen and (min-width: 657px) and (max-width: 1000px) {
-  #title-main {
-    justify-content: center;
+@media screen and (min-width: 750px) and (max-width: 1030px) {
+  #main-page {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 79px;
+    background-color: var(--gray-color);
+    overflow-y: auto;
+    overflow-x: auto;
+    height: auto;
   }
 
   #card-presents {
@@ -773,13 +784,30 @@
 
   }
 
+  #periods {
+    justify-content: center;
+  }
+
+  #collect-charts header h3 {
+    text-align: center;
+  }
+
+  #ranking-container h1 {
+    text-align: center;
+  }
+
   #ranking-types {
     width: 100%;
     padding: 1em;
   }
 
+  #payments {
+    align-items: center;
+  }
+
   #payments-forms {
     flex-direction: column-reverse;
+
   }
 
   #payments-forms ul {
@@ -794,12 +822,25 @@
     width: 30vw;
   }
 
-  #expenses-data {
-    flex-direction: column;
-    width: 100%;
+  #expenses h1 {
+    display: flex;
+    justify-content: center;
+
   }
 
-  #expense-chart {
-    width: auto;
+  #expenses-data {
+    flex-direction: column;
+    align-items: center;
   }
+
+  #expense-calendar {
+    width: 100%;
+    align-items: center;
+  }
+
+  #expense-calendar .calendar {
+    width: 60vw;
+    margin: auto;
+  }
+
 }
