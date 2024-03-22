@@ -1,14 +1,101 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
+
   provider = "prisma-client-js"
+
 }
 
+ 
+
 datasource db {
+
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+
+  url  =  "postgresql://myuser:mypassword@localhost:5432"
+
+}
+
+ 
+
+model Usuario {
+
+  email  String  @id
+  IDF Int @unique
+  CPf String
+  Nome String
+  telefone String
+  idade Int
+  endereco String
+  form_acad String
+  vendas Venda[]
+  regioes Regiao[]
+
+}
+
+ 
+
+model Regiao {
+
+  IDR  Int  @id
+  nome  String
+  IDF  Int
+  usuario Usuario @relation(fields: [IDF], references: [IDF])
+
+}
+
+ 
+
+model ItensVenda {
+
+  IDIV Int @id
+  quant_item  Int
+  IDV Int
+  venda  Venda  @relation(fields: [IDV], references: [IDV])
+  IDP Int
+  produto Produto  @relation(fields: [IDP], references: [IDP])
+
+ 
+
+  @@index([IDV], name: "idx_itens_venda_venda_id")
+
+}
+
+ 
+
+model Produto {
+
+  IDP  Int @id
+  preco  Float
+  categoria String
+  nome   String
+  descricao String
+  vendas  Venda[]
+  itensVenda ItensVenda[]
+
+}
+
+ 
+
+model Venda {
+
+  IDV  Int   @id
+  Data DateTime
+  total   Float
+  IDF   Int
+  
+  usuario  Usuario      @relation(fields: [IDF], references: [IDF])
+  produtos Produto[]
+  IDFP  Int
+  formaPagto  FormaPagamento @relation(fields: [IDFP], references: [IDFP])
+  itensVendaItensVenda[]
+
+}
+
+ 
+
+model FormaPagamento {
+
+  IDFP Int @id
+  tipo String
+  vendas Venda[]
+
 }
