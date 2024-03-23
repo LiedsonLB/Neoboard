@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  margin-left: 79px;
+
   background-color: var(--gray-color);
   overflow-y: auto;
   overflow-x: auto;
@@ -249,7 +249,7 @@
   grid-template-columns: 70% 30%;
   height: 400px;
   gap: 20px;
-  margin-bottom: 1rem;
+  margin-bottom: 3em;
 }
 
 #column-chart,
