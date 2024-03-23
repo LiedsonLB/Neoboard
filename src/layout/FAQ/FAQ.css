@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 100%;
     padding-bottom: 1rem;
-    height: max-content;
+    height: 100vh;
     background-color: var(--gray-color);
 }
 
@@ -23,6 +23,7 @@
     width: 100%;
     height: auto;
     align-items: start;
+    gap: 4rem;
 }
 
 #faq-left {
