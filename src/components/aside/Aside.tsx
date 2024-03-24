@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoPaperPlaneOutline, IoLogOutOutline, IoMenuOutline, IoCloseOutline, IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import { IoGridOutline, IoBasketOutline, IoLocationOutline, IoPeopleOutline, IoBarChartOutline, IoDocumentTextOutline, IoPaperPlaneOutline, IoLogOutOutline, IoMenuOutline, IoCloseOutline } from 'react-icons/io5';
 import { signOut } from 'firebase/auth'
 // @ts-ignore
 import { auth } from '../../services/firebase'
