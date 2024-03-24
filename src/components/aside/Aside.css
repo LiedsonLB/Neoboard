@@ -1,7 +1,6 @@
 #aside-container {
   display: flex;
   height: 100vh;
-  position: fixed;
   z-index: 2;
   flex-direction: column;
   background-color: var(--primary-color);
@@ -24,7 +23,6 @@ aside {
   padding: 1rem 1rem;
   padding-block: 1em;
   padding-inline: .4em;
-  transition: .5s;
 }
 
 #aside-home.closed header {
@@ -303,7 +301,7 @@ aside ul h2 {
   }
 }
 
-@media screen and (min-width: 750px) and (max-width: 1078px) {
+@media screen and (min-width: 750px) and (max-width: 1030px) {
   #aside-container {
     background: transparent;
     position: fixed;
