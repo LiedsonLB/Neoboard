@@ -4,7 +4,7 @@ import "./FAQ.css";
 import { IoChevronForwardOutline, IoLogoWhatsapp, IoLogoLinkedin, IoMail } from 'react-icons/io5';
 
 const FAQ = () => {
-
+  
   function sendEmail(e: any) {
     e.preventDefault();
 
@@ -23,7 +23,6 @@ const FAQ = () => {
         console.log(error.text);
         // lógica para mostrar um popup de erro
       });
-
     e.target.reset();
   }
 

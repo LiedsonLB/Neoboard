@@ -1,6 +1,6 @@
 #homepage {
     display: flex;
-    overflow-y: auto;
+    overflow: hidden;
 }
 #home-screen {
     width: 100vw;

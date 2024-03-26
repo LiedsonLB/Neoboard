@@ -3,11 +3,10 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-
   background-color: var(--gray-color);
   overflow-y: auto;
   overflow-x: auto;
-  height: auto;
+  height: 100vh;
 }
 
 #container-main {
@@ -594,6 +593,17 @@
   padding: 0.5rem;
   border-radius: 10px;
 
+}
+
+#expense-calendar{
+max-width: 360px;
+max-height: 400px;
+}
+
+#expense-calendar .calendar{
+  max-width: 360px;
+  max-height: 400px;
+  
 }
 
 #calendar-description {
