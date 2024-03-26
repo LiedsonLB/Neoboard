@@ -10,6 +10,7 @@ import { useSpring, animated } from 'react-spring';
 import ColumnChart from '../../components/charts/ColumnChart.tsx';
 import Calendar from '../../components/calendar/Calendar.tsx';
 import LoadingComponent from '../../components/loading/LoadingComponent.tsx';
+import Modal from '../../components/modal/Modal.tsx';
 
 interface Produto {
     img: string | undefined;
@@ -78,6 +79,8 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     }, [dataPeriod]);
 
     return (
+        <>
+        <Modal />
         <main id="main-page">
             <section id="container-main">
                 <header id="title-main">
@@ -354,6 +357,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                 <p>Todos os direitos reservados a &copy;Neoboard 2024</p>
             </footer>
         </main>
+        </>
     );
 };
 

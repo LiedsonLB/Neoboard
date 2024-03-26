@@ -4,6 +4,7 @@
   z-index: 2;
   flex-direction: column;
   background-color: var(--primary-color);
+  position: relative;
 }
 
 aside {
@@ -60,17 +61,22 @@ aside {
 #togle-btn {
   display: flex;
   flex-direction: column;
-  padding-top: .5rem;
-  padding-left: .9rem;
   justify-content: center;
+  position: absolute;
+  right: -3rem;
+  top: 1rem;
+  z-index: 5;
+}
+
+#toggleSidebarBtn:hover {
+  color: var(--white-color) !important;
 }
 
 #toggleSidebarBtn {
   background: var(--primary-color);
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  color: white;
+  color: var(--white-color);
   font-size: 2.5rem;
   display: flex;
   justify-content: center;
@@ -78,11 +84,8 @@ aside {
   width: 50px;
   height: 50px;
   padding: 5px;
-}
-
-#toggleSidebarBtn:hover {
-  transition: 1s;
-  background: var(--secondy-color);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 #toggleSidebarBtn:focus {
@@ -113,6 +116,10 @@ aside header span h2 {
 
 #description {
   color: var(--white-color);
+}
+
+#navigation-home ul li:hover .icon {
+  color: var(--white-color); /* Aqui você pode colocar a cor desejada para o ícone quando o <li> está em estado de hover */
 }
 
 .user-acount {
@@ -266,9 +273,11 @@ aside ul h2 {
     z-index: 2;
   }
 
-  aside {
-    padding-top: 4.63rem;
+  aside ul li {
+    padding: 1.3rem 1rem;
+  }
 
+  aside {
   }
 
   #aside-home.closed {
@@ -314,6 +323,4 @@ aside ul h2 {
     z-index: 2;
     background: var(--primary-color);
   }
-
-
 }

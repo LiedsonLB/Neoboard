@@ -205,7 +205,7 @@
   align-items: center;
   justify-content: end;
   gap: 3px;
-  color: var(--white-color);
+  color: var(--secondy-color);
 }
 
 .men-info span h1 {
@@ -754,7 +754,7 @@
   }
 
   #expense-calendar .calendar {
-    width: 90vw;
+    max-width: 380px;
     margin: auto;
   }
 }
