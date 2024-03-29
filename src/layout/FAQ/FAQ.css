@@ -22,14 +22,14 @@
     justify-content: center;
     background-color: var(--gray-color);
     text-align: center;
-    padding: 2rem;
+    margin: 2rem;
 }
 
 #faq-sections {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    align-items: start;
+    align-items: center;
     background-color: var(--gray-color);
 }
 
@@ -38,6 +38,7 @@
     flex-direction: column;
     gap: 1.5rem;
     text-align: center;
+    font-size: .8rem;
 }
 
 #faq-left header {
@@ -100,6 +101,7 @@
     width: 100%;
     min-width: 400px;
     max-width: 50%;
+    font-size: .8rem;
 
 }
 
@@ -133,7 +135,7 @@
 }
 
 .data-faq::placeholder {
-    font-size: 1rem;
+    font-size: .8rem;
 }
 
 .input-faq-msg {
@@ -158,7 +160,7 @@
 }
 
 .msg-faq::placeholder {
-    font-size: 1rem;
+    font-size: .8rem;
     font-family: var(--font-Krub);
 }
 
