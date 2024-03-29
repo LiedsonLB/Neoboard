@@ -201,7 +201,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             {loading ? (
                                 <LoadingComponent />
                             ) : produtos.length === 0 ? (
-                                <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                <p></p>
                             ) : (
                                 <ul>
                                     {produtos.map(produto => (
@@ -227,7 +227,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             {loading ? (
                                 <LoadingComponent />
                             ) : produtos.length === 0 ? (
-                                <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                <p style={{ color: 'red', textAlign: 'center' }}>Não foi encontrado nenhum dado.</p>
                             ) : (
                                 <ul>
                                     {produtos.map(produto => (
@@ -252,7 +252,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             {loading ? (
                                 <LoadingComponent />
                             ) : produtos.length === 0 ? (
-                                <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                <p></p>
                             ) : (
                                 <ul>
                                     {produtos.map(produto => (
