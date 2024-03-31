@@ -1,0 +1,232 @@
+#report-container {
+    background-color: var(--gray-color);
+    width: 100%;
+    height: 100vh;
+}
+
+#report-header {
+    padding: 2rem 4rem;
+}
+
+#report-header h1 {
+    font-family: var(--font-Krona), sans-serif;
+    animation: slideInUp 1s ease forwards;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+#report-main {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--gray-color);
+    height: max-content;
+}
+
+.linha-do-tempo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 2px;
+    height: auto;
+    background-color: var(--primary-color);
+    margin: 3rem;
+    padding: 0 0;
+}
+
+.evento {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.ponto {
+    position: absolute;
+    left: -.55rem;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 50%;
+    z-index: 1;
+
+}
+
+#first-dot {
+    background-color: #fff;
+}
+
+.data {
+    margin-left: 30px;
+    /* Espaço entre o ponto e o texto */
+}
+
+.linha-do-tempo::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+    z-index: 0;
+}
+
+.ponto::after {
+    content: attr(data-label);
+    position: absolute;
+    color: #333;
+    font-size: 14px;
+}
+
+#drop-area {
+    border-radius: 20px;
+    margin: 2rem 3rem;
+}
+
+.button {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--white-color);
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    padding: 4rem;
+
+}
+
+.button:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+    color: var(--white-color);
+}
+
+#report-icon {
+    font-size: 2rem;
+}
+
+#report-line {
+    margin-inline: 3rem;
+    background-color: black;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#report-right header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-inline: 3rem;
+}
+
+#file-header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#title-file {
+    padding: 5px;
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: 5px;
+}
+
+#title-file:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+#file-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#desc-file {
+    padding: 1rem;
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: 5px;
+}
+
+#desc-file:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+#report-btns {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem auto;
+}
+
+.rep-btn {
+    padding: .5rem 2rem;
+}
+
+#cancel-btn {
+    background-color: transparent;
+    border-radius: 5px;
+    border-color: var(--secondy-color);
+    color: var(--secondy-color);
+    cursor: pointer;
+}
+
+#cancel-btn:hover {
+    transform: scale(1.2);
+}
+
+#add-rep-btn {
+    background-color: var(--secondy-color);
+    border-radius: 5px;
+    border-color: var(--secondy-color);
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+#add-rep-btn:hover{
+    transform: scale(1.2);
+}
+
+@keyframes anime {
+    0% {
+        width: 0%;
+    }
+
+    60% {
+        width: 50%;
+    }
+}
+
+.ranking ul li {
+    width: 300px;
+    padding: 5px 10px;
+    color: var(--primary-color);
+    font-weight: bold;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 1078px) {
+    #report-header {
+        text-align: center;
+    }
+    
+    #report-main{
+    display: flex;
+    justify-content: space-evenly;
+    
+    }
+}
+
+
+

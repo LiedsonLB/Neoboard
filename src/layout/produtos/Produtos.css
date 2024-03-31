@@ -176,7 +176,7 @@
 #products-list {
     display: grid;
     grid-template-columns: repeat(4, 200px);
-    gap: 5px;
+    gap: 1rem;
     margin: 2rem 0;
     justify-content: space-between;
 
