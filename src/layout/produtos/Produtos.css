@@ -4,7 +4,7 @@
     height: 100vh;
 }
 
-#product-inside{
+#product-inside {
     background-color: var(--gray-color);
     width: 100%;
     height: max-content;
@@ -36,15 +36,36 @@
     margin: 0 4rem;
 }
 
-#prod-main {
+#prod-card {
     background-color: var(--white-color);
     border-radius: 10px;
+    padding: 1rem;
+    margin: 0 auto;
+    width: 70%;
+}
+
+#card-prod-desc {
     display: flex;
+    justify-content: end;
+    position: relative;
+    bottom: 2rem;
+    left: 2rem;
+}
+
+#card-prod-desc p {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    position: absolute;
+}
+
+#prod-main {
+    border-radius: 10px;
+    display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    width: 70%;
-    margin: 0 auto;
 }
 
 .icecream-img {
@@ -60,6 +81,7 @@
 
 #container-prod-img {
     display: flex;
+    gap: 1rem;
 }
 
 #prod-desc {
@@ -77,21 +99,12 @@
     font-size: 1.2rem;
 }
 
-#card-prod-desc p {
-    color: var(--white-color);
-    background-color: var(--primary-color);
-    padding: .5rem 1.5rem;
-    border-radius: 5px;
-    position: relative;
-    bottom: 2.5rem;
-    left: 1.5rem;
-}
-
 #product-chart {
     background-color: red;
     height: 100px;
     width: 100px;
     border-radius: 50%;
+    margin-right: 2rem;
 }
 
 #search-prod {
@@ -135,11 +148,11 @@
 }
 
 
-#search-icon{
-position: absolute;
-right:.5rem;
-bottom: 0.2em;
-font-size: 1.2rem;
+#search-icon {
+    position: absolute;
+    right: .5rem;
+    bottom: 0.2em;
+    font-size: 1.2rem;
 }
 
 #search-product:focus {
@@ -154,13 +167,19 @@ font-size: 1.2rem;
     color: white;
 }
 
+#add-product:hover {
+    cursor: pointer;
+    background: var(--hover-color);
+    transition: .5s;
+}
+
 #products-list {
     display: grid;
-    grid-template-columns: repeat(4,170px);
+    grid-template-columns: repeat(4, 200px);
     gap: 5px;
     margin: 2rem 0;
     justify-content: space-between;
-    
+
 }
 
 .prod-card {
@@ -168,7 +187,7 @@ font-size: 1.2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     padding: 1rem;
     border-radius: 5px;
     text-align: center;
@@ -185,7 +204,9 @@ font-size: 1.2rem;
 }
 
 .prod-card button:hover {
-    background-color: var(--hover-color);
+    cursor: pointer;
+    background: var(--hover-color);
+    transition: .5s;
 }
 
 .prod-name {
@@ -197,40 +218,52 @@ font-size: 1.2rem;
         text-align: center;
     }
 
+    #prod-card {
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 0 auto;
+        width: 70%;
+    }
+
     #prod-main {
-        flex-direction: column-reverse;
+        flex-direction: column;
         gap: 5rem;
+        width: 100%;
+        position: relative;
+        padding: 1rem;
     }
 
-    #container-prod-img{
-    flex-direction: column;
-     align-items: center;
-     text-align: center;
+    #container-prod-img {
+        flex-direction: column;
+        align-items: center;
     }
 
-    #card-prod-desc{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    #card-prod-desc {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        bottom: 1rem;
+        left: 0;
+        z-index: 1;
     }
 
     #card-prod-desc p {
-       left: 0;     
+        justify-content: center;
     }
 
-    #search-prod{
-    flex-direction: column;
+    #product-chart {
+        margin-right: 0;
+    }
+
+    #search-prod {
+        flex-direction: column;
     }
 
     #products-list {
         display: grid;
-        grid-template-columns: repeat(2, 150px);
-        margin: 2rem 0;
-        gap: 1rem;
-        justify-content: space-around;
-        
+        grid-template-columns: repeat(2, 200px);
+        justify-content: center;
+
     }
-
-
-
 }

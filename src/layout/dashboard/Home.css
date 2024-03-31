@@ -596,12 +596,12 @@
 }
 
 #expense-calendar{
-max-width: 360px;
+max-width: 380px;
 max-height: 400px;
 }
 
 #expense-calendar .calendar{
-  max-width: 360px;
+  max-width: 380px;
   max-height: 400px;
   
 }
