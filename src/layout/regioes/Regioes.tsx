@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Regioes.css";
-import { IoChevronForwardOutline, IoLogoWhatsapp, IoLogoLinkedin, IoMail, IoSearch, IoSearchCircle, IoSearchCircleOutline, IoSearchSharp } from 'react-icons/io5';
+import { IoEye, IoSearch } from 'react-icons/io5';
+import RegionDoughnout from '../../components/charts/RegionDoughnout';
 
 const Regioes = () => {
   return (
@@ -12,11 +13,8 @@ const Regioes = () => {
         </header>
 
         <main id='region-main'>
-
           <article id='region-card'>
-            <div id='card-region-desc'>
-              <p>Região do Mês</p>
-            </div>
+            <p id='text-region-mes'>Região do Mês</p>
             <div id='reg-main'>
               <div id='container-region-img'>
                 <figure className='city-img'>
@@ -24,13 +22,13 @@ const Regioes = () => {
                 </figure>
                 <div id='region-desc'>
                   <h1>Piripiri</h1>
-                  <p>Faturamento:</p>
-                  <p>Unidades vendidas:</p>
+                  <p>Faturamento: <span>250K</span></p>
+                  <p>Unidades vendidas: <span>51K</span></p>
                 </div>
               </div>
 
               <div id='region-chart'>
-                <img src="./img/mr-fresh-mr-fresh-multiverse.gif" alt="img-test" />
+                <RegionDoughnout />
               </div>
 
             </div>
@@ -47,8 +45,8 @@ const Regioes = () => {
             </button>
           </section>
 
-          <section style={{ width: "90%", margin: "0 auto" }}>
-            <p id='result-reg'>Resultados (3)</p>
+          <p id='result-reg'>Resultados (3)</p>
+          <section id='container-table-regions'>
             <table>
               <thead>
                 <tr>

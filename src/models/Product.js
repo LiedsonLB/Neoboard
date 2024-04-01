@@ -1,10 +1,11 @@
-class Product {
-    constructor(id, nome, img, vendido) {
-        this.id = id;
+class Produto {
+    constructor({ IDP, nome, preco, categoria, descricao }) {
+        this.IDP = IDP;
         this.nome = nome;
-        this.img = img;
-        this.vendido = vendido;
+        this.preco = preco;
+        this.categoria = categoria;
+        this.descricao = descricao;
     }
 }
 
-export default Product;
+export default Produto;

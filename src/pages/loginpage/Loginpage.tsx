@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../loginpage/Loginpage.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 // @ts-ignore
 import { auth, provider } from '../../services/firebase';
 import { signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import Popup from '../../components/popup/Popup';
 
 const LoginPage = () => {
 
@@ -21,27 +23,26 @@ const LoginPage = () => {
     const handleLogin = async (e: any) => {
         e.preventDefault();
         try {
+            /*await axios.post('http://localhost:4000/v1/login', { email, password });*/
             await signInWithEmailAndPassword(auth, email, password);
-    
-            console.log('Login bem-sucedido!');
         } catch (error: any) {
             console.error('Erro ao fazer login:', error.message);
         }
     };
 
-    const handleResetSenha = () => {
-        sendPasswordResetEmail(auth, email)
-          .then(() => {
+    const handleResetSenha = async () => {
+        try {
+            const response = await axios.post('http://localhost:4000/v1/resetSenha', { email });
             setAlert(true);
             setMensagem('Um e-mail de redefinição de senha foi enviado para o seu e-mail.');
-          })
-          .catch((error: any) => {
+            console.log('Resposta do reset de senha:', response.data);
+            sendPasswordResetEmail(auth, email)
+        } catch (error: any) {
             setAlert(false);
-            setMensagem('Preencha o seu Email corretamente');
-            console.log('error ao preencher email: ', error)
-          });
-      };
-
+            setMensagem('Erro ao redefinir a senha. Verifique o e-mail fornecido.');
+            console.error('Erro ao resetar a senha:', error.message);
+        }
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -52,9 +53,9 @@ const LoginPage = () => {
             const user = result.user;
             console.log('Usuário autenticado:', user);
         })
-        .catch((error) => {
-            console.error('Erro ao autenticar:', error);
-        });
+            .catch((error) => {
+                console.error('Erro ao autenticar:', error);
+            });
 
     };
 
@@ -64,6 +65,8 @@ const LoginPage = () => {
 
     return (
         <>
+            <Popup />
+
             <div className="background-color"></div>
             <main className="container">
                 <section className="left">
@@ -122,8 +125,8 @@ const LoginPage = () => {
                             </p>
                         </div>
                         <button className="login-google" onClick={handleSignin}>Login com o Google</button>
-                        <span id='link-cadaster' onClick={handleResetSenha} style={{width: 'fit-content', margin: '1.5rem auto'}}>Esqueci minha senha</span>
-                        {mensagem && <p 
+                        <span id='link-cadaster' onClick={handleResetSenha} style={{ width: 'fit-content', margin: '1.5rem auto' }}>Esqueci minha senha</span>
+                        {mensagem && <p
                             style={{
                                 padding: '.5rem',
                                 textAlign: "center",
