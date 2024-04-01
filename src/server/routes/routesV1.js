@@ -48,39 +48,4 @@ routerV1.post("/resetSenha", async (req, res) => {
     }
 });
 
-routerV1.get("/produtos", async (req, res) => {
-    try {
-        const produtos = await prisma.produto.findMany();
-        res.json(produtos);
-    } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
-        res.status(500).send("Erro ao buscar produtos");
-    }
-});
-
-routerV1.post("/produtos", async (req, res) => {
-    try {
-        const { nome, descricao, preco, categoria } = req.body;
-
-        const novoProduto = await prisma.produto.create({
-            data: {
-                nome,
-                descricao,
-                preco,
-                categoria,
-            }
-        });
-
-        res.status(201).json(novoProduto);
-    } catch (error) {
-        console.error("Erro ao adicionar produto:", error);
-        res.status(500).send("Erro ao adicionar produto");
-    }
-});
-
-
-routerV1.get("/eventos", (req, res) => {
-    // Lógica para /eventos
-});
-
 export default routerV1;
