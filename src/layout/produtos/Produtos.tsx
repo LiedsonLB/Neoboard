@@ -2,6 +2,8 @@ import React from 'react'
 import "./Produtos.css";
 import { IoChevronForwardOutline, IoLogoWhatsapp, IoLogoLinkedin, IoMail, IoSearch, IoSearchCircle, IoSearchCircleOutline, IoSearchSharp } from 'react-icons/io5';
 import { FaDivide } from 'react-icons/fa';
+import DoughnutChart from '../../components/charts/DoughtnoutChart';
+import ProductDoughnut from '../../components/charts/ProductDoughtnout';
 
 const Produtos = () => {
   return (
@@ -20,17 +22,16 @@ const Produtos = () => {
             </figure>
             <div id='prod-desc'>
               <h1>Picolé</h1>
-              <p>Faturamento:</p>
-              <p>Unidades vendidas</p>
+              <p>Faturamento: <span>250K</span></p>
+              <p>Unidades vendidas: <span>10K</span></p>
             </div>
           </div>
 
           <div id='card-prod-desc'>
-            <p>Produto do Mês</p>
-            <div id='product-chart'>
-            </div>
+            <ProductDoughnut />
           </div>
 
+          <p className='tittle-prod'>Produto do Mês</p>
         </article>
 
         <section id='search-prod'>

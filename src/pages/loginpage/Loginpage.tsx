@@ -22,7 +22,7 @@ const LoginPage = () => {
     const handleLogin = async (e: any) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:4000/v1/login', { email, password });
+            /*await axios.post('http://localhost:4000/v1/login', { email, password });*/
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error: any) {
             console.error('Erro ao fazer login:', error.message);

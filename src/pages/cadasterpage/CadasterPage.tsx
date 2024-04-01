@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'; // Importe o Axios
 // @ts-ignore
+import { auth } from '../../services/firebase';
 import './CadasterPage.css';
 import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const CadasterPage = () => {
     const navigate = useNavigate();
@@ -18,12 +20,23 @@ const CadasterPage = () => {
     const handlecadaster = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            /*
             const response = await axios.post('http://localhost:4000/v1/cadastro', {
                 email: email,
                 password: password,
                 username: username
             });
             console.log('Resposta do cadastro:', response.data);
+            */
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            if (user) {
+                await updateProfile(user, {
+                    displayName: username,
+                });
+            } else {
+                console.error('Usuário não encontrado após criação.');
+            }
             navigate("/home");
         } catch (error: any) {
             console.error("Erro ao cadastrar:", error.message);
