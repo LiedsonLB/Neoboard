@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Importe o Axios
+import axios from 'axios';
 // @ts-ignore
 import { auth } from '../../services/firebase';
 import './CadasterPage.css';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import Popup from '../../components/popup/Popup';
 
 const CadasterPage = () => {
     const navigate = useNavigate();
@@ -12,6 +13,9 @@ const CadasterPage = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [showPassword, setShowPassword] = useState(false);
+    const [mensagem, setMensagem] = useState('');
+    const [alert, setAlert] = useState('');
+    const [title, setTitle] = useState('');
 
     useEffect(() => {
         document.title = `NeoBoard | Cadastre-se`;
@@ -19,6 +23,13 @@ const CadasterPage = () => {
 
     const handlecadaster = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!username || !email || !password) {
+            setAlert('alert');
+            setTitle('Atenção');
+            setMensagem('Por favor, preencha todos os campos.');
+            hideMessageAfterTimeout();
+            return;
+        }
         try {
             /*
             const response = await axios.post('http://localhost:4000/v1/cadastro', {
@@ -39,8 +50,18 @@ const CadasterPage = () => {
             }
             navigate("/home");
         } catch (error: any) {
+            setAlert('warning');
+            setTitle('Erro');
+            setMensagem('Erro ao cadastrar: ' + error.message);
             console.error("Erro ao cadastrar:", error.message);
+            hideMessageAfterTimeout();
         }
+    };
+
+    const hideMessageAfterTimeout = () => {
+        setTimeout(() => {
+            setMensagem('');
+        }, 3000);
     };
 
     const togglePasswordVisibility = () => {
@@ -49,6 +70,7 @@ const CadasterPage = () => {
 
     return (
         <>
+            {mensagem && <Popup type={alert} title={title} text={mensagem} />}
             <div className="background-color-sign"></div>
             <main className="container-sign">
                 <section className="left-sign">

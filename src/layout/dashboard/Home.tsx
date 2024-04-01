@@ -351,9 +351,15 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     </section>
                 </section>
 
-                <footer id="footer">
-                    <hr />
-                    <p>Todos os direitos reservados a &copy;Neoboard 2024</p>
+                <footer>
+                    <div id="container-footer">
+                        <p><a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a> | <a href="#">Central de Ajuda</a></p>
+                        <p>Entre em contato: <a href="mailto:liedson.b9@gmail.com">neoboard@neo.com</a></p>
+                        <hr id="lineFooter"/>
+                            <div id="autoria">
+                                <p>&copy; 2024 NeoBoard. Todos os direitos reservados.</p>
+                            </div>
+                    </div>
                 </footer>
             </main>
         </>
