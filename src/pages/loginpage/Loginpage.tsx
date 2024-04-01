@@ -5,6 +5,7 @@ import axios from 'axios';
 // @ts-ignore
 import { auth, provider } from '../../services/firebase';
 import { signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import Popup from '../../components/popup/Popup';
 
 const LoginPage = () => {
 
@@ -52,9 +53,9 @@ const LoginPage = () => {
             const user = result.user;
             console.log('Usuário autenticado:', user);
         })
-        .catch((error) => {
-            console.error('Erro ao autenticar:', error);
-        });
+            .catch((error) => {
+                console.error('Erro ao autenticar:', error);
+            });
 
     };
 
@@ -64,6 +65,8 @@ const LoginPage = () => {
 
     return (
         <>
+            <Popup />
+
             <div className="background-color"></div>
             <main className="container">
                 <section className="left">
@@ -122,8 +125,8 @@ const LoginPage = () => {
                             </p>
                         </div>
                         <button className="login-google" onClick={handleSignin}>Login com o Google</button>
-                        <span id='link-cadaster' onClick={handleResetSenha} style={{width: 'fit-content', margin: '1.5rem auto'}}>Esqueci minha senha</span>
-                        {mensagem && <p 
+                        <span id='link-cadaster' onClick={handleResetSenha} style={{ width: 'fit-content', margin: '1.5rem auto' }}>Esqueci minha senha</span>
+                        {mensagem && <p
                             style={{
                                 padding: '.5rem',
                                 textAlign: "center",
