@@ -2,7 +2,6 @@
     position: fixed;
     right: 1rem;
     top: 2rem;
-    background-color: var(--white-color);
     z-index: 10;
     padding: .5rem;
     border-radius: 5px;
@@ -10,21 +9,20 @@
     animation: animatedPopup .5s ease-in;
     display: flex;
     gap: 10px;
-    border: .5px solid var(--black-color);
-    border-style: dashed;
     min-width: 250px;
+    color: var(--white-color);
 }
 
 .separation-popup {
     width: 5px;
     max-height: 100px;
     min-height: 50px;
-    background-color: #FF5151;
+    background-color: var(--white-color);
     border-radius: 10px;
 }
 
 #text-popup {
-    color: var(--black-color);
+    color: var(--white-color);
 }
 
 .mensagem-popup {
@@ -36,19 +34,19 @@
 }
 
 .alert {
-    color: #FFFF51;
+    background-color: #FFC107;
 }
 
 .warning {
-    color: #FF5151;
+    background-color: #C62828;
 }
 
 .sucess {
-    color: #74FF74;
+    background-color: #388E3C;
 }
 
 .help {
-    color: #5B7FFF;
+    background-color: #5B7FFF;
 }
 
 #closePopup {
@@ -58,6 +56,7 @@
     position: absolute;
     top: 0;
     right: .5rem;
+    color: var(--white-color);
 }
 
 @keyframes animatedPopup {

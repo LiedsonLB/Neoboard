@@ -1,17 +1,29 @@
-import React from 'react'
-import '../popup/Popup.css'
+import React, { useState } from 'react';
+import '../popup/Popup.css';
 
-const Popup = () => {
-  return (
-    <div id='popup'>
-      <div className='separation-popup'></div>
-      <div id="text-popup">
-        <h3 className='title-popup warning'>Alerta</h3>
-        <p className='mensagem-popup'>Erro ao fazer login</p>
-      </div>
-      <span id='closePopup'>&times;</span>
-    </div>
-  )
+interface PopupInfo {
+  type: string | null;
+  title: string | null;
+  text: string | null;
 }
 
-export default Popup
+const Popup = ({ type, title, text }: PopupInfo) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  return isOpen ? (
+    <div id='popup' className={type ? type : ''}>
+      <div className='separation-popup'></div>
+      <div id="text-popup">
+        <h3 className={`title-popup ${type ? type : ''}`}>{title}</h3>
+        <p className='mensagem-popup'>{text}</p>
+      </div>
+      <span id='closePopup' onClick={handleClose}>&times;</span>
+    </div>
+  ) : null;
+}
+
+export default Popup;
