@@ -43,6 +43,7 @@ const Produtos = () => {
             </button>
           </section>
 
+          <p id='result-product'>Resultados (3)</p>
           <section id='products-list'>
             <article className='prod-card'>
               <figure className='icecream-img'>
