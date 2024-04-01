@@ -72,7 +72,7 @@
     position: absolute;
 }
 
-#region-desc p span{
+#region-desc p span {
     font-weight: bold;
     color: var(--primary-color);
 }
@@ -151,19 +151,19 @@
 
 #search-region {
     border: 2px solid #0000;
-  border-radius: 5px;
-  color: var(--black-color);
-  font-family: var(--font-krub);
-  font-weight: 700;
-  padding: .5rem .8rem;
-  width: 100%;
+    border-radius: 5px;
+    color: var(--black-color);
+    font-family: var(--font-krub);
+    font-weight: 700;
+    padding: .5rem .8rem;
+    width: 100%;
 }
 
 #search-region:focus {
     border: 2px solid var(--secondy-color);
 }
 
-#search-region:focus + #search-icon-region {
+#search-region:focus+#search-icon-region {
     color: var(--secondy-color) !important;
 }
 
@@ -417,5 +417,80 @@ td {
         width: 100%;
         position: relative;
         padding: 1rem;
+    }
+}
+
+/* Modal */
+#container-Add-imovel {
+    max-width: 60%;
+    background-color: #fff;
+    box-shadow: 20px 20px 50px rgb(0 0 0 / 50%);
+    padding: 20px;
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    height: auto;
+    align-items: center;
+    max-width: 600px;
+    margin: 0px 20px;
+    animation: DownAnimation .5s;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 30%;
+}
+
+#header-modal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 200px;
+}
+
+.modal-title {
+    font-family: var(--font-krub);
+    color: var(--primary-color);
+}
+
+#close-btn {
+    font-size: 2rem;
+    padding: .2rem .8rem;
+    border: none;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    background-color: var(--white-color);
+    color: var(--letter-color);
+}
+
+#close-btn:hover {
+    background-color: var(--gray-color);
+}
+
+#Modal-Add-imovel {
+    height: 100vh;
+    width: 100%;
+    z-index: 10;
+    position: fixed;
+    backdrop-filter: brightness(0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes DownAnimation {
+    0% {
+        -webkit-transform: translateY(-100px);
+        -ms-transform: translateY(-100px);
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
     }
 }
