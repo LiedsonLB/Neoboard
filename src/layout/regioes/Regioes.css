@@ -42,6 +42,17 @@
     padding: 1rem;
     margin: 0 auto;
     width: 70%;
+    position: relative;
+}
+
+#region-card #text-region-mes {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
 }
 
 #card-region-desc {
@@ -58,6 +69,11 @@
     padding: .5rem 1rem;
     border-radius: 5px;
     position: absolute;
+}
+
+#region-desc p span{
+    font-weight: bold;
+    color: var(--primary-color);
 }
 
 #reg-main {
@@ -101,10 +117,7 @@
 }
 
 #region-chart {
-    width: 100px;
-    height: 100px;
-    margin-right: 2rem;
-
+    width: 18rem;
 }
 
 #region-chart img {
@@ -118,14 +131,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-#search-icon-region {
-    cursor: pointer;
-}
-
-#search-icon-region:hover {
-    color: var(--hover-color);
 }
 
 #search-bar-region {
@@ -144,14 +149,21 @@
 }
 
 #search-region {
-    padding: .5rem .8rem;
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid transparent;
+    border: 2px solid #0000;
+  border-radius: 5px;
+  color: var(--black-color);
+  font-family: var(--font-krub);
+  font-weight: 700;
+  padding: .5rem .8rem;
+  width: 100%;
 }
 
 #search-region:focus {
     border: 2px solid var(--secondy-color);
+}
+
+#search-region:focus + #search-icon-region {
+    color: var(--secondy-color) !important;
 }
 
 
@@ -172,6 +184,8 @@
     border: none;
     border-radius: 5px;
     color: white;
+    cursor: pointer;
+    font-family: var(--font-krub);
 }
 
 #add-region:hover {
@@ -187,8 +201,14 @@
     border-bottom: 2px solid var(--primary-color);
 }
 
+#container-table-regions {
+    width: 100%;
+    margin: 0 auto;
+}
+
 #result-reg {
     font-weight: bold;
+    color: var(--black-color);
 }
 
 table {
@@ -208,6 +228,7 @@ thead tr {
     color: var(--white-color);
     font-weight: bold;
     border-radius: 10px;
+    font-size: .9rem;
 }
 
 tbody {
@@ -217,12 +238,13 @@ tbody {
 
 tbody tr {
     border-radius: 10px;
+    font-size: .9rem;
 }
 
 tbody tr td {
     text-align: center;
     height: 80px;
-    color: #000;
+    color: var(--black-color);
     display: flex;
     width: 100%;
     align-items: center;
@@ -230,14 +252,14 @@ tbody tr td {
 }
 
 tbody tr td button {
-    font-size: 0.9rem;
-    padding: 10px 30px;
-    background-color: var(--secondy-color);
+    padding: .8rem 2rem;
+    background: var(--secondy-color);
     border: none;
-    text-decoration: none;
     border-radius: 5px;
+    color: white;
     cursor: pointer;
-    color: var(--white-color);
+    font-family: var(--font-krub);
+    font-weight: bold;
 }
 
 .table-regions {
@@ -376,4 +398,23 @@ td {
         flex-direction: column;
     }
 
+}
+
+@media screen and (max-width: 1078px) {
+    #region-card {
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    #region-main {
+        flex-direction: column;
+        gap: 1rem;
+        max-height: 100% !important;
+        gap: 5rem;
+        width: 100%;
+        position: relative;
+        padding: 1rem;
+    }
 }

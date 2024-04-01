@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios'; // Importe o Axios
 // @ts-ignore
 import { auth } from '../../services/firebase';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import './CadasterPage.css';
 import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const CadasterPage = () => {
     const navigate = useNavigate();
@@ -16,33 +17,34 @@ const CadasterPage = () => {
         document.title = `NeoBoard | Cadastre-se`;
     }, []);
 
-    function handlecadaster(e: any) {
+    const handlecadaster = async (e: React.FormEvent) => {
         e.preventDefault();
-        signUp(email, password, username);
-    }
-
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
-
-    const signUp = async (email: string, password: string, username: string) => {
-
         try {
+            /*
+            const response = await axios.post('http://localhost:4000/v1/cadastro', {
+                email: email,
+                password: password,
+                username: username
+            });
+            console.log('Resposta do cadastro:', response.data);
+            */
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-
             if (user) {
                 await updateProfile(user, {
                     displayName: username,
                 });
-
-                navigate("/home");
             } else {
-                console.error("Usuário não encontrado após criação.");
+                console.error('Usuário não encontrado após criação.');
             }
+            navigate("/home");
         } catch (error: any) {
             console.error("Erro ao cadastrar:", error.message);
         }
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     return (
@@ -55,7 +57,7 @@ const CadasterPage = () => {
                         <p className="subtitle-sign">Preencha corretamente os campos</p>
                     </header>
                     <div className="singup-field">
-                        <form>
+                        <form onSubmit={handlecadaster}>
                             <div className="input-field-sign">
                                 <label>Nome de Usuário:</label>
                                 <input
@@ -95,7 +97,7 @@ const CadasterPage = () => {
                                     />
                                 </div>
                             </div>
-                            <button type="submit" className="singup-btn" onClick={handlecadaster}>
+                            <button type="submit" className="singup-btn">
                                 Cadastrar
                             </button>
                         </form>
