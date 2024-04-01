@@ -43,6 +43,7 @@
     margin: 0 auto;
     width: 70%;
     position: relative;
+    animation: scaleIn 1s ease forwards;
 }
 
 #region-card #text-region-mes {
