@@ -7,7 +7,7 @@ const Regioes = () => {
   const [showModal, setShowModal] = useState(false);
 
   const toggleModalClose = () => {
-      setShowModal(!showModal);
+    setShowModal(!showModal);
   };
 
   return (
@@ -17,10 +17,10 @@ const Regioes = () => {
           <div id="header-modal">
             <h4 className="modal-title">Adicionar Região</h4>
             <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
+          </div>
+          <hr />
         </div>
-        <hr/>
-      </div>
-    </div >}
+      </div >}
 
       <div id='region-container'>
         <div id='region-inside'>
@@ -35,7 +35,7 @@ const Regioes = () => {
               <div id='reg-main'>
                 <div id='container-region-img'>
                   <figure className='city-img'>
-                    <img src="./img/Catedral_de_Piripiri.jpg" alt="minha_prefeita" />
+                    <img src="./img/Piripiri-Igreja-Matriz.png" alt="piripiri" />
                   </figure>
                   <div id='region-desc'>
                     <h1>Piripiri</h1>
@@ -67,29 +67,23 @@ const Regioes = () => {
               <table>
                 <thead>
                   <tr>
-                    <td>img</td>
+                    <td>região</td>
                     <td>nome</td>
-                    <td>preço</td>
                     <td>vendido</td>
                     <td>faturamento</td>
-                    <td></td>
+                    <td className='table-space'></td>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>
-                      <img src="./img/Catedral_de_Piripiri.jpg" alt="" style={{ width: '50px', height: '50px', borderRadius: '10px' }} />
-                    </td>
-                    <td>
-                      <div className="table-regions">
-                        <div className="name-table">
-                          <h3>Picolé de Uva</h3>
-                        </div>
+                      <div className="region-pic">
+                        <img src="./img/Piripiri-Igreja-Matriz.png" alt="piripiri" />
                       </div>
                     </td>
                     <td>
                       <div className="price">
-                        <h3>R$2.50</h3>
+                        <h3>piripiri</h3>
                       </div>
                     </td>
                     <td>
@@ -98,7 +92,7 @@ const Regioes = () => {
                       </div>
                     </td>
                     <td>
-                      <h5 className="status comprado">R$50000K</h5>
+                      <h5 className="status comprado">R$10000K</h5>
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
@@ -109,10 +103,11 @@ const Regioes = () => {
 
                   <tr className='row-white'>
                     <td>
-                      <img src="./img/no_regionImg.jpeg" alt="" style={{ width: '60px', height: '60px', borderRadius: '10px' }} />
+                      <div className="region-pic">
+                        <img src="./img/Pdois.jpg" alt="piripiri" />
+                      </div>
                     </td>
-                    <td><h3>Sorvete de Banana</h3></td>
-                    <td><h3>R$ 3.50</h3></td>
+                    <td><h3>Pedro II</h3></td>
                     <td><h3>8300</h3></td>
                     <td><h5 className="status negociacao">R$30000K</h5></td>
                     <td>
@@ -120,10 +115,38 @@ const Regioes = () => {
                         <button className="edit">Ver</button>
                       </div></td>
                   </tr>
+
+                  <tr>
+                    <td>
+                      <div className="table-regions">
+                        <div className="region-pic">
+                          <img src="./img/no_regionImg.jpeg" alt="sem_regiao"/>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="price">
+                        <h3>Capitão de Campos</h3>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="sold">
+                        <h3>1587</h3>
+                      </div>
+                    </td>
+                    <td>
+                      <h5 className="status venda">R$50000K</h5>
+                    </td>
+                    <td>
+                      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <button className="edit">Ver</button>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </section>
-
+            
           </main>
         </div>
       </div>

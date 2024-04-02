@@ -229,7 +229,7 @@
     }
 }
 
-@media screen and (max-height: 650px) {
+@media screen and (max-height: 768px) {
     #faq-header {
         font-size: .6rem;
         overflow: hidden;
@@ -241,9 +241,16 @@
     }
 
     #faq-right {
-        font-size: 90%;
-        margin-bottom: 1rem;
-
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        min-width: 85%;
+        max-width: 80%;
+        font-size: .8rem;
     }
 
+    #faq-field {
+        width: 80%;
+        margin: 0 auto;
+    }
 }

@@ -223,8 +223,11 @@ input[type="file"] {
     
     #report-main{
     display: flex;
-    justify-content: space-evenly;
-    
+    flex-direction: column;  
+    }
+
+    #report-right{
+    margin-bottom: 2rem;
     }
 }
 
