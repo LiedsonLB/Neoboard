@@ -124,7 +124,7 @@
 #region-chart img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: fill;
     border-radius: 50%;
 }
 
@@ -270,9 +270,16 @@ tbody tr td button {
     margin: 0 auto;
 }
 
-.name-table {
-    display: flex;
-    flex-direction: column;
+.region-pic {
+    width: 60px;
+    height: 60px; 
+}
+
+.region-pic img{
+    width: 100%;
+    height: 100%; 
+    border-radius: 20px;   
+    object-fit: cover;
 }
 
 .name-table h2 {
@@ -336,88 +343,6 @@ td {
     flex: 1;
     padding: 10px;
     /* Outros estilos */
-}
-
-@media screen and (max-width: 1078px) {
-    #region-header {
-        text-align: center;
-    }
-
-    #region-card {
-        border-radius: 10px;
-        padding: 1rem;
-        margin: 0 auto;
-        width: 70%;
-    }
-
-    #reg-main {
-        flex-direction: column;
-        gap: 5rem;
-        width: 100%;
-        position: relative;
-        padding: 1rem;
-    }
-
-    #container-region-img {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    #card-region-desc {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        bottom: 1rem;
-        left: 0;
-        z-index: 1;
-    }
-
-    #card-region-desc p {
-        justify-content: center;
-    }
-
-    #region-chart {
-        margin-right: 0;
-        display: flex;
-    }
-
-    #search-region {
-        flex-direction: column;
-    }
-
-    #result-reg {
-        margin-block: 2rem;
-        text-align: center;
-    }
-
-    table {
-        overflow: hidden;
-        width: 70vw;
-        display: flex;
-        flex-direction: column;
-    }
-
-}
-
-@media screen and (max-width: 1078px) {
-    #region-card {
-        border-radius: 10px;
-        padding: 1rem;
-        margin: 0 auto;
-        width: 90%;
-    }
-
-    #region-main {
-        flex-direction: column;
-        gap: 1rem;
-        max-height: 100% !important;
-        gap: 5rem;
-        width: 100%;
-        position: relative;
-        padding: 1rem;
-    }
 }
 
 /* Modal */
@@ -494,3 +419,78 @@ td {
         opacity: 1;
     }
 }
+
+@media screen and (max-width: 1078px) {
+    #region-header {
+        text-align: center;
+    }
+
+    #region-card {
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 0 auto;
+        width: 70%;
+    }
+
+    #region-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 1rem;
+    }
+
+    #reg-main {
+        flex-direction: column;
+        gap: 1rem;
+        max-height: 100% !important;
+        gap: 5rem;
+        width: 100%;
+        position: relative;
+        padding: 1rem;
+    }
+
+    #container-region-img {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    #card-region-desc {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        bottom: 1rem;
+        left: 0;
+        z-index: 1;
+    }
+
+    #card-region-desc p {
+        justify-content: center;
+    }
+
+    #search-region {
+        flex-direction: column;
+    }
+
+    #result-reg {
+        margin-block: 2rem;
+        text-align: center;
+    }
+
+    table {
+        overflow: hidden;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .table-space {
+        display: none;
+    }
+
+    .edit {
+        padding-inline: 6rem;
+    }
+}
+
