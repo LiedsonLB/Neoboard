@@ -74,7 +74,7 @@ const Produtos = () => {
               <figure className='icecream-img'>
                 <img src="./img/picole.jpg" alt="picole_flocos" />
               </figure>
-              <p>Picolé de flocos de 20ml</p>
+              <p>Picolé de banana de 20ml</p>
               <p className='prod-name'>R$ 2.50</p>
               <button>Ver produto</button>
             </article>
@@ -83,7 +83,16 @@ const Produtos = () => {
               <figure className='icecream-img'>
                 <img src="./img/picole.jpg" alt="picole_flocos" />
               </figure>
-              <p>Picolé de flocos de 20ml</p>
+              <p>Picolé de chiclete de 20ml</p>
+              <p className='prod-name'>R$ 2.50</p>
+              <button>Ver produto</button>
+            </article>
+
+            <article className='prod-card'>
+              <figure className='icecream-img'>
+                <img src="./img/picole.jpg" alt="picole_flocos" />
+              </figure>
+              <p>Picolé de bacalhau de 20ml</p>
               <p className='prod-name'>R$ 2.50</p>
               <button>Ver produto</button>
             </article>
