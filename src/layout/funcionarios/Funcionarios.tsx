@@ -1,5 +1,7 @@
 import React from 'react'
 import "./Funcionarios.css";
+import StaffDoughnout from '../../components/charts/StaffDoughnout';
+import { IoSearch } from 'react-icons/io5';
 
 const Funcionarios = () => {
   return (
@@ -19,9 +21,12 @@ const Funcionarios = () => {
               <img src="/img/PedroLucas.jpeg" alt="" />
               <figcaption className='staff-desc'>
                 <h2>Pedro Lucas</h2>
-                <p>Vendas: <span>50</span></p>
+                <p>Vendas:50 </p>
               </figcaption>
             </figure>
+            <div className='staff-chart' >
+              <StaffDoughnout/>
+            </div>
           </article>
 
           <article className='staff-card'>
@@ -35,15 +40,21 @@ const Funcionarios = () => {
                 <p>Faturamento: 5.6K </p><br/>
               </figcaption>
             </figure>
+            <div className='staff-chart' >
+              <StaffDoughnout/>
+            </div>
           </article>
 
         </section>
         <section id='search-staff'>
-        <p>Pesquisar funcionário</p>
-        <div id='search-'>
-              
+        <div id='search-bar'>
+              <input type="search" id="search-staff" placeholder='Pesquisar funcionário' aria-label="Buscar" />
+              <i id='search-icon'><IoSearch id='icon-staff' /></i>
             </div>
-        </section>
+            <button id='add-staff'>
+              + Funcionário
+            </button>
+          </section>
 
         <section id='staff-list'>
 
