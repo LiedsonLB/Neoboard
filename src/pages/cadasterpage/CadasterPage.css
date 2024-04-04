@@ -59,7 +59,7 @@
     margin: auto;
 }
 
-.signup-field form {
+.signup-field #form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -248,7 +248,7 @@
         height: auto;
     }
 
-    .singup-field form {
+    .singup-field #form {
         width: 100%;
     }
 

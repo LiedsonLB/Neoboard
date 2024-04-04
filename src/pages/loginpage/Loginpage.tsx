@@ -45,23 +45,31 @@ const LoginPage = () => {
     const hideMessageAfterTimeout = () => {
         setTimeout(() => {
             setMensagem('');
-        }, 3000);
+        }, 30000);
     };
 
     const handleResetSenha = async () => {
+        if (!email) {
+            setAlert('alert');
+            setTitle('Atenção');
+            setMensagem('Por favor, preencha o campo de e-mail.');
+            hideMessageAfterTimeout();
+            return;
+        }
         try {
             await sendPasswordResetEmail(auth, email);
             setAlert('sucess');
             setTitle('Redefinição Enviada');
             setMensagem('Um e-mail de redefinição de senha foi enviado para o seu e-mail.');
             hideMessageAfterTimeout();
-        } catch (error: any) {
+        } catch (error : any) {
             setAlert('warning');
             setTitle('Erro');
             setMensagem('Erro ao redefinir a senha. Verifique o e-mail fornecido.');
             console.error('Erro ao resetar a senha:', error.message);
+            hideMessageAfterTimeout();
         }
-    };
+    };    
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -146,7 +154,7 @@ const LoginPage = () => {
                             </p>
                         </div>
                         <button className="login-google" onClick={handleSignin}>Login com o Google</button>
-                        <span id='link-cadaster' onClick={handleResetSenha} style={{ width: 'fit-content', margin: '1.5rem auto' }}>Esqueci minha senha</span>
+                        <span id='link-resetPassword' onClick={handleResetSenha} style={{ width: 'fit-content', margin: '1.5rem auto' }}>Esqueci minha senha</span>
                     </div>
                 </section>
             </main>
