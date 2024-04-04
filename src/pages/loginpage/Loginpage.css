@@ -210,7 +210,7 @@
   bottom: 15%;
 }
 
-#link-cadaster {
+#link-resetPassword, #link-cadaster {
   text-decoration: underline;
   color: var(--secondy-color);
   cursor: pointer;

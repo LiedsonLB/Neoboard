@@ -49,7 +49,7 @@ const Aside = ({ user, changeComponent }: Props) => {
                         <h4 id='acount-userName'>{name}</h4>
                         <p id='acount-email'>{email}</p>
                     </div>
-                    <button onClick={() => signOut(auth)}><IoLogOutOutline /></button>
+                    <button className='logout-user' onClick={() => signOut(auth)}><IoLogOutOutline /></button>
                 </div>
                 <div id="description">
                     <p>Informe-se sobre:</p>

@@ -21,8 +21,8 @@ const CadasterPage = () => {
         document.title = `NeoBoard | Cadastre-se`;
     }, []);
 
-    const handlecadaster = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handlecadaster = async (e: any) => {
+
         if (!username || !email || !password) {
             setAlert('alert');
             setTitle('Atenção');
@@ -79,7 +79,7 @@ const CadasterPage = () => {
                         <p className="subtitle-sign">Preencha corretamente os campos</p>
                     </header>
                     <div className="singup-field">
-                        <form onSubmit={handlecadaster}>
+                        <div id='form'>
                             <div className="input-field-sign">
                                 <label>Nome de Usuário:</label>
                                 <input
@@ -119,10 +119,10 @@ const CadasterPage = () => {
                                     />
                                 </div>
                             </div>
-                            <button type="submit" className="singup-btn">
+                            <button className="singup-btn" onClick={handlecadaster}>
                                 Cadastrar
                             </button>
-                        </form>
+                        </div>
                     </div>
                 </section>
 
