@@ -1,0 +1,274 @@
+#staff-container {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--gray-color);
+}
+
+#staff-inside {
+    background-color: var(--gray-color);
+    width: 100%;
+    height: max-content;
+}
+
+#staff-header {
+    margin: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#staff-header h1 {
+    font-family: var(--font-Krona), sans-serif;
+    animation: slideInUp 1s ease forwards;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+#staff-header p {
+    color: var(--secondy-color);
+    text-align: center;
+    font-weight: bold;
+}
+
+#staff-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 4rem;
+}
+
+#featured-staff {
+    display: flex;
+    justify-content: space-around;
+    gap: 5rem;
+    
+}
+
+.staff-card {
+    background-color: var(--white-color);
+    display: flex;
+    height: 320px;
+    width: 400px;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+}
+
+.staff-card header {
+    background-color: var(--primary-color);
+    text-align: center;
+    padding-block: .5rem;
+    color: var(--white-color);
+}
+
+.staff-info {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.staff-info img {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+.staff-desc h2 {
+    color: var(--secondy-color);
+}
+
+.staff-chart {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.chartStaff {
+    width: 120px;
+}
+
+#search-staff {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+#search-bar {
+    display: flex;
+    max-width: 400px;
+    margin: 1rem 0;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+}
+
+#search-bar:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+#search-stf {
+    padding: .5rem .8rem;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    color: var(--black-color);
+    font-family: var(--font-krub);
+    font-weight: bold;
+}
+
+#search-stf:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+#search-stf:focus+#search-icon {
+    color: var(--secondy-color) !important;
+}
+
+#search-icon {
+    position: absolute;
+    right: .5rem;
+    bottom: 0.2em;
+    color: var(--black-color);
+    font-size: 1.2rem;
+}
+
+#search-stf:focus {
+    outline: none;
+}
+
+#add-staff {
+    padding: .8rem 2rem;
+    background: var(--secondy-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-family: var(--font-krub);
+}
+
+#add-staff:hover {
+    cursor: pointer;
+    background: var(--hover-color);
+    transition: .5s;
+}
+
+.search-btns {
+    display: flex;
+    gap: 1rem;
+}
+
+#filter-staff {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: .8rem 2rem;
+    background: transparent;
+    border: 2px solid var(--secondy-color);
+    border-radius: 5px;
+    color: var(--secondy-color);
+    cursor: pointer;
+    font-family: var(--font-krub);
+}
+
+#filter-staff:hover {
+    cursor: pointer;
+    background: var(--white-color);
+    transition: .5s;
+}
+
+#result-staff {
+    font-weight: bold;
+    color: var(--black-color);
+}
+
+#staff-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    justify-content: space-around;
+    margin: 2rem 0;
+}
+
+.stf-card {
+    background: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.staff-nick {
+    font-weight: bold;
+}
+
+.stf-card button {
+    padding: .8rem;
+    width: 70%;
+    background: var(--secondy-color);
+    border: none;
+    border-radius: 100px;
+    color: var(--white-color);
+    cursor: pointer;
+    font-family: var(--font-krub);
+    font-weight: bold;
+}
+
+.stf-card button:hover {
+    cursor: pointer;
+    background: var(--hover-color);
+    transition: .5s;
+}
+
+.staff-name {
+    font-weight: bold;
+    font-family: var(--font-Krona);
+    color: var(--primary-color);
+}
+
+.stf-desc {
+    gap: 1rem;
+    display: flex;
+
+}
+
+.stf-desc span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stf-gain {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.staff-img {
+    height: 100px;
+    width: 100px;
+}
+
+.staff-img img {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    border-radius: 50%;
+    object-fit: fill;
+}
+
+.stf-card span {
+    display: flex;
+}
+
+.staff-pin {
+    color: red;
+    font-size: 1.rem;
+}
