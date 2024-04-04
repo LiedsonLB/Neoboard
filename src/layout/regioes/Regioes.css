@@ -27,6 +27,7 @@
 #region-header p {
     color: var(--secondy-color);
     text-align: center;
+    font-weight: bold;
 }
 
 #region-main {
