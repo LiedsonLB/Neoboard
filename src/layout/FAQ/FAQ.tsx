@@ -1,33 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 import "./FAQ.css";
 import { IoChevronForwardOutline, IoLogoWhatsapp, IoLogoLinkedin, IoMail } from 'react-icons/io5';
+import Popup from '../../components/popup/Popup';
 
 const FAQ = () => {
+  const [mensagem, setMensagem] = useState('');
+  const [alert, setAlert] = useState('');
+  const [title, setTitle] = useState('');
 
   function sendEmail(e: any) {
     e.preventDefault();
 
+    const userName = e.target.user_name.value.trim();
+    const userEmail = e.target.user_email.value.trim();
+    const userMessage = e.target.message.value.trim();
+
+    if (!userName || !userEmail || !userMessage) {
+      setAlert('warning');
+      setTitle('Erro');
+      setMensagem('Por favor, preencha todos os campos.');
+      hideMessageAfterTimeout();
+      return;
+    }
+
     const templateParams = {
-      user_name: e.target.user_name.value,
-      user_email: e.target.user_email.value,
-      message: e.target.message.value,
+      user_name: userName,
+      user_email: userEmail,
+      message: userMessage,
       subject: 'Neoboard Client Message'
     };
 
     emailjs.send('service_2fh7kiu', 'template_1dwajhz', templateParams, 'ytmT8nY7U6e4AGqet')
       .then((result) => {
         console.log(result.text);
-        // lógica para mostrar um popup de sucesso
+        setAlert('success');
+        setTitle('Sucesso');
+        setMensagem('Sua mensagem foi enviada com sucesso!');
+        hideMessageAfterTimeout();
       }, (error) => {
         console.log(error.text);
-        // lógica para mostrar um popup de erro
+        setAlert('warning');
+        setTitle('Erro');
+        setMensagem('Erro ao enviar mensagem. Por favor, tente novamente mais tarde.');
+        hideMessageAfterTimeout();
       });
     e.target.reset();
   }
 
+  const hideMessageAfterTimeout = () => {
+    setTimeout(() => {
+      setMensagem('');
+    }, 3000);
+  };
+
   return (
     <main id='faq-container'>
+      {mensagem && <Popup type={alert} title={title} text={mensagem} />}
       <div id='faq-inside'>
         <header id='faq-header'>
           <span>

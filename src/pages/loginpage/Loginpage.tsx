@@ -14,7 +14,8 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [mensagem, setMensagem] = useState('');
-    const [alert, setAlert] = useState(false);
+    const [alert, setAlert] = useState('');
+    const [title, setTitle] = useState('');
 
     useEffect(() => {
         document.title = `NeoBoard | Logue Agora`;
@@ -22,23 +23,41 @@ const LoginPage = () => {
 
     const handleLogin = async (e: any) => {
         e.preventDefault();
+        if (!email || !password) {
+            setAlert('alert');
+            setTitle('Atenção');
+            setMensagem('Por favor, preencha todos os campos.');
+            hideMessageAfterTimeout();
+            return;
+        }
         try {
             /*await axios.post('http://localhost:4000/v1/login', { email, password });*/
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error: any) {
+            setAlert('warning');
+            setTitle('Erro');
+            setMensagem('Erro ao fazer login: ' + error.message);
             console.error('Erro ao fazer login:', error.message);
+            hideMessageAfterTimeout();
         }
+    };
+
+    const hideMessageAfterTimeout = () => {
+        setTimeout(() => {
+            setMensagem('');
+        }, 3000);
     };
 
     const handleResetSenha = async () => {
         try {
-            const response = await axios.post('http://localhost:4000/v1/resetSenha', { email });
-            setAlert(true);
+            await sendPasswordResetEmail(auth, email);
+            setAlert('sucess');
+            setTitle('Redefinição Enviada');
             setMensagem('Um e-mail de redefinição de senha foi enviado para o seu e-mail.');
-            console.log('Resposta do reset de senha:', response.data);
-            sendPasswordResetEmail(auth, email)
+            hideMessageAfterTimeout();
         } catch (error: any) {
-            setAlert(false);
+            setAlert('warning');
+            setTitle('Erro');
             setMensagem('Erro ao redefinir a senha. Verifique o e-mail fornecido.');
             console.error('Erro ao resetar a senha:', error.message);
         }
@@ -54,6 +73,9 @@ const LoginPage = () => {
             console.log('Usuário autenticado:', user);
         })
             .catch((error) => {
+                setAlert('warning');
+                setTitle('Erro');
+                setMensagem('Erro ao autenticar: ' + error.message);
                 console.error('Erro ao autenticar:', error);
             });
 
@@ -65,8 +87,7 @@ const LoginPage = () => {
 
     return (
         <>
-            <Popup />
-
+            {mensagem && <Popup type={alert} title={title} text={mensagem} />}
             <div className="background-color"></div>
             <main className="container">
                 <section className="left">
@@ -126,13 +147,6 @@ const LoginPage = () => {
                         </div>
                         <button className="login-google" onClick={handleSignin}>Login com o Google</button>
                         <span id='link-cadaster' onClick={handleResetSenha} style={{ width: 'fit-content', margin: '1.5rem auto' }}>Esqueci minha senha</span>
-                        {mensagem && <p
-                            style={{
-                                padding: '.5rem',
-                                textAlign: "center",
-                                color: alert ? '#74ff74' : '#ff5151'
-                            }}
-                        >{mensagem}</p>}
                     </div>
                 </section>
             </main>
@@ -140,4 +154,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default LoginPage;

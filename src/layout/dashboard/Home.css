@@ -596,12 +596,12 @@
 }
 
 #expense-calendar{
-max-width: 380px;
+max-width: 390px;
 max-height: 400px;
 }
 
 #expense-calendar .calendar{
-  max-width: 380px;
+  max-width: 390px;
   max-height: 400px;
   
 }
@@ -610,17 +610,40 @@ max-height: 400px;
   text-align: center;
 }
 
-#footer {
-  background-color: var(--primary-color);
-  width: 100%;
-  text-align: center;
-  color: var(--white-color);
-  font-size: 1.3rem;
-  padding: 2rem;
+footer{
+  font-size: 1.2rem;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color);
+  color: var(--white-color);
+  padding: 1rem 0px;
+  margin: 0;
   flex-direction: column;
-  gap: 2rem;
-  font-weight: bold;
+  width: 100%;
+}
+#container-footer{
+  width: 80%;
+}
+#container-footer p{
+  margin: 0;
+  padding-top: 1rem;
+  text-align: center;
+}
+#autoria{
+  text-align: center;
+}
+#lineFooter {
+  margin-block: 1rem;
+}
+#container-footer a {
+  font-size: 1rem;
+  color: var(--white-color);
+  text-decoration: none;
+}
+
+#container-footer a:hover {
+  text-decoration: underline !important;
 }
 
 @media screen and (max-width: 750px) {

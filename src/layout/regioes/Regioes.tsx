@@ -1,109 +1,156 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Regioes.css";
-import { IoEye, IoSearch } from 'react-icons/io5';
+import { IoSearch } from 'react-icons/io5';
 import RegionDoughnout from '../../components/charts/RegionDoughnout';
 
 const Regioes = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModalClose = () => {
+    setShowModal(!showModal);
+  };
+
   return (
-    <div id='region-container'>
-      <div id='region-inside'>
-        <header id="region-header">
-          <h1>Regiões</h1>
-          <p>Confira as regiões que mais venderam</p>
-        </header>
+    <>
+      {showModal && <div id="Modal-Add-imovel">
+        <div id="container-Add-imovel">
+          <div id="header-modal">
+            <h4 className="modal-title">Adicionar Região</h4>
+            <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
+          </div>
+          <hr />
+        </div>
+      </div >}
 
-        <main id='region-main'>
-          <article id='region-card'>
-            <p id='text-region-mes'>Região do Mês</p>
-            <div id='reg-main'>
-              <div id='container-region-img'>
-                <figure className='city-img'>
-                  <img src="./img/Catedral_de_Piripiri.jpg" alt="minha_prefeita" />
-                </figure>
-                <div id='region-desc'>
-                  <h1>Piripiri</h1>
-                  <p>Faturamento: <span>250K</span></p>
-                  <p>Unidades vendidas: <span>51K</span></p>
+      <div id='region-container'>
+        <div id='region-inside'>
+          <header id="region-header">
+            <h1>Regiões</h1>
+            <p>Confira as regiões que mais venderam</p>
+          </header>
+
+          <main id='region-main'>
+            <article id='region-card'>
+              <p id='text-region-mes'>Região do Mês</p>
+              <div id='reg-main'>
+                <div id='container-region-img'>
+                  <figure className='city-img'>
+                    <img src="./img/Piripiri-Igreja-Matriz.png" alt="piripiri" />
+                  </figure>
+                  <div id='region-desc'>
+                    <h1>Piripiri</h1>
+                    <p>Faturamento: <span>250K</span></p>
+                    <p>Unidades vendidas: <span>51K</span></p>
+                  </div>
                 </div>
+
+                <div id='region-chart'>
+                  <RegionDoughnout />
+                </div>
+
+              </div>
+            </article>
+
+            <section id='search-region'>
+              <div id='search-bar-region'>
+                <input type="search" id="search-region" placeholder='Pesquisar região' aria-label="Buscar" />
+                <i id='search-icon-region'><IoSearch id='icon-region' /></i>
               </div>
 
-              <div id='region-chart'>
-                <RegionDoughnout />
-              </div>
+              <button id='add-region' onClick={toggleModalClose}>
+                + Região
+              </button>
+            </section>
 
-            </div>
-          </article>
-
-          <section id='search-region'>
-            <div id='search-bar-region'>
-              <input type="search" id="search-region" placeholder='Pesquisar região' aria-label="Buscar" />
-              <i id='search-icon-region'><IoSearch id='icon-region' /></i>
-            </div>
-
-            <button id='add-region'>
-              + Região
-            </button>
-          </section>
-
-          <p id='result-reg'>Resultados (3)</p>
-          <section id='container-table-regions'>
-            <table>
-              <thead>
-                <tr>
-                  <td>nome</td>
-                  <td>preço</td>
-                  <td>vendido</td>
-                  <td>faturamento</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div className="table-regions">
-                      <div className="name-table">
-                        <h3>Picolé de Uva</h3>
+            <p id='result-reg'>Resultados (3)</p>
+            <section id='container-table-regions'>
+              <table>
+                <thead>
+                  <tr>
+                    <td>região</td>
+                    <td>nome</td>
+                    <td>vendido</td>
+                    <td>faturamento</td>
+                    <td className='table-space'></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div className="region-pic">
+                        <img src="./img/Piripiri-Igreja-Matriz.png" alt="piripiri" />
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="price">
-                      <h3>R$2.50</h3>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="sold">
-                      <h3>1587</h3>
-                    </div>
-                  </td>
-                  <td>
-                    <h5 className="status comprado">R$50000K</h5>
-                  </td>
-                  <td>
-                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                      <button className="edit">Ver</button>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                    <td>
+                      <div className="price">
+                        <h3>piripiri</h3>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="sold">
+                        <h3>1587</h3>
+                      </div>
+                    </td>
+                    <td>
+                      <h5 className="status comprado">R$10000K</h5>
+                    </td>
+                    <td>
+                      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <button className="edit">Ver</button>
+                      </div>
+                    </td>
+                  </tr>
 
-                <tr className='row-white'>
-                  <td><h3>Sorvete de Banana</h3></td>
-                  <td><h3>R$ 3.50</h3></td>
-                  <td><h3>8300</h3></td>
-                  <td><h5 className="status negociacao">R$30000K</h5></td>
-                  <td>
-                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                      <button className="edit">Ver</button>
-                    </div></td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+                  <tr className='row-white'>
+                    <td>
+                      <div className="region-pic">
+                        <img src="./img/Pdois.jpg" alt="piripiri" />
+                      </div>
+                    </td>
+                    <td><h3>Pedro II</h3></td>
+                    <td><h3>8300</h3></td>
+                    <td><h5 className="status negociacao">R$30000K</h5></td>
+                    <td>
+                      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <button className="edit">Ver</button>
+                      </div></td>
+                  </tr>
 
-        </main>
+                  <tr>
+                    <td>
+                      <div className="table-regions">
+                        <div className="region-pic">
+                          <img src="./img/no_regionImg.jpeg" alt="sem_regiao"/>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="price">
+                        <h3>Capitão de Campos</h3>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="sold">
+                        <h3>1587</h3>
+                      </div>
+                    </td>
+                    <td>
+                      <h5 className="status venda">R$50000K</h5>
+                    </td>
+                    <td>
+                      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <button className="edit">Ver</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            
+          </main>
+        </div>
       </div>
-    </div>
-
+    </>
   )
 }
 

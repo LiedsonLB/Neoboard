@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Produtos.css";
 import { IoSearch } from 'react-icons/io5';
-import DoughnutChart from '../../components/charts/DoughtnoutChart';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
 
 const Produtos = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModalClose = () => {
+      setShowModal(!showModal);
+  };
+
   return (
+    <>
+    {showModal && <div id="Modal-Add-imovel">
+        <div id="container-Add-imovel">
+          <div id="header-modal">
+            <h4 className="modal-title">Adicionar Produto</h4>
+            <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
+        </div>
+        <hr/>
+      </div>
+    </div >}
+
     <div id='product-container'>
       <div id='product-inside'>
         <header id="prod-header">
@@ -38,7 +54,7 @@ const Produtos = () => {
               <input type="search" id="search-product" placeholder='Pesquisar produto' aria-label="Buscar" />
               <i id='search-icon'><IoSearch id='icon-prod' /></i>
             </div>
-            <button id='add-product'>
+            <button id='add-product' onClick={toggleModalClose}>
               + Produto
             </button>
           </section>
@@ -94,8 +110,8 @@ const Produtos = () => {
               <figure className='icecream-img'>
                 <img src="./img/picole.jpg" alt="picole_flocos" />
               </figure>
-              <p>Sorvete de 2L</p>
-              <p className='prod-name'>R$ 18.00</p>
+              <p>Picolé de flocos de 20ml</p>
+              <p className='prod-name'>R$ 2.50</p>
               <button>Ver produto</button>
             </article>
 
@@ -103,6 +119,7 @@ const Produtos = () => {
         </main>
       </div>
     </div>
+    </>
   );
 }
 
