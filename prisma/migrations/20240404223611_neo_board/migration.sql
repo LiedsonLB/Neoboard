@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Funcionario" (
-    "ID_funcionario" INTEGER NOT NULL,
+    "ID_funcionario" SERIAL NOT NULL,
     "img_funcionario" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "CPf" TEXT NOT NULL,
@@ -10,12 +10,12 @@ CREATE TABLE "Funcionario" (
     "endereco" TEXT NOT NULL,
     "form_acad" TEXT NOT NULL,
 
-    CONSTRAINT "Funcionario_pkey" PRIMARY KEY ("email")
+    CONSTRAINT "Funcionario_pkey" PRIMARY KEY ("ID_funcionario")
 );
 
 -- CreateTable
 CREATE TABLE "Regiao" (
-    "ID_regiao" INTEGER NOT NULL,
+    "ID_regiao" SERIAL NOT NULL,
     "nome" TEXT NOT NULL,
     "ID_funcionario" INTEGER NOT NULL,
 
@@ -68,9 +68,6 @@ CREATE TABLE "_ProdutoToVenda" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "Funcionario_ID_funcionario_key" ON "Funcionario"("ID_funcionario");
 
 -- CreateIndex
 CREATE INDEX "idx_itens_venda_venda_id" ON "ItensVenda"("ID_venda");

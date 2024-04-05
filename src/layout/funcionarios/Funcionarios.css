@@ -80,6 +80,23 @@
     color: var(--secondy-color);
 }
 
+.stf-card span i {
+    font-size: .8rem;
+    color: #C62828;
+    margin-right: .3rem;
+}
+
+.staff-desc p {
+    color: var(--black-color);
+    text-align: start !important;
+}
+
+.staff-desc p span{
+    color: var(--primary-color);
+    text-align: start !important;
+    font-weight: bold;
+}
+
 .staff-chart {
     width: 100%;
     display: flex;
@@ -261,7 +278,7 @@
     width: 100%;
     background-color: black;
     border-radius: 50%;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .stf-card span {
