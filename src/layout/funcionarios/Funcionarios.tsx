@@ -24,7 +24,7 @@ const Funcionarios = () => {
               <h2>Vendas</h2>
             </header>
             <figure className='staff-info'>
-            <img src="./img/no_profile.png" alt="stf-img" />
+            <img src="./img/PedroLucas.jpeg" alt="stf-img" />
               <figcaption className='staff-desc'>
                 <h2>Pedro Lucas</h2>
                 <p>Vendas: 15</p>
@@ -40,7 +40,7 @@ const Funcionarios = () => {
               <h2>Faturamento</h2>
             </header>
             <figure className='staff-info'>
-            <img src="./img/no_profile.png" alt="stf-img" />
+            <img src="./img/Laesse.jpeg" alt="stf-img" />
               <figcaption className='staff-desc'>
                 <h2>Laesse</h2>
                 <p>Faturamento: 5.6K</p>
@@ -72,7 +72,7 @@ const Funcionarios = () => {
         <section id='staff-list'>
           <article className='stf-card'>
             <figure className='staff-img'>
-            <img src="./img/no_profile.png" alt="stf-img" />
+            <img src="./img/PedroLucas.jpeg" alt="stf-img" />
             </figure>
             <p className='staff-nick'>Pedro Lucas</p>
             <span>
@@ -97,7 +97,7 @@ const Funcionarios = () => {
 
           <article className='stf-card'>
             <figure className='staff-img'>
-            <img src="./img/no_profile.png" alt="stf-img" />
+            <img src="./img/Laesse.jpeg" alt="stf-img" />
             </figure>
             <p className='staff-nick'>Laesse</p>
             <span>
@@ -122,7 +122,7 @@ const Funcionarios = () => {
 
           <article className='stf-card'>
             <figure className='staff-img'>
-              <img src="./img/no_profile.png" alt="stf-img" />
+              <img src="./img/Romário.jpeg" alt="stf-img" />
             </figure>
             <p className='staff-nick'>Romário</p>
             <span>
@@ -147,7 +147,7 @@ const Funcionarios = () => {
 
           <article className='stf-card'>
             <figure className='staff-img'>
-            <img src="./img/no_profile.png" alt="stf-img" />
+            <img src="./img/Welignton.jpeg" alt="stf-img" />
             </figure>
             <p className='staff-nick'>Welignton</p>
             <span>
