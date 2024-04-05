@@ -221,6 +221,7 @@
     padding: 1rem;
     border-radius: 5px;
     text-align: center;
+    justify-content: space-between;
 }
 
 .staff-nick {
