@@ -10,6 +10,78 @@ const Funcionarios = () => {
     setShowModal(!showModal);
   };
   return (
+    <>
+    {showModal && <div id="Modal-Add-Btn">
+    <div id="container-Add-Btn">
+      <div id="header-modal">
+        <h4 className="modal-title">Adicionar Funcionário</h4>
+        <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
+      </div>
+
+      <div id="Add-Item">
+        <div className='input-item input-single'>
+          <span>
+            <label htmlFor="name-item">Nome do funcionário:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+        </div>
+
+        <div className='input-item input-mult'>
+          <span>
+            <label htmlFor="name-item">Data de nascimento:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+          <span>
+            <label htmlFor="name-item">Local de atuação:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+        </div>
+
+        <div className='input-item input-single'>
+          <span>
+            <label htmlFor="name-item">Email:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+        </div>
+
+        <div className='input-item input-mult'>
+          <span>
+            <label htmlFor="name-item">Endereço:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+          <span>
+            <label htmlFor="name-item">Telefone:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+        </div>
+
+        <div className='input-item input-mult'>
+          <span>
+            <label htmlFor="name-item">CPF:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+          <span>
+            <label htmlFor="name-item">Formação Acadêmica:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+        </div>
+
+        <div className='input-item input-mult'>
+          <span>
+            <label htmlFor="name-item">Linkedin:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+          <span>
+            <label htmlFor="name-item">Github:</label>
+            <input type="text" name='name-item' className='full-item' />
+          </span>
+        </div>
+
+      </div>
+    </div>
+    <hr />
+  </div >}
+
     <div id='staff-container'>
       <div id='staff-inside'>
       <header id='staff-header'>
@@ -174,6 +246,7 @@ const Funcionarios = () => {
       </main>
       </div>
     </div>
+    </>
   )
 }
 
