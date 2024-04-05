@@ -12,13 +12,73 @@ const Regioes = () => {
 
   return (
     <>
-      {showModal && <div id="Modal-Add-imovel">
-        <div id="container-Add-imovel">
+      {showModal && <div id="Modal-Add-Btn">
+        <div id="container-Add-Btn">
           <div id="header-modal">
             <h4 className="modal-title">Adicionar Região</h4>
             <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
           </div>
-          <hr />
+
+          <div id="Add-Item">
+            <div className='input-item input-single'>
+              <span>
+                <label htmlFor="name-item">Nome do funcionário:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+            <div className='input-item input-mult'>
+              <span>
+                <label htmlFor="name-item">Data de nascimento:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+              <span>
+                <label htmlFor="name-item">Local de atuação:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+            <div className='input-item input-single'>
+              <span>
+                <label htmlFor="name-item">Email:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+            <div className='input-item input-mult'>
+              <span>
+                <label htmlFor="name-item">Endereço:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+              <span>
+                <label htmlFor="name-item">Telefone:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+            <div className='input-item input-mult'>
+              <span>
+                <label htmlFor="name-item">CPF:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+              <span>
+                <label htmlFor="name-item">Formação Acadêmica:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+            <div className='input-item input-mult'>
+              <span>
+                <label htmlFor="name-item">Linkedin:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+              <span>
+                <label htmlFor="name-item">Github:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+          </div>
         </div>
       </div >}
 
@@ -120,7 +180,7 @@ const Regioes = () => {
                     <td>
                       <div className="table-regions">
                         <div className="region-pic">
-                          <img src="./img/no_regionImg.jpeg" alt="sem_regiao"/>
+                          <img src="./img/no_regionImg.jpeg" alt="sem_regiao" />
                         </div>
                       </div>
                     </td>
@@ -146,7 +206,7 @@ const Regioes = () => {
                 </tbody>
               </table>
             </section>
-            
+
           </main>
         </div>
       </div>

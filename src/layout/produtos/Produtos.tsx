@@ -12,15 +12,51 @@ const Produtos = () => {
 
   return (
     <>
-    {showModal && <div id="Modal-Add-imovel">
-        <div id="container-Add-imovel">
+    {showModal && <div id="Modal-Add-Btn">
+        <div id="container-Add-Btn">
           <div id="header-modal">
             <h4 className="modal-title">Adicionar Produto</h4>
             <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
+          </div>
+
+          <div id="Add-Item">
+            <div className='input-item input-mult'>
+              <span>
+                <label htmlFor="name-item">Endereço:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+              <span>
+                <label htmlFor="name-item">Telefone:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+            <div className='input-item input-mult'>
+              <span>
+                <label htmlFor="name-item">CPF:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+              <span>
+                <label htmlFor="name-item">Formação Acadêmica:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+            <div className='input-item input-mult'>
+              <span>
+                <label htmlFor="name-item">Linkedin:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+              <span>
+                <label htmlFor="name-item">Github:</label>
+                <input type="text" name='name-item' className='full-item' />
+              </span>
+            </div>
+
+          </div>
+          <hr />
         </div>
-        <hr/>
-      </div>
-    </div >}
+      </div >}
 
     <div id='product-container'>
       <div id='product-inside'>
@@ -110,8 +146,8 @@ const Produtos = () => {
               <figure className='icecream-img'>
                 <img src="./img/picole.jpg" alt="picole_flocos" />
               </figure>
-              <p>Picolé de flocos de 20ml</p>
-              <p className='prod-name'>R$ 2.50</p>
+              <p>Sorvete de 2L</p>
+              <p className='prod-name'>R$ 18.00</p>
               <button>Ver produto</button>
             </article>
 
