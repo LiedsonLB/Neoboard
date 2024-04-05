@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Funcionarios.css";
-import { IoSearch, IoCaretDownSharp } from 'react-icons/io5';
+import { IoSearch, IoCaretDownSharp, IoPin } from 'react-icons/io5';
 import StaffDoughnout from '../../components/charts/StaffDoughnout';
 
 interface Funcionario {
@@ -128,7 +128,7 @@ const Funcionarios = () => {
             <input type="text" name='name-item' className='full-item' />
           </span>
         </div>
-
+        <button id='addFuncionarioBtn'>Enviar</button>
       </div>
     </div>
     <hr />

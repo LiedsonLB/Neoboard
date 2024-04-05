@@ -41,7 +41,7 @@
     display: flex;
     justify-content: space-around;
     gap: 5rem;
-    
+
 }
 
 .staff-card {
@@ -91,7 +91,7 @@
     text-align: start !important;
 }
 
-.staff-desc p span{
+.staff-desc p span {
     color: var(--primary-color);
     text-align: start !important;
     font-weight: bold;
@@ -221,6 +221,7 @@
     padding: 1rem;
     border-radius: 5px;
     text-align: center;
+    justify-content: space-between;
 }
 
 .staff-nick {
@@ -288,4 +289,18 @@
 .staff-pin {
     color: red;
     font-size: 1.rem;
+}
+
+#addFuncionarioBtn {
+    padding: .8rem 2rem;
+    background: var(--secondy-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: var(--font-krub);
+    cursor: pointer;
+}
+
+#addFuncionarioBtn:hover {
+    background: var(--hover-color);   
 }

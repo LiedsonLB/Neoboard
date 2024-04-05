@@ -372,7 +372,7 @@ td {
     animation: DownAnimation .5s;
     justify-content: center;
     flex-direction: column;
-    min-width: 30%;
+    min-width: 50%;
 }
 
 #header-modal {
@@ -409,12 +409,14 @@ td {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    width: 100%;
 }
 
 .input-item span {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 100%;
 }
 
 .input-item span input {
