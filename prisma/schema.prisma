@@ -8,9 +8,9 @@ datasource db {
 }
 
 model Funcionario {
-  ID_funcionario  Int      @unique
+  ID_funcionario  Int      @id @default(autoincrement())
   img_funcionario String
-  email           String   @id
+  email           String
   CPf             String
   Nome            String
   telefone        String
@@ -22,7 +22,7 @@ model Funcionario {
 }
 
 model Regiao {
-  ID_regiao      Int         @id
+  ID_regiao      Int         @id @default(autoincrement())
   nome           String
   ID_funcionario Int
   usuario        Funcionario @relation(fields: [ID_funcionario], references: [ID_funcionario])
