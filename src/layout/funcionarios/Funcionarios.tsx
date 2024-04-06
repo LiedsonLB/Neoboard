@@ -18,6 +18,9 @@ const Funcionarios = () => {
   const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [funcionariosDestaque, setFuncionariosDestaque] = useState<Funcionario[]>([]);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<Funcionario | null>(null);
+  const [filteredFuncionarios, setFilteredFuncionarios] = useState<Funcionario[]>([]);
 
   useEffect(() => {
     const fetchFuncionarios = async () => {
@@ -38,6 +41,7 @@ const Funcionarios = () => {
           faturamento: `${Math.floor(Math.random() * 999)}k`,
         }));
         setFuncionarios(funcionariosData);
+        setFilteredFuncionarios(funcionariosData);
 
         const funcionariosDestaqueAleatorios = funcionariosData.sort(() => 0.5 - Math.random()).slice(0, 2);
         setFuncionariosDestaque(funcionariosDestaqueAleatorios);
@@ -49,16 +53,24 @@ const Funcionarios = () => {
     fetchFuncionarios();
   }, []);
 
+  useEffect(() => {
+    const filtered = funcionarios.filter(funcionario =>
+      funcionario.Nome.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredFuncionarios(filtered);
+  }, [funcionarios, searchTerm]);
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredFuncionarios = funcionarios.filter(funcionario =>
-    funcionario.Nome.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   const toggleModalClose = () => {
     setShowModal(!showModal);
+  };
+
+  const toggleInfoModal = (funcionario: Funcionario) => {
+    setSelectedUser(funcionario);
+    setShowInfoModal(true);
   };
 
   return (
@@ -99,7 +111,7 @@ const Funcionarios = () => {
             <div className='search-btns'>
             <button id='filter-staff'>
               <p>Filtrar</p>
-              <IoCaretDownSharp />
+              <IoCaretDownSharp onClick={() => setFilteredFuncionarios(funcionarios)} />
             </button>
             <button id='add-staff' onClick={toggleModalClose}>
               + Funcionário
@@ -129,12 +141,34 @@ const Funcionarios = () => {
                     <p>{funcionario.faturamento}</p>
                   </span>
                 </div>
-                <button>Ver detalhes</button>
+                <button onClick={() => toggleInfoModal(funcionario)}>Ver detalhes</button>
               </article>
             ))}
           </section>
         </main>
       </div>
+
+      {showModal && (
+        <div>ola mundo</div>
+      )}
+
+      {showInfoModal && selectedUser && (
+        // Modal de exibição de informações do funcionário
+        <div className="Modal-Add">
+          <div className="container-Add">
+          <div id="header-modal">
+            <h4 className="modal-title">Informações do Funcionário</h4>
+            <button type="button" className="close-btn" onClick={() => setShowInfoModal(false)}>&times;</button>
+          </div>
+            <img src={selectedUser.img_funcionario} alt="user-avatar" />
+            <p>Nome: {selectedUser.Nome}</p>
+            <p>Usuário: {selectedUser.usuario}</p>
+            <p>Endereço: {selectedUser.endereco}</p>
+            <p>Vendas: {selectedUser.vendas}</p>
+            <p>Faturamento: {selectedUser.faturamento}</p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

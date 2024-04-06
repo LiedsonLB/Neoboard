@@ -12,11 +12,11 @@ const Regioes = () => {
 
   return (
     <>
-      {showModal && <div id="Modal-Add-imovel">
-        <div id="container-Add-imovel">
+      {showModal && <div className="Modal-Add">
+        <div className="container-Add">
           <div id="header-modal">
             <h4 className="modal-title">Adicionar Região</h4>
-            <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
+            <button type="button" className="close-btn" onClick={toggleModalClose}>&times;</button>
           </div>
           <hr />
         </div>
