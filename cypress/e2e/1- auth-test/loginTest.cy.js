@@ -1,6 +1,6 @@
 describe('Teste de carregamento da página de login', () => {
     beforeEach(() => {
-        cy.visit('https://neoboardauth.web.app')
+        cy.visit('http://localhost:3000')
     })
 
     it('Teste mostrar senha', () => {

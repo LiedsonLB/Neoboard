@@ -1,6 +1,6 @@
 describe('Teste de carregamento da página de login', () => {
     beforeEach(() => {
-        cy.visit('https://neoboardauth.web.app/cadaster')
+        cy.visit('http://localhost:3000/cadaster')
     })
 
     it('teste preencher cadastro vazio', ()=> {
