@@ -65,7 +65,7 @@ const Regioes = () => {
             <p id='result-reg'>Resultados (3)</p>
             <section id='container-table-regions'>
               <table>
-                <thead>
+                <thead className='theadTableRegions'>
                   <tr>
                     <td>região</td>
                     <td>nome</td>
