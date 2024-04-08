@@ -147,7 +147,7 @@ const Funcionarios = () => {
             </div>
             <div className='search-btns'>
               <button id='filter-staff'>
-                <p>Filtrar</p>
+                <p>Classificar</p>
                 <IoCaretDownSharp onClick={() => setFilteredFuncionarios(funcionarios)} />
               </button>
               <button id='add-staff' onClick={toggleModalClose}>
