@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
 import { IoCloudDownloadOutline } from 'react-icons/io5';
-import { read, utils } from 'xlsx'; 
+import { read, utils } from 'xlsx';
 import Papa from 'papaparse';
 import './Relatorio.css';
+import LoadingComponent from '../../components/loading/LoadingComponent';
 
 const Relatorio: React.FC = () => {
   const [outputData, setOutputData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const dateNow = new Date();
+  const day = dateNow.getDate();
+  const month = dateNow.getMonth() + 1;
+  const year = dateNow.getFullYear();
 
   const displayData = (data: any) => {
     setOutputData(data);
+    setLoading(false); // Hide loading indicator once data processing is complete
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setLoading(true);
       const reader = new FileReader();
       reader.onload = (e) => {
         const data = e.target?.result;
@@ -25,6 +34,7 @@ const Relatorio: React.FC = () => {
             handleCSVFile(dataArray);
           } else {
             alert('Formato de arquivo não suportado.');
+            setLoading(false); // Ocultar indicador de carregamento se o formato do arquivo não for suportado
           }
         }
       };
@@ -66,6 +76,14 @@ const Relatorio: React.FC = () => {
     event.stopPropagation();
   };
 
+  const cancelFile = () => {
+    setOutputData([]);
+    const fileInput = document.getElementById("fileElem") as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+  }
+
   return (
     <div id='report-container'>
       <header id='report-header'>
@@ -74,40 +92,42 @@ const Relatorio: React.FC = () => {
 
       <main id='report-main'>
         <section id='report-right'>
-          <header>
-            <div id='file-header'>
-              <label className="desc-text" htmlFor="title-file">Titulo:</label>
-              <input type="text" id='title-file'/>
-            </div>
-
-            <div id='file-desc'>
-              <label className="desc-desc" htmlFor="desc-file">Descrição:</label>
-              <input type="text" id='desc-file'/>
-            </div>
-          </header>
 
           <div id="drop-area"
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragEnter={handleDragOver}
             onDragLeave={handleDragOver}>
+
+            {loading && (
+              <div id="container-file_loading">
+                <LoadingComponent />
+              </div>
+            )}
+
             <input type="file" id="fileElem" multiple accept=".xlsx,.csv,.txt" onChange={handleFileChange} />
-            <label className="button" htmlFor="fileElem">
-              <i id='report-icon'><IoCloudDownloadOutline /></i>
-              <p>Clique para escolher um arquivo.</p>
-            </label>
+            {!loading && (
+              <label className="buttonSendFile" htmlFor="fileElem">
+                <i id='report-icon'><IoCloudDownloadOutline /></i>
+                <p>Clique para escolher um arquivo.</p>
+              </label>
+            )}
           </div>
-          
+
           <hr id='report-line' />
-          
+
           <div id='report-btns'>
-            <button className='rep-btn' id='cancel-btn'>Cancelar</button>
-            <button className='rep-btn' id='add-rep-btn'>Enviar</button>
+            <a href="./planilhaVazia/neoboardPlanilha.xlsx" download={`Relatorio_de_vendas_${day}-${month}-${year}`} id="receiveFile"><i className="fa-solid fa-file-csv"></i> Receber Planilha</a>
+            <div>
+              <button className='rep-btn' id='cancelFile' disabled={outputData.length === 0 || loading} onClick={cancelFile}>Cancelar</button>
+              <button className='rep-btn' id='uploadButton' disabled={outputData.length === 0 || loading}>
+                Enviar <i className="fa-solid fa-share"></i>
+              </button>
+            </div>
           </div>
         </section>
       </main>
 
-      <h3>Dados do Arquivo:</h3>
       <div id="output">
         <table>
           <thead>

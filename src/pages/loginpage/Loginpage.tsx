@@ -45,7 +45,7 @@ const LoginPage = () => {
     const hideMessageAfterTimeout = () => {
         setTimeout(() => {
             setMensagem('');
-        }, 30000);
+        }, 3000);
     };
 
     const handleResetSenha = async () => {

@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import "./Home.css"
-import Loading from '../../components/loading/Loading.tsx';
+import "./Home.css";
 import LineChart from '../../components/charts/LineChart.tsx';
-import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
 import PaymentMethodsChart from '../../components/charts/PolarChart.tsx';
 import { FaChartLine, FaChartPie, FaDollarSign } from 'react-icons/fa';
 import { useSpring, animated } from 'react-spring';
 import ColumnChart from '../../components/charts/ColumnChart.tsx';
 import Calendar from '../../components/calendar/Calendar.tsx';
 import LoadingComponent from '../../components/loading/LoadingComponent.tsx';
-import Modal from '../../components/popup/Popup.tsx';
+import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
 
 interface Produto {
     img: string | undefined;
@@ -28,27 +26,30 @@ interface Event {
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");
     const [produtos, setProdutos] = useState<Produto[]>([]);
+    const [regions, setRegions] = useState<Produto[]>([]);
+    const [staffs, setStaffs] = useState<Produto[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchData() {
+        const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/v2/produtos');
-                setProdutos(response.data);
+                const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
+                    axios.get('http://localhost:4000/v2/produtos'),
+                    axios.get('http://localhost:4000/v2/regioes'),
+                    axios.get('http://localhost:4000/v2/funcionarios')
+                    //axios.get('http://localhost:4000/eventos')
+                ]);
+                setProdutos(produtosResponse.data);
+                setRegions(regionsResponse.data);
+                setStaffs(staffsResponse.data);
+                //setEvents(eventsResponse.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
                 setLoading(false);
             }
-
-            try {
-                const eventsResponse = await axios.get('http://localhost:4000/eventos');
-                setEvents(eventsResponse.data);
-            } catch (error) {
-                console.error('Erro ao buscar dados dos eventos:', error);
-            }
-        }
+        };
 
         fetchData();
     }, []);
@@ -57,7 +58,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         faturamento: 1000,
         despesas: 2000,
         lucro: 100000,
-    }
+    };
 
     const AnimatedNumber = ({ value }: { value: number }) => {
         const props = useSpring({ value, from: { value: 0 }, reset: true });
@@ -205,7 +206,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                     <ul>
                                         {produtos.map(produto => (
                                             <li key={produto.id}>
-                                                <img className="img-product" src={produto.img} alt={produto.nome} />
+                                                <div className="ranking-img">
+                                                    <img src={produto.img} alt={produto.nome} />
+                                                </div>
                                                 <div className="product-name">
                                                     <p>{produto.nome}: {produto.vendido}%</p>
                                                     <div className="scale-container">
@@ -225,18 +228,20 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 <p className="ranking-title">Arrecadação Regional</p>
                                 {loading ? (
                                     <LoadingComponent />
-                                ) : produtos.length === 0 ? (
+                                ) : regions.length === 0 ? (
                                     <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
                                 ) : (
                                     <ul>
-                                        {produtos.map(produto => (
-                                            <li key={produto.id}>
-                                                <img className="img-product" src={produto.img} alt={produto.nome} />
+                                        {regions.map(region => (
+                                            <li key={region.id}>
+                                                <div className="ranking-img">
+                                                    <img src={region.img} alt={region.nome} />
+                                                </div>
                                                 <div className="product-name">
-                                                    <p>{produto.nome}: {produto.vendido}%</p>
+                                                    <p>{region.nome}: {region.vendido}%</p>
                                                     <div className="scale-container">
                                                         <div className="product-scale">
-                                                            <div className="scale" style={{ width: `${produto.vendido}%` }}>
+                                                            <div className="scale" style={{ width: `${region.vendido}%` }}>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -254,14 +259,16 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                     <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
                                 ) : (
                                     <ul>
-                                        {produtos.map(produto => (
-                                            <li key={produto.id}>
-                                                <img className="img-product" src={produto.img} alt={produto.nome} />
+                                        {staffs.map(staff => (
+                                            <li key={staff.id}>
+                                                <div className="ranking-img">
+                                                    <img src={staff.img} alt={staff.nome} />
+                                                </div>
                                                 <div className="product-name">
-                                                    <p>{produto.nome}: {produto.vendido}%</p>
+                                                    <p>{staff.nome}: {staff.vendido}%</p>
                                                     <div className="scale-container">
                                                         <div className="product-scale">
-                                                            <div className="scale" style={{ width: `${produto.vendido}%` }}>
+                                                            <div className="scale" style={{ width: `${staff.vendido}%` }}>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -353,12 +360,12 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
                 <footer>
                     <div id="container-footer">
-                        <p><a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a> | <a href="#">Central de Ajuda</a></p>
+                        <p><a href=" ">Termos de Uso</a> | <a href=" ">Política de Privacidade</a> | <a href=" ">Central de Ajuda</a></p>
                         <p>Entre em contato: <a href="mailto:liedson.b9@gmail.com">neoboard@neo.com</a></p>
-                        <hr id="lineFooter"/>
-                            <div id="autoria">
-                                <p>&copy; 2024 NeoBoard. Todos os direitos reservados.</p>
-                            </div>
+                        <hr id="lineFooter" />
+                        <div id="autoria">
+                            <p>&copy; 2024 NeoBoard. Todos os direitos reservados.</p>
+                        </div>
                     </div>
                 </footer>
             </main>

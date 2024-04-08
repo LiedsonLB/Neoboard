@@ -7,9 +7,24 @@ const prisma = new PrismaClient();
 const routerV2 = express.Router();
 
 const produtosFake = [
-    { id: 1, nome: 'League of Legends', vendido: 20, img: 'https://brand.riotgames.com/static/a91000434ed683358004b85c95d43ce0/8a20a/lol-logo.png' },
-    { id: 2, nome: 'Minecraft', vendido: 50, img: 'https://preview.redd.it/avjal33hpqo61.png?width=512&format=png&auto=webp&s=b652d83347448df74c8ba61c17b322e686ee32a4' },
-    { id: 3, nome: 'Produto 3', vendido: 80, img: './img/no_productImg.jpeg' },
+    { id: 1, nome: 'Sorvete de 1L', vendido: 76, img: 'https://www.sloopsorvetes.com.br//img/produtos/sorvete_flocos_1.5%20L.png' },
+    { id: 2, nome: 'Picolé Dileto Clássico', vendido: 68, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz6JTkc63Tn7_qUuzE63TfIek-7TIzxsqnkZj1wE7x2A&s./img/picole.jpg' },
+    { id: 3, nome: 'Picolé Oreo', vendido: 59, img: 'https://lh6.googleusercontent.com/proxy/Gk0Iuu0-N79cbMqeeKRCwtKxxYLwiJQY0JQy5_rUmCVHKM72ivnC4yqpk9UGvYNh5I8R2LUjTFAEq5CG9ZRejrt18A8o-MUlw_p7iYg8IYN5uuGvyt8' },
+    { id: 4, nome: 'Picolé Magnum', vendido: 48, img: 'https://lh4.googleusercontent.com/proxy/PDadvtSUcbHF7D20GKNV986ow12UiW1jEofiRNKpp1ZGdBadkvDov0nKRbV5m2J785oi3_xqm5CAwVJq9m_xYaK4YErIV2tTuV9po-C71frF0wMHxWk' },
+];
+
+const regioesFake = [
+    { id: 1, nome: 'Piripiri', vendido: 76, img: './img/Piripiri-Igreja-Matriz.png' },
+    { id: 2, nome: 'Pedro II', vendido: 58, img: './img/Pdois.jpg' },
+    { id: 3, nome: 'Batalha', vendido: 46, img: 'https://upload.wikimedia.org/wikipedia/commons/7/7d/Igreja_Matriz_de_Batalha-PI.jpg' },
+    { id: 4, nome: 'Capitão de Campos', vendido: 27, img: './img/no_regionImg.jpeg' },
+];
+
+const staffsFake = [
+    { id: 1, nome: 'Laesse', vendido: 82, img: './img/Laesse.jpeg' },
+    { id: 2, nome: 'Romário', vendido: 76, img: './img/Romario.jpeg' },
+    { id: 3, nome: 'Welignton', vendido: 63, img: './img/Welignton.jpeg' },
+    { id: 4, nome: 'Pedro Lucas', vendido: 10, img: './img/PedroLucas.jpeg' },
 ];
 
 const dadosDeTesteFuncionario = {
@@ -77,7 +92,7 @@ routerV2.post("/funcionarios", async (req, res) => {
 // Endpoint para obter todos os funcionários
 routerV2.get("/funcionarios", async (req, res) => {
     try {
-        const funcionarios = await prisma.funcionario.findMany();
+        const funcionarios = staffsFake;
         res.status(200).json(funcionarios);
     } catch (error) {
         console.error('Erro ao obter funcionários:', error);
@@ -125,6 +140,22 @@ routerV2.get("/produtos", async (req, res) => {
     } catch (error) {
         console.error('Erro ao obter produtos:', error);
         res.status(500).json({ error: 'Erro ao obter produtos' });
+    }
+})
+
+// Endpoint para enviar os regioes
+routerV2.post("/regioes", async (req, res) => {
+
+})
+
+// Endpoint para obter todas os regioes
+routerV2.get("/regioes", async (req, res) => {
+    try {
+        const regioes = regioesFake;
+        res.status(200).json(regioes);
+    } catch (error) {
+        console.error('Erro ao obter regioes:', error);
+        res.status(500).json({ error: 'Erro ao obter regioes' });
     }
 })
 
