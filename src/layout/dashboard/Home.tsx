@@ -34,7 +34,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://localhost:4000/produtos');
+                const response = await axios.get('http://localhost:4000/v2/produtos');
                 setProdutos(response.data);
                 setLoading(false);
             } catch (error) {

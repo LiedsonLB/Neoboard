@@ -36,32 +36,17 @@ const ColumnChart = () => {
       },
       {
         mes: 'Maio',
-        valor: 4500,
+        valor: 3900,
         color: 'red',
       },
       {
-        mes: 'Maio',
-        valor: 4500,
+        mes: 'Junho',
+        valor: 2500,
         color: 'red',
       },
       {
-        mes: 'Maio',
-        valor: 4500,
-        color: 'red',
-      },
-      {
-        mes: 'Maio',
-        valor: 4500,
-        color: 'red',
-      },
-      {
-        mes: 'Maio',
-        valor: 4500,
-        color: 'red',
-      },
-      {
-        mes: 'Maio',
-        valor: 4500,
+        mes: 'Julho',
+        valor: 5600,
         color: 'red',
       },
     ];

@@ -221,6 +221,10 @@ table {
     border-collapse: collapse;
     border-radius: 10px;
 }
+.tBodyTableRegions tr td{
+    border: 1px solid #ddd;
+}
+
 
 .theadTableRegions tr {
     width: 100%;
@@ -229,7 +233,6 @@ table {
     background-color: var(--primary-color);
     color: var(--white-color);
     font-weight: bold;
-    border-radius: 10px;
     font-size: .9rem;
 }
 
@@ -239,7 +242,6 @@ tbody {
 }
 
 tbody tr {
-    border-radius: 10px;
     font-size: .9rem;
 }
 

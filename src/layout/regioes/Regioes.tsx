@@ -74,7 +74,7 @@ const Regioes = () => {
                     <td className='table-space'></td>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className='tBodyTableRegions'>
                   <tr>
                     <td>
                       <div className="region-pic">
@@ -92,7 +92,7 @@ const Regioes = () => {
                       </div>
                     </td>
                     <td>
-                      <h5 className="status comprado">R$10000K</h5>
+                      <h3>R$10000K</h3>
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
@@ -109,7 +109,7 @@ const Regioes = () => {
                     </td>
                     <td><h3>Pedro II</h3></td>
                     <td><h3>8300</h3></td>
-                    <td><h5 className="status negociacao">R$30000K</h5></td>
+                    <td><h3>R$30000K</h3></td>
                     <td>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
                         <button className="edit">Ver</button>
@@ -135,7 +135,7 @@ const Regioes = () => {
                       </div>
                     </td>
                     <td>
-                      <h5 className="status venda">R$50000K</h5>
+                      <h3>R$50000K</h3>
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
