@@ -187,7 +187,7 @@ const Funcionarios = () => {
 
       {showModal && (
         <div className='Modal-Add'>
-          <div className='container-Add'>
+          <div className='container-Add-Staff'>
             <div id="header-modal">
               <h4 className="modal-title">Adicionar Funcionário</h4>
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>

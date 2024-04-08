@@ -361,7 +361,7 @@ td {
     display: flex;
     align-items: center;
     height: 90%;
-    width: 80%;
+    width: 80% !important;
     z-index: 3;
     position: fixed;
 }

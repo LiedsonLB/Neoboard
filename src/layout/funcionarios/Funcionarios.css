@@ -362,6 +362,7 @@
 .userStfSocialMidia a {
     width: auto !important;
     padding: 1rem;
+    border-radius: 10px;
     background-color: var(--gray-color);
     color: var(--primary-color);
     font-size: 2rem;
@@ -447,6 +448,26 @@
     gap: 1rem;
     padding: 1rem;
     width: 100%;
+    overflow: auto;
+}
+
+.container-Add-Staff {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white-color);
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    min-width: 30%;
+    padding: 20px;
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 90%;
+    width: 60%;
+    z-index: 3;
+    position: fixed;
 }
 
 .input-item span {
@@ -476,4 +497,17 @@
 .input-mult {
     display: flex;
     gap: 1rem;
+}
+#addFuncionarioBtn {
+    padding: .8rem 2rem;
+    background: var(--secondy-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: var(--font-krub);
+    cursor: pointer;
+}
+
+#addFuncionarioBtn:hover {
+    background: var(--hover-color);   
 }
