@@ -17,8 +17,8 @@ const FAQ = () => {
     const userMessage = e.target.message.value.trim();
 
     if (!userName || !userEmail || !userMessage) {
-      setAlert('warning');
-      setTitle('Erro');
+      setAlert('alert');
+      setTitle('Alerta');
       setMensagem('Por favor, preencha todos os campos.');
       hideMessageAfterTimeout();
       return;
@@ -34,7 +34,7 @@ const FAQ = () => {
     emailjs.send('service_2fh7kiu', 'template_1dwajhz', templateParams, 'ytmT8nY7U6e4AGqet')
       .then((result) => {
         console.log(result.text);
-        setAlert('success');
+        setAlert('sucess');
         setTitle('Sucesso');
         setMensagem('Sua mensagem foi enviada com sucesso!');
         hideMessageAfterTimeout();

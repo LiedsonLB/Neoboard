@@ -86,7 +86,7 @@
     margin: 2rem 3rem;
 }
 
-.button {
+.buttonSendFile {
     border: 2px dashed #ccc;
     border-radius: 20px;
     text-align: center;
@@ -98,10 +98,11 @@
     width: 100%;
     height: 100%;
     padding: 4rem;
+    color: var(--primary-color);
 
 }
 
-.button:hover {
+.buttonSendFile:hover {
     background-color: var(--hover-color);
     cursor: pointer;
     color: var(--white-color);
@@ -191,8 +192,93 @@ input[type="file"] {
     cursor: pointer;
 }
 
-#add-rep-btn:hover{
+#add-rep-btn:hover {
     transform: scale(1.2);
+}
+
+#report-right {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#report-container {
+    padding-inline: 1rem;
+    margin: auto;
+}
+
+#report-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#report-main {
+    display: flex;
+    justify-content: space-between;
+}
+
+#file-header,
+#file-desc {
+    margin-bottom: 10px;
+}
+
+#report-btns {
+    text-align: center;
+}
+
+.rep-btn {
+    margin: 0 10px;
+}
+
+#output {
+    margin-top: 20px;
+    max-height: 50% !important;
+    overflow: auto;
+    width: 80%;
+    margin: 0 auto;
+    outline: 5px solid var(--white-color);
+}
+
+
+#output table {
+    width: 100%;
+    margin: 0 auto;
+    height: 50% !important;
+    overflow: auto;
+}
+
+#output table tbody tr {
+    background-color: #EBEDF1;
+    font-size: .7rem;
+}
+
+#output table thead tr {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: .7rem;
+    text-align: center;
+}
+
+#output table thead {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+#output table tbody tr td,
+#output table thead tr td {
+    height: auto !important;
+    padding: 5px !important;
+    width: 200px !important;
+}
+
+#output table tbody tr td h3 {
+    text-wrap: nowrap;
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
+}
+
+#output table tbody tr:nth-child(even) {
+    background-color: var(--white-color);
 }
 
 @keyframes anime {
@@ -216,20 +302,102 @@ input[type="file"] {
     border-radius: 10px;
 }
 
+#uploadButton {
+    padding: 10px 20px;
+    background-color: #1B2947;
+    color: white;
+    border: 1px solid #1B2947;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#uploadButton:hover {
+    background-color: #5B7FFF;
+    border: 1px solid #5B7FFF;
+}
+
+#cancelFile {
+    padding: 10px 20px;
+    border: 1px solid var(--secondy-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color: var(--secondy-color);
+    color: var(--white-color);
+}
+
+#cancelFile:hover {
+    background-color: var(--hover-color);
+    border: 1px solid var(--hover-color);
+}
+
+.rep-btn[disabled] {
+    background-color: #ccc !important;
+    color: #999 !important;
+    cursor: not-allowed !important;
+    border: 1px solid #ccc !important;
+}
+
+#receiveFile {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid #1B2947;
+    color: #1B2947;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    width: auto !important;
+}
+
+#receiveFile:hover {
+    background-color: var(--white-color);
+}
+
+#loadingIndicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+#progressBarContainer {
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+    display: none;
+    background-color: #FFFFFF;
+    border-radius: 100px;
+}
+
+#container-file-loading {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background: var(--white-color);
+    width: 100%;
+    height: 100%;
+    padding: 4rem;
+}
+
 @media screen and (max-width: 1078px) {
     #report-header {
         text-align: center;
     }
-    
-    #report-main{
-    display: flex;
-    flex-direction: column;  
+
+    #report-main {
+        display: flex;
+        flex-direction: column;
     }
 
-    #report-right{
-    margin-bottom: 2rem;
+    #report-right {
+        margin-bottom: 2rem;
     }
 }
-
-
-

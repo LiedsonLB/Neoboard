@@ -31,7 +31,7 @@ const LoginPage = () => {
             return;
         }
         try {
-            /*await axios.post('http://localhost:4000/v1/login', { email, password });*/
+            /*await axios.post('http://localhost:4000/v2/login', { email, password });*/
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error: any) {
             setAlert('warning');
@@ -45,11 +45,12 @@ const LoginPage = () => {
     const hideMessageAfterTimeout = () => {
         setTimeout(() => {
             setMensagem('');
-        }, 30000);
+        }, 3000);
     };
 
     const handleResetSenha = async () => {
         if (!email) {
+            /*await axios.post('http://localhost:4000/v2/resetSenha', { email });*/
             setAlert('alert');
             setTitle('Atenção');
             setMensagem('Por favor, preencha o campo de e-mail.');

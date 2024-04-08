@@ -72,7 +72,7 @@ const Produtos = () => {
 
             <article className='prod-card'>
               <figure className='icecream-img'>
-                <img src="./img/picole.jpg" alt="picole_flocos" />
+                <img src="https://www.sloopsorvetes.com.br//img/produtos/sorvete_flocos_1.5%20L.png" alt="picole_flocos" />
               </figure>
               <p>Picolé de cobertura</p>
               <p className='prod-name'>R$ 2.00</p>
@@ -81,7 +81,7 @@ const Produtos = () => {
 
             <article className='prod-card'>
               <figure className='icecream-img'>
-                <img src="./img/picole.jpg" alt="picole_flocos" />
+                <img src="https://apoioentrega.vteximg.com.br/arquivos/ids/510299/7899975800769-Lacta-Sorvete-3-Chocolates-Lacta-Pote-15L---product.category----1-.jpg?v=637994719498870000" alt="picole_flocos" />
               </figure>
               <p>Açaí de 200ml</p>
               <p className='prod-name'>R$ 6.00</p>
@@ -90,7 +90,7 @@ const Produtos = () => {
 
             <article className='prod-card'>
               <figure className='icecream-img'>
-                <img src="./img/picole.jpg" alt="picole_flocos" />
+                <img src="https://lh6.googleusercontent.com/proxy/Gk0Iuu0-N79cbMqeeKRCwtKxxYLwiJQY0JQy5_rUmCVHKM72ivnC4yqpk9UGvYNh5I8R2LUjTFAEq5CG9ZRejrt18A8o-MUlw_p7iYg8IYN5uuGvyt8" alt="picole_flocos" />
               </figure>
               <p>Sorvete de 1L</p>
               <p className='prod-name'>R$ 12.00</p>
@@ -99,7 +99,7 @@ const Produtos = () => {
 
             <article className='prod-card'>
               <figure className='icecream-img'>
-                <img src="./img/picole.jpg" alt="picole_flocos" />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz6JTkc63Tn7_qUuzE63TfIek-7TIzxsqnkZj1wE7x2A&s./img/picole.jpg" alt="picole_flocos" />
               </figure>
               <p>Sorvete de 1.5L</p>
               <p className='prod-name'>R$ 15.00</p>
@@ -108,7 +108,7 @@ const Produtos = () => {
 
             <article className='prod-card'>
               <figure className='icecream-img'>
-                <img src="./img/picole.jpg" alt="picole_flocos" />
+                <img src="https://lh4.googleusercontent.com/proxy/PDadvtSUcbHF7D20GKNV986ow12UiW1jEofiRNKpp1ZGdBadkvDov0nKRbV5m2J785oi3_xqm5CAwVJq9m_xYaK4YErIV2tTuV9po-C71frF0wMHxWk" alt="picole_flocos" />
               </figure>
               <p>Picolé de flocos de 20ml</p>
               <p className='prod-name'>R$ 2.50</p>

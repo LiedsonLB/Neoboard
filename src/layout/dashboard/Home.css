@@ -286,6 +286,16 @@
   margin-bottom: 2rem;
 }
 
+.ranking-img img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
 .ranking-title {
   color: var(--primary-color);
   font-weight: 600;

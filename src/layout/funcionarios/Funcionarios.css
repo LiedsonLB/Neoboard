@@ -41,7 +41,7 @@
     display: flex;
     justify-content: space-around;
     gap: 5rem;
-    
+
 }
 
 .staff-card {
@@ -91,7 +91,7 @@
     text-align: start !important;
 }
 
-.staff-desc p span{
+.staff-desc p span {
     color: var(--primary-color);
     text-align: start !important;
     font-weight: bold;
@@ -289,4 +289,225 @@
 .staff-pin {
     color: red;
     font-size: 1.rem;
+}
+
+/* Modal */
+#infouser-popup {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#infouser-charts {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+#userInfo-popup {
+    width: 40%;
+    text-align: center;
+    font-family: var(--font-krub) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#userInfo-popup img {
+    animation: spin 1s linear;
+    border-radius: 20px;
+    outline: 5px solid var(--secondy-color);
+}
+
+#userStfTextInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    opacity: 0;
+    animation: slideInUp 1s ease forwards;
+}
+
+.nameUserStf {
+    padding-block: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    opacity: 0;
+    animation-delay: 1s !important;
+    animation: slideInUp 1s ease forwards;
+}
+
+.emailUserStf {
+    font-size: 1.3rem;
+    text-wrap: nowrap;
+    overflow: hidden;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    color: var(--secondy-color);
+    padding-block: .5rem;
+}
+
+.userStfSocialMidia {
+    padding-block: 1rem;
+    display: flex;
+    width: 100%;
+    max-width: 300px;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 0;
+    animation-delay: 1s !important;
+    animation: slideInUp 1s ease forwards;
+}
+
+.userStfSocialMidia a {
+    width: auto !important;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: var(--gray-color);
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+.userStfSocialMidia a:hover {
+    color: var(--hover-color) !important;
+}
+
+.text-historico {
+    color: var(--primary-color);
+}
+
+#container-StaffColumnChart {
+    height: 200px;
+}
+
+.graficColunm-stf {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#container-table-stf {
+    width: 100%;
+    margin: 0 auto;
+    height: 50% !important;
+    overflow: auto;
+}
+
+.body-list-stf tr {
+    background-color: #EBEDF1;
+    font-size: .7rem;
+}
+
+.head-list-stf tr {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: .7rem;
+    text-align: center;
+}
+
+.head-list-stf {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.body-list-stf tr td, .head-list-stf tr td {
+    height: auto !important;
+    padding: 5px !important;
+}
+
+.body-list-stf tr td h3 {
+    text-wrap: nowrap;
+    overflow: hidden;
+    max-width: 100px;
+    text-overflow: ellipsis;
+}
+
+.body-list-stf tr:nth-child(even) {
+    background-color: var(--white-color);
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(180deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+/* modal add staff */
+
+#Add-Item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+    overflow: auto;
+}
+
+.container-Add-Staff {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white-color);
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    min-width: 30%;
+    padding: 20px;
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 90%;
+    width: 60%;
+    z-index: 3;
+    position: fixed;
+}
+
+.input-item span {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.input-item span input {
+    padding: .8rem;
+    background-color: var(--gray-color);
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.input-item span input:focus {
+    border: 2px solid var(--secondy-color); 
+}
+
+.input-single {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-mult {
+    display: flex;
+    gap: 1rem;
+}
+#addFuncionarioBtn {
+    padding: .8rem 2rem;
+    background: var(--secondy-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: var(--font-krub);
+    cursor: pointer;
+}
+
+#addFuncionarioBtn:hover {
+    background: var(--hover-color);   
 }

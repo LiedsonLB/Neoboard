@@ -9,7 +9,7 @@ interface MesInfo {
   color: string;
 }
 
-const ColumnChart = () => {
+const StaffColumnChart = () => {
   const [meses, setMeses] = useState<MesInfo[]>([]);
 
   useEffect(() => {
@@ -61,9 +61,9 @@ const ColumnChart = () => {
     labels: labels,
     datasets: [
       {
-        label: 'Gráfico de despesas',
+        label: 'Gráfico de Faturamento',
         data: valoresDespesas,
-        backgroundColor: 'rgba(91, 127, 255, 0.2)',
+        backgroundColor: 'var(--secondy-color)',
         borderColor: '#5B7FFF',
         borderWidth: 1,
       },
@@ -83,13 +83,22 @@ const ColumnChart = () => {
         },
       },
     },
+    plugins: {
+      legend: {
+        display: true,
+        labels: {
+          filter: () => false
+        }
+      },
+    },
   };
 
   return (
-    <div className='graficColunm-stf'>
+    <div className='graficColunm-stf' style={{fontSize: '.8rem'}}>
+      <p className='text-historico'>Gráfico de Faturamento</p>
       <Bar data={data} options={options} />
     </div>
   );
 };
 
-export default ColumnChart;
+export default StaffColumnChart;

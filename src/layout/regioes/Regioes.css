@@ -221,15 +221,18 @@ table {
     border-collapse: collapse;
     border-radius: 10px;
 }
+.tBodyTableRegions tr td{
+    border: 1px solid #ddd;
+}
 
-thead tr {
+
+.theadTableRegions tr {
     width: 100%;
     height: 50px;
     text-align: center;
     background-color: var(--primary-color);
     color: var(--white-color);
     font-weight: bold;
-    border-radius: 10px;
     font-size: .9rem;
 }
 
@@ -239,7 +242,6 @@ tbody {
 }
 
 tbody tr {
-    border-radius: 10px;
     font-size: .9rem;
 }
 
@@ -361,7 +363,7 @@ td {
     display: flex;
     align-items: center;
     height: 90%;
-    width: 80%;
+    width: 80% !important;
     z-index: 3;
     position: fixed;
 }

@@ -1,36 +1,88 @@
-import React from 'react'
-import "./Relatorio.css";
-import { IoDocumentOutline } from 'react-icons/io5';
+import React, { useState } from 'react';
+import { IoCloudDownloadOutline } from 'react-icons/io5';
+import { read, utils } from 'xlsx';
+import Papa from 'papaparse';
+import './Relatorio.css';
+import LoadingComponent from '../../components/loading/LoadingComponent';
 
 const Relatorio: React.FC = () => {
-  // Função para lidar com arquivos selecionados ou arrastados
-  const handleFiles = (files: FileList) => {
-    // Aqui você pode processar os arquivos
-    console.log(files);
+  const [outputData, setOutputData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const dateNow = new Date();
+  const day = dateNow.getDate();
+  const month = dateNow.getMonth() + 1;
+  const year = dateNow.getFullYear();
+
+  const displayData = (data: any) => {
+    setOutputData(data);
+    setLoading(false); // Hide loading indicator once data processing is complete
   };
 
-  // Função chamada quando arquivos são selecionados usando o input
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      handleFiles(event.target.files);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setLoading(true);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = e.target?.result;
+        if (data instanceof ArrayBuffer) {
+          const dataArray = new Uint8Array(data);
+          if (file.name.endsWith('.xlsx')) {
+            handleXLSXFile(dataArray);
+          } else if (file.name.endsWith('.csv') || file.name.endsWith('.txt')) {
+            handleCSVFile(dataArray);
+          } else {
+            alert('Formato de arquivo não suportado.');
+            setLoading(false); // Ocultar indicador de carregamento se o formato do arquivo não for suportado
+          }
+        }
+      };
+      reader.readAsArrayBuffer(file);
     }
   };
 
-  // Função para lidar com o drop
+  const handleXLSXFile = (data: Uint8Array) => {
+    const workbook = read(data, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const jsonData = utils.sheet_to_json(sheet, { header: 1 });
+    displayData(jsonData);
+  };
+
+  const handleCSVFile = (data: Uint8Array) => {
+    const text = new TextDecoder().decode(data);
+    Papa.parse(text, {
+      delimiter: ";",
+      header: true,
+      dynamicTyping: true,
+      complete: function (results: any) {
+        displayData(results.data);
+      }
+    });
+  };
+
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
     const files = event.dataTransfer.files;
     if (files && files.length > 0) {
-      handleFiles(files);
+      handleFileChange({ target: { files } } as React.ChangeEvent<HTMLInputElement>);
     }
   };
 
-  // Prevenir o comportamento padrão para eventos drag over
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
   };
+
+  const cancelFile = () => {
+    setOutputData([]);
+    const fileInput = document.getElementById("fileElem") as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+  }
 
   return (
     <div id='report-container'>
@@ -39,39 +91,7 @@ const Relatorio: React.FC = () => {
       </header>
 
       <main id='report-main'>
-        <section>
-          <div className="linha-do-tempo">
-            <div className="evento">
-              <div className="ponto" id='first-dot'></div>
-              <div className="data">2021</div>
-            </div>
-            <div className="evento">
-              <div className="ponto"></div>
-              <div className="data">2022</div>
-            </div>
-            <div className="evento">
-              <div className="ponto"></div>
-              <div className="data">2023</div>
-            </div>
-            <div className="evento">
-              <div className="ponto"></div>
-              <div className="data">2024</div>
-            </div>
-          </div>
-        </section>
-
         <section id='report-right'>
-         <header>
-          <div id='file-header'>
-          <label className="desc-text" htmlFor="title-file">Titulo:</label>
-          <input type="text" id='title-file'/>
-          </div>
-
-          <div id='file-desc'>
-          <label className="desc-desc" htmlFor="desc-file">Descrição:</label>
-          <input type="text" id='desc-file'/>
-          </div>
-         </header>   
 
           <div id="drop-area"
             onDrop={handleDrop}
@@ -79,25 +99,63 @@ const Relatorio: React.FC = () => {
             onDragEnter={handleDragOver}
             onDragLeave={handleDragOver}>
 
+            {loading && (
+              <div id="container-file_loading">
+                <LoadingComponent />
+              </div>
+            )}
 
-            <input type="file" id="fileElem" multiple accept="image/*" onChange={handleChange} />
-            <label className="button" htmlFor="fileElem">
-              <i id='report-icon'><IoDocumentOutline /></i>
-              <p>Clique para escolher um arquivo ou arraste aqui.</p>
-            </label>
+            <input type="file" id="fileElem" multiple accept=".xlsx,.csv,.txt" onChange={handleFileChange} />
+            {!loading && (
+              <label className="buttonSendFile" htmlFor="fileElem">
+                <i id='report-icon'><IoCloudDownloadOutline /></i>
+                <p>Clique para escolher um arquivo.</p>
+              </label>
+            )}
           </div>
-          
+
           <hr id='report-line' />
-          
-          <div id='report-btns'>
-          <button className='rep-btn' id='cancel-btn'>Cancelar</button>
-          <button className='rep-btn' id='add-rep-btn'>Enviar</button>
-          </div>
 
+          <div id='report-btns'>
+            <a href="./planilhaVazia/neoboardPlanilha.xlsx" download={`Relatorio_de_vendas_${day}-${month}-${year}`} id="receiveFile"><i className="fa-solid fa-file-csv"></i> Receber Planilha</a>
+            <div>
+              <button className='rep-btn' id='cancelFile' disabled={outputData.length === 0 || loading} onClick={cancelFile}>Cancelar</button>
+              <button className='rep-btn' id='uploadButton' disabled={outputData.length === 0 || loading}>
+                Enviar <i className="fa-solid fa-share"></i>
+              </button>
+            </div>
+          </div>
         </section>
-      </main >
+      </main>
+
+      <div id="output">
+        <table>
+          <thead>
+            {outputData.length > 0 &&
+              <tr>
+                {outputData[0].map((header: any, index: number) => (
+                  <td key={index}>
+                    <h3>{header}</h3>
+                  </td>
+                ))}
+              </tr>
+            }
+          </thead>
+          <tbody>
+            {outputData.slice(1).map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {row.map((cell: any, cellIndex: number) => (
+                  <td key={cellIndex}>
+                    <h3>{cell}</h3>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Relatorio
+export default Relatorio;
