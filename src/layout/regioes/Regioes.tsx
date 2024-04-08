@@ -12,16 +12,11 @@ const Regioes = () => {
 
   return (
     <>
-<<<<<<< HEAD
       {showModal && <div id="Modal-Add-Btn">
         <div id="container-Add-Btn">
-=======
-      {showModal && <div className="Modal-Add">
-        <div className="container-Add">
->>>>>>> 37388a908523a03906bdb5d336463da31ff3633b
           <div id="header-modal">
             <h4 className="modal-title">Adicionar Região</h4>
-            <button type="button" className="close-btn" onClick={toggleModalClose}>&times;</button>
+            <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
           </div>
 
           <div id="Add-Item">
@@ -130,7 +125,7 @@ const Regioes = () => {
             <p id='result-reg'>Resultados (3)</p>
             <section id='container-table-regions'>
               <table>
-                <thead className='theadTableRegions'>
+                <thead>
                   <tr>
                     <td>região</td>
                     <td>nome</td>

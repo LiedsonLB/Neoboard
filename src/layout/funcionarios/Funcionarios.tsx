@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Funcionarios.css";
-import { IoSearch, IoCaretDownSharp, IoPin } from 'react-icons/io5';
+import { IoSearch, IoCaretDownSharp } from 'react-icons/io5';
 import StaffDoughnout from '../../components/charts/StaffDoughnout';
 import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 
@@ -92,81 +92,8 @@ const Funcionarios = () => {
   };
 
   return (
-    <>
-    {showModal && <div id="Modal-Add-Btn">
-    <div id="container-Add-Btn">
-      <div id="header-modal">
-        <h4 className="modal-title">Adicionar Funcionário</h4>
-        <button type="button" id="close-btn" onClick={toggleModalClose}>&times;</button>
-      </div>
-
-      <div id="Add-Item">
-        <div className='input-item input-single'>
-          <span>
-            <label htmlFor="name-item">Nome do funcionário:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-        </div>
-
-        <div className='input-item input-mult'>
-          <span>
-            <label htmlFor="name-item">Data de nascimento:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-          <span>
-            <label htmlFor="name-item">Local de atuação:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-        </div>
-
-        <div className='input-item input-single'>
-          <span>
-            <label htmlFor="name-item">Email:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-        </div>
-
-        <div className='input-item input-mult'>
-          <span>
-            <label htmlFor="name-item">Endereço:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-          <span>
-            <label htmlFor="name-item">Telefone:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-        </div>
-
-        <div className='input-item input-mult'>
-          <span>
-            <label htmlFor="name-item">CPF:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-          <span>
-            <label htmlFor="name-item">Formação Acadêmica:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-        </div>
-
-        <div className='input-item input-mult'>
-          <span>
-            <label htmlFor="name-item">Linkedin:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-          <span>
-            <label htmlFor="name-item">Github:</label>
-            <input type="text" name='name-item' className='full-item' />
-          </span>
-        </div>
-        <button id='addFuncionarioBtn'>Enviar</button>
-      </div>
-    </div>
-    <hr />
-  </div >}
-
     <div id='staff-container'>
       <div id='staff-inside'>
-        
         <header id='staff-header'>
           <h1>Funcionários</h1>
           <p>Funcionários do mês com mais...</p>
@@ -219,17 +146,6 @@ const Funcionarios = () => {
               <i id='search-icon'><IoSearch id='icon-staff' /></i>
             </div>
             <div className='search-btns'>
-<<<<<<< HEAD
-            <button id='filter-staff'>
-              <p>Filtrar</p>
-              <IoCaretDownSharp />
-            </button>
-            <button id='add-staff' onClick={toggleModalClose}>
-              + Funcionário
-            </button>
-          </div>
-        </section>
-=======
               <button id='filter-staff'>
                 <p>Classificar</p>
                 <IoCaretDownSharp onClick={() => setFilteredFuncionarios(funcionarios)} />
@@ -239,120 +155,9 @@ const Funcionarios = () => {
               </button>
             </div>
           </section>
->>>>>>> 37388a908523a03906bdb5d336463da31ff3633b
 
-        <p id='result-staff'>Resultados (4)</p>
-        <section id='staff-list'>
-          <article className='stf-card'>
-            <figure className='staff-img'>
-            <img src="./img/PedroLucas.jpeg" alt="stf-img" />
-            </figure>
-            <p className='staff-nick'>Pedro Lucas</p>
-            <span>
-              <i className='staff-pin'><IoPin /></i>
-              <p>Piripiri/Barras</p>
-            </span>
+          <p id='result-staff'>Resultados ({filteredFuncionarios.length})</p>
 
-<<<<<<< HEAD
-            <div className='stf-desc'>
-              <span>
-                <p className='stf-gain'>Vendas</p>
-                <p>0</p>
-              </span>
-
-              <span>
-                <p className='stf-gain'>Faturamento</p>
-                <p>10.5k</p>
-              </span>
-            </div>
-
-            <button>Ver detalhes</button>
-          </article>
-
-          <article className='stf-card'>
-            <figure className='staff-img'>
-            <img src="./img/Laesse.jpeg" alt="stf-img" />
-            </figure>
-            <p className='staff-nick'>Laesse</p>
-            <span>
-              <i className='staff-pin'><IoPin /></i>
-              <p>Pedro II</p>
-            </span>
-
-            <div className='stf-desc'>
-              <span>
-                <p className='stf-gain'>Vendas</p>
-                <p>0</p>
-              </span>
-
-              <span>
-                <p className='stf-gain'>Faturamento</p>
-                <p>10.5k</p>
-              </span>
-            </div>
-
-            <button>Ver detalhes</button>
-          </article>
-
-          <article className='stf-card'>
-            <figure className='staff-img'>
-              <img src="./img/Romário.jpeg" alt="stf-img" />
-            </figure>
-            <p className='staff-nick'>Romário</p>
-            <span>
-              <i className='staff-pin'><IoPin /></i>
-              <p>Cap. De Campos</p>
-            </span>
-
-            <div className='stf-desc'>
-              <span>
-                <p className='stf-gain'>Vendas</p>
-                <p>0</p>
-              </span>
-
-              <span>
-                <p className='stf-gain'>Faturamento</p>
-                <p>10.5k</p>
-              </span>
-            </div>
-
-            <button>Ver detalhes</button>
-          </article>
-
-          <article className='stf-card'>
-            <figure className='staff-img'>
-            <img src="./img/Welignton.jpeg" alt="stf-img" />
-            </figure>
-            <p className='staff-nick'>Welignton</p>
-            <span>
-              <i className='staff-pin'><IoPin /></i>
-              <p>Batalha</p>
-            </span>
-
-            <div className='stf-desc'>
-              <span>
-                <p className='stf-gain'>Vendas</p>
-                <p>0</p>
-              </span>
-
-              <span>
-                <p className='stf-gain'>Faturamento</p>
-                <p>10.5k</p>
-              </span>
-            </div>
-
-            <button>Ver detalhes</button>
-          </article>
-
-        </section>
-      </main>
-        
-      </div>
-    </div>
-    </>
-  )
-}
-=======
           <section id='staff-list'>
             {filteredFuncionarios.map(funcionario => (
               <article className='stf-card' key={funcionario.ID_funcionario}>
@@ -379,7 +184,6 @@ const Funcionarios = () => {
           </section>
         </main>
       </div>
->>>>>>> 37388a908523a03906bdb5d336463da31ff3633b
 
       {showModal && (
         <div className='Modal-Add'>
@@ -448,390 +252,390 @@ const Funcionarios = () => {
               </div>
               <button id='addFuncionarioBtn'>Enviar</button>
             </div>
-            </div>
           </div>
+        </div>
       )}
 
-          {showInfoModal && selectedUser && (
-            // Modal de exibição de informações do funcionário
-            <div className="Modal-Add">
-              <div className="container-Add">
-                <div id="header-modal">
-                  <h4 className="modal-title">Informações do Funcionário</h4>
-                  <button type="button" className="close-btn" onClick={() => setShowInfoModal(false)}>&times;</button>
+      {showInfoModal && selectedUser && (
+        // Modal de exibição de informações do funcionário
+        <div className="Modal-Add">
+          <div className="container-Add">
+            <div id="header-modal">
+              <h4 className="modal-title">Informações do Funcionário</h4>
+              <button type="button" className="close-btn" onClick={() => setShowInfoModal(false)}>&times;</button>
+            </div>
+            <div id='infouser-popup'>
+              <div id='userInfo-popup'>
+                <img src={selectedUser.img_funcionario} alt="user-avatar" />
+                <h2 className='nameUserStf'>{selectedUser.nome}</h2>
+                <p className='emailUserStf'>{selectedUser.email}</p>
+                <div id="userStfTextInfo">
+                  <p>idade: {selectedUser.age} anos</p>
+                  <p>CPF: {selectedUser.vendas}</p>
+                  <p>Endereço: {selectedUser.endereco}</p>
+                  <p>Gênero: {selectedUser.gender}</p>
+                  <p>Contratação: {selectedUser.date}</p>
                 </div>
-                <div id='infouser-popup'>
-                  <div id='userInfo-popup'>
-                    <img src={selectedUser.img_funcionario} alt="user-avatar" />
-                    <h2 className='nameUserStf'>{selectedUser.nome}</h2>
-                    <p className='emailUserStf'>{selectedUser.email}</p>
-                    <div id="userStfTextInfo">
-                      <p>idade: {selectedUser.age} anos</p>
-                      <p>CPF: {selectedUser.vendas}</p>
-                      <p>Endereço: {selectedUser.endereco}</p>
-                      <p>Gênero: {selectedUser.gender}</p>
-                      <p>Contratação: {selectedUser.date}</p>
-                    </div>
-                    <div className='userStfSocialMidia'>
-                      <a href=""><i className="fa-solid fa-envelope"></i></a>
-                      <a href=""><i className="fa-brands fa-github"></i></a>
-                      <a href=""><i className="fa-brands fa-linkedin"></i></a>
-                    </div>
-                  </div>
-
-                  <div id='infouser-charts'>
-                    <div id='container-StaffColumnChart'>
-                      <StaffColumnChart />
-                    </div>
-
-                    <p className="text-historico">Histórico de vendas: </p>
-                    <section id='container-table-stf'>
-                      <table>
-                        <thead className='head-list-stf'>
-                          <tr>
-                            <td>Produto</td>
-                            <td>Região</td>
-                            <td>Quantidade</td>
-                            <td>Data</td>
-                            <td>Pagamento</td>
-                          </tr>
-                        </thead>
-                        <tbody className='body-list-stf'>
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>piripiri</h3>
-                            </td>
-                            <td>
-                              <h3>5</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Pedro II</h3>
-                            </td>
-                            <td>
-                              <h3>6</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <h3>picolé sem cobertura</h3>
-                            </td>
-                            <td>
-                              <h3>Capitão de Campos</h3>
-                            </td>
-                            <td>
-                              <h3>10</h3>
-                            </td>
-                            <td>
-                              <h3>07/04/2024</h3>
-                            </td>
-                            <td>
-                              <h3>Cartão(debito)</h3>
-                            </td>
-                          </tr>
-
-                        </tbody>
-                      </table>
-                    </section>
-                  </div>
+                <div className='userStfSocialMidia'>
+                  <a href=""><i className="fa-solid fa-envelope"></i></a>
+                  <a href=""><i className="fa-brands fa-github"></i></a>
+                  <a href=""><i className="fa-brands fa-linkedin"></i></a>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      )
-      }
 
-      export default Funcionarios;
+              <div id='infouser-charts'>
+                <div id='container-StaffColumnChart'>
+                  <StaffColumnChart />
+                </div>
+
+                <p className="text-historico">Histórico de vendas: </p>
+                <section id='container-table-stf'>
+                  <table>
+                    <thead className='head-list-stf'>
+                      <tr>
+                        <td>Produto</td>
+                        <td>Região</td>
+                        <td>Quantidade</td>
+                        <td>Data</td>
+                        <td>Pagamento</td>
+                      </tr>
+                    </thead>
+                    <tbody className='body-list-stf'>
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>piripiri</h3>
+                        </td>
+                        <td>
+                          <h3>5</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Pedro II</h3>
+                        </td>
+                        <td>
+                          <h3>6</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3>picolé sem cobertura</h3>
+                        </td>
+                        <td>
+                          <h3>Capitão de Campos</h3>
+                        </td>
+                        <td>
+                          <h3>10</h3>
+                        </td>
+                        <td>
+                          <h3>07/04/2024</h3>
+                        </td>
+                        <td>
+                          <h3>Cartão(debito)</h3>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default Funcionarios;

@@ -291,8 +291,6 @@
     font-size: 1.rem;
 }
 
-<<<<<<< HEAD
-=======
 /* Modal */
 #infouser-popup {
     display: flex;
@@ -406,6 +404,7 @@
 
 .head-list-stf tr {
     background-color: var(--primary-color);
+    height: auto !important;
     color: var(--white-color);
     font-size: .7rem;
     text-align: center;
@@ -500,7 +499,7 @@
     display: flex;
     gap: 1rem;
 }
->>>>>>> 37388a908523a03906bdb5d336463da31ff3633b
+
 #addFuncionarioBtn {
     padding: .8rem 2rem;
     background: var(--secondy-color);
