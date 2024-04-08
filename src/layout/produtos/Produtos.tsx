@@ -12,6 +12,7 @@ const Produtos = () => {
 
   return (
     <>
+<<<<<<< HEAD
     {showModal && <div id="Modal-Add-Btn">
         <div id="container-Add-Btn">
           <div id="header-modal">
@@ -55,6 +56,13 @@ const Produtos = () => {
 
           </div>
           <hr />
+=======
+    {showModal && <div className="Modal-Add">
+        <div className="container-Add">
+          <div id="header-modal">
+            <h4 className="modal-title">Adicionar Produto</h4>
+            <button type="button" className="close-btn" onClick={toggleModalClose}>&times;</button>
+>>>>>>> 37388a908523a03906bdb5d336463da31ff3633b
         </div>
       </div >}
 

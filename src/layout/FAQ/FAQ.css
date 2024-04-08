@@ -244,13 +244,12 @@
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        min-width: 85%;
-        max-width: 80%;
+        min-width: 50%;
+        max-width: 60%;
         font-size: .8rem;
     }
 
     #faq-field {
-        width: 80%;
-        margin: 0 auto;
+        width: 100%;
     }
 }
