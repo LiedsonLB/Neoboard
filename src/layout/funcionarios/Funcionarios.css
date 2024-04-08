@@ -438,3 +438,42 @@
         transform: rotateY(360deg);
     }
 }
+
+/* modal add staff */
+
+#Add-Item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+.input-item span {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.input-item span input {
+    padding: .8rem;
+    background-color: var(--gray-color);
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.input-item span input:focus {
+    border: 2px solid var(--secondy-color); 
+}
+
+.input-single {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-mult {
+    display: flex;
+    gap: 1rem;
+}
