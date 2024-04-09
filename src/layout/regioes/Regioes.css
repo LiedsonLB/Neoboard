@@ -349,6 +349,7 @@ td {
 }
 
 /* Modal */
+
 .container-Add {
     top: 50%;
     left: 50%;
@@ -366,47 +367,6 @@ td {
     width: 80% !important;
     z-index: 3;
     position: fixed;
-}
-
-#header-modal {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    min-width: 200px;
-}
-
-.modal-title {
-    font-family: var(--font-krub);
-    color: var(--primary-color);
-}
-
-.close-btn {
-    font-size: 2rem;
-    padding: .2rem .8rem;
-    border: none;
-    text-decoration: none;
-    border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    cursor: pointer;
-    background-color: var(--white-color);
-    color: var(--letter-color);
-}
-
-.close-btn:hover {
-    background-color: var(--gray-color);
-}
-
-.Modal-Add {
-    height: 100vh;
-    width: 100%;
-    z-index: 10;
-    position: fixed;
-    backdrop-filter: brightness(0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
 }
 
 @keyframes DownAnimation {
