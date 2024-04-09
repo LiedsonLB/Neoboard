@@ -351,7 +351,7 @@ input[type="file"] {
     font-size: 16px;
     margin-bottom: 10px;
     text-decoration: none;
-    width: auto !important;
+    width: 200px;
 }
 
 #receiveFile:hover {
@@ -394,7 +394,7 @@ input[type="file"] {
 
 }
 
-#expense-form header {
+#exp-form header {
     font-family: var(--font-Krona), sans-serif;
     animation: slideInUp 1s ease forwards;
     font-size: 1rem;
@@ -475,6 +475,7 @@ input[type="file"] {
 #result-expense {
     font-weight: bold;
     color: var(--primary-color);
+    margin-block: 1rem;
 }
 
 #exp-cards {
@@ -646,5 +647,29 @@ input[type="file"] {
 
     #report-right {
         margin-bottom: 2rem;
+    }
+
+    #report-btns{
+    flex-direction: column;
+    align-items: center;
+
+    }
+
+    #exp-form{
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #search-expense{
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #exp-cards {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+        margin: 0 auto;
     }
 }

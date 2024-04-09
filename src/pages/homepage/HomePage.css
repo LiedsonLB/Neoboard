@@ -6,13 +6,14 @@
 #home-screen {
     width: 100vw;
     height: 100vh;
+    margin-left: 79px;
     display: flex;
     overflow-y: auto;
     overflow-x: auto;
 }
 
-@media screen and (max-width: 1238px) {
+@media screen and (max-width: 750px){
     #home-screen {
-    width: 100vw;
+    margin-left: 0;
     }
   }

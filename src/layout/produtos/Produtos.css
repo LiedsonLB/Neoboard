@@ -69,6 +69,12 @@
     max-height: 200px;
 }
 
+#container-prod-img {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
 .icecream-img {
     height: 150px;
     width: 150px;
@@ -78,11 +84,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
-
-#container-prod-img {
-    display: flex;
-    gap: 1rem;
 }
 
 #prod-desc {
@@ -106,7 +107,16 @@
 }
 
 #card-prod-desc {
-    width: 18rem;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.chartProduct {
+    width: 150px;
+    height: 150px;
 }
 
 #prod-main .tittle-prod {
@@ -201,6 +211,7 @@
 #result-product {
     font-weight: bold;
     color: var(--black-color);
+    margin-block: 1.5rem;
 }
 
 #products-list {
@@ -247,14 +258,6 @@
     color: var(--primary-color);
 }
 
-.chartProduct {
-    width: 70%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-}
-
 @media screen and (max-width: 1078px) {
     #prod-header {
         text-align: center;
@@ -274,7 +277,7 @@
         gap: 5rem;
         width: 100%;
         position: relative;
-        padding: 1rem;
+        padding: 1rem;     
     }
 
     #container-prod-img {
@@ -283,18 +286,12 @@
         text-align: center;
     }
 
-    #card-prod-desc {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #product-chart {
-        margin-right: 0;
-    }
-
     #search-prod {
         flex-direction: column;
+    }
+
+    #result-product {
+        text-align: center;
     }
 
     #products-list {
@@ -305,14 +302,7 @@
         justify-content: space-around;
     }
 
-    .chartProduct {
-        width: 50%;
-        margin: 0 auto;
-    }
-
     #card-prod-desc {
-        width: 90%;
-        grid-template-columns: repeat(2, 200px);
         justify-content: center;
     }
 }
@@ -322,18 +312,16 @@
         margin: 0 2rem !important;
     }
 
-    #products-list {
-        grid-template-columns: repeat(1, 60%) !important;
+    #result-product {
+        text-align: center;
     }
 
-    .chartProduct {
-        width: 60%;
-        margin: 0 auto;
+    #products-list {
+        grid-template-columns: repeat(1, 80%) !important;
     }
 
     #card-prod-desc {
-        width: 90%;
-        grid-template-columns: repeat(2, 200px);
         justify-content: center;
     }
+
 }
