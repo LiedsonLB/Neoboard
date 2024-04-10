@@ -26,7 +26,7 @@ const RegionDoughnout = () => {
   } as const;
 
   return (
-    <div className='chartProduct'>
+    <div className='chartRegion'>
       <Doughnut data={data} options={options} />
     </div>
   );

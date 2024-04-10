@@ -43,11 +43,12 @@
     padding: 1rem;
     margin: 0 auto;
     width: 70%;
-    position: relative;
     animation: scaleIn 1s ease forwards;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#region-card #text-region-mes {
+#text-region-mes {
     color: var(--white-color);
     background-color: var(--primary-color);
     padding: .5rem 1rem;
@@ -57,12 +58,57 @@
     right: -1rem;
 }
 
-#card-region-desc {
-    display: flex;
-    justify-content: end;
+#reg-main {
+    border-radius: 10px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    padding: 1rem;
     position: relative;
-    bottom: 2rem;
-    left: 2rem;
+}
+
+#container-region-img {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.city-img {
+    width: 150px;
+    height: 150px;   
+    display: flex;
+}
+
+.city-img img {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#region-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+#region-chart {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.chartRegion{
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
 }
 
 #card-region-desc p {
@@ -86,23 +132,6 @@
     align-items: center;
 }
 
-.city-img {
-    height: 150px;
-    width: 150px;
-}
-
-.city-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 200px;
-}
-
-#container-region-img {
-    display: flex;
-    gap: 1rem;
-}
-
 #region-desc {
     display: flex;
     flex-direction: column;
@@ -116,10 +145,6 @@
 
 #region-desc p {
     font-size: 1.2rem;
-}
-
-#region-chart {
-    width: 18rem;
 }
 
 #region-chart img {
@@ -349,6 +374,7 @@ td {
 }
 
 /* Modal */
+
 .container-Add {
     top: 50%;
     left: 50%;
@@ -366,47 +392,6 @@ td {
     width: 80% !important;
     z-index: 3;
     position: fixed;
-}
-
-#header-modal {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    min-width: 200px;
-}
-
-.modal-title {
-    font-family: var(--font-krub);
-    color: var(--primary-color);
-}
-
-.close-btn {
-    font-size: 2rem;
-    padding: .2rem .8rem;
-    border: none;
-    text-decoration: none;
-    border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    cursor: pointer;
-    background-color: var(--white-color);
-    color: var(--letter-color);
-}
-
-.close-btn:hover {
-    background-color: var(--gray-color);
-}
-
-.Modal-Add {
-    height: 100vh;
-    width: 100%;
-    z-index: 10;
-    position: fixed;
-    backdrop-filter: brightness(0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
 }
 
 @keyframes DownAnimation {
@@ -470,6 +455,10 @@ td {
         z-index: 1;
     }
 
+    #region-chart{
+        justify-content: center;
+    }
+
     #card-region-desc p {
         justify-content: center;
     }
@@ -498,3 +487,27 @@ td {
         padding-inline: 6rem;
     }
 }
+
+
+@media screen and (max-width: 480px) {
+    .theadTableRegions tr,
+    .tBodyTableRegions td {
+      font-size: 12px;
+    }
+
+    .region-pic {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .region-pic img {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        object-fit: cover;
+    }
+
+    #region-chart{
+        justify-content: center;
+    }
+  }

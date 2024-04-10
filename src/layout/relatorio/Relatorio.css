@@ -351,7 +351,7 @@ input[type="file"] {
     font-size: 16px;
     margin-bottom: 10px;
     text-decoration: none;
-    width: auto !important;
+    width: 200px;
 }
 
 #receiveFile:hover {
@@ -387,6 +387,254 @@ input[type="file"] {
     padding: 4rem;
 }
 
+#exp-form {
+    display: flex;
+    flex-direction: column;
+    padding: 4rem;
+
+}
+
+#exp-form header {
+    font-family: var(--font-Krona), sans-serif;
+    animation: slideInUp 1s ease forwards;
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+#search-expense {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block: 1rem;
+}
+
+#search-bar {
+    display: flex;
+    max-width: 400px;
+    margin: 1rem 0;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+}
+
+#search-bar:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+#search-exp {
+    padding: .5rem .8rem;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    color: var(--black-color);
+    font-family: var(--font-krub);
+    font-weight: bold;
+}
+
+#search-exp:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+#search-exp:focus+#search-icon {
+    color: var(--secondy-color) !important;
+}
+
+#search-icon {
+    position: absolute;
+    right: .5rem;
+    bottom: 0.2em;
+    color: var(--black-color);
+    font-size: 1.2rem;
+}
+
+#search-exp:focus {
+    outline: none;
+}
+
+#filter-expense {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: .8rem 2rem;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-family: var(--font-krub);
+}
+
+#filter-expense:hover {
+    cursor: pointer;
+    background: var(--white-color);
+    transition: .5s;
+}
+
+#result-expense {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-block: 1rem;
+}
+
+#exp-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+.exp-card {
+    background: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-color);
+    width: 200px;
+    height: 220px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-block: 1rem;
+    gap: 1.2rem;
+    border-radius: 5px;
+    border: 1px solid var(--secondy-color);
+    transition: .5s;
+    position: relative;
+}
+
+.exp-card:hover {
+    cursor: pointer;
+    background: var(--hover-color);
+}
+
+.exp-card i {
+    font-size: 4rem;
+}
+
+.exp-desc {
+    font-weight: 400;
+}
+
+.fa-stack1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-square {
+    color: 388E3C;
+
+}
+
+.fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+
+}
+
+.fa-dollar-sign {
+    position: absolute;
+    color: 388E3C;
+    font-size: 2rem !important;
+}
+
+.fa-stack1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-stack1 .fa-square {
+    color: #388E3C;
+}
+
+.fa-stack1 .fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+}
+
+.fa-stack1 .fa-dollar-sign {
+    position: absolute;
+    color: #388E3C;
+    font-size: 2rem !important;
+}
+
+.fa-stack2 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-stack2 .fa-square {
+    color: #FFC107;
+}
+
+.fa-stack2 .fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+}
+
+.fa-stack2 .fa-dollar-sign {
+    position: absolute;
+    color: #FFC107;
+    font-size: 2rem !important;
+}
+
+.fa-stack3 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-stack3 .fa-square {
+    color: 1B2947;
+}
+
+.fa-stack3 .fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+}
+
+.fa-stack3 .fa-dollar-sign {
+    position: absolute;
+    color: 1B2947;
+    font-size: 2rem !important;
+}
+
+.fa-stack4 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-stack4 .fa-square {
+    color: var(--secondy-color);
+}
+
+.fa-stack4 .fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+}
+
+.fa-stack4 .fa-dollar-sign {
+    position: absolute;
+    color: var(--secondy-color);
+    font-size: 2rem !important;
+}
+
 @media screen and (max-width: 1078px) {
     #report-header {
         text-align: center;
@@ -399,5 +647,29 @@ input[type="file"] {
 
     #report-right {
         margin-bottom: 2rem;
+    }
+
+    #report-btns{
+    flex-direction: column;
+    align-items: center;
+
+    }
+
+    #exp-form{
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #search-expense{
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #exp-cards {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+        margin: 0 auto;
     }
 }
