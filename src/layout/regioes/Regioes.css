@@ -44,6 +44,8 @@
     margin: 0 auto;
     width: 70%;
     animation: scaleIn 1s ease forwards;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #text-region-mes {
@@ -58,14 +60,12 @@
 
 #reg-main {
     border-radius: 10px;
-    display: flex;
+    display: grid;
     width: 100%;
-    justify-content: space-between;
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
     padding: 1rem;
-    margin: 0 auto;
     position: relative;
-    max-height: 200px;
 }
 
 #container-region-img {
@@ -75,13 +75,16 @@
 }
 
 .city-img {
-    height: 150px;
     width: 150px;
+    height: 150px;   
+    display: flex;
 }
 
 .city-img img {
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -93,9 +96,19 @@
     justify-content: center;
 }
 
+#region-chart {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
 .chartRegion{
     width: 150px;
     height: 150px;
+    display: flex;
+    justify-content: center;
 }
 
 #card-region-desc p {
@@ -132,14 +145,6 @@
 
 #region-desc p {
     font-size: 1.2rem;
-}
-
-#region-chart {
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: end;
 }
 
 #region-chart img {

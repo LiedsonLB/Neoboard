@@ -83,7 +83,9 @@
 .icecream-img img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
 }
 
 #prod-desc {
@@ -117,6 +119,8 @@
 .chartProduct {
     width: 150px;
     height: 150px;
+    display: flex;
+    justify-content: center;
 }
 
 #prod-main .tittle-prod {

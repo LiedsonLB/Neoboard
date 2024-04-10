@@ -38,10 +38,14 @@
 }
 
 #featured-staff {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 5rem;
-
+    
 }
 
 .staff-card {
@@ -54,6 +58,7 @@
     text-align: center;
     border-radius: 10px;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .staff-card header {
@@ -67,6 +72,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    gap: 1rem;
 }
 
 .staff-info img {
@@ -74,6 +80,8 @@
     height: 100px;
     background-color: black;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 .staff-desc h2 {
@@ -86,31 +94,43 @@
     margin-right: .3rem;
 }
 
-.staff-desc p {
+.staff-desc {
     color: var(--black-color);
     text-align: start !important;
 }
 
+.staff-desc p {
+    color: var(--black-color);
+    text-align: start;
+}
+
 .staff-desc p span {
     color: var(--primary-color);
-    text-align: start !important;
+    text-align: start;
     font-weight: bold;
 }
 
 .staff-chart {
     width: 100%;
+    height: 100px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .chartStaff {
-    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #search-staff {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
     margin: 1rem 0;
 }
 
@@ -159,7 +179,7 @@
     outline: none;
 }
 
-#add-staff {
+#add-staff {  
     padding: .8rem 2rem;
     background: var(--secondy-color);
     border: none;
@@ -167,6 +187,7 @@
     color: white;
     cursor: pointer;
     font-family: var(--font-krub);
+    display: flex;
 }
 
 #add-staff:hover {
@@ -206,10 +227,10 @@
 
 #staff-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     justify-content: space-around;
     margin: 2rem 0;
+    gap: 1rem;
 }
 
 .stf-card {
@@ -222,6 +243,7 @@
     border-radius: 5px;
     text-align: center;
     justify-content: space-between;
+
 }
 
 .staff-nick {
@@ -613,9 +635,8 @@
     }
 
     #featured-staff {
-        flex-direction: column;
-        gap: 1.5rem;
         align-items: center;
+        margin: 0;
     }
 
     .staff-card {
@@ -625,6 +646,10 @@
     .staff-info {
         flex-direction: column;
         gap: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
     }
 
     #search-staff {
@@ -643,6 +668,20 @@
         justify-content: center;
     }
 
+    .staff-chart {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .chartStaff {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     /* modal add staff */
     .Modal-Add {
         height: 100%;
@@ -656,6 +695,7 @@
         top: 0;
         margin-left: 0;
     }
+
     .container-Add {
         display: flex;
         text-align: center;
@@ -809,6 +849,7 @@
 }
 
 @media screen and (min-width: 480px) and (max-width: 749px) {
+
     /* modal add staff */
     .Modal-Add {
         height: 100%;
@@ -826,6 +867,7 @@
     .container-Add {
         display: flex;
         text-align: center;
+        width: 95% !important;
     }
 
     #infouser-popup {
@@ -846,7 +888,7 @@
     }
 
     #userInfo-popup {
-        width: 40%;
+        width: 100%;
         text-align: center;
         font-family: var(--font-krub) !important;
         display: flex;
@@ -880,7 +922,7 @@
     }
 
     .emailUserStf {
-        font-size: 8px;
+        font-size: 15px;
         text-wrap: nowrap;
         overflow: hidden;
         max-width: 300px;
@@ -933,23 +975,36 @@
         justify-content: center;
     }
 
-    #container-table-stf {
-        width: 130%;
-        display: flex;
+    #container-table-stf{
+        width: 150%;
         margin: 0 auto;
+        display: flex;
+        position: relative;
         height: 100% !important;
-        overflow: auto;
+        overflow: hidden; 
+        margin-inline: -4.5rem;
+    }
+
+    #container-table-stf table{
+        height: 100% !important;
+        overflow: hidden;   
+    }
+
+    #container-table-stf::-webkit-scrollbar-thumb{
+        display: none;
+        height: 100% !important;
+        overflow: a;   
     }
 
     .body-list-stf tr {
         background-color: #EBEDF1;
-        font-size: .5rem;
+        font-size: .4rem;
     }
 
     .head-list-stf tr {
         background-color: var(--primary-color);
         color: var(--white-color);
-        font-size: .5rem;
+        font-size: .4rem;
         text-align: center;
     }
 
@@ -977,7 +1032,7 @@
 
 }
 
-@media screen and (max-width: 480px) { 
+@media screen and (max-width: 480px) {
     #staff-header {
         text-align: center;
     }
@@ -986,6 +1041,9 @@
         flex-direction: column;
         gap: 1.5rem;
         align-items: center;
+        display: grid;
+        grid-template-columns: repeat(1, 300px);
+        justify-content: center;
     }
 
     .staff-card {
@@ -1092,7 +1150,7 @@
     }
 
     .emailUserStf {
-        font-size: 1.3rem;
+        font-size: 15px;
         text-wrap: nowrap;
         overflow: hidden;
         max-width: 300px;
@@ -1145,23 +1203,30 @@
         justify-content: center;
     }
 
-    #container-table-stf {
-        width: 130%;
-        display: flex;
+    #container-table-stf{
+        width: 150%;
         margin: 0 auto;
+        display: flex;
+        position: relative;
         height: 100% !important;
-        overflow: auto;
+        overflow: hidden; 
+        margin-inline: -3rem;
+    }
+
+    #container-table-stf table{
+        height: 100% !important;
+        overflow: scroll;   
     }
 
     .body-list-stf tr {
         background-color: #EBEDF1;
-        font-size: .5rem;
+        font-size: .3rem;
     }
 
     .head-list-stf tr {
         background-color: var(--primary-color);
         color: var(--white-color);
-        font-size: .5rem;
+        font-size: .4rem;
         text-align: center;
     }
 
