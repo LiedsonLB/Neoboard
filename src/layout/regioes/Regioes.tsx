@@ -47,7 +47,6 @@ const Regioes = () => {
                 <div id='region-chart'>
                   <RegionDoughnout />
                 </div>
-
               </div>
             </article>
 
