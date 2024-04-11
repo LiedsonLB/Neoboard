@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./Produtos.css";
-import { IoSearch, IoPerson, IoCamera } from 'react-icons/io5';
+import { IoSearch, IoPerson, IoCamera, IoBasket, IoCart, IoLogoDropbox, IoCube } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
 
 const Produtos = () => {
@@ -13,86 +13,47 @@ const Produtos = () => {
   return (
     <>
       {showModal && <div className="Modal-Add">
-        <div className='Modal-Add'>
-          <div className='container-Add-Staff'>
+          <div className='container-Add-Product'>
             <div id="header-modal">
-              <h4 className="modal-title">Adicionar Funcionário</h4>
+              <h4 className="modal-title">Adicionar Produto: </h4>
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
-            <div id="Add-Item">
+            <div id="Add-Item-Product">
 
-              <div className='img-stf-up'>
-                <img src="" className='w-100 h-100' />
-                <input type="file" id='img-input' />
-                <i className='icon-prof'><IoPerson /></i>
-                <div className='icon-text-cam'>
-                  <i className='icon-cam'><IoCamera /></i>
-                  <p>Adicionar foto</p>
+              <div className='img-prod-up'>
+                <div className='img-input-container'>
+                  <img src="" className='img-prod-add' />
+                  <input type="file" id='img-input' />
+                  <i className='icon-prod-prof'><IoCube /></i>
+                  <div className='icon-text-cam'>
+                    <i className='icon-cam'><IoCamera /></i>
+                    <p>Adicionar foto</p>
+                  </div>
                 </div>
               </div>
 
               <div className='input-item input-single'>
                 <span>
-                  <label htmlFor="name-item">Nome do funcionário:</label>
+                  <label htmlFor="name-item">Nome do Produto:</label>
                   <input type="text" name='name-item' className='full-item' />
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
-                  <label htmlFor="name-item">Data de nascimento:</label>
+                  <label htmlFor="name-item">Tipo do Produto:</label>
                   <input type="text" name='name-item' className='full-item' />
                 </span>
                 <span>
-                  <label htmlFor="name-item">Local de atuação:</label>
+                  <label htmlFor="name-item">Valor Unitário (R$):</label>
                   <input type="text" name='name-item' className='full-item' />
                 </span>
               </div>
 
-              <div className='input-item input-single'>
-                <span>
-                  <label htmlFor="name-item">Email:</label>
-                  <input type="text" name='name-item' className='full-item' />
-                </span>
-              </div>
-
-              <div className='input-item input-mult'>
-                <span>
-                  <label htmlFor="name-item">Endereço:</label>
-                  <input type="text" name='name-item' className='full-item' />
-                </span>
-                <span>
-                  <label htmlFor="name-item">Telefone:</label>
-                  <input type="text" name='name-item' className='full-item' />
-                </span>
-              </div>
-
-              <div className='input-item input-mult'>
-                <span>
-                  <label htmlFor="name-item">CPF:</label>
-                  <input type="text" name='name-item' className='full-item' />
-                </span>
-                <span>
-                  <label htmlFor="name-item">Formação Acadêmica:</label>
-                  <input type="text" name='name-item' className='full-item' />
-                </span>
-              </div>
-
-              <div className='input-item input-mult'>
-                <span>
-                  <label htmlFor="name-item">Linkedin:</label>
-                  <input type="text" name='name-item' className='full-item' />
-                </span>
-                <span>
-                  <label htmlFor="name-item">Github:</label>
-                  <input type="text" name='name-item' className='full-item' />
-                </span>
-              </div>
               <button id='add-staff-Btn'>Enviar</button>
             </div>
           </div>
-        </div>
-      </div >}
+        </div>}
 
       <div id='product-container'>
         <div id='product-inside'>
@@ -135,7 +96,7 @@ const Produtos = () => {
             <section id='products-list'>
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="./img/picole.jpg" alt="picole_flocos" />
+                  <img src="./img/Picole_sem_cobertura.jpeg" alt="picole_sem_cobertura" />
                 </figure>
                 <p>Picolé sem cobertura</p>
                 <p className='prod-name'>R$ 0.65</p>
@@ -144,7 +105,7 @@ const Produtos = () => {
 
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="https://www.sloopsorvetes.com.br//img/produtos/sorvete_flocos_1.5%20L.png" alt="picole_flocos" />
+                  <img src="/img/Picole_com_cobertura.jpeg" alt="picole_com_cobertura" />
                 </figure>
                 <p>Picolé de cobertura</p>
                 <p className='prod-name'>R$ 2.00</p>
@@ -153,7 +114,7 @@ const Produtos = () => {
 
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="https://apoioentrega.vteximg.com.br/arquivos/ids/510299/7899975800769-Lacta-Sorvete-3-Chocolates-Lacta-Pote-15L---product.category----1-.jpg?v=637994719498870000" alt="picole_flocos" />
+                  <img src="/img/Acaí_200ml.jpeg" alt="_" />
                 </figure>
                 <p>Açaí de 200ml</p>
                 <p className='prod-name'>R$ 6.00</p>
@@ -162,7 +123,7 @@ const Produtos = () => {
 
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="https://lh6.googleusercontent.com/proxy/Gk0Iuu0-N79cbMqeeKRCwtKxxYLwiJQY0JQy5_rUmCVHKM72ivnC4yqpk9UGvYNh5I8R2LUjTFAEq5CG9ZRejrt18A8o-MUlw_p7iYg8IYN5uuGvyt8" alt="picole_flocos" />
+                  <img src="/img/Sorvete_1L.jpeg" alt="Sorvete 1L" />
                 </figure>
                 <p>Sorvete de 1L</p>
                 <p className='prod-name'>R$ 12.00</p>
@@ -171,7 +132,7 @@ const Produtos = () => {
 
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz6JTkc63Tn7_qUuzE63TfIek-7TIzxsqnkZj1wE7x2A&s./img/picole.jpg" alt="picole_flocos" />
+                  <img src="/img/Sorvete_1.5L.jpeg" alt="Sorvete 1.5L" />
                 </figure>
                 <p>Sorvete de 1.5L</p>
                 <p className='prod-name'>R$ 15.00</p>
@@ -180,10 +141,10 @@ const Produtos = () => {
 
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="https://lh4.googleusercontent.com/proxy/PDadvtSUcbHF7D20GKNV986ow12UiW1jEofiRNKpp1ZGdBadkvDov0nKRbV5m2J785oi3_xqm5CAwVJq9m_xYaK4YErIV2tTuV9po-C71frF0wMHxWk" alt="picole_flocos" />
+                  <img src="img/Sorvete_2L.jpeg" alt="Sorvete de 2L" />
                 </figure>
-                <p>Picolé de flocos de 20ml</p>
-                <p className='prod-name'>R$ 2.50</p>
+                <p>Sorvete de 2L</p>
+                <p className='prod-name'>R$ 18.00</p>
                 <button>Ver produto</button>
               </article>
 
