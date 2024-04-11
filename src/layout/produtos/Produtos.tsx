@@ -96,7 +96,7 @@ const Produtos = () => {
             <section id='products-list'>
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="./img/Picole_sem_cobertura.jpg" alt="picole_flocos" />
+                  <img src="./img/Picole_sem_cobertura.jpeg" alt="picole_sem_cobertura" />
                 </figure>
                 <p>Picolé sem cobertura</p>
                 <p className='prod-name'>R$ 0.65</p>
@@ -105,7 +105,7 @@ const Produtos = () => {
 
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="https://www.sloopsorvetes.com.br//img/produtos/sorvete_flocos_1.5%20L.png" alt="picole_flocos" />
+                  <img src="/img/Picole_com_cobertura.jpeg" alt="picole_com_cobertura" />
                 </figure>
                 <p>Picolé de cobertura</p>
                 <p className='prod-name'>R$ 2.00</p>
@@ -114,7 +114,7 @@ const Produtos = () => {
 
               <article className='prod-card'>
                 <figure className='icecream-img'>
-                  <img src="/img/Acaí_200ml.jpeg" alt="picole_flocos" />
+                  <img src="/img/Acaí_200ml.jpeg" alt="_" />
                 </figure>
                 <p>Açaí de 200ml</p>
                 <p className='prod-name'>R$ 6.00</p>
