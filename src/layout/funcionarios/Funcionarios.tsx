@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Funcionarios.css";
-import { IoSearch, IoCaretDownSharp } from 'react-icons/io5';
+import { IoSearch, IoCaretDownSharp, IoPerson, IoCamera } from 'react-icons/io5';
 import StaffDoughnout from '../../components/charts/StaffDoughnout';
 import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 
@@ -193,6 +193,17 @@ const Funcionarios = () => {
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
             <div id="Add-Item">
+
+              <div className='img-stf-up'>
+                <img src="" className='w-100 h-100'/>
+                <input type="file" id='img-input'/>
+                <i className='icon-prof'><IoPerson /></i>
+                <div className='icon-text-cam'>
+                <i className='icon-cam'><IoCamera /></i>
+                <p>Adicionar foto</p> 
+                </div>          
+              </div>
+
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do funcionário:</label>
@@ -250,7 +261,7 @@ const Funcionarios = () => {
                   <input type="text" name='name-item' className='full-item' />
                 </span>
               </div>
-              <button id='addFuncionarioBtn'>Enviar</button>
+              <button id='add-staff-Btn'>Enviar</button>
             </div>
           </div>
         </div>
