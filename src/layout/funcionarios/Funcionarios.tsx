@@ -192,18 +192,19 @@ const Funcionarios = () => {
               <h4 className="modal-title">Adicionar Funcionário</h4>
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
-            <div id="Add-Item">
-
-              <div className='img-stf-up'>
-                <img src="" className='w-100 h-100'/>
-                <input type="file" id='img-input'/>
-                <i className='icon-prof'><IoPerson /></i>
-                <div className='icon-text-cam'>
-                <i className='icon-cam'><IoCamera /></i>
-                <p>Adicionar foto</p> 
-                </div>          
+            <div className='img-stf-up'>
+                <div className='img-input-container'>
+                  <img src="" className='img-staff-add' />
+                  <input type="file" id='img-input' />
+                  <i className='icon-prof'><IoPerson /></i>
+                  <div className='icon-text-cam'>
+                    <i className='icon-cam'><IoCamera /></i>
+                    <p>Adicionar foto</p>
+                  </div>
+                </div>
               </div>
-
+            <div id="Add-Item-Staff">
+            
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do funcionário:</label>
@@ -211,7 +212,7 @@ const Funcionarios = () => {
                 </span>
               </div>
 
-              <div className='input-item input-mult'>
+              <div className='input-item input-mult'> 
                 <span>
                   <label htmlFor="name-item">Data de nascimento:</label>
                   <input type="text" name='name-item' className='full-item' />
@@ -270,7 +271,7 @@ const Funcionarios = () => {
       {showInfoModal && selectedUser && (
         // Modal de exibição de informações do funcionário
         <div className="Modal-Add">
-          <div className="container-Add">
+          <div className="container-Detail-Staff">
             <div id="header-modal">
               <h4 className="modal-title">Informações do Funcionário</h4>
               <button type="button" className="close-btn" onClick={() => setShowInfoModal(false)}>&times;</button>
@@ -299,9 +300,9 @@ const Funcionarios = () => {
                   <StaffColumnChart />
                 </div>
 
-                <p className="text-historico">Histórico de vendas: </p>
+                <p className="text-history">Histórico de vendas: </p>
                 <section id='container-table-stf'>
-                  <table>
+                  <table id='table-stf'>
                     <thead className='head-list-stf'>
                       <tr>
                         <td>Produto</td>
