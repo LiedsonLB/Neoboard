@@ -1,69 +1,94 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Funcionario {
-  ID_funcionario  Int      @id @default(autoincrement())
-  img_funcionario String
-  email           String
-  CPf             String
-  Nome            String
-  telefone        String
-  idade           Int
-  endereco        String
-  form_acad       String
-  vendas          Venda[]
-  regioes         Regiao[]
-}
-
-model Regiao {
-  ID_regiao      Int         @id @default(autoincrement())
-  nome           String
-  ID_funcionario Int
-  usuario        Funcionario @relation(fields: [ID_funcionario], references: [ID_funcionario])
-}
-
-model ItensVenda {
-  ID_itemVenda Int     @id
-  quant_item   Int
-  ID_venda     Int
-  venda        Venda   @relation(fields: [ID_venda], references: [ID_venda])
-  ID_produto   Int
-  produto      Produto @relation(fields: [ID_produto], references: [ID_produto])
-
-  @@index([ID_venda], name: "idx_itens_venda_venda_id")
+model Usuario {
+  id           Int           @id @default(autoincrement())
+  nome         String
+  email        String        @unique
+  produtos     Produto[]
+  regioes      Regiao[]
+  funcionarios Funcionario[]
+  vendas       Venda[]
+  despesas     Despesa[]
 }
 
 model Produto {
-  ID_produto  Int          @id
-  img_produto String
-  nome        String
-  preco       Float
-  categoria   String
-  descricao   String
-  vendas      Venda[]
-  itensVenda  ItensVenda[]
+  id         Int         @id @default(autoincrement())
+  picture    String?
+  nome       String
+  descricao  String
+  categoria  String
+  preco      Float
+  usuario    Usuario?    @relation(fields: [usuarioId], references: [id])
+  usuarioId  Int?
+  itensVenda ItemVenda[]
+}
+
+model Regiao {
+  id        Int       @id @default(autoincrement())
+  picture   String?
+  nome      String
+  descricao String
+  endereco  String?
+  cidade    String
+  usuarios  Usuario[]
+  vendas    Venda[]
+}
+
+model Funcionario {
+  id                Int      @id @default(autoincrement())
+  picture           String?
+  nome              String
+  email             String
+  descricao         String?
+  endereco          String
+  localAtuacao      String
+  genero            String
+  cpf               String
+  dataContratacao   DateTime
+  telefone          String
+  formacaoAcademica String
+  linkedin          String?
+  github            String?
+  usuario           Usuario  @relation(fields: [usuarioId], references: [id])
+  usuarioId         Int
+  vendas            Venda[]
+}
+
+model Despesa {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  data      DateTime
+  descricao String?
+  tipo      String
+  valor     Float
+  usuario   Usuario? @relation(fields: [usuarioId], references: [id])
+  usuarioId Int?
 }
 
 model Venda {
-  ID_venda          Int            @id
-  Data              DateTime
-  total             Float
-  ID_funcionario    Int
-  funcionario       Funcionario    @relation(fields: [ID_funcionario], references: [ID_funcionario])
-  produtos          Produto[]
-  ID_formaPagamento Int
-  formaPagto        FormaPagamento @relation(fields: [ID_formaPagamento], references: [ID_formaPagamento])
-  itensVenda        ItensVenda[]
+  id                 Int         @id @default(autoincrement())
+  data               DateTime
+  funcionario        Funcionario @relation(fields: [funcionarioId], references: [id])
+  funcionarioId      Int
+  itensVenda         ItemVenda[]
+  valor              Float
+  quantidadeProdutos Int
+  comprador          String
+  regiao             Regiao      @relation(fields: [regiaoId], references: [id])
+  regiaoId           Int
+  formaPagamento     String
+  usuario            Usuario     @relation(fields: [usuarioId], references: [id])
+  usuarioId          Int
 }
 
-model FormaPagamento {
-  ID_formaPagamento Int     @id
-  tipo              String
-  vendas            Venda[]
+model ItemVenda {
+  id         Int     @id @default(autoincrement())
+  produto    Produto @relation(fields: [produtoId], references: [id])
+  produtoId  Int
+  quantidade Int
+  venda      Venda   @relation(fields: [vendaId], references: [id])
+  vendaId    Int
 }

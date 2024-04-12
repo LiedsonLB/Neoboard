@@ -22,7 +22,7 @@ const HomePage = () => {
     const [user, loading] = useAuthState(auth);
 
     useEffect(() => {
-        document.title = `NeoBoard | ${user?.displayName || "Home"}, bem vindo!!`;
+        document.title = `${user?.displayName + " | NeoBoard" || "Home"}, bem vindo!!`;
     }, [user]);
 
     useEffect(() => {

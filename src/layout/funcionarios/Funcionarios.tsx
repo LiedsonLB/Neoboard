@@ -91,6 +91,18 @@ const Funcionarios = () => {
     setShowInfoModal(true);
   };
 
+  const generateQRCode = (url: string) => {
+    const qrCodeSize = 300; // Tamanho do código QR
+    const qrCodeData = encodeURIComponent(url);
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${qrCodeData}&size=${qrCodeSize}x${qrCodeSize}`;
+  
+    // Abre uma nova janela com o código QR
+    const newWindow = window.open(qrCodeUrl, '_blank');
+    if (!newWindow) {
+      alert('Não foi possível abrir a janela do código QR. Verifique se as pop-ups estão bloqueadas.');
+    }
+  };
+
   return (
     <div id='staff-container'>
       <div id='staff-inside'>
