@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./Regioes.css";
-import { IoSearch } from 'react-icons/io5';
+import { IoSearch, IoPerson, IoCamera, IoEarth, IoEarthOutline, IoPlanet, IoPlanetOutline, IoGlobe, IoMap, IoEarthSharp } from 'react-icons/io5';
 import RegionDoughnout from '../../components/charts/RegionDoughnout';
 
 const Regioes = () => {
@@ -12,15 +12,49 @@ const Regioes = () => {
 
   return (
     <>
-      {showModal && <div className="Modal-Add">
-        <div className="container-Add">
-          <div id="header-modal">
-            <h4 className="modal-title">Adicionar Região</h4>
-            <button type="button" className="close-btn" onClick={toggleModalClose}>&times;</button>
+      {showModal && (
+        <div className='Modal-Add'>
+          <div className='container-Add-Region'>
+            <div id="header-modal">
+              <h4 className="modal-title">Adicionar Região</h4>
+              <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
+            </div>
+            <div id="Add-Item-Region">
+              <div className='img-region-up'>
+                <div className='img-input-container'>
+                  <img src="" className='img-region-add' />
+                  <input type="file" id='img-input' />
+                  <i className='icon-reg-prof'><IoEarthOutline /></i>
+                  <div className='icon-text-cam'>
+                    <i className='icon-cam'><IoCamera /></i>
+                    <p>Adicionar foto</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="name-item">Nome da Região:</label>
+                  <input type="text" name='name-item' className='full-item' />
+                </span>
+                <span>
+                  <label htmlFor="name-item">Quantidade de Clientes:</label>
+                  <input type="text" name='name-item' className='full-item' />
+                </span>
+              </div>
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="name-item">Vendedor Responsável:</label>
+                  <input type="text" name='name-item' className='full-item' />
+                </span>
+              </div>
+
+              <button id='add-Region-Btn'>Enviar</button>
+            </div>
           </div>
-          <hr />
         </div>
-      </div >}
+      )}
 
       <div id='region-container'>
         <div id='region-inside'>
@@ -47,7 +81,6 @@ const Regioes = () => {
                 <div id='region-chart'>
                   <RegionDoughnout />
                 </div>
-
               </div>
             </article>
 
@@ -120,7 +153,7 @@ const Regioes = () => {
                     <td>
                       <div className="table-regions">
                         <div className="region-pic">
-                          <img src="./img/no_regionImg.jpeg" alt="sem_regiao"/>
+                          <img src="./img/no_regionImg.jpeg" alt="sem_regiao" />
                         </div>
                       </div>
                     </td>
@@ -146,7 +179,7 @@ const Regioes = () => {
                 </tbody>
               </table>
             </section>
-            
+
           </main>
         </div>
       </div>

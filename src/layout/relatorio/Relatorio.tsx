@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IoCloudDownloadOutline } from 'react-icons/io5';
+import { IoCloudDownloadOutline, IoDocumentOutline, IoSearch, IoCaretDownSharp, IoAddCircleOutline } from 'react-icons/io5';
 import { read, utils } from 'xlsx';
 import Papa from 'papaparse';
 import './Relatorio.css';
@@ -154,6 +154,76 @@ const Relatorio: React.FC = () => {
           </tbody>
         </table>
       </div>
+
+      <section id='exp-form'>
+        <header>
+          <h1>Informe suas despesas</h1>
+        </header>
+
+        <section id='search-expense'>
+          <div id='search-bar'>
+            <input type="search" id="search-exp" placeholder='Pesquisar despesa' aria-label="Buscar" />
+            <i id='search-icon'><IoSearch id='icon-exp' /></i>
+          </div>
+
+          <button id='filter-expense'>
+            <p>Tipo</p>
+            <IoCaretDownSharp />
+          </button>
+        </section>
+
+        <p id='result-expense'>Resultados (3)</p>
+
+        <section id='exp-cards'>
+          <button className='exp-card'>
+            <i><IoAddCircleOutline /></i>
+            <p>Adicionar despesa</p>
+          </button>
+
+          <button className='exp-card'>
+            <span className="fa-stack1">
+              <i className="fas fa-square"></i>
+              <i className="fas fa-circle"></i>
+              <i className="fas fa-dollar-sign"></i>
+            </span>
+            <p>Aluguel Ponto</p>
+            <p className='exp-desc'>Aluguel do dia 20 no ponto de Piripiri</p>
+          </button>
+
+          <button className='exp-card'>
+            <span className="fa-stack2">
+              <i className="fas fa-square"></i>
+              <i className="fas fa-circle"></i>
+              <i className="fas fa-dollar-sign"></i>
+            </span>
+            <p>Aluguel Ponto</p>
+            <p className='exp-desc'>Aluguel do dia 21 no ponto de Piripiri</p>
+          </button>
+
+          <button className='exp-card'>
+            <span className="fa-stack3">
+              <i className="fas fa-square"></i>
+              <i className="fas fa-circle"></i>
+              <i className="fas fa-dollar-sign"></i>
+            </span>
+            <p>Aluguel Ponto</p>
+            <p className='exp-desc'>Aluguel do dia 22 no ponto de Piripiri</p>
+          </button>
+
+          <button className='exp-card'>
+            <span className="fa-stack4">
+              <i className="fas fa-square"></i>
+              <i className="fas fa-circle"></i>
+              <i className="fas fa-dollar-sign"></i>
+            </span>
+            <p>Aluguel Ponto</p>
+            <p className='exp-desc'>Aluguel do dia 23 no ponto de Piripiri</p>
+          </button>
+          
+        </section>
+
+      </section>
+
     </div>
   );
 }

@@ -3,12 +3,12 @@
     flex-direction: column;
     width: 100%;
     padding-bottom: 1rem;
-    height: max-content;
+    height: 100vh;
     background-color: var(--gray-color);
 }
 
 #faq-inside {
-    height: 100vh;
+    height: max-content;
     width: 100%;
     background-color: var(--gray-color);
 }
@@ -31,6 +31,7 @@
     width: 100%;
     align-items: center;
     background-color: var(--gray-color);
+    margin-bottom: 2rem;
 }
 
 #faq-left {
@@ -97,12 +98,10 @@
 #faq-right {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
     width: 100%;
     min-width: 400px;
     max-width: 50%;
     font-size: .8rem;
-
 }
 
 #faq-right header {
@@ -189,7 +188,7 @@
 
 }
 
-@media screen and (max-width: 1031px) {
+@media screen and (min-width: 481px) and (max-width: 1031px) {
     #faq-container {
         display: flex;
         flex-direction: column;
@@ -202,7 +201,6 @@
 
     #faq-inside {
         height: 100vh;
-
     }
 
     #faq-sections {
@@ -224,12 +222,11 @@
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        background-color: var(--gray-color);
-        margin-bottom: 2rem;
+        min-width: 60%;
+        max-width: 60%;
+        font-size: .8rem;
     }
-}
 
-@media screen and (max-height: 768px) {
     #faq-header {
         font-size: .6rem;
         overflow: hidden;
@@ -244,12 +241,79 @@
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        min-width: 50%;
+        min-width: 380px;
         max-width: 60%;
         font-size: .8rem;
+        margin-bottom: 2rem;
     }
 
     #faq-field {
         width: 100%;
     }
+
+}
+
+@media screen and (max-width: 480px) {
+    #faq-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 1rem;
+        background-color: var(--gray-color);
+    }
+
+    #faq-inside {
+        height: 100vh;
+    }
+
+    #faq-sections {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        gap: 4rem;
+        align-items: center;
+    }
+
+    #faq-left {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    #faq-right {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        min-width: 60%;
+        max-width: 60%;
+        font-size: .8rem;
+    }
+
+    #faq-header {
+        font-size: .6rem;
+        overflow: hidden;
+    }
+
+    #faq-left {
+        font-size: 90%;
+        margin-bottom: 1rem;
+    }
+
+    #faq-right {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        min-width: 80%;
+        max-width: 80%;
+        font-size: .8rem;
+        margin-bottom: 2rem;
+    }
+
+    #faq-field {
+        width: 100%;
+    }
+
 }
