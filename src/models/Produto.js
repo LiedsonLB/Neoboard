@@ -10,3 +10,5 @@ class Produto {
         this.itensVenda = itensVenda || [];
     }
 }
+
+export default Produto;
