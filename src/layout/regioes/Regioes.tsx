@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./Regioes.css";
-import { IoSearch, IoPerson, IoCamera, IoEarth, IoEarthOutline, IoPlanet, IoPlanetOutline, IoGlobe, IoMap, IoEarthSharp } from 'react-icons/io5';
+import { IoSearch, IoPerson, IoCamera, IoEarth, IoEarthOutline, IoPlanet, IoPlanetOutline, IoGlobe, IoMap, IoEarthSharp, IoHomeOutline } from 'react-icons/io5';
 import RegionDoughnout from '../../components/charts/RegionDoughnout';
 
 const Regioes = () => {
@@ -24,7 +24,7 @@ const Regioes = () => {
                 <div className='img-input-container'>
                   <img src="" className='img-region-add' />
                   <input type="file" id='img-input' />
-                  <i className='icon-reg-prof'><IoEarthOutline /></i>
+                  <i className='icon-reg-prof'><IoHomeOutline /></i>
                   <div className='icon-text-cam'>
                     <i className='icon-cam'><IoCamera /></i>
                     <p>Adicionar foto</p>

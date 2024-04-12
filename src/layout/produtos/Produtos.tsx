@@ -67,7 +67,7 @@ const Produtos = () => {
               <p id='text-prod-mes'>Produto do Mês</p>
               <div id='prod-main'>
                 <div id='container-prod-img'>
-                  <figure className='icecream-img'>
+                  <figure className='container-list-img'>
                     <img src="./img/picole.jpg" alt="picole_flocos" />
                   </figure>
                   <div id='prod-desc'>
@@ -95,7 +95,7 @@ const Produtos = () => {
             <p id='result-product'>Resultados (6)</p>
             <section id='products-list'>
               <article className='prod-card'>
-                <figure className='icecream-img'>
+                <figure className='container-list-img'>
                   <img src="./img/Picole_sem_cobertura.jpeg" alt="picole_sem_cobertura" />
                 </figure>
                 <p>Picolé sem cobertura</p>
@@ -104,7 +104,7 @@ const Produtos = () => {
               </article>
 
               <article className='prod-card'>
-                <figure className='icecream-img'>
+                <figure className='container-list-img'>
                   <img src="/img/Picole_com_cobertura.jpeg" alt="picole_com_cobertura" />
                 </figure>
                 <p>Picolé de cobertura</p>
@@ -113,7 +113,7 @@ const Produtos = () => {
               </article>
 
               <article className='prod-card'>
-                <figure className='icecream-img'>
+                <figure className='container-list-img'>
                   <img src="/img/Acaí_200ml.jpeg" alt="_" />
                 </figure>
                 <p>Açaí de 200ml</p>
@@ -122,7 +122,7 @@ const Produtos = () => {
               </article>
 
               <article className='prod-card'>
-                <figure className='icecream-img'>
+                <figure className='container-list-img'>
                   <img src="/img/Sorvete_1L.jpeg" alt="Sorvete 1L" />
                 </figure>
                 <p>Sorvete de 1L</p>
@@ -131,7 +131,7 @@ const Produtos = () => {
               </article>
 
               <article className='prod-card'>
-                <figure className='icecream-img'>
+                <figure className='container-list-img'>
                   <img src="/img/Sorvete_1.5L.jpeg" alt="Sorvete 1.5L" />
                 </figure>
                 <p>Sorvete de 1.5L</p>
@@ -140,7 +140,7 @@ const Produtos = () => {
               </article>
 
               <article className='prod-card'>
-                <figure className='icecream-img'>
+                <figure className='container-list-img'>
                   <img src="img/Sorvete_2L.jpeg" alt="Sorvete de 2L" />
                 </figure>
                 <p>Sorvete de 2L</p>
