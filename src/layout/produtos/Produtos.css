@@ -348,6 +348,227 @@
     flex-direction: column;
 }
 
+/* Modal */
+.container-Detail-Product {
+    background: var(--white-color);
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    min-width: 30%;
+    padding: 20px;
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 90%;
+    width: 80%;
+    z-index: 3;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
+#header-modal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 200px;
+}
+
+#Product-Info-Container{
+    display: flex;
+    width: 100%;
+    height: 90%;
+}
+
+#infoprod-popup {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#select-session-prod-btnContainer {
+    padding: .3rem .5rem;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    width: fit-content;
+    margin: 0 auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    display: flex;
+    gap: 5px;
+    margin-bottom: 1rem;
+}
+
+.select-session {
+    padding: .3rem .5rem;
+    background-color: var(--gray-color);
+    border-radius: 100px;
+    margin: 0 auto;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-krub) !important;
+    font-weight: 500;
+    transition: .3s;
+    min-width: 120px;
+    color: var(--black-color);
+}
+
+.selected {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+#select-session-prod {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+}
+
+#infoprod-charts {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+#prodInfo-popup {
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-krub) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 1rem;
+}
+
+#prodInfo-popup img {
+    animation: spin 1s linear;
+    border-radius: 20px;
+    outline: 5px solid var(--secondy-color);
+    width: 150px;
+}
+
+.nameUserProd {
+    padding-block: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    opacity: 0;
+    animation-delay: 1s !important;
+    animation: slideInUp 1s ease forwards;
+}
+
+.nameUserProd {
+    font-size: 2rem;
+    text-wrap: nowrap;
+    overflow: hidden;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    color: var(--primary-color);
+}
+
+#infoprod-description{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+#ProdTextInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: slideInUp 1s ease forwards;
+}
+
+#ProdTextInfo p span {
+    color: var(--secondy-color);
+    font-weight: bold;
+    opacity: 0;
+    animation: slideInUp 1s ease forwards;
+    gap: 5px;
+}
+
+.text-historico {
+    color: var(--primary-color);
+}
+
+.text-history {
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: .5rem;
+}
+
+#container-ProductColumnChart {
+    height: 200px;
+}
+
+.graficColunm-prod {
+    width: 100%;
+    height: 100%;
+    margin: 0rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#container-table-prod {
+    width: 100%;
+    margin: 0 auto;
+    max-height: 12rem !important;
+    overflow: auto;
+}
+
+.body-list-prod tr {
+    background-color: #EBEDF1;
+    font-size: .7rem;
+}
+
+.head-list-prod tr {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: .7rem;
+    text-align: center;
+}
+
+.head-list-prod {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.body-list-prod tr td,
+.head-list-prod tr td {
+    height: auto !important;
+    padding: 5px !important;
+}
+
+.body-list-prod tr td h3 {
+    text-wrap: nowrap;
+    overflow: hidden;
+    max-width: 100px;
+    text-overflow: ellipsis;
+}
+
+.body-list-prod tr:nth-child(even) {
+    background-color: var(--white-color);
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(180deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
 @media screen and (max-width: 1078px) {
     #prod-header {
         text-align: center;

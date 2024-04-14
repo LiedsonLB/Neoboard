@@ -379,6 +379,10 @@
 
 #select-session-staff {
     width: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
 }
 
 #infouser-charts {
