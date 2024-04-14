@@ -69,8 +69,8 @@ model Despesa {
 }
 
 model Venda {
-  id                 Int         @id @default(autoincrement())
-  data               DateTime
+  ID_venda           Int         @id @default(autoincrement())
+  Data               String
   funcionario        Funcionario @relation(fields: [funcionarioId], references: [id])
   funcionarioId      Int
   itensVenda         ItemVenda[]
@@ -89,6 +89,6 @@ model ItemVenda {
   produto    Produto @relation(fields: [produtoId], references: [id])
   produtoId  Int
   quantidade Int
-  venda      Venda   @relation(fields: [vendaId], references: [id])
+  venda      Venda   @relation(fields: [vendaId], references: [ID_venda])
   vendaId    Int
 }

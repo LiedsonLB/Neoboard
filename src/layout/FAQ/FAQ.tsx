@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 import "./FAQ.css";
-import { IoChevronForwardOutline, IoLogoWhatsapp, IoLogoLinkedin, IoMail } from 'react-icons/io5';
+import { IoChevronForwardOutline, IoLogoWhatsapp, IoLogoLinkedin, IoMail, IoPaperPlane } from 'react-icons/io5';
 import Popup from '../../components/popup/Popup';
 
 const FAQ = () => {
@@ -128,7 +128,7 @@ const FAQ = () => {
                   </div>
                 </div>
                 <button type="submit" className="faq-btn">
-                  Enviar
+                  Enviar Mensagem <IoPaperPlane />
                 </button>
               </form>
             </div>

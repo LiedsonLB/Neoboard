@@ -22,7 +22,7 @@ const Relatorio: React.FC = () => {
 
   const displayData = (data: any) => {
     setOutputData(data);
-    setLoading(false); // Hide loading indicator once data processing is complete
+    setLoading(false);
   };
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,15 @@ const Relatorio: React.FC = () => {
       setLoading(true);
       try {
         const data = await readFile(file);
-        displayData(data);
+        if (Array.isArray(data)) {
+          displayData(data);
+        } else if (typeof data === 'object') {
+          // Se os dados são um objeto, convertemos para array de valores
+          const dataArray = Object.values(data);
+          displayData(dataArray);
+        } else {
+          throw new Error('Formato de dados inválido');
+        }
       } catch (error) {
         console.error('Erro ao processar o arquivo:', error);
         setPopupType('warning');
@@ -42,6 +50,7 @@ const Relatorio: React.FC = () => {
       }
     }
   };
+
 
   const readFile = async (file: File): Promise<any> => {
     const reader = new FileReader();
@@ -150,7 +159,21 @@ const Relatorio: React.FC = () => {
   // Função para enviar os dados para a API
   const enviarRelatorioVendas = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/v3/vendas', outputData);
+      const vendas = outputData.slice(1).map((row: any) => ({
+        Data: row[0], // Suponho que a data esteja na primeira coluna
+        Funcionário: row[1], // Suponho que o funcionário esteja na segunda coluna
+        Produto: row[2], // Suponho que o produto esteja na terceira coluna
+        'Valor do produto': row[3], // Suponho que o valor do produto esteja na quarta coluna
+        'Qtd. Comprada': row[4], // Suponho que a quantidade comprada esteja na quinta coluna
+        Comprador: row[5], // Suponho que o comprador esteja na sexta coluna
+        Região: row[6], // Suponho que a região esteja na sétima coluna
+        'Forma de pagamento': row[7], // Suponho que a forma de pagamento esteja na oitava coluna
+      }));
+
+      console.log('Dados a serem enviados:', vendas);
+
+      const response = await axios.post('http://localhost:4000/v3/vendas', vendas);
+
       if (response.status === 201) {
         setPopupType('success');
         setPopupTitle('Sucesso');
@@ -246,7 +269,7 @@ const Relatorio: React.FC = () => {
               <tr key={rowIndex}>
                 {row.map((cell: any, cellIndex: number) => (
                   <td key={cellIndex}>
-                    <h3>{cell}</h3>
+                    {cell}
                   </td>
                 ))}
               </tr>
@@ -278,7 +301,7 @@ const Relatorio: React.FC = () => {
         <p id='result-expense'>Resultados (3)</p>
 
         <section id='exp-cards'>
-          <button className='exp-card'>
+          <button className='exp-card' id='add-exp-card'>
             <i><IoAddCircleOutline /></i>
             <p>Adicionar despesa</p>
           </button>
