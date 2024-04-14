@@ -104,7 +104,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 </div>
                             </div>
                             <figure id="present-img">
-                                <img src="img/homeImg.png" alt="present-img" />
+                                <img src="img/avatarHomeSkills.png" alt="present-img" />
                             </figure>
                         </div>
                     </article>
