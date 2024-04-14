@@ -49,41 +49,6 @@ const StaffColumnChart = () => {
         valor: 5600,
         color: 'red',
       },
-      {
-        mes: 'Janeiro',
-        valor: 1000,
-        color: 'pink',
-      },
-      {
-        mes: 'Fevereiro',
-        valor: 2000,
-        color: 'blue',
-      },
-      {
-        mes: 'Março',
-        valor: 3000,
-        color: 'yellow',
-      },
-      {
-        mes: 'Abril',
-        valor: 7000,
-        color: 'green',
-      },
-      {
-        mes: 'Maio',
-        valor: 3900,
-        color: 'red',
-      },
-      {
-        mes: 'Junho',
-        valor: 2500,
-        color: 'red',
-      },
-      {
-        mes: 'Julho',
-        valor: 5600,
-        color: 'red',
-      },
     ];
 
     setMeses(info);

@@ -83,10 +83,10 @@
 
 #drop-area {
     border-radius: 20px;
-    margin: 2rem 3rem;
+    margin-bottom: 1.5rem;
 }
 
-.button {
+.buttonSendFile {
     border: 2px dashed #ccc;
     border-radius: 20px;
     text-align: center;
@@ -98,10 +98,11 @@
     width: 100%;
     height: 100%;
     padding: 4rem;
+    color: var(--primary-color);
 
 }
 
-.button:hover {
+.buttonSendFile:hover {
     background-color: var(--hover-color);
     cursor: pointer;
     color: var(--white-color);
@@ -191,8 +192,93 @@ input[type="file"] {
     cursor: pointer;
 }
 
-#add-rep-btn:hover{
+#add-rep-btn:hover {
     transform: scale(1.2);
+}
+
+#report-right {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#report-container {
+    padding-inline: 1rem;
+    margin: auto;
+}
+
+#report-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#report-main {
+    display: flex;
+    justify-content: space-between;
+}
+
+#file-header,
+#file-desc {
+    margin-bottom: 10px;
+}
+
+#report-btns {
+    text-align: center;
+}
+
+.rep-btn {
+    margin: 0 10px;
+}
+
+#output {
+    margin-top: 20px;
+    max-height: 50% !important;
+    overflow: auto;
+    width: 80%;
+    margin: 0 auto;
+    outline: 5px solid var(--white-color);
+}
+
+
+#output table {
+    width: 100%;
+    margin: 0 auto;
+    height: 50% !important;
+    overflow: auto;
+}
+
+#output table tbody tr {
+    background-color: #EBEDF1;
+    font-size: .7rem;
+}
+
+#output table thead tr {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: .7rem;
+    text-align: center;
+}
+
+#output table thead {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+#output table tbody tr td,
+#output table thead tr td {
+    height: auto !important;
+    padding: 5px !important;
+    width: 200px !important;
+}
+
+#output table tbody tr td h3 {
+    text-wrap: nowrap;
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
+}
+
+#output table tbody tr:nth-child(even) {
+    background-color: var(--white-color);
 }
 
 @keyframes anime {
@@ -216,20 +302,408 @@ input[type="file"] {
     border-radius: 10px;
 }
 
+#uploadButton {
+    padding: 10px 20px;
+    background-color: #1B2947;
+    color: white;
+    border: 1px solid #1B2947;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#uploadButton:hover {
+    background-color: #5B7FFF;
+    border: 1px solid #5B7FFF;
+}
+
+#cancelFile {
+    padding: 10px 20px;
+    border: 1px solid var(--secondy-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color: var(--secondy-color);
+    color: var(--white-color);
+}
+
+#cancelFile:hover {
+    background-color: var(--hover-color);
+    border: 1px solid var(--hover-color);
+}
+
+.rep-btn[disabled] {
+    background-color: #ccc !important;
+    color: #999 !important;
+    cursor: not-allowed !important;
+    border: 1px solid #ccc !important;
+}
+
+#receiveFile {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid #1B2947;
+    color: #1B2947;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    width: 200px;
+}
+
+#receiveFile:hover {
+    background-color: var(--white-color);
+}
+
+#loadingIndicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+#progressBarContainer {
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+    display: none;
+    background-color: #FFFFFF;
+    border-radius: 100px;
+}
+
+#container-file-loading {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background: var(--white-color);
+    width: 100%;
+    height: 100%;
+    padding: 4rem;
+}
+
+#exp-form {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+}
+
+#exp-form header {
+    font-family: var(--font-Krona), sans-serif;
+    animation: slideInUp 1s ease forwards;
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+#search-expense {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block: 1rem;
+}
+
+#search-bar {
+    display: flex;
+    max-width: 400px;
+    margin: 1rem 0;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+}
+
+#search-bar:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+#search-exp {
+    padding: .5rem .8rem;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    color: var(--black-color);
+    font-family: var(--font-krub);
+    font-weight: bold;
+}
+
+#search-exp:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+#search-exp:focus+#search-icon {
+    color: var(--secondy-color) !important;
+}
+
+#search-icon {
+    position: absolute;
+    right: .5rem;
+    bottom: 0.2em;
+    color: var(--black-color);
+    font-size: 1.2rem;
+}
+
+#search-exp:focus {
+    outline: none;
+}
+
+#filter-expense {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: .8rem 2rem;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-family: var(--font-krub);
+}
+
+#filter-expense:hover {
+    cursor: pointer;
+    background: var(--white-color);
+    transition: .5s;
+}
+
+#result-expense {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-block: 1rem;
+}
+
+#exp-cards {
+    display: grid;
+    gap: 1rem;
+    margin: 0 auto;
+    width: 100%;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.exp-card {
+    background: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    gap: 1.2rem;
+    border-radius: 5px;
+    border: 1px solid var(--secondy-color);
+    transition: .5s;
+    position: relative;
+    padding: 1.5rem;
+}
+
+.exp-card:hover {
+    cursor: pointer;
+    background: var(--hover-color);
+}
+
+.exp-card:hover p,
+.exp-card:hover svg {
+    color: var(--white-color) !important;
+}
+
+.exp-card i {
+    font-size: 4rem;
+}
+
+.exp-desc {
+    font-weight: 400;
+}
+
+.stack-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-square {
+    color: 388E3C;
+
+}
+
+.fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+
+}
+
+.fa-dollar-sign {
+    position: absolute;
+    color: 388E3C;
+    font-size: 2rem !important;
+}
+
+.fa-stack1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-stack1 .fa-square {
+    color: #388E3C;
+}
+
+.fa-stack1 .fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+}
+
+.fa-stack1 .fa-dollar-sign {
+    position: absolute;
+    color: #388E3C;
+    font-size: 2rem !important;
+}
+
+.fa-stack2 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-stack2 .fa-square {
+    color: #FFC107;
+}
+
+.fa-stack2 .fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+}
+
+.fa-stack2 .fa-dollar-sign {
+    position: absolute;
+    color: #FFC107;
+    font-size: 2rem !important;
+}
+
+.fa-stack3 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-stack3 .fa-square {
+    color: 1B2947;
+}
+
+.fa-stack3 .fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+}
+
+.fa-stack3 .fa-dollar-sign {
+    position: absolute;
+    color: 1B2947;
+    font-size: 2rem !important;
+}
+
+.fa-stack4 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-stack4 .fa-square {
+    color: var(--secondy-color);
+}
+
+.fa-stack4 .fa-circle {
+    position: absolute;
+    color: white;
+    font-size: 2.2rem !important;
+}
+
+.fa-stack4 .fa-dollar-sign {
+    position: absolute;
+    color: var(--secondy-color);
+    font-size: 2rem !important;
+}
+
 @media screen and (max-width: 1078px) {
     #report-header {
         text-align: center;
     }
-    
-    #report-main{
-    display: flex;
-    flex-direction: column;  
+
+    #report-main {
+        display: flex;
+        flex-direction: column;
     }
 
-    #report-right{
-    margin-bottom: 2rem;
+    #report-right {
+        margin-bottom: 2rem;
+    }
+
+    #report-btns {
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    #exp-form {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 0 !important;
+    }
+
+    #search-expense {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    #filter-expense {
+        width: 100%;
+        text-align: center !important;
+    }
+
+    #exp-cards {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+        margin: 0 auto;
+    }
+
+    #output {
+        margin-bottom: 2rem;
     }
 }
 
+#filter-expense option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: .8rem 2rem;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-family: var(--font-krub);
+    text-align: center;
+}
 
-
+#filter-expense option:hover {
+    background-color: var(--primary-color) !important;
+    color: var(--white-color) !important;
+    border: 1px solid var(--primary-color);
+}

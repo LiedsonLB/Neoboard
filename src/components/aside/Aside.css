@@ -118,8 +118,8 @@ aside header span h2 {
   color: var(--white-color);
 }
 
-#navigation-home ul li:hover .icon {
-  color: var(--white-color); /* Aqui você pode colocar a cor desejada para o ícone quando o <li> está em estado de hover */
+#navigation-home ul li .icon {
+  color: var(--white-color);
 }
 
 .user-acount {
@@ -273,13 +273,6 @@ aside ul h2 {
     z-index: 2;
   }
 
-  aside ul li {
-    padding: 1.3rem 1rem;
-  }
-
-  aside {
-  }
-
   #aside-home.closed {
     display: none;
   }
@@ -321,6 +314,6 @@ aside ul h2 {
     display: flex;
     flex-direction: column;
     z-index: 2;
-    background: var(--primary-color);
+    background: none;
   }
 }

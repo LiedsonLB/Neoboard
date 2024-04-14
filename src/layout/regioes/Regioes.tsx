@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./Regioes.css";
-import { IoSearch } from 'react-icons/io5';
+import { IoSearch, IoPerson, IoCamera, IoEarth, IoEarthOutline, IoPlanet, IoPlanetOutline, IoGlobe, IoMap, IoEarthSharp, IoHomeOutline } from 'react-icons/io5';
 import RegionDoughnout from '../../components/charts/RegionDoughnout';
 
 const Regioes = () => {
@@ -12,6 +12,7 @@ const Regioes = () => {
 
   return (
     <>
+<<<<<<< HEAD
       {showModal && <div id="Modal-Add-Btn">
         <div id="container-Add-Btn">
           <div id="header-modal">
@@ -78,9 +79,51 @@ const Regioes = () => {
               </span>
             </div>
 
+=======
+      {showModal && (
+        <div className='Modal-Add'>
+          <div className='container-Add-Region'>
+            <div id="header-modal">
+              <h4 className="modal-title">Adicionar Região</h4>
+              <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
+            </div>
+            <div id="Add-Item-Region">
+              <div className='img-region-up'>
+                <div className='img-input-container'>
+                  <img src="" className='img-region-add' />
+                  <input type="file" id='img-input' />
+                  <i className='icon-reg-prof'><IoHomeOutline /></i>
+                  <div className='icon-text-cam'>
+                    <i className='icon-cam'><IoCamera /></i>
+                    <p>Adicionar foto</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="name-item">Nome da Região:</label>
+                  <input type="text" name='name-item' className='full-item' />
+                </span>
+                <span>
+                  <label htmlFor="name-item">Quantidade de Clientes:</label>
+                  <input type="text" name='name-item' className='full-item' />
+                </span>
+              </div>
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="name-item">Vendedor Responsável:</label>
+                  <input type="text" name='name-item' className='full-item' />
+                </span>
+              </div>
+
+              <button id='add-Region-Btn'>Enviar</button>
+            </div>
+>>>>>>> e2a3915df79f63e77759249d7756bb0b0fa35776
           </div>
         </div>
-      </div >}
+      )}
 
       <div id='region-container'>
         <div id='region-inside'>
@@ -107,7 +150,6 @@ const Regioes = () => {
                 <div id='region-chart'>
                   <RegionDoughnout />
                 </div>
-
               </div>
             </article>
 
@@ -134,7 +176,7 @@ const Regioes = () => {
                     <td className='table-space'></td>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className='tBodyTableRegions'>
                   <tr>
                     <td>
                       <div className="region-pic">
@@ -152,7 +194,7 @@ const Regioes = () => {
                       </div>
                     </td>
                     <td>
-                      <h5 className="status comprado">R$10000K</h5>
+                      <h3>R$10000K</h3>
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
@@ -169,7 +211,7 @@ const Regioes = () => {
                     </td>
                     <td><h3>Pedro II</h3></td>
                     <td><h3>8300</h3></td>
-                    <td><h5 className="status negociacao">R$30000K</h5></td>
+                    <td><h3>R$30000K</h3></td>
                     <td>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
                         <button className="edit">Ver</button>
@@ -195,7 +237,7 @@ const Regioes = () => {
                       </div>
                     </td>
                     <td>
-                      <h5 className="status venda">R$50000K</h5>
+                      <h3>R$50000K</h3>
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>

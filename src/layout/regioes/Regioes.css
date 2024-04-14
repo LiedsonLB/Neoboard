@@ -43,11 +43,12 @@
     padding: 1rem;
     margin: 0 auto;
     width: 70%;
-    position: relative;
     animation: scaleIn 1s ease forwards;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#region-card #text-region-mes {
+#text-region-mes {
     color: var(--white-color);
     background-color: var(--primary-color);
     padding: .5rem 1rem;
@@ -57,12 +58,57 @@
     right: -1rem;
 }
 
-#card-region-desc {
-    display: flex;
-    justify-content: end;
+#reg-main {
+    border-radius: 10px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    padding: 1rem;
     position: relative;
-    bottom: 2rem;
-    left: 2rem;
+}
+
+#container-region-img {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.city-img {
+    width: 150px;
+    height: 150px;
+    display: flex;
+}
+
+.city-img img {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#region-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+#region-chart {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.chartRegion {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
 }
 
 #card-region-desc p {
@@ -86,23 +132,6 @@
     align-items: center;
 }
 
-.city-img {
-    height: 150px;
-    width: 150px;
-}
-
-.city-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 200px;
-}
-
-#container-region-img {
-    display: flex;
-    gap: 1rem;
-}
-
 #region-desc {
     display: flex;
     flex-direction: column;
@@ -116,10 +145,6 @@
 
 #region-desc p {
     font-size: 1.2rem;
-}
-
-#region-chart {
-    width: 18rem;
 }
 
 #region-chart img {
@@ -222,14 +247,22 @@ table {
     border-radius: 10px;
 }
 
+<<<<<<< HEAD
 thead tr {
+=======
+.tBodyTableRegions tr td {
+    border: 1px solid #ddd;
+}
+
+
+.theadTableRegions tr {
+>>>>>>> e2a3915df79f63e77759249d7756bb0b0fa35776
     width: 100%;
     height: 50px;
     text-align: center;
     background-color: var(--primary-color);
     color: var(--white-color);
     font-weight: bold;
-    border-radius: 10px;
     font-size: .9rem;
 }
 
@@ -239,7 +272,6 @@ tbody {
 }
 
 tbody tr {
-    border-radius: 10px;
     font-size: .9rem;
 }
 
@@ -347,10 +379,19 @@ td {
 }
 
 /* Modal */
-.container-Add {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+.Modal-Add {
+    height: auto;
+    width: 100%;
+    z-index: 1;
+    position: fixed;
+    backdrop-filter: brightness(0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-Add-Region {
     background: var(--white-color);
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
     flex-direction: column;
@@ -360,15 +401,22 @@ td {
     border: none;
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     height: 90%;
     width: 80%;
     z-index: 3;
+=======
+    height: auto;
+    width: 60%;
+    z-index: 1;
+    justify-content: center;
+>>>>>>> e2a3915df79f63e77759249d7756bb0b0fa35776
     position: fixed;
 }
 
 #header-modal {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
     width: 100%;
     min-width: 200px;
@@ -395,16 +443,119 @@ td {
     background-color: var(--gray-color);
 }
 
-.Modal-Add {
-    height: 100vh;
+.img-region-up {
     width: 100%;
-    z-index: 10;
-    position: fixed;
-    backdrop-filter: brightness(0.5);
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 0;
+    position: relative;
+    margin-block: 1rem;
+}
+
+.img-input-container {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 2px 3px 12px #00000060;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    backdrop-filter: brightness(0.5);
+}
+
+.img-region-up img {
+    width: auto;
+    height: 100px;
+    position: absolute;
+}
+
+
+.img-region-up p {
+    color: var(--white-color);
+    font-weight: bold;
+}
+
+.icon-reg-prof {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    font-size: 100px;
+    color: #221d1d;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 40%;
+
+}
+
+.icon-cam {
+    color: var(--white-color);
+    font-size: 30px;
+}
+
+.icon-text-cam {
+    display: flex;
+    flex-direction: column;
+}
+
+#Add-Item-Region {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.input-item span {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.input-item span input {
+    padding: .8rem;
+    background-color: var(--gray-color);
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.input-item span input:focus {
+    border: 2px solid var(--secondy-color);
+}
+
+.input-single {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-mult {
+    display: flex;
+    gap: 1rem;
+}
+
+#add-Region-Btn {
+    display: flex;
+    padding: .8rem 0;
+    justify-content: center;
+    background: var(--secondy-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: var(--font-krub);
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+#add-Region-Btn:hover {
+    background: var(--hover-color);
 }
 
 @keyframes DownAnimation {
@@ -468,6 +619,10 @@ td {
         z-index: 1;
     }
 
+    #region-chart {
+        justify-content: center;
+    }
+
     #card-region-desc p {
         justify-content: center;
     }
@@ -488,11 +643,62 @@ td {
         flex-direction: column;
     }
 
-    .table-space {
-        display: none;
+    .theadTableRegions tr {
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        font-weight: bold;
+        font-size: .9rem;
     }
 
     .edit {
-        padding-inline: 6rem;
+        display: flex;
+    }
+
+    .table-space {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .input-mult {
+        flex-wrap: wrap; 
+    }
+
+}
+
+
+@media screen and (max-width: 480px) {
+
+    .theadTableRegions tr,
+    .tBodyTableRegions td {
+        font-size: 12px;
+    }
+
+    .region-pic {
+        width: 45px;
+        height: 45px;
+    }
+
+    .region-pic img {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        object-fit: cover;
+    }
+
+    #region-chart {
+        justify-content: center;
+    }
+
+    .input-mult {
+        flex-direction: column;
+
+    }
+
+    .container-Add-Region{
+    width: 90%;
     }
 }
