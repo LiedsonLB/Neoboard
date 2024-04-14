@@ -1,13 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Produtos.css";
 import { IoSearch, IoPerson, IoCamera, IoBasket, IoCart, IoLogoDropbox, IoCube } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
+import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectionSession, setSelectionSession] = useState<'info' | 'charts'>('info');
+
+  const formatDate = (dateString: Date) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
+  };
+
+  const toggleInfoModal = () => {
+    setShowInfoModal(!showInfoModal);
+  };
+
+  const generateQRCode = (url: string) => {
+    const qrCodeSize = 300; // Tamanho do código QR
+    const qrCodeData = encodeURIComponent(url);
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${qrCodeData}&size=${qrCodeSize}x${qrCodeSize}`;
+
+    // Abre uma nova janela com o código QR
+    const newWindow = window.open(qrCodeUrl, '_blank');
+    if (!newWindow) {
+      alert('Não foi possível abrir a janela do código QR. Verifique se as pop-ups estão bloqueadas.');
+    }
   };
 
   return (
@@ -55,6 +87,318 @@ const Produtos = () => {
           </div>
         </div>}
 
+        {showInfoModal &&(
+        // Modal de exibição de informações do funcionário
+        <div className="Modal-Add">
+          <div className="container-Detail-Stsaff">
+            <div id="header-modal">
+              <h4 className="modal-title">Informações do Funcionário</h4>
+              <button type="button" className="close-btn" onClick={() => setShowInfoModal(false)}>&times;</button>
+            </div>
+            <div id='infouser-popup'>
+              <div id='userInfo-popup'>
+                <div className='userStfSocialMidia'>
+                  <a href=""><i className="fa-solid fa-envelope"></i></a>
+                  <a href=""><i className="fa-brands fa-github"></i></a>
+                  <a href=""><i className="fa-brands fa-linkedin"></i></a>
+                </div>
+              </div>
+
+              <div id='select-session-staff'>
+                <div id='select-session-staff-btnContainer'>
+                  <button className={selectionSession === 'info' ? 'select-session selected' : 'select-session'} onClick={() => setSelectionSession('info')}>Perfil</button>
+                  <button className={selectionSession === 'charts' ? 'select-session selected' : 'select-session'} onClick={() => setSelectionSession('charts')}>Desempenho</button>
+                </div>
+
+                {(selectionSession === 'info' || selectionSession === 'charts') && (
+                  <>
+                    {selectionSession === 'charts' && (
+                      <div id='infouser-charts'>
+                        <div id='container-StaffColumnChart'>
+                          <ProductColumnChart />
+                        </div>
+
+                        <p className="text-history">Histórico de vendas: </p>
+                        <section id='container-table-stf'>
+                          <table id='table-stf'>
+                            <thead className='head-list-stf'>
+                              <tr>
+                                <td>Produto</td>
+                                <td>Região</td>
+                                <td>Quantidade</td>
+                                <td>Data</td>
+                                <td>Pagamento</td>
+                              </tr>
+                            </thead>
+                            <tbody className='body-list-stf'>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="5">5</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                                </td>
+                                <td>
+                                  <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </section>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div id='product-container'>
         <div id='product-inside'>
           <header id="prod-header">
@@ -100,7 +444,7 @@ const Produtos = () => {
                 </figure>
                 <p>Picolé sem cobertura</p>
                 <p className='prod-name'>R$ 0.65</p>
-                <button>Ver produto</button>
+                <button onClick={() => toggleInfoModal(produto)}>Ver produto</button>
               </article>
 
               <article className='prod-card'>
