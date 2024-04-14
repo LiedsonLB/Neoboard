@@ -83,7 +83,7 @@
 
 #drop-area {
     border-radius: 20px;
-    margin: 2rem 3rem;
+    margin-bottom: 1.5rem;
 }
 
 .buttonSendFile {
@@ -390,8 +390,7 @@ input[type="file"] {
 #exp-form {
     display: flex;
     flex-direction: column;
-    padding: 4rem;
-
+    padding: 3rem;
 }
 
 #exp-form header {
@@ -480,9 +479,11 @@ input[type="file"] {
 
 #exp-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     margin: 0 auto;
+    width: 100%;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .exp-card {
@@ -490,24 +491,27 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
     color: var(--primary-color);
-    width: 200px;
-    height: 220px;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-weight: bold;
     font-size: 1.1rem;
-    margin-block: 1rem;
     gap: 1.2rem;
     border-radius: 5px;
     border: 1px solid var(--secondy-color);
     transition: .5s;
     position: relative;
+    padding: 1.5rem;
 }
 
 .exp-card:hover {
     cursor: pointer;
     background: var(--hover-color);
+}
+
+.exp-card:hover p,
+.exp-card:hover svg {
+    color: var(--white-color) !important;
 }
 
 .exp-card i {
@@ -518,7 +522,7 @@ input[type="file"] {
     font-weight: 400;
 }
 
-.fa-stack1 {
+.stack-container {
     position: relative;
     display: flex;
     justify-content: center;
@@ -649,21 +653,27 @@ input[type="file"] {
         margin-bottom: 2rem;
     }
 
-    #report-btns{
-    flex-direction: column;
-    align-items: center;
+    #report-btns {
+        flex-direction: column;
+        align-items: center;
 
     }
 
-    #exp-form{
+    #exp-form {
         flex-direction: column;
         justify-content: center;
         text-align: center;
+        padding: 0 !important;
     }
 
-    #search-expense{
+    #search-expense {
         flex-direction: column;
         justify-content: center;
+    }
+    
+    #filter-expense {
+        width: 100%;
+        text-align: center !important;
     }
 
     #exp-cards {
@@ -672,4 +682,28 @@ input[type="file"] {
         gap: 1rem;
         margin: 0 auto;
     }
+
+    #output {
+        margin-bottom: 2rem;
+    }
+}
+
+#filter-expense option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: .8rem 2rem;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-family: var(--font-krub);
+    text-align: center;
+}
+
+#filter-expense option:hover {
+    background-color: var(--primary-color) !important;
+    color: var(--white-color) !important;
+    border: 1px solid var(--primary-color);
 }
