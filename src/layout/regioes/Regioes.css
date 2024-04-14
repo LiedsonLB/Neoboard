@@ -236,13 +236,14 @@
 #result-reg {
     font-weight: bold;
     color: var(--black-color);
+    margin-bottom: 1rem;
 }
 
 table {
     width: 95%;
     margin: 0 auto;
     user-select: none;
-    margin: 2rem auto;
+    margin: .5rem auto;
     border-collapse: collapse;
     border-radius: 10px;
 }

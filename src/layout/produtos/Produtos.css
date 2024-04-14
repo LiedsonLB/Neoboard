@@ -216,7 +216,7 @@
 #result-product {
     font-weight: bold;
     color: var(--black-color);
-    margin-block: 1.5rem;
+    margin-block: 1rem;
 }
 
 #products-list {
@@ -224,7 +224,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
     gap: 1rem;
-    margin: 2rem 0;
+    margin: .5rem 0;
     justify-content: space-between;
 }
 
