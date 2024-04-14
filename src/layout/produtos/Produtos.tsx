@@ -412,10 +412,10 @@ const Produtos = () => {
               <div id='prod-main'>
                 <div id='container-prod-img'>
                   <figure className='container-list-img'>
-                    <img src="./img/picole.jpg" alt="picole_flocos" />
+                    <img src="/img/Sorvete_1L.jpeg" alt="picole_flocos" />
                   </figure>
                   <div id='prod-desc'>
-                    <h1>Picolé sem cobertura</h1>
+                    <h1>Sorvete de 1L</h1>
                     <p>Faturamento: <span>250K</span></p>
                     <p>Unidades vendidas: <span>51K</span></p>
                   </div>

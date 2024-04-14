@@ -30,25 +30,31 @@ routerV3.get("/produtos", async (req, res) => {
 
 routerV3.post('/vendas', async (req, res) => {
   try {
-    // Verifique se os dados necessários foram enviados no corpo da requisição
     if (!req.body || !Array.isArray(req.body)) {
       return res.status(400).json({ error: 'Dados inválidos' });
     }
 
-    // Itere sobre os dados recebidos e salve cada venda no banco de dados
     const vendasSalvas = [];
     for (const vendaData of req.body) {
       console.log('Dados da venda:', vendaData);
+
+      // Calculando o total da venda
+      const valorProduto = parseFloat(vendaData['Valor do produto'].replace('R$ ', '').replace(',', '.'));
+      const quantidadeComprada = vendaData['Qtd. Comprada'];
+      const total = valorProduto * quantidadeComprada;
+
       const novaVenda = await prisma.venda.create({
         data: {
-          data: vendaData.data,
-          funcionario: vendaData.funcionario,
-          valor: vendaData.valor,
-          quantidadeProdutos: vendaData.quantidadeProdutos,
-          comprador: vendaData.comprador,
-          regiao: vendaData.regiao,
-          formaPagamento: vendaData.formaPagamento,
-          usuario: vendaData.usuario,
+          funcionario: vendaData['Funcionário'],
+          valor: valorProduto,
+          quantidadeProdutos: quantidadeComprada,
+          comprador: vendaData['Comprador'],
+          regiao: vendaData['Região'],
+          formaPagto: vendaData['Forma de pagamento'],
+          usuario: vendaData['usuario'],
+          ID_venda: 83853495,
+          Data: vendaData['Data'],
+          total: total,
         },
       });
       console.log('Venda criada:', novaVenda);

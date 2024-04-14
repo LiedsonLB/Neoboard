@@ -68,8 +68,8 @@ CREATE TABLE "Despesa" (
 
 -- CreateTable
 CREATE TABLE "Venda" (
-    "id" SERIAL NOT NULL,
-    "data" TIMESTAMP(3) NOT NULL,
+    "ID_venda" SERIAL NOT NULL,
+    "Data" TEXT NOT NULL,
     "funcionarioId" INTEGER NOT NULL,
     "valor" DOUBLE PRECISION NOT NULL,
     "quantidadeProdutos" INTEGER NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE "Venda" (
     "formaPagamento" TEXT NOT NULL,
     "usuarioId" INTEGER NOT NULL,
 
-    CONSTRAINT "Venda_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Venda_pkey" PRIMARY KEY ("ID_venda")
 );
 
 -- CreateTable
@@ -128,7 +128,7 @@ ALTER TABLE "Venda" ADD CONSTRAINT "Venda_usuarioId_fkey" FOREIGN KEY ("usuarioI
 ALTER TABLE "ItemVenda" ADD CONSTRAINT "ItemVenda_produtoId_fkey" FOREIGN KEY ("produtoId") REFERENCES "Produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ItemVenda" ADD CONSTRAINT "ItemVenda_vendaId_fkey" FOREIGN KEY ("vendaId") REFERENCES "Venda"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ItemVenda" ADD CONSTRAINT "ItemVenda_vendaId_fkey" FOREIGN KEY ("vendaId") REFERENCES "Venda"("ID_venda") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_RegiaoToUsuario" ADD CONSTRAINT "_RegiaoToUsuario_A_fkey" FOREIGN KEY ("A") REFERENCES "Regiao"("id") ON DELETE CASCADE ON UPDATE CASCADE;
