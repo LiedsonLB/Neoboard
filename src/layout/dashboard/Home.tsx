@@ -9,6 +9,7 @@ import ColumnChart from '../../components/charts/ColumnChart.tsx';
 import Calendar from '../../components/calendar/Calendar.tsx';
 import LoadingComponent from '../../components/loading/LoadingComponent.tsx';
 import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
+import { IoCamera, IoCube } from 'react-icons/io5';
 
 interface Produto {
     img: string | undefined;
@@ -30,6 +31,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [staffs, setStaffs] = useState<Produto[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -79,9 +81,92 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         updateCharts(dataPeriod);
     }, [dataPeriod]);
 
+    const toggleModalOpen = () => {
+        setShowModal(true);
+        const helpElement = document.getElementById('Neo-Help');
+        if (helpElement) {
+            helpElement.style.display = 'none';
+        }
+    };
+
+    const toggleModalClose = () => {
+        setShowModal(false);
+        const neoElement = document.getElementById('Neo-Help');
+        if (neoElement && neoElement.style.display === 'none') {
+            neoElement.style.display = 'block';
+            neoElement.style.animation = 'none';
+        }
+    };
+
     return (
         <>
-            <main id="main-page">
+            {showModal && <div className="Modal-Help">
+                <div className='container-Help'>
+                    <div className="header-Help">
+                        <h4 className="help-title">Dicas: </h4>
+                        <button type="button" className="close-btn" onClick={toggleModalClose}>&times;</button>
+                    </div>
+
+                    <div className='Help-Info'>
+                        <div className='Help-Text'>
+                            <ul>
+                                <li>
+                                    <h1>Olá, eu sou o <span>Neo </span>!</h1>
+                                    <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
+                                        Atualmente você está na seção principal do NeoBoard, aqui vai um breve resumo de cada trecho desta página.</p>
+                                </li>
+
+                                <li>
+                                    <h4>Selecione o Período:</h4>
+                                    <img className='help-imgs' src="./img/periodsimg.png" alt="periodo" />
+                                    <p>Os dados da página podem ser selecionados de acordo com o período que você desejar.</p>
+                                </li>
+
+                                <li>
+                                    <h4>Cartões Financeiros:</h4>
+                                    <img className='help-imgs' src="./img/cardsfatura.png" alt="faturamento" />
+                                    <p>Números importantes, como o faturamento, despesas e lucro.</p>
+                                </li>
+
+                                <li>
+                                    <h4>Gráficos de Arrecadação:</h4>
+                                    <img className='help-imgs' src="./img/arrecada.png" alt="arrecadação" />
+                                    <p>Explore os gráficos de arrecadação para entender melhor a distribuição da sua receita. Os gráficos de linha e de rosca oferecem um panorama sobre padrões e tendências de arrecadação.</p>
+                                </li>
+
+                                <li>
+                                    <h4>Ranking de Desempenho:</h4>
+                                    <img className='help-imgs' src="./img/rankingimg.png" alt="ranking" />
+                                    <p>Descubra quais produtos estão se destacando em vendas, a arrecadação por região e o desempenho dos funcionários.. </p>
+                                </li>
+
+                                <li>
+                                    <h4>Dados de Pagamento e Despesas:</h4>
+                                    <img className='help-imgs' src="./img/pagamentosimg.png" alt="pagamento" />
+                                    <p>Veja as formas de pagamento utilizadas pelos clientes, juntamente com um gráfico que ilustra a distribuição dessas formas. </p>
+                                </li>
+
+                                <li>
+                                    <h4>Dados de Pagamento e Despesas:</h4>
+                                    <img className='help-imgs' src="./img/despesasimg.png" alt="despesas" />
+                                    <p>Analise de forma geral as suas despesas com um gráfico de coluna, além disso o NeoBoard oferece um calendário para registrar as despesas de determinado dia. </p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <figure className='Neo-Left'>
+                            <img src="./img/Neo.png" alt="Neo-Sit" />
+                        </figure>
+                    </div>
+                    <button onClick={toggleModalClose} className='help-btn'>Entendi</button>
+                </div>
+            </div>}
+
+            <div id='Neo-Help' onClick={toggleModalOpen}>
+                <img src="/img/NeoHead.png" alt="neo_head" />
+            </div>
+
+            <div id="main-page">
                 <section id="container-main">
                     <header id="title-main">
                         <span>
@@ -104,7 +189,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 </div>
                             </div>
                             <figure id="present-img">
-                                <img src="img/avatarHomeSkills.png" alt="present-img" />
+                                <img src="img/Neo.png" alt="present-img" />
                             </figure>
                         </div>
                     </article>
@@ -368,7 +453,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         </div>
                     </div>
                 </footer>
-            </main>
+            </div>
         </>
     );
 };
