@@ -9,6 +9,7 @@ import ColumnChart from '../../components/charts/ColumnChart.tsx';
 import Calendar from '../../components/calendar/Calendar.tsx';
 import LoadingComponent from '../../components/loading/LoadingComponent.tsx';
 import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
+import { IoCamera, IoCube } from 'react-icons/io5';
 
 interface Produto {
     img: string | undefined;
@@ -30,6 +31,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [staffs, setStaffs] = useState<Produto[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -79,9 +81,67 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         updateCharts(dataPeriod);
     }, [dataPeriod]);
 
+    const toggleModalClose = () => {
+        setShowModal(!showModal);
+    };
+
     return (
         <>
-            <main id="main-page">
+            {showModal && <div className="Modal-Help">
+                <div className='container-Help'>
+                    <div className="header-Help">
+                        <h4 className="modal-title">Dicas: </h4>
+                        <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
+                    </div>
+
+                    <div className='Help-Info'>
+                        <div className='Help-Text'>
+                            <ul>
+                                <li>
+                                    <h1>Bem-vindo ao NeoBoard</h1>
+                                    <p>A página inicial do NeoBoard oferece uma visão abrangente do desempenho da sua empresa, apresentando dados e estatísticas essenciais de maneira clara e intuitiva.</p>
+                                </li>
+
+                                <li>
+                                    <h4>Dashboard Dinâmico:</h4>
+                                    <p>O dashboard apresenta gráficos interativos que mostram o faturamento, despesas e lucro da sua empresa ao longo do período selecionado.</p>
+                                </li>
+
+                                <li>
+                                    <h4>Informações Financeiras Cruciais:</h4>
+                                    <p>Na seção "Cartões Financeiros", você encontrará números importantes, como o faturamento total, despesas e lucro, acompanhados por ícones visuais para facilitar a compreensão.</p>
+                                </li>
+
+                                <li>
+                                    <h4>Gráficos de Arrecadação:</h4>
+                                    <p>Explore os gráficos de arrecadação para entender melhor a distribuição da sua receita ao longo do período selecionado. Os gráficos de linha e de rosca oferecem insights sobre padrões e tendências de arrecadação.</p>
+                                </li>
+
+                                <li>
+                                    <h4>Ranking de Desempenho:</h4>
+                                    <p>Descubra quais produtos estão se destacando em vendas, a arrecadação por região e o desempenho dos funcionários através das seções de "Ranking". </p>
+                                </li>
+
+                                <li>
+                                    <h4>Dados de Pagamento e Despesas:</h4>
+                                    <p>Na seção "Dados de Pagamento", você verá as formas de pagamento utilizadas pelos clientes, juntamente com um gráfico que ilustra a distribuição dessas formas de pagamento. </p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <figure className='Neo-Left'>
+                            <img src="./img/avatarHomeSkills.png" alt="Neo-Sit" />
+                        </figure>
+                    </div>
+                    <button onClick={() => setShowModal(false)} className='help-btn'>Entendi</button>
+                </div>
+            </div>}
+
+            <div id='Neo-Help' onClick={() => setShowModal(true)}>
+                <img src="/img/NeoHead.png" alt="neo_head" />
+            </div>
+
+            <div id="main-page">
                 <section id="container-main">
                     <header id="title-main">
                         <span>
@@ -368,7 +428,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         </div>
                     </div>
                 </footer>
-            </main>
+            </div>
         </>
     );
 };

@@ -91,6 +91,15 @@ body {
   }
 }
 
+@keyframes scaleInSolid {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
 @keyframes fadeInAndUp {
   from {
     opacity: 0;
