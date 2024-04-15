@@ -778,7 +778,8 @@ footer {
 }
 
 .Neo-Left img{
-    
+position: fixed;
+height: 70%;
 }
 
 .Help-Text ul li:nth-child(1){
