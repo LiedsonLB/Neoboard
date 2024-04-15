@@ -133,13 +133,13 @@ const Calendar: React.FC<CalendarProps> = ({ events }: CalendarProps) => {
         <span id="nextMonth" onClick={handleNextMonthClick}>&#10095;</span>
       </div>
       <ul className="weekdays">
-        <li>Dom</li>
-        <li>Seg</li>
-        <li>Ter</li>
-        <li>Qua</li>
-        <li>Qui</li>
-        <li>Sex</li>
-        <li>Sáb</li>
+        <li translate="no">Dom</li>
+        <li translate="no">Seg</li>
+        <li translate="no">Ter</li>
+        <li translate="no">Qua</li>
+        <li translate="no">Qui</li>
+        <li translate="no">Sex</li>
+        <li translate="no">Sáb</li>
       </ul>
       <ul className="days" id="days"></ul>
     </div>
