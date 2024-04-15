@@ -694,7 +694,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index:1;
+  z-index: 1;
 }
 
 .container-Help {
@@ -713,20 +713,17 @@ footer {
   position: fixed;
   overflow-y: auto;
   overflow-x: hidden;
+  gap: 1rem;
 }
 
-.Help-Info{
+.Help-Info {
   width: 100%;
   min-width: 200px;
   margin: 10px;
   display: flex;
 }
 
-.Help-Text{
-  
-}
-
-.header-text-hlp{
+.header-text-hlp {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -738,52 +735,67 @@ footer {
   width: 100%;
   min-width: 200px;
   margin: 10px;
+  align-items: center;
 }
 
 .Help-Text {
-  text-align: center;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   overflow: auto;
   min-width: 200px;
-  max-width: 50%;
+  max-width: 100%;
 }
 
 .Help-Text ul li h1 {
-  text-align: center;
   color: var(--primary-color);
 }
 
-.Help-Info ul li p{
-  text-align: center;
+.Help-Info ul li p {
   color: var(--primary-color);
 }
 
-.Help-Text ul{
+.Help-Text ul {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.Help-Text ul li{
+.Help-Text ul li {
   text-align: center;
   color: var(--primary-color);
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
 
-.Neo-Left{
+.Neo-Left {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   max-width: 50%;
   height: 100%;
 }
 
-.Neo-Left img{
+.Help-Text ul li:nth-child(1){
+  color: var(--secondy-color);
+  display: flex;
+  gap: 1rem;
+}
+
+.Help-Text ul li:nth-child(1) h1 span {
+  color: var(--secondy-color);
+}
+
+.span-right {
+  color: var(--secondy-color);
+  font-weight: bold;
+}
+
+.help-imgs {
+  width: 100%;
+  margin-block: 1rem;
+  border-radius: 10px;
 }
 
 .help-btn {
@@ -1028,4 +1040,16 @@ footer {
     margin: auto;
   }
 
+  .container-Help{
+  overflow-y: hidden;
+  }
+
+  .Help-Info {
+    width: 100%;
+    min-width: 200px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
 }

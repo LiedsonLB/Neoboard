@@ -81,8 +81,21 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         updateCharts(dataPeriod);
     }, [dataPeriod]);
 
+    const toggleModalOpen = () => {
+        setShowModal(true);
+        const helpElement = document.getElementById('Neo-Help');
+        if (helpElement) {
+            helpElement.style.display = 'none';
+        }
+    };
+
     const toggleModalClose = () => {
-        setShowModal(!showModal);
+        setShowModal(false);
+        const neoElement = document.getElementById('Neo-Help');
+        if (neoElement && neoElement.style.display === 'none') {
+            neoElement.style.display = 'block';
+            neoElement.style.animation = 'none';
+        }
     };
 
     return (
@@ -90,41 +103,53 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
             {showModal && <div className="Modal-Help">
                 <div className='container-Help'>
                     <div className="header-Help">
-                        <h4 className="modal-title">Dicas: </h4>
-                        <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
+                        <h4 className="help-title">Dicas: </h4>
+                        <button type="button" className="close-btn" onClick={toggleModalClose}>&times;</button>
                     </div>
 
                     <div className='Help-Info'>
                         <div className='Help-Text'>
                             <ul>
                                 <li>
-                                    <h1>Bem-vindo ao NeoBoard</h1>
-                                    <p>A página inicial do NeoBoard oferece uma visão abrangente do desempenho da sua empresa, apresentando dados e estatísticas essenciais de maneira clara e intuitiva.</p>
+                                    <h1>Olá eu sou o <span>Neo </span>!</h1>
+                                    <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
+                                        Atualmente você está na seção principal do NeoBoard, aqui vai um breve resumo de cada trecho desta página.</p>
                                 </li>
 
                                 <li>
-                                    <h4>Dashboard Dinâmico:</h4>
-                                    <p>O dashboard apresenta gráficos interativos que mostram o faturamento, despesas e lucro da sua empresa ao longo do período selecionado.</p>
+                                    <h4>Selecione o Período:</h4>
+                                    <img className='help-imgs' src="./img/periodsimg.png" alt="periodo" />
+                                    <p>Os dados da página podem ser selecionados de acordo com o período que você desejar.</p>
                                 </li>
 
                                 <li>
-                                    <h4>Informações Financeiras Cruciais:</h4>
-                                    <p>Na seção "Cartões Financeiros", você encontrará números importantes, como o faturamento total, despesas e lucro, acompanhados por ícones visuais para facilitar a compreensão.</p>
+                                    <h4>Cartões Financeiros:</h4>
+                                    <img className='help-imgs' src="./img/cardsfatura.png" alt="faturamento" />
+                                    <p>Números importantes, como o faturamento, despesas e lucro.</p>
                                 </li>
 
                                 <li>
                                     <h4>Gráficos de Arrecadação:</h4>
-                                    <p>Explore os gráficos de arrecadação para entender melhor a distribuição da sua receita ao longo do período selecionado. Os gráficos de linha e de rosca oferecem insights sobre padrões e tendências de arrecadação.</p>
+                                    <img className='help-imgs' src="./img/arrecada.png" alt="arrecadação" />
+                                    <p>Explore os gráficos de arrecadação para entender melhor a distribuição da sua receita. Os gráficos de linha e de rosca oferecem um panorama sobre padrões e tendências de arrecadação.</p>
                                 </li>
 
                                 <li>
                                     <h4>Ranking de Desempenho:</h4>
-                                    <p>Descubra quais produtos estão se destacando em vendas, a arrecadação por região e o desempenho dos funcionários através das seções de "Ranking". </p>
+                                    <img className='help-imgs' src="./img/rankingimg.png" alt="ranking" />
+                                    <p>Descubra quais produtos estão se destacando em vendas, a arrecadação por região e o desempenho dos funcionários.. </p>
                                 </li>
 
                                 <li>
                                     <h4>Dados de Pagamento e Despesas:</h4>
-                                    <p>Na seção "Dados de Pagamento", você verá as formas de pagamento utilizadas pelos clientes, juntamente com um gráfico que ilustra a distribuição dessas formas de pagamento. </p>
+                                    <img className='help-imgs' src="./img/pagamentosimg.png" alt="pagamento" />
+                                    <p>Veja as formas de pagamento utilizadas pelos clientes, juntamente com um gráfico que ilustra a distribuição dessas formas. </p>
+                                </li>
+
+                                <li>
+                                    <h4>Dados de Pagamento e Despesas:</h4>
+                                    <img className='help-imgs' src="./img/despesasimg.png" alt="despesas" />
+                                    <p>Analise de forma geral as suas despesas com um gráfico de coluna, além disso o NeoBoard oferece um calendário para registrar as despesas de determinado dia. </p>
                                 </li>
                             </ul>
                         </div>
@@ -133,11 +158,11 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             <img src="./img/avatarHomeSkills.png" alt="Neo-Sit" />
                         </figure>
                     </div>
-                    <button onClick={() => setShowModal(false)} className='help-btn'>Entendi</button>
+                    <button onClick={toggleModalClose} className='help-btn'>Entendi</button>
                 </div>
             </div>}
 
-            <div id='Neo-Help' onClick={() => setShowModal(true)}>
+            <div id='Neo-Help' onClick={toggleModalOpen}>
                 <img src="/img/NeoHead.png" alt="neo_head" />
             </div>
 
