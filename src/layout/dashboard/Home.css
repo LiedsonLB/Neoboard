@@ -42,7 +42,7 @@
   display: flex;
   align-items: center;
   border-radius: 20px;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 
@@ -691,6 +691,7 @@ footer{
     display: flex;
     align-items: center;
     border-radius: 20px;
+    gap: 0;
   }
 
   #present-img {
