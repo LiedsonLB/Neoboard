@@ -713,7 +713,6 @@ footer {
   position: fixed;
   overflow-y: auto;
   overflow-x: hidden;
-  gap: 1rem;
 }
 
 .Help-Info {
@@ -721,6 +720,7 @@ footer {
   min-width: 200px;
   margin: 10px;
   display: flex;
+  overflow: auto;
 }
 
 .header-text-hlp {
@@ -742,9 +742,10 @@ footer {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  overflow: auto;
   min-width: 200px;
   max-width: 100%;
+  height: 70rem;
+  padding-inline: 1rem;
 }
 
 .Help-Text ul li h1 {
@@ -772,14 +773,14 @@ footer {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
   max-width: 50%;
   height: 100%;
 }
 
 .Neo-Left img{
 position: fixed;
-height: 70%;
+height: 60%;
 }
 
 .Help-Text ul li:nth-child(1){
@@ -812,6 +813,7 @@ height: 70%;
   font-weight: bold;
   cursor: pointer;
   font-family: var(--font-krub);
+  margin: 0 auto;
 }
 
 .help-btn:hover {

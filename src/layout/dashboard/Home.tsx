@@ -103,7 +103,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
             {showModal && <div className="Modal-Help">
                 <div className='container-Help'>
                     <div className="header-Help">
-                        <h4 className="help-title">Dicas: </h4>
+                        <h4 className="help-title">Dicas do Neo: </h4>
                         <button type="button" className="close-btn" onClick={toggleModalClose}>&times;</button>
                     </div>
 
@@ -152,13 +152,13 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                     <p>Analise de forma geral as suas despesas com um gráfico de coluna, além disso o NeoBoard oferece um calendário para registrar as despesas de determinado dia. </p>
                                 </li>
                             </ul>
+                            <button onClick={toggleModalClose} className='help-btn'>Entendi</button>
                         </div>
 
                         <figure className='Neo-Left'>
                             <img src="./img/Neo.png" alt="Neo-Sit" />
                         </figure>
                     </div>
-                    <button onClick={toggleModalClose} className='help-btn'>Entendi</button>
                 </div>
             </div>}
 
