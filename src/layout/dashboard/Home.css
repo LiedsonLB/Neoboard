@@ -777,6 +777,10 @@ footer {
   height: 100%;
 }
 
+.Neo-Left img{
+    
+}
+
 .Help-Text ul li:nth-child(1){
   color: var(--secondy-color);
   display: flex;

@@ -111,7 +111,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         <div className='Help-Text'>
                             <ul>
                                 <li>
-                                    <h1>Olá eu sou o <span>Neo </span>!</h1>
+                                    <h1>Olá, eu sou o <span>Neo </span>!</h1>
                                     <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
                                         Atualmente você está na seção principal do NeoBoard, aqui vai um breve resumo de cada trecho desta página.</p>
                                 </li>
@@ -155,7 +155,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         </div>
 
                         <figure className='Neo-Left'>
-                            <img src="./img/avatarHomeSkills.png" alt="Neo-Sit" />
+                            <img src="./img/Neo.png" alt="Neo-Sit" />
                         </figure>
                     </div>
                     <button onClick={toggleModalClose} className='help-btn'>Entendi</button>
@@ -189,7 +189,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 </div>
                             </div>
                             <figure id="present-img">
-                                <img src="img/avatarHomeSkills.png" alt="present-img" />
+                                <img src="img/Neo.png" alt="present-img" />
                             </figure>
                         </div>
                     </article>
