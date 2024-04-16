@@ -109,13 +109,13 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
                     <div className='Help-Info'>
                         <div className='Help-Text'>
+                            <div id='Neo-Text'>
+                                <h1>Olá, eu sou o <span>Neo </span>!</h1>
+                                <img src="./img/NeoL.png" alt="Neo-Sit" />
+                                <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
+                                    Atualmente você está na seção principal do NeoBoard, aqui vai um breve resumo de cada trecho desta página.</p>
+                            </div>
                             <ul>
-                                <li>
-                                    <h1>Olá, eu sou o <span>Neo </span>!</h1>
-                                    <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
-                                        Atualmente você está na seção principal do NeoBoard, aqui vai um breve resumo de cada trecho desta página.</p>
-                                </li>
-
                                 <li>
                                     <h4>Selecione o Período:</h4>
                                     <img className='help-imgs' src="./img/periodsimg.png" alt="periodo" />
@@ -156,7 +156,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         </div>
 
                         <figure className='Neo-Left'>
-                            <img src="./img/Neo.png" alt="Neo-Sit" />
+                            <img src="./img/NeoL.png" alt="Neo-Sit" />
                         </figure>
                     </div>
                 </div>
@@ -189,7 +189,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 </div>
                             </div>
                             <figure id="present-img">
-                                <img src="img/Neo.png" alt="present-img" />
+                                <img src="./img/NeoL.png" alt="present-img" />
                             </figure>
                         </div>
                     </article>
