@@ -7,7 +7,7 @@ import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  
+
   const toggleModalClose = () => {
     setShowModal(!showModal);
   };
@@ -21,11 +21,10 @@ const Produtos = () => {
             <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
           </div>
           <div id="Add-Item-Product">
-
             <div className='img-prod-up'>
               <div className='img-input-container'>
-                <img src="" className='img-prod-add' />
                 <input type="file" id='img-input' />
+                <img src="" className='img-prod-add' />
                 <i className='icon-prod-prof'><IoCube /></i>
                 <div className='icon-text-cam'>
                   <i className='icon-cam'><IoCamera /></i>
@@ -43,7 +42,7 @@ const Produtos = () => {
 
             <div className='input-item input-mult'>
               <span>
-                <label htmlFor="name-item">Tipo do Produto:</label>
+                <label htmlFor="name-item">Categoria:</label>
                 <input type="text" name='name-item' className='full-item' />
               </span>
               <span>
@@ -52,6 +51,16 @@ const Produtos = () => {
               </span>
             </div>
 
+            <div className='input-item input-single'>
+              <span>
+                <label htmlFor="name-item">Descrição:</label>
+                <textarea
+                      name="message"
+                      className="desc-prod"
+                    />
+              </span>
+            </div>
+            
             <button id='add-staff-Btn'>Enviar</button>
           </div>
         </div>

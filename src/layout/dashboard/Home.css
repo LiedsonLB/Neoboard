@@ -967,19 +967,6 @@ footer {
     margin: auto;
   }
 
-  .Modal-Help {
-    height: auto;
-    width: 100%;
-    z-index: 1;
-    height: 100%;
-    position: fixed;
-    backdrop-filter: brightness(0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
-
   .container-Help {
     background: var(--white-color);
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
@@ -997,26 +984,6 @@ footer {
     overflow-y: auto;
     overflow-x: hidden;
     text-align: center;
-  }
-
-  .Help-Info {
-    width: 100%;
-    min-width: 200px;
-    margin: 10px;
-    display: flex;
-    overflow: auto;
-    text-align: center;
-  }
-
-  .header-Help {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    min-width: 200px;
-    margin: 10px;
-    align-items: center;
-    text-align: center;
-    flex-wrap: wrap;
   }
 
   .Help-Text {
@@ -1042,32 +1009,10 @@ footer {
   }
 
   .Help-Text ul li {
-    color: var(--primary-color);
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-
-  .Help-Text ul li h1 {
-    color: var(--primary-color);
-  }
-
-  .Help-Info ul li p {
-    color: var(--primary-color);
-  }
-
-  .Help-Text ul {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-  .Help-Text ul li {
     text-align: center;
     color: var(--primary-color);
     display: flex;
-    align-items: flex-start;
+    justify-content: center;
   }
 
   .Neo-Left {
@@ -1078,35 +1023,6 @@ footer {
     max-width: 50%;
     height: 100%;
     display: none;
-  }
-
-  .span-right {
-    color: var(--secondy-color);
-    font-weight: bold;
-  }
-
-  .help-imgs {
-    width: 100%;
-    margin-block: 1rem;
-    border-radius: 10px;
-  }
-
-  .help-btn {
-    padding: .8rem 2rem;
-    background: var(--secondy-color);
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: var(--font-krub);
-    margin: 0 auto;
-  }
-
-  .help-btn:hover {
-    cursor: pointer;
-    background: var(--hover-color);
-    transition: .5s;
   }
 
 }
@@ -1194,19 +1110,6 @@ footer {
     margin: auto;
   }
 
-  .Modal-Help {
-    height: auto;
-    width: 100%;
-    z-index: 1;
-    height: 100%;
-    position: fixed;
-    backdrop-filter: brightness(0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
-
   .container-Help {
     background: var(--white-color);
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
@@ -1223,29 +1126,6 @@ footer {
     position: fixed;
     overflow-y: auto;
     overflow-x: hidden;
-  }
-
-  .Help-Info {
-    width: 100%;
-    min-width: 200px;
-    margin: 10px;
-    display: flex;
-    overflow: auto;
-  }
-
-  .header-text-hlp {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .header-Help {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    min-width: 200px;
-    margin: 10px;
-    align-items: center;
   }
 
   .Help-Text {
@@ -1267,33 +1147,7 @@ footer {
 
   #Neo-Text img{
     display: block;
-    height: 28rem;
-  }
-
-  .Help-Text ul li {
-    color: var(--primary-color);
-  }
-
-
-  .Help-Text ul li h1 {
-    color: var(--primary-color);
-  }
-
-  .Help-Info ul li p {
-    color: var(--primary-color);
-  }
-
-  .Help-Text ul {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .Help-Text ul li {
-    text-align: center;
-    color: var(--primary-color);
-    display: flex;
-    flex-direction: column;
+    height: 20rem;
   }
 
   .Neo-Left {
@@ -1304,35 +1158,6 @@ footer {
     max-width: 50%;
     height: 100%;
     display: none;
-  }
-
-  .span-right {
-    color: var(--secondy-color);
-    font-weight: bold;
-  }
-
-  .help-imgs {
-    width: 100%;
-    margin-block: 1rem;
-    border-radius: 10px;
-  }
-
-  .help-btn {
-    padding: .8rem 2rem;
-    background: var(--secondy-color);
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: var(--font-krub);
-    margin: 0 auto;
-  }
-
-  .help-btn:hover {
-    cursor: pointer;
-    background: var(--hover-color);
-    transition: .5s;
   }
 
 }
