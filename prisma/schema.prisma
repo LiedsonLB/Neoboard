@@ -39,7 +39,7 @@ model Regiao {
 
 model Funcionario {
   id                Int      @id @default(autoincrement())
-  picture           String?
+  img_funcionario   String?
   nome              String
   email             String
   descricao         String?

@@ -73,33 +73,6 @@ const dadosDeTesteVenda = {
     }
 };
 
-// Endpoint para criar um novo funcionário
-routerV2.post("/funcionarios", async (req, res) => {
-    try {
-        const funcionario = await prisma.funcionario.create({
-            data: req.body,
-            include: {
-                regioes: true
-            }
-        });
-        res.status(201).json(funcionario);
-    } catch (error) {
-        console.error('Erro ao criar funcionário:', error);
-        res.status(500).json({ error: 'Erro ao criar funcionário' });
-    }
-});
-
-// Endpoint para obter todos os funcionários
-routerV2.get("/funcionarios", async (req, res) => {
-    try {
-        const funcionarios = staffsFake;
-        res.status(200).json(funcionarios);
-    } catch (error) {
-        console.error('Erro ao obter funcionários:', error);
-        res.status(500).json({ error: 'Erro ao obter funcionários' });
-    }
-});
-
 // Endpoint para criar uma nova venda
 routerV2.post("/vendas", async (req, res) => {
     try {
