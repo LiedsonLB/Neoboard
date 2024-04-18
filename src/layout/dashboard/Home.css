@@ -736,6 +736,7 @@ footer {
   min-width: 200px;
   margin: 10px;
   align-items: center;
+  color: var(--primary-color);
 }
 
 .Help-Text {

@@ -56,43 +56,43 @@ const Aside = ({ user, changeComponent }: Props) => {
                 </div>
                 <nav id="navigation-home">
                     <ul>
-                        <li onClick={() => changeComponent('Dashboard')}>
+                        <li onClick={() => {changeComponent('Dashboard'); setSidebarOpen(false)}}>
                             <span className="icon"><IoGridOutline /></span>
                             <span className="title-home">
                                 <h4>DashBoard</h4>
                             </span>
                         </li>
-                        <li onClick={() => changeComponent('Produtos')}>
+                        <li onClick={() => {changeComponent('Produtos'); setSidebarOpen(false)}}>
                             <span className="icon"><IoBasketOutline /></span>
                             <span className="title-home">
                                 <h4>Produtos</h4>
                             </span>
                         </li>
-                        <li onClick={() => changeComponent('Regioes')}>
+                        <li onClick={() => {changeComponent('Regioes'); setSidebarOpen(false)}}>
                             <span className="icon"><IoLocationOutline /></span>
                             <span className="title-home">
                                 <h4>Regiões</h4>
                             </span>
                         </li>
-                        <li onClick={() => changeComponent('Funcionarios')}>
+                        <li onClick={() => {changeComponent('Funcionarios'); setSidebarOpen(false)}}>
                             <span className="icon"><IoPeopleOutline /></span>
                             <span className="title-home">
                                 <h4>Funcionários</h4>
                             </span>
                         </li>
-                        <li onClick={() => changeComponent('Financeiro')}>
+                        <li onClick={() => {changeComponent('Financeiro'); setSidebarOpen(false)}}>
                             <span className="icon"><IoBarChartOutline /></span>
                             <span className="title-home">
                                 <h4>Financeiro</h4>
                             </span>
                         </li>
-                        <li onClick={() => changeComponent('Relatorio')}>
+                        <li onClick={() => {changeComponent('Relatorio'); setSidebarOpen(false)}}>
                             <span className="icon"><IoDocumentTextOutline /></span>
                             <span className="title-home">
                                 <h4>Enviar Relatório</h4>
                             </span>
                         </li>
-                        <li onClick={() => changeComponent('FAQ')}>
+                        <li onClick={() => {changeComponent('FAQ'); setSidebarOpen(false)}}>
                             <span className="icon"><IoPaperPlaneOutline /></span>
                             <span className="title-home">
                                 <h4>Fale conosco</h4>

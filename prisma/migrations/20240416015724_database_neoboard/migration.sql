@@ -35,7 +35,7 @@ CREATE TABLE "Regiao" (
 -- CreateTable
 CREATE TABLE "Funcionario" (
     "id" SERIAL NOT NULL,
-    "picture" TEXT,
+    "img_funcionario" TEXT,
     "nome" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "descricao" TEXT,
