@@ -148,7 +148,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
                                 <li>
                                     <h4>Dados de Pagamento e Despesas:</h4>
-                                    <img className='help-imgs' src="./img/despesasimg.png" alt="despesas" />
+                                    <img className='help-imgs' src="./img/Despesasimg.png" alt="despesas" />
                                     <p>Analise de forma geral as suas despesas com um gráfico de coluna, além disso o NeoBoard oferece um calendário para registrar as despesas de determinado dia. </p>
                                 </li>
                             </ul>

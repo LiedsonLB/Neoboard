@@ -1,17 +1,58 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
+import Funcionario from '../../models/Funcionario.js';
 
 const prisma = new PrismaClient();
 const routerV3 = express.Router();
 
-// Rota para adicionar um novo funcionário
 routerV3.post("/funcionarios", async (req, res) => {
   try {
     const novoFuncionarioData = req.body;
-    const novoFuncionario = await prisma.funcionario.create({
-      data: novoFuncionarioData,
+
+    // Cria uma nova instância da classe Funcionario com os dados recebidos
+    const novoFuncionario = new Funcionario(
+      novoFuncionarioData.id,
+      novoFuncionarioData.picture,
+      novoFuncionarioData.nome,
+      novoFuncionarioData.email,
+      novoFuncionarioData.descricao,
+      novoFuncionarioData.endereco,
+      novoFuncionarioData.localAtuacao,
+      novoFuncionarioData.genero,
+      novoFuncionarioData.cpf,
+      novoFuncionarioData.dataContratacao,
+      novoFuncionarioData.telefone,
+      novoFuncionarioData.formacaoAcademica,
+      novoFuncionarioData.linkedin,
+      novoFuncionarioData.github,
+      // Você pode precisar fornecer o ID do usuário associado e as vendas aqui, dependendo da estrutura do seu banco de dados
+      // novoFuncionarioData.usuario,
+      // novoFuncionarioData.vendas
+    );
+
+    // Cria um novo funcionário no banco de dados usando o Prisma Client
+    const novoFuncionarioPrisma = await prisma.funcionario.create({
+      data: {
+        id: novoFuncionario.id,
+        picture: novoFuncionario.picture,
+        nome: novoFuncionario.nome,
+        email: novoFuncionario.email,
+        descricao: novoFuncionario.descricao,
+        endereco: novoFuncionario.endereco,
+        localAtuacao: novoFuncionario.localAtuacao,
+        genero: novoFuncionario.genero,
+        cpf: novoFuncionario.cpf,
+        dataContratacao: novoFuncionario.dataContratacao,
+        telefone: novoFuncionario.telefone,
+        formacaoAcademica: novoFuncionario.formacaoAcademica,
+        linkedin: novoFuncionario.linkedin,
+        github: novoFuncionario.github,
+        // usuario: novoFuncionario.usuario,
+        // vendas: novoFuncionario.vendas
+      }
     });
-    res.status(201).json(novoFuncionario);
+
+    res.status(201).json(novoFuncionarioPrisma);
   } catch (error) {
     console.error('Erro ao adicionar funcionário:', error);
     res.status(500).json({ error: 'Erro ao adicionar funcionário' });
@@ -35,7 +76,6 @@ routerV3.get("/funcionarios", async (req, res) => {
 });
 
 // Endpoints para Regiões
-
 // Rota para adicionar uma nova região
 routerV3.post("/regioes", async (req, res) => {
   try {
