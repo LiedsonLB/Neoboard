@@ -314,6 +314,22 @@
     backdrop-filter: brightness(0.5);
 }
 
+.img-input-container:hover {
+    backdrop-filter: brightness(0.55);
+}
+
+#img-input {
+    display: block;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    opacity: 0; 
+    cursor: pointer; 
+    z-index: 5; 
+}
+
 .img-prod-up img {
     width: auto;
     height: 100px;
@@ -337,6 +353,10 @@
     z-index: -1;
 }
 
+.full-item{
+font-family: var(--font-Krub);
+}
+
 .icon-cam {
     color: var(--white-color);
     font-size: 30px;
@@ -346,6 +366,31 @@
 .icon-text-cam {
     display: flex;
     flex-direction: column;
+}
+
+.desc-prod{
+    resize: none;
+    width: 100%;
+    padding: .9rem;
+    margin-bottom: 1rem;
+    background: var(--gray-color);
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 10px;
+    color: var(--black-color);
+    font-family: var(--font-Krub);
+    height: 100%;
+    min-height: 160px;
+
+}
+
+.desc-prod::placeholder {
+    font-size: .8rem;
+    font-family: var(--font-Krub);
+}
+
+.desc-prod:focus {
+    border: 2px solid var(--secondy-color);
 }
 
 /* Modal */
