@@ -2,6 +2,7 @@
     display: flex;
     overflow: hidden;
     background-color: var(--gray-color);
+    
 }
 #home-screen {
     width: 100vw;
