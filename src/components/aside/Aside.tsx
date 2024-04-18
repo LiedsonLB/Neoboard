@@ -95,7 +95,7 @@ const Aside = ({ user, changeComponent }: Props) => {
                         <li onClick={() => changeComponent('FAQ')}>
                             <span className="icon"><IoPaperPlaneOutline /></span>
                             <span className="title-home">
-                                <h4>Fale conosco</h4>
+                                <h4>Fale Conosco</h4>
                             </span>
                         </li >
                     </ul>

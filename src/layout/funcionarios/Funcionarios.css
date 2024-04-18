@@ -656,7 +656,7 @@
     flex-direction: column;
     gap: .5rem;
     width: 100%;
-    height: auto;
+    height: 100%;
     justify-content: start;
     overflow: auto;
 }
@@ -718,6 +718,14 @@
         text-align: center;
     }
 
+    #staff-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 4rem;
+    }
+
+
     #featured-staff {
         align-items: center;
         margin: 0;
@@ -747,7 +755,7 @@
 
     #staff-list {
         display: grid;
-        grid-template-columns: repeat(2, 200px);
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
         justify-content: center;
     }
@@ -948,7 +956,27 @@
 
 }
 
-@media screen and (min-width: 480px) and (max-width: 749px) {
+@media screen and (min-width: 480px) and (max-width: 750px) {
+    #staff-header {
+        text-align: center;
+    }
+
+    #staff-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    #featured-staff {
+        align-items: center;
+        margin: 0;
+    }
+
+    #search-staff {
+        flex-direction: column;
+    }
 
     /* modal add staff */
     .Modal-Add {
@@ -967,7 +995,7 @@
         text-align: center;
         align-items: center;
         height: 90%;
-        width: 80%;
+        width: 90%;
         overflow-y: auto;
     }
 
@@ -1141,14 +1169,32 @@
         text-align: center;
     }
 
-    #featured-staff {
+    #staff-main {
+        display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    #featured-staff {
         gap: 1.5rem;
         align-items: center;
         display: grid;
-        grid-template-columns: repeat(1, 300px);
+        grid-template-columns: repeat(1, 1fr);
         justify-content: center;
+        margin: 0;
     }
+
+    .staff-card header{
+    padding-inline: 5rem;
+    }
+
+
+    #search-staff {
+        flex-direction: column;
+    }
+
 
     #select-session-staff {
         width: 100% !important;
@@ -1170,6 +1216,7 @@
 
     #search-staff {
         flex-direction: column;
+        width: 90%;
     }
 
     .search-btns {
@@ -1187,6 +1234,7 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 1rem;
+        margin-inline: 1rem;
         justify-content: center;
     }
 

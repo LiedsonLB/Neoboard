@@ -21,8 +21,7 @@ const Regioes = () => {
               <h4 className="modal-title">Adicionar Região</h4>
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
-            <div id="Add-Item-Region">
-              <div className='img-region-up'>
+            <div className='img-region-up'>
                 <div className='img-input-container'>
                   <input type="file" id='img-input' />
                   <img src="" className='img-region-add' />
@@ -34,6 +33,7 @@ const Regioes = () => {
                 </div>
               </div>
 
+            <div id="Add-Item-Region">
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="name-item">Nome da Região:</label>
@@ -410,7 +410,7 @@ const Regioes = () => {
               </div>
             </article>
 
-            <section id='search-region'>
+            <section id='search-container-region'>
               <div id='search-bar-region'>
                 <input type="search" id="search-region" placeholder='Pesquisar região' aria-label="Buscar" />
                 <i id='search-icon-region'><IoSearch id='icon-region' /></i>

@@ -154,7 +154,7 @@
     border-radius: 50%;
 }
 
-#search-region {
+#search-container-region {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -162,12 +162,13 @@
 
 #search-bar-region {
     display: flex;
-    width: 300px;
+    max-width: 400px;
     margin: 1rem 0;
     align-items: center;
     background-color: white;
     border-radius: 5px;
     position: relative;
+    width: 100%;
 }
 
 
@@ -231,6 +232,7 @@
 #container-table-regions {
     width: 100%;
     margin: 0 auto;
+    margin-bottom: 2rem;
 }
 
 #result-reg {
@@ -378,7 +380,7 @@ td {
 /* Modal */
 
 .Modal-Add {
-    height: auto;
+    height: 100%;
     width: 100%;
     z-index: 1;
     position: fixed;
@@ -398,7 +400,7 @@ td {
     border: none;
     display: flex;
     align-items: center;
-    height: auto;
+    height: 95%;
     width: 60%;
     z-index: 1;
     justify-content: center;
@@ -411,6 +413,16 @@ td {
     justify-content: space-between;
     width: 100%;
     min-width: 200px;
+}
+
+#Add-Item-Region{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: 100%;
+    justify-content: center;
+    overflow-y: auto;
+    padding-top: 4rem;
 }
 
 .modal-title {
@@ -472,13 +484,11 @@ td {
     z-index: 5; 
 }
 
-
 .img-region-up img {
     width: auto;
     height: 100px;
     position: absolute;
 }
-
 
 .img-region-up p {
     color: var(--white-color);
@@ -631,8 +641,9 @@ td {
         justify-content: center;
     }
 
-    #search-region {
+    #search-container-region {
         flex-direction: column;
+        width: 100%;
     }
 
     #result-reg {
@@ -671,14 +682,33 @@ td {
         flex-wrap: wrap; 
     }
 
+    .container-Add-Region {
+        width: 80%;
+    }
 }
 
+@media screen and (max-width: 480px) { 
+    #region-card {
+        width: 95%;
+    }
 
-@media screen and (max-width: 480px) {
+    #search-container-region {
+        flex-direction: column;
+        width: 100%;
+    }
 
     .theadTableRegions tr,
     .tBodyTableRegions td {
         font-size: 12px;
+    }
+
+    tbody tr td div{
+        width: 100%;       
+    }
+
+    .edit{
+        display: flex;
+        justify-content: center;
     }
 
     .region-pic {
