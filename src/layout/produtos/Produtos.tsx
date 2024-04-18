@@ -20,8 +20,7 @@ const Produtos = () => {
             <h4 className="modal-title">Adicionar Produto: </h4>
             <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
           </div>
-          <div id="Add-Item-Product">
-            <div className='img-prod-up'>
+          <div className='img-prod-up'>
               <div className='img-input-container'>
                 <input type="file" id='img-input' />
                 <img src="" className='img-prod-add' />
@@ -32,7 +31,8 @@ const Produtos = () => {
                 </div>
               </div>
             </div>
-
+          <div id="Add-Item-Product">
+            
             <div className='input-item input-single'>
               <span>
                 <label htmlFor="name-item">Nome do Produto:</label>
@@ -55,12 +55,12 @@ const Produtos = () => {
               <span>
                 <label htmlFor="name-item">Descrição:</label>
                 <textarea
-                      name="message"
-                      className="desc-prod"
-                    />
+                  name="message"
+                  className="desc-prod"
+                />
               </span>
             </div>
-            
+
             <button id='add-staff-Btn'>Enviar</button>
           </div>
         </div>

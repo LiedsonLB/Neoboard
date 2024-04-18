@@ -225,6 +225,7 @@
     gap: 5px;
     gap: 1rem;
     margin: .5rem 0;
+    margin-bottom: 2rem;
     justify-content: space-between;
 }
 
@@ -273,7 +274,7 @@
     border: none;
     display: flex;
     align-items: center;
-    height: auto;
+    height: 90%;
     width: 60%;
     z-index: 1;
     justify-content: center;
@@ -285,7 +286,8 @@
     flex-direction: column;
     gap: .5rem;
     width: 100%;
-    justify-content: center;
+    justify-content: start;
+    overflow: auto;
 }
 
 .img-prod-up {
@@ -295,7 +297,6 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    margin-block: 1rem;
 }
 
 .img-input-container {
@@ -320,14 +321,14 @@
 
 #img-input {
     display: block;
-    position: absolute; 
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%; 
-    height: 100%; 
-    opacity: 0; 
-    cursor: pointer; 
-    z-index: 5; 
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 5;
 }
 
 .img-prod-up img {
@@ -353,8 +354,8 @@
     z-index: -1;
 }
 
-.full-item{
-font-family: var(--font-Krub);
+.full-item {
+    font-family: var(--font-Krub);
 }
 
 .icon-cam {
@@ -368,7 +369,7 @@ font-family: var(--font-Krub);
     flex-direction: column;
 }
 
-.desc-prod{
+.desc-prod {
     resize: none;
     width: 100%;
     padding: .9rem;
@@ -419,7 +420,7 @@ font-family: var(--font-Krub);
     min-width: 200px;
 }
 
-#Product-Info-Container{
+#Product-Info-Container {
     display: flex;
     width: 100%;
     height: 100%;
@@ -516,7 +517,7 @@ font-family: var(--font-Krub);
     color: var(--primary-color);
 }
 
-#infoprod-description{
+#infoprod-description {
     height: 80%;
     display: flex;
     justify-content: center;
@@ -623,7 +624,13 @@ font-family: var(--font-Krub);
         border-radius: 10px;
         padding: 1rem;
         margin: 0 auto;
-        width: 70%;
+        width: 80%;
+    }
+
+    #product-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     #prod-main {
@@ -633,7 +640,7 @@ font-family: var(--font-Krub);
         gap: 5rem;
         width: 100%;
         position: relative;
-        padding: 1rem;     
+        padding: 1rem;
     }
 
     #container-prod-img {
@@ -652,29 +659,32 @@ font-family: var(--font-Krub);
 
     #products-list {
         display: grid;
-        grid-template-columns: repeat(2, 200px);
-        margin: 2rem 0;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
-        justify-content: space-around;
+        justify-content: space-between;
     }
 
     #card-prod-desc {
         justify-content: center;
     }
 
-    #Modal-Add{
+    #Modal-Add {
         height: auto;
     }
 
-    #container-Detail-Product{
-        height: auto;
+    .container-Add-Product {
+        width: 80%;
     }
 
-    #Product-Info-Container{
-     flex-direction: column;
-     gap: 1rem;
-     overflow: auto;
-     height: auto;  
+    .container-Detail-Product {
+        width: 90%;
+    }
+
+    #Product-Info-Container {
+        flex-direction: column;
+        gap: 1rem;
+        overflow: auto;
+        height: auto;
     }
 
     #container-table-prod {
@@ -695,7 +705,7 @@ font-family: var(--font-Krub);
         height: 100%;
         gap: 1rem;
     }
-    
+
     #prodInfo-popup img {
         animation: spin 1s linear;
         border-radius: 20px;
@@ -708,15 +718,20 @@ font-family: var(--font-Krub);
 
 @media screen and (max-width: 480px) {
     #product-main {
-        margin: 0 2rem !important;
+        margin: 0 1rem !important;
+    }
+
+    #prod-card {
+        width: 95%;
     }
 
     #result-product {
         text-align: center;
+        margin-block: 2rem;
     }
 
     #products-list {
-        grid-template-columns: repeat(1, 80%) !important;
+        grid-template-columns: repeat(1, 1fr) !important;
     }
 
     #card-prod-desc {
@@ -734,9 +749,13 @@ font-family: var(--font-Krub);
         display: flex;
         align-items: center;
         height: auto;
-        width: 80%;
+        width: 90%;
         z-index: 1;
         justify-content: center;
         position: fixed;
+    }
+
+    .container-Detail-Product {
+        width: 90%;
     }
 }
