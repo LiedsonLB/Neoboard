@@ -286,9 +286,8 @@
     flex-direction: column;
     gap: .5rem;
     width: 100%;
-    justify-content: center;
+    justify-content: start;
     overflow: auto;
-    padding-top: 4rem;
 }
 
 .img-prod-up {
