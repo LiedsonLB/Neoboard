@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Produtos.css";
-import { IoSearch, IoPerson, IoCamera, IoBasket, IoCart, IoLogoDropbox, IoCube } from 'react-icons/io5';
+import { IoSearch, IoCamera } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
 import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
+import axios from 'axios';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
+  const [produtos, setProdutos] = useState([]);
+  const [filtroPesquisa, setFiltroPesquisa] = useState('');
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
@@ -18,7 +22,6 @@ const Produtos = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       const result = reader.result as string;
-      console.log(result)
       setSelectedImage(result);
     };
     if (file) {
@@ -26,22 +29,92 @@ const Produtos = () => {
     }
   };
 
+  const fetchProdutos = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/v3/produtos');
+      setProdutos(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProdutos();
+  }, []);
+
+  const adicionarProduto = async () => {
+    try {
+      const nomeElement = document.getElementById('name-item') as HTMLInputElement;
+      const categoriaElement = document.getElementById('categoria-item') as HTMLInputElement;
+      const valorElement = document.getElementById('valor-item') as HTMLInputElement;
+      const descricaoElement = document.getElementById('descricao-item') as HTMLTextAreaElement;
+
+      if (nomeElement && categoriaElement && valorElement && descricaoElement) {
+        const nome = nomeElement.value;
+        const categoria = categoriaElement.value;
+        const valor = valorElement.value;
+        const descricao = descricaoElement.value;
+
+        if (nome && categoria && valor && descricao) {
+          const novoProduto = {
+            nome,
+            categoria,
+            preco: valor, // Renomear para 'preco' conforme a estrutura dos produtos
+            descricao,
+            imagem: selectedImage ? selectedImage : './img/no_productImg.jpeg', // Renomear para 'imagem' conforme a estrutura dos produtos
+          };
+
+          // Limpar os campos de entrada após adicionar o produto
+          nomeElement.value = '';
+          categoriaElement.value = '';
+          valorElement.value = '';
+          descricaoElement.value = '';
+
+          await axios.post('http://localhost:4000/v3/produtos', novoProduto);
+          fetchProdutos(); // Atualizar a lista de produtos após adicionar um novo
+          setShowModal(false); // Fechar o modal de adicionar produto
+        } else {
+          console.error('Erro ao adicionar produto: Algum campo não foi preenchido.');
+        }
+      } else {
+        console.error('Erro ao adicionar produto: Elemento não encontrado.');
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar produto:', error);
+    }
+  };
+  
+  const filtrarPorCategoria = (categoria: string) => {
+    setCategoriaSelecionada(categoria);
+  };
+
+  const produtosFiltrados = produtos.filter((produto: any) =>
+    produto.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
+    (categoriaSelecionada ? produto.categoria === categoriaSelecionada : true)
+  );
+
+  const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltroPesquisa(e.target.value);
+  };
+
   return (
     <>
-      {showModal && <div className="Modal-Add">
-        <div className='container-Add'>
-          <div id="header-modal">
-            <h4 className="modal-title">Adicionar Produto: </h4>
-            <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
-          </div>
+      {showModal && (
+        <div className="Modal-Add">
+          <div className='container-Add'>
+            <div id="header-modal">
+              <h4 className="modal-title">Adicionar Produto: </h4>
+              <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
+            </div>
             <div className='img-prod-up'>
               <div className='img-input-container'>
                 <input type="file" id='img-input' onChange={handleImageChange} />
-                  {selectedImage ? (
-                    <img src={selectedImage} className='img-region-add' alt="Selected Region" />
-                  ) : (
-                    <img src="./img/no_productImg.jpeg" className='img-prod-add' alt="Default Region" />
-                  )}
+                {selectedImage ? (
+                  <img src={selectedImage} className='img-region-add' alt="Selected Region" />
+                ) : (
+                  <img src="./img/no_productImg.jpeg" className='img-prod-add' alt="Default Region" />
+                )}
                 <div className='icon-text-cam'>
                   <i className='icon-cam'><IoCamera /></i>
                   <p>Adicionar foto</p>
@@ -49,42 +122,44 @@ const Produtos = () => {
               </div>
             </div>
 
-          <div className="Add-Item-container">
-            <div className='input-item input-single'>
-              <span>
-                <label htmlFor="name-item">Nome do Produto:</label>
-                <input type="text" name='name-item' className='full-item' />
-              </span>
-            </div>
+            <div className="Add-Item-container">
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="name-item">Nome do Produto:</label>
+                  <input type="text" id='name-item' name='name-item' className='full-item' />
+                </span>
+              </div>
 
-            <div className='input-item input-mult'>
-              <span>
-                <label htmlFor="name-item">Categoria:</label>
-                <input type="text" name='name-item' className='full-item' />
-              </span>
-              <span>
-                <label htmlFor="name-item">Valor Unitário (R$):</label>
-                <input type="text" name='name-item' className='full-item' />
-              </span>
-            </div>
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="categoria-item">Categoria:</label>
+                  <input type="text" id='categoria-item' name='categoria-item' className='full-item' />
+                </span>
 
-            <div className='input-item input-single'>
-              <span>
-                <label htmlFor="name-item">Descrição:</label>
-                <textarea
-                  name="message"
-                  className="desc-prod"
-                />
-              </span>
-            </div>
+                <span>
+                  <label htmlFor="valor-item">Valor Unitário (R$):</label>
+                  <input type="text" id='valor-item' name='valor-item' className='full-item' />
+                </span>
+              </div>
 
-            <button id='add-staff-Btn'>Enviar</button>
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="descricao-item">Descrição:</label>
+                  <textarea
+                    id='descricao-item'
+                    name="descricao"
+                    className="desc-prod"
+                  />
+                </span>
+              </div>
+
+              <button id='add-staff-Btn' onClick={adicionarProduto}>Enviar</button>
+            </div>
           </div>
         </div>
-      </div>}
+      )}
 
       {showInfoModal && (
-        // Modal de exibição de informações do funcionário
         <div className="Modal-Add">
           <div className="container-Detail-Product">
             <div id="header-modal">
@@ -123,244 +198,6 @@ const Produtos = () => {
                       </tr>
                     </thead>
                     <tbody className='body-list-prod'>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
                       <tr>
                         <td>
                           <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
@@ -417,7 +254,7 @@ const Produtos = () => {
 
             <section id='search-prod'>
               <div id='search-bar'>
-                <input type="search" id="search-product" placeholder='Pesquisar produto' aria-label="Buscar" />
+                <input type="search" id="search-product" placeholder='Pesquisar produto' aria-label="Buscar" onChange={handleFiltroChange} />
                 <i id='search-icon'><IoSearch id='icon-prod' /></i>
               </div>
               <button id='add-product' onClick={toggleModalClose}>
@@ -425,62 +262,19 @@ const Produtos = () => {
               </button>
             </section>
 
-            <p id='result-product'>Resultados (6)</p>
+            <p id='result-product'>Resultados ({produtosFiltrados.length})</p>
             <section id='products-list'>
-              <article className='prod-card'>
-                <figure className='container-list-img'>
-                  <img src="./img/Picole_sem_cobertura.jpeg" alt="picole_sem_cobertura" />
-                </figure>
-                <p>Picolé sem cobertura</p>
-                <p className='prod-name'>R$ 0.65</p>
-                <button onClick={() => setShowInfoModal(true)}>Ver produto</button>
-              </article>
 
-              <article className='prod-card'>
-                <figure className='container-list-img'>
-                  <img src="/img/Picole_com_cobertura.jpeg" alt="picole_com_cobertura" />
-                </figure>
-                <p>Picolé de cobertura</p>
-                <p className='prod-name'>R$ 2.00</p>
-                <button onClick={() => setShowInfoModal(true)}>Ver produto</button>
-              </article>
-
-              <article className='prod-card'>
-                <figure className='container-list-img'>
-                  <img src="/img/Acaí_200ml.jpeg" alt="_" />
-                </figure>
-                <p>Açaí de 200ml</p>
-                <p className='prod-name'>R$ 6.00</p>
-                <button onClick={() => setShowInfoModal(true)}>Ver produto</button>
-              </article>
-
-              <article className='prod-card'>
-                <figure className='container-list-img'>
-                  <img src="/img/Sorvete_1L.jpeg" alt="Sorvete 1L" />
-                </figure>
-                <p>Sorvete de 1L</p>
-                <p className='prod-name'>R$ 12.00</p>
-                <button onClick={() => setShowInfoModal(true)}>Ver produto</button>
-              </article>
-
-              <article className='prod-card'>
-                <figure className='container-list-img'>
-                  <img src="/img/Sorvete_1.5L.jpeg" alt="Sorvete 1.5L" />
-                </figure>
-                <p>Sorvete de 1.5L</p>
-                <p className='prod-name'>R$ 15.00</p>
-                <button onClick={() => setShowInfoModal(true)}>Ver produto</button>
-              </article>
-
-              <article className='prod-card'>
-                <figure className='container-list-img'>
-                  <img src="img/Sorvete_2L.jpeg" alt="Sorvete de 2L" />
-                </figure>
-                <p>Sorvete de 2L</p>
-                <p className='prod-name'>R$ 18.00</p>
-                <button onClick={() => setShowInfoModal(true)}>Ver produto</button>
-              </article>
-
+              {produtosFiltrados.map((produto: any) => (
+                <article key={produto.id} className='prod-card'>
+                  <figure className='container-list-img'>
+                    <img src={produto.imagem} alt={produto.nome} />
+                  </figure>
+                  <p>{produto.nome}</p>
+                  <p className='prod-name'>R$ {produto.preco}</p>
+                  <button onClick={() => setShowInfoModal(true)}>Ver produto</button>
+                </article>
+              ))}
             </section>
           </main>
         </div>

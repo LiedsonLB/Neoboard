@@ -462,7 +462,6 @@ td {
     height: 100px;
     border: 2px solid var(--primary-color);
     border-radius: 50%;
-    box-shadow: 2px 3px 12px #00000060;
     overflow: hidden;
     display: flex;
     justify-content: center;

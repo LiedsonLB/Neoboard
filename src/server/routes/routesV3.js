@@ -5,6 +5,40 @@ import Funcionario from '../../models/Funcionario.js';
 const prisma = new PrismaClient();
 const routerV3 = express.Router();
 
+// Array de produtos falsos inicialmente vazio
+let produtosFalsos = [
+  {
+    "nome": "Picolé sem cobertura",
+    "imagem": "./img/Picole_sem_cobertura.jpeg",
+    "preco": "0.65"
+  },
+  {
+    "nome": "Picolé de cobertura",
+    "imagem": "/img/Picole_com_cobertura.jpeg",
+    "preco": "2.00"
+  },
+  {
+    "nome": "Açaí de 200ml",
+    "imagem": "/img/Acaí_200ml.jpeg",
+    "preco": "6.00"
+  },
+  {
+    "nome": "Sorvete de 1L",
+    "imagem": "/img/Sorvete_1L.jpeg",
+    "preco": "12.00"
+  },
+  {
+    "nome": "Sorvete de 1.5L",
+    "imagem": "/img/Sorvete_1.5L.jpeg",
+    "preco": "15.00"
+  },
+  {
+    "nome": "Sorvete de 2L",
+    "imagem": "img/Sorvete_2L.jpeg",
+    "preco": "18.00"
+  }
+];
+
 routerV3.post("/funcionarios", async (req, res) => {
   try {
     const novoFuncionarioData = req.body;
@@ -112,10 +146,9 @@ routerV3.get("/regioes", async (req, res) => {
 routerV3.post("/produtos", async (req, res) => {
   try {
     const novoProdutoData = req.body;
-    const novoProduto = await prisma.produto.create({
-      data: novoProdutoData,
-    });
-    res.status(201).json(novoProduto);
+    // Adiciona o novo produto ao array de produtos falsos
+    produtosFalsos.push(novoProdutoData);
+    res.status(201).json(novoProdutoData);
   } catch (error) {
     console.error('Erro ao adicionar produto:', error);
     res.status(500).json({ error: 'Erro ao adicionar produto' });
@@ -125,13 +158,8 @@ routerV3.post("/produtos", async (req, res) => {
 // Rota para obter todos os produtos
 routerV3.get("/produtos", async (req, res) => {
   try {
-    const produtos = await prisma.produto.findMany({
-      include: {
-        usuario: true,
-        itensVenda: true,
-      },
-    });
-    res.status(200).json(produtos);
+    // Retorna o array de produtos falsos
+    res.status(200).json(produtosFalsos);
   } catch (error) {
     console.error('Erro ao obter produtos:', error);
     res.status(500).json({ error: 'Erro ao obter produtos' });

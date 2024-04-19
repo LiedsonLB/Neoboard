@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./Regioes.css";
-import { IoSearch, IoPerson, IoCamera, IoEarth, IoEarthOutline, IoPlanet, IoPlanetOutline, IoGlobe, IoMap, IoEarthSharp, IoHomeOutline } from 'react-icons/io5';
+import { IoSearch, IoCamera } from 'react-icons/io5';
 import RegionDoughnout from '../../components/charts/RegionDoughnout';
 import RegionColumnChart from '../../components/charts/RegionColumnChart.tsx';
 
