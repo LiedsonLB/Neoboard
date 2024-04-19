@@ -329,6 +329,7 @@
     z-index: 3;
     justify-content: center;
     overflow-y: hidden;
+    animation: downAcess .3s ease-in-out;
 }
 
 #header-modal {
@@ -413,6 +414,8 @@
     gap: 5px;
     opacity: 0;
     animation: slideInUp 1s ease forwards;
+    text-align: start !important;
+    padding: 2rem;
 }
 
 .nameUserStf {
@@ -548,7 +551,7 @@
     overflow: auto;
 }
 
-.container-Add-Staff {
+.container-Add {
     background: var(--white-color);
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
     flex-direction: column;
@@ -563,6 +566,7 @@
     z-index: 3;
     justify-content: center;
     overflow-y: auto;
+    animation: downAcess .3s ease-in-out;
 }
 
 #header-modal {
@@ -594,17 +598,6 @@
     background-color: var(--gray-color);
 }
 
-.img-input-container {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin-bottom: 1rem;
-    cursor: pointer;
-}
-
 .img-stf-up p {
     color: var(--white-color);
     font-weight: bold;
@@ -614,22 +607,6 @@
     z-index: 2;
 }
 
-.img-input-container {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    box-shadow: 2px 3px 12px #00000060;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    text-align: center;
-    backdrop-filter: brightness(0.5);
-}
-
 .icon-prof {
     position: absolute;
     display: flex;
@@ -637,7 +614,13 @@
     font-size: 100px;
     color: var(--white-color);
     opacity: 30%;
-    filter: brightness(.7);
+}
+
+.img-staff-add {
+    width: auto;
+    height: 100px;
+    position: absolute;
+    filter: brightness(0.7);
 }
 
 .icon-cam {
@@ -651,12 +634,12 @@
     margin-top: 1rem;
 }
 
-#Add-Item-Staff {
+.Add-Item-container {
     display: flex;
     flex-direction: column;
     gap: .5rem;
     width: 100%;
-    height: auto;
+    height: 100%;
     justify-content: start;
     overflow: auto;
 }
@@ -718,6 +701,14 @@
         text-align: center;
     }
 
+    #staff-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 4rem;
+    }
+
+
     #featured-staff {
         align-items: center;
         margin: 0;
@@ -747,7 +738,7 @@
 
     #staff-list {
         display: grid;
-        grid-template-columns: repeat(2, 200px);
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
         justify-content: center;
     }
@@ -778,7 +769,7 @@
         align-items: center;
     }
 
-    .container-Add-Staff {
+    .container-Add {
         display: flex;
         text-align: center;
         align-items: center;
@@ -948,7 +939,27 @@
 
 }
 
-@media screen and (min-width: 480px) and (max-width: 749px) {
+@media screen and (min-width: 480px) and (max-width: 750px) {
+    #staff-header {
+        text-align: center;
+    }
+
+    #staff-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    #featured-staff {
+        align-items: center;
+        margin: 0;
+    }
+
+    #search-staff {
+        flex-direction: column;
+    }
 
     /* modal add staff */
     .Modal-Add {
@@ -962,12 +973,12 @@
         align-items: center;
     }
 
-    .container-Add-Staff {
+    .container-Add {
         display: flex;
         text-align: center;
         align-items: center;
         height: 90%;
-        width: 80%;
+        width: 90%;
         overflow-y: auto;
     }
 
@@ -1141,14 +1152,32 @@
         text-align: center;
     }
 
-    #featured-staff {
+    #staff-main {
+        display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    #featured-staff {
         gap: 1.5rem;
         align-items: center;
         display: grid;
-        grid-template-columns: repeat(1, 300px);
+        grid-template-columns: repeat(1, 1fr);
         justify-content: center;
+        margin: 0;
     }
+
+    .staff-card header{
+    padding-inline: 5rem;
+    }
+
+
+    #search-staff {
+        flex-direction: column;
+    }
+
 
     #select-session-staff {
         width: 100% !important;
@@ -1170,6 +1199,7 @@
 
     #search-staff {
         flex-direction: column;
+        width: 90%;
     }
 
     .search-btns {
@@ -1187,6 +1217,7 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 1rem;
+        margin-inline: 1rem;
         justify-content: center;
     }
 
@@ -1203,7 +1234,7 @@
         margin-left: 0;
     }
 
-    .container-Add-Staff {
+    .container-Add {
         display: flex;
         text-align: center;
         align-items: center;
@@ -1381,5 +1412,4 @@
     .body-list-stf tr:nth-child(even) {
         background-color: var(--white-color);
     }
-
 }

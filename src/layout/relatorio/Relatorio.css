@@ -481,6 +481,7 @@ input[type="file"] {
     margin: 0 auto;
     width: 100%;
     flex-wrap: wrap;
+    margin-bottom: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
@@ -679,6 +680,7 @@ input[type="file"] {
         grid-template-columns: repeat(1, 1fr);
         gap: 1rem;
         margin: 0 auto;
+        margin-bottom: 2rem;
     }
 
     #output {
@@ -696,7 +698,7 @@ input[type="file"] {
     display: flex;
     align-items: center;
     gap: 5px;
-    padding: .8rem 2rem;
+    padding: .8rem 1rem;
     background: transparent;
     border: 2px solid var(--primary-color);
     border-radius: 5px;
