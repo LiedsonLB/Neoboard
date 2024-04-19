@@ -72,12 +72,12 @@ const Produtos = () => {
               <span>
                 <label htmlFor="name-item">Descrição:</label>
                 <textarea
-                      name="message"
-                      className="desc-prod"
-                    />
+                  name="message"
+                  className="desc-prod"
+                />
               </span>
             </div>
-            
+
             <button id='add-staff-Btn'>Enviar</button>
           </div>
         </div>

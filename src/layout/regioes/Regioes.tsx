@@ -427,7 +427,7 @@ const Regioes = () => {
               </div>
             </article>
 
-            <section id='search-region'>
+            <section id='search-container-region'>
               <div id='search-bar-region'>
                 <input type="search" id="search-region" placeholder='Pesquisar região' aria-label="Buscar" />
                 <i id='search-icon-region'><IoSearch id='icon-region' /></i>
