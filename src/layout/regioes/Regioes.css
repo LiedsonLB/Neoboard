@@ -388,23 +388,6 @@ td {
     align-items: center;
 }
 
-.container-Add-Region {
-    background: var(--white-color);
-    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
-    flex-direction: column;
-    min-width: 30%;
-    padding: 20px;
-    border-radius: 20px;
-    border: none;
-    display: flex;
-    align-items: center;
-    height: auto;
-    width: 60%;
-    z-index: 1;
-    justify-content: center;
-    position: fixed;
-}
-
 #header-modal {
     display: flex;
     align-items: start;
@@ -444,39 +427,11 @@ td {
     margin-block: 1rem;
 }
 
-.img-input-container {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    box-shadow: 2px 3px 12px #00000060;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    text-align: center;
-    backdrop-filter: brightness(0.5);
-}
-
-#img-input {
-    display: block;
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%; 
-    height: 100%; 
-    opacity: 0; 
-    cursor: pointer; 
-    z-index: 5; 
-}
-
-
 .img-region-up img {
     width: auto;
     height: 100px;
     position: absolute;
+    filter: brightness(0.7);
 }
 
 
@@ -700,9 +655,5 @@ td {
     .input-mult {
         flex-direction: column;
 
-    }
-
-    .container-Add-Region{
-    width: 90%;
     }
 }

@@ -7,26 +7,42 @@ import RegionColumnChart from '../../components/charts/RegionColumnChart.tsx';
 const Regioes = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      setSelectedImage(result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
     <>
       {showModal && (
         <div className='Modal-Add'>
-          <div className='container-Add-Region'>
+          <div className='container-Add'>
             <div id="header-modal">
               <h4 className="modal-title">Adicionar Região</h4>
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
-            <div id="Add-Item-Region">
+
               <div className='img-region-up'>
                 <div className='img-input-container'>
-                  <input type="file" id='img-input' />
-                  <img src="" className='img-region-add' />
-                  <i className='icon-reg-prof'><IoHomeOutline /></i>
+                  <input type="file" id='img-input' onChange={handleImageChange} />
+                  {selectedImage ? (
+                    <img src={selectedImage} className='img-region-add' alt="Selected Region" />
+                  ) : (
+                    <img src="./img/no_regionImg.jpeg" className='img-region-add' alt="Default Region" />
+                  )}
                   <div className='icon-text-cam'>
                     <i className='icon-cam'><IoCamera /></i>
                     <p>Adicionar foto</p>
@@ -34,6 +50,7 @@ const Regioes = () => {
                 </div>
               </div>
 
+            <div className="Add-Item-container">
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="name-item">Nome da Região:</label>

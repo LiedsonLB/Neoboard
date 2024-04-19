@@ -7,25 +7,41 @@ import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      console.log(result)
+      setSelectedImage(result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <>
       {showModal && <div className="Modal-Add">
-        <div className='container-Add-Product'>
+        <div className='container-Add'>
           <div id="header-modal">
             <h4 className="modal-title">Adicionar Produto: </h4>
             <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
           </div>
-          <div id="Add-Item-Product">
             <div className='img-prod-up'>
               <div className='img-input-container'>
-                <input type="file" id='img-input' />
-                <img src="" className='img-prod-add' />
-                <i className='icon-prod-prof'><IoCube /></i>
+                <input type="file" id='img-input' onChange={handleImageChange} />
+                  {selectedImage ? (
+                    <img src={selectedImage} className='img-region-add' alt="Selected Region" />
+                  ) : (
+                    <img src="./img/no_productImg.jpeg" className='img-prod-add' alt="Default Region" />
+                  )}
                 <div className='icon-text-cam'>
                   <i className='icon-cam'><IoCamera /></i>
                   <p>Adicionar foto</p>
@@ -33,6 +49,7 @@ const Produtos = () => {
               </div>
             </div>
 
+          <div className="Add-Item-container">
             <div className='input-item input-single'>
               <span>
                 <label htmlFor="name-item">Nome do Produto:</label>

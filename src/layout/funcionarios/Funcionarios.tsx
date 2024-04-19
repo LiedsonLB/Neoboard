@@ -27,6 +27,7 @@ const Funcionarios = () => {
   const [selectedUser, setSelectedUser] = useState<Funcionario | null>(null);
   const [filteredFuncionarios, setFilteredFuncionarios] = useState<Funcionario[]>([]);
   const [selectionSession, setSelectionSession] = useState<'info' | 'charts'>('info');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchFuncionarios = async () => {
@@ -92,15 +93,16 @@ const Funcionarios = () => {
     setShowInfoModal(true);
   };
 
-  const generateQRCode = (url: string) => {
-    const qrCodeSize = 300; // Tamanho do código QR
-    const qrCodeData = encodeURIComponent(url);
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${qrCodeData}&size=${qrCodeSize}x${qrCodeSize}`;
-
-    // Abre uma nova janela com o código QR
-    const newWindow = window.open(qrCodeUrl, '_blank');
-    if (!newWindow) {
-      alert('Não foi possível abrir a janela do código QR. Verifique se as pop-ups estão bloqueadas.');
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      console.log(result)
+      setSelectedImage(result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
     }
   };
 
@@ -200,24 +202,27 @@ const Funcionarios = () => {
 
       {showModal && (
         <div className='Modal-Add'>
-          <div className='container-Add-Staff'>
+          <div className='container-Add'>
             <div id="header-modal">
               <h4 className="modal-title">Adicionar Funcionário</h4>
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
             <div className='img-stf-up'>
               <div className='img-input-container'>
-                <img src="" className='img-staff-add' />
-                <input type="file" id='img-input' />
-                <i className='icon-prof'><IoPerson /></i>
+                <input type="file" id='img-input' onChange={handleImageChange} />
+                  {selectedImage ? (
+                    <img src={selectedImage} className='img-staff-add' alt="Selected Region" />
+                  ) : (
+                    <img src="./img/no_profile.png" className='img-staff-add' alt="Default Region" />
+                  )}
                 <div className='icon-text-cam'>
                   <i className='icon-cam'><IoCamera /></i>
                   <p>Adicionar foto</p>
                 </div>
               </div>
             </div>
-            <div id="Add-Item-Staff">
 
+            <div className="Add-Item-container">
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do funcionário:</label>
