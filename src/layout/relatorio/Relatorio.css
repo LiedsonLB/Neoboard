@@ -172,6 +172,27 @@ input[type="file"] {
     padding: .5rem 2rem;
 }
 
+#format-select {
+    padding: 10px 20px;
+    border: 1px solid var(--white-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color: var(--white-color);
+    color: var(--black-color);
+    font-family: var(--font-Krub);
+  }
+  
+  #format-select option {
+    font-family: var(--font-Krub);
+  }
+  
+  #format-select:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+  }  
+
 #cancel-btn {
     background-color: transparent;
     border-radius: 5px;

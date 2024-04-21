@@ -6,6 +6,7 @@ import axios from 'axios';
 import { auth, provider } from '../../services/firebase';
 import { signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import Popup from '../../components/popup/Popup';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const LoginPage = () => {
 
@@ -16,6 +17,8 @@ const LoginPage = () => {
     const [mensagem, setMensagem] = useState('');
     const [alert, setAlert] = useState('');
     const [title, setTitle] = useState('');
+
+    const [user] = useAuthState(auth);
 
     useEffect(() => {
         document.title = `NeoBoard | Logue Agora`;
@@ -31,7 +34,7 @@ const LoginPage = () => {
             return;
         }
         try {
-            /*await axios.post('http://localhost:4000/v2/login', { email, password });*/
+            //await axios.post('http://localhost:4000/v2/login', { email, password });
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error: any) {
             setAlert('warning');
@@ -76,7 +79,8 @@ const LoginPage = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleSignin = () => {
+    const handleSignin = async () => {
+        //await axios.post('http://localhost:4000/v2/login', { user, email, password });
         signInWithPopup(auth, provider).then((result) => {
             const user = result.user;
             console.log('Usuário autenticado:', user);

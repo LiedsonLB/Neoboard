@@ -378,12 +378,21 @@ const Funcionarios = () => {
                   <>
                     {selectionSession === 'info' && (
                       <div id='infouser-description'>
+                        <div id='about-container'>
+                          <h3>Sobre {selectedUser.nome.split(' ')[0]}</h3>
+                          <hr />
+                        </div>
+                        <div id='aboutMe-description'>
+                        <p>"Sou uma profissional dedicada e com mais de 5 anos de experiência na área, atuo remotamente pois moro em outro estado"</p>
+                        </div>
                         <div id="userStfTextInfo">
-                          <p>idade: {selectedUser.age} anos</p>
-                          <p>CPF: {selectedUser.vendas}</p>
-                          <p>Endereço: {selectedUser.endereco}</p>
-                          <p>Gênero: {selectedUser.gender}</p>
-                          <p>Contratação: {selectedUser.date}</p>
+                          <p>idade: <span>{selectedUser.age} anos</span></p>
+                          <p>CPF: <span>{selectedUser.vendas}</span></p>
+                          <p>Endereço: <span>{selectedUser.endereco}</span></p>
+                          <p>Gênero: <span>{selectedUser.gender}</span></p>
+                          <p>Contratação: <span>{selectedUser.date}</span></p>
+                          <p>Acadêmico: <span>Bacharelado Ciência da Computação</span></p>
+                          <p>Telefone: <span>+55869976543</span></p>
                         </div>
                       </div>
                     )}
