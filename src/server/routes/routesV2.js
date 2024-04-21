@@ -133,7 +133,7 @@ routerV2.get("/regioes", async (req, res) => {
 })
 
 routerV2.post("/login", async (req, res) => {
-    const { email, password } = req.body;
+    const { nome, email, password } = req.body;
     try {
         await signInWithEmailAndPassword(auth, email, password);
         res.status(200).json({ message: 'Login bem-sucedido!' });
@@ -141,7 +141,27 @@ routerV2.post("/login", async (req, res) => {
         console.error('Erro ao fazer login:', error.message);
         res.status(500).send('Erro ao fazer login');
     }
+
+    const user = await prisma.usuario.create({
+        data: {
+            nome: nome.displayName,
+            email: email,
+        },
+    });
+
+    res.status(200).send(user);
 })
+
+// Rota para obter todos os usuários
+routerV2.get('/users', async (req, res) => {
+    try {
+      const usuarios = await prisma.usuario.findMany();
+      res.json(usuarios);
+    } catch (error) {
+      console.error('Erro ao obter usuários:', error);
+      res.status(500).json({ message: 'Erro ao obter usuários' });
+    }
+  });
 
 routerV2.post("/cadastro", async (req, res) => {
     const { email, password, username } = req.body;

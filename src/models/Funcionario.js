@@ -1,7 +1,7 @@
 class Funcionario {
-    constructor(id, picture, nome, email, descricao, endereco, localAtuacao, genero, cpf, dataContratacao, telefone, formacaoAcademica, linkedin, github, usuario, vendas) {
+    constructor(id, img_funcionario, nome, email, descricao, endereco, localAtuacao, genero, cpf, dataContratacao, telefone, formacaoAcademica, linkedin, github, usuarioId) {
         this.id = id;
-        this.picture = picture;
+        this.img_funcionario = img_funcionario;
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
@@ -14,8 +14,8 @@ class Funcionario {
         this.formacaoAcademica = formacaoAcademica;
         this.linkedin = linkedin;
         this.github = github;
-        this.usuario = usuario;
-        this.vendas = vendas || [];
+        this.usuarioId = usuarioId;
+        this.vendas = [];
     }
 }
 
