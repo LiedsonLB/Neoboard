@@ -323,15 +323,19 @@ aside ul h2 {
 }
 
 .logout-yes{
-  background-color: var(--secondy-color);
+  background-color: var(--primary-color);
   padding: .5rem 2rem;
   border-radius: 5px;
-  border: 2px solid var(--hover-color);
+  border: 2px solid var(--primary-color);
   cursor: pointer;
+  color: var(--white-color);
+  font-weight: bold;
+  font-family: var(--font-Krub);
 }
 
 .logout-yes:hover{
   background-color: var(--hover-color);
+  border: 2px solid var(--hover-color);
 }
 
 .logout-no{
@@ -340,6 +344,9 @@ aside ul h2 {
   border-radius: 5px;
   border: 2px solid var(--gray-color);
   cursor: pointer;
+  color: var(--black-color);
+  font-weight: bold;
+  font-family: var(--font-Krub);
 }
 
 .logout-no:hover{
