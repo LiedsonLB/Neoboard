@@ -195,6 +195,30 @@ const Relatorio: React.FC = () => {
     setSelectedOption(event.target.value);
   };
 
+  const handleFormatChange = (event: any) => {
+    const selectedFormat = event.target.value;
+
+    // URL do modelo para download
+    let downloadUrl = '';
+
+    if (selectedFormat === 'csv') {
+      downloadUrl = './planilhaVazia/neoboardPlanilha.csv';
+    } else if (selectedFormat === 'xlsx') {
+      downloadUrl = './planilhaVazia/neoboardPlanilha.xlsx';
+    } else if (selectedFormat === 'txt') {
+      downloadUrl = './planilhaVazia/neoboardPlanilha.txt';
+    }
+
+    // Criando um link temporário para download
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = `Relatorio_de_vendas_${day}-${month}-${year}.${selectedFormat}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
       setMensagem('');
@@ -235,7 +259,14 @@ const Relatorio: React.FC = () => {
           <hr id='report-line' />
 
           <div id='report-btns'>
-            <a href="./planilhaVazia/neoboardPlanilha.xlsx" download={`Relatorio_de_vendas_${day}-${month}-${year}`} id="receiveFile"><i className="fa-solid fa-file-csv"></i> Baixar Modelo</a>
+
+            <select id="format-select" onChange={handleFormatChange} defaultValue="">
+              <option disabled value="">Baixe o Modelo</option>
+              <option className='selection-options' value="csv">CSV (.csv)</option>
+              <option className='selection-options' value="xlsx">Excel (.xlsx)</option>
+              <option className='selection-options' value="txt">Texto (.txt)</option>
+            </select>
+
             <div>
               <button className='rep-btn' id='cancelFile' disabled={outputData.length === 0 || loading} onClick={cancelFile}>Cancelar</button>
               <button

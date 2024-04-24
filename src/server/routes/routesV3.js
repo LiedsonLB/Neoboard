@@ -81,8 +81,8 @@ routerV3.post("/funcionarios", async (req, res) => {
         formacaoAcademica: novoFuncionario.formacaoAcademica,
         linkedin: novoFuncionario.linkedin,
         github: novoFuncionario.github,
-        // usuario: novoFuncionario.usuario,
-        // vendas: novoFuncionario.vendas
+        usuario: novoFuncionario.usuario,
+        vendas: novoFuncionario.vendas
       }
     });
 
@@ -96,12 +96,7 @@ routerV3.post("/funcionarios", async (req, res) => {
 // Rota para obter todos os funcionários
 routerV3.get("/funcionarios", async (req, res) => {
   try {
-    const funcionarios = await prisma.funcionario.findMany({
-      include: {
-        usuario: true,
-        vendas: true,
-      },
-    });
+    const funcionarios = await prisma.funcionario.findMany();
     res.status(200).json(funcionarios);
   } catch (error) {
     console.error('Erro ao obter funcionários:', error);

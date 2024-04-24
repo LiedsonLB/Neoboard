@@ -266,6 +266,93 @@ aside ul h2 {
   color: var(--hover-color);
 }
 
+/*Modal Help */
+.modal-logout{
+  height: auto;
+  width: 100%;
+  z-index: 1;
+  height: 100%;
+  position: fixed;
+  backdrop-filter: brightness(0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.container-logout {
+  background: var(--white-color);
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+  flex-direction: column;
+  min-width: 30%;
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  height: 20rem;
+  width: 25rem;
+  justify-content: space-between;
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.header-logout {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.neo-logout{
+  height: 100px;
+  width: 100px;
+}
+
+.txt-logout{
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.options-logout{
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  color: var(--primary-color);
+  margin-block: 1rem;
+}
+
+.logout-yes{
+  background-color: var(--primary-color);
+  padding: .5rem 2rem;
+  border-radius: 5px;
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+  color: var(--white-color);
+  font-weight: bold;
+  font-family: var(--font-Krub);
+}
+
+.logout-yes:hover{
+  background-color: var(--hover-color);
+  border: 2px solid var(--hover-color);
+}
+
+.logout-no{
+  background-color: var(--gray-color);
+  padding: .5rem 2rem;
+  border-radius: 5px;
+  border: 2px solid var(--gray-color);
+  cursor: pointer;
+  color: var(--black-color);
+  font-weight: bold;
+  font-family: var(--font-Krub);
+}
+
+.logout-no:hover{
+  filter: brightness(.9);
+}
+
 @media screen and (max-width: 749px) {
   #aside-container {
     background: transparent;
