@@ -256,7 +256,7 @@
     width: 70%;
     background: var(--secondy-color);
     border: none;
-    border-radius: 100px;
+    border-radius: 10px;
     color: var(--white-color);
     cursor: pointer;
     font-family: var(--font-krub);
@@ -461,6 +461,9 @@
     animation: spin 1s linear;
     border-radius: 20px;
     outline: 5px solid var(--secondy-color);
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
 .nameUserStf {
@@ -1223,8 +1226,8 @@
         margin: 0;
     }
 
-    .staff-card header{
-    padding-inline: 5rem;
+    .staff-card header {
+        padding-inline: 5rem;
     }
 
 

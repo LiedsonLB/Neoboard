@@ -12,6 +12,10 @@ const Produtos = () => {
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [valorFormatado, setValorFormatado] = useState<string>('');
+  const [valorAcumulado, setValorAcumulado] = useState('');
+  const [categorias, setCategorias] = useState<string[]>([]);
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
@@ -31,9 +35,12 @@ const Produtos = () => {
 
   const fetchProdutos = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/v3/produtos');
+      const response = await axios.get('http://localhost:4000/v2/produtos');
       setProdutos(response.data);
       console.log(response.data)
+      const categoriasUnicas = new Set(response.data.map((produto: any) => produto.categoria));
+      const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
+      setCategorias(categoriasUnicasArray);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
     }
@@ -60,20 +67,20 @@ const Produtos = () => {
           const novoProduto = {
             nome,
             categoria,
-            preco: valor, // Renomear para 'preco' conforme a estrutura dos produtos
+            preco: valor,
             descricao,
-            imagem: selectedImage ? selectedImage : './img/no_productImg.jpeg', // Renomear para 'imagem' conforme a estrutura dos produtos
+            imagem: selectedImage ? selectedImage : './img/no_productImg.jpeg',
           };
 
-          // Limpar os campos de entrada após adicionar o produto
           nomeElement.value = '';
           categoriaElement.value = '';
           valorElement.value = '';
           descricaoElement.value = '';
+          setSelectedImage(null);
+          setShowModal(false);
 
-          await axios.post('http://localhost:4000/v3/produtos', novoProduto);
-          fetchProdutos(); // Atualizar a lista de produtos após adicionar um novo
-          setShowModal(false); // Fechar o modal de adicionar produto
+          await axios.post('http://localhost:4000/v2/produtos', novoProduto);
+          fetchProdutos();
         } else {
           console.error('Erro ao adicionar produto: Algum campo não foi preenchido.');
         }
@@ -84,9 +91,28 @@ const Produtos = () => {
       console.error('Erro ao adicionar produto:', error);
     }
   };
-  
-  const filtrarPorCategoria = (categoria: string) => {
-    setCategoriaSelecionada(categoria);
+
+  const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let valorDigitado = e.target.value;
+
+    valorDigitado = valorDigitado.replace(/[^\d.]/g, '');
+
+    if (!valorDigitado) {
+      setValorAcumulado('');
+      setValorFormatado(''); // Adicione esta linha para limpar o valor formatado quando não houver entrada
+      return;
+    }
+
+    const novoValorAcumulado = valorAcumulado + valorDigitado;
+
+    const reais = Math.floor(parseInt(novoValorAcumulado) / 100);
+    const centavos = parseInt(novoValorAcumulado) % 100;
+
+    const valorFormatado = `R$ ${reais}.${centavos}`;
+
+    setValorAcumulado(valorAcumulado + valorDigitado);
+    setValorFormatado(valorFormatado); // Atualize o estado valorFormatado aqui
+    console.log(valorFormatado)
   };
 
   const produtosFiltrados = produtos.filter((produto: any) =>
@@ -96,6 +122,11 @@ const Produtos = () => {
 
   const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFiltroPesquisa(e.target.value);
+  };
+
+  const handleShowInfoModal = (produto: any) => {
+    setSelectedProduct(produto);
+    setShowInfoModal(true);
   };
 
   return (
@@ -138,7 +169,7 @@ const Produtos = () => {
 
                 <span>
                   <label htmlFor="valor-item">Valor Unitário (R$):</label>
-                  <input type="text" id='valor-item' name='valor-item' className='full-item' />
+                  <input type="text" id='valor-item' name='valor-item' className='full-item' onChange={handleValorChange} value={valorFormatado} />
                 </span>
               </div>
 
@@ -153,7 +184,7 @@ const Produtos = () => {
                 </span>
               </div>
 
-              <button id='add-staff-Btn' onClick={adicionarProduto}>Enviar</button>
+              <button id='add-staff-Btn' onClick={() => { adicionarProduto(); setShowModal(false) }}>Enviar</button>
             </div>
           </div>
         </div>
@@ -162,6 +193,7 @@ const Produtos = () => {
       {showInfoModal && (
         <div className="Modal-Add">
           <div className="container-Detail-Product">
+
             <div id="header-modal">
               <h4 className="modal-title">Informações do Produto</h4>
               <button type="button" className="close-btn" onClick={() => setShowInfoModal(false)}>&times;</button>
@@ -170,12 +202,12 @@ const Produtos = () => {
             <div id='Product-Info-Container'>
               <div id='infoprod-popup'>
                 <div id='prodInfo-popup'>
-                  <img src='/img/no_productImg.jpeg' alt="product-avatar" />
-                  <h2 className='nameUserProd'> Picolé de Flocos</h2>
+                  <img src={selectedProduct.imagem} alt="product-avatar" />
+                  <h2 className='nameUserProd'>{selectedProduct.nome}</h2>
                   <div id="ProdTextInfo">
-                    <p><span>Categoria:</span> Picolé</p>
-                    <p><span>Valor:</span> R$ 2,50</p>
-                    <p><span>Descrição:</span> Picolé muito bala mesmo </p>
+                    <p><span>Categoria:</span> {selectedProduct.categoria}</p>
+                    <p><span>Valor:</span> R$ {selectedProduct.preco}</p>
+                    <p><span>Descrição:</span> {selectedProduct.descricao}</p>
                   </div>
                 </div>
               </div>
@@ -221,8 +253,8 @@ const Produtos = () => {
               </div>
 
             </div>
-          </div>
-        </div>
+          </div >
+        </div >
       )}
 
       <div id='product-container'>
@@ -257,9 +289,19 @@ const Produtos = () => {
                 <input type="search" id="search-product" placeholder='Pesquisar produto' aria-label="Buscar" onChange={handleFiltroChange} />
                 <i id='search-icon'><IoSearch id='icon-prod' /></i>
               </div>
-              <button id='add-product' onClick={toggleModalClose}>
-                + Produto
-              </button>
+
+              <div className='filter-container-btns'>
+                <select id="filter-expense" value={categoriaSelecionada} onChange={(e) => setCategoriaSelecionada(e.target.value)}>
+                  <option value="">Todos</option>
+                  {categorias.map((categoria, index) => (
+                    <option key={index} value={categoria}>{categoria}</option>
+                  ))}
+                </select>
+
+                <button id='add-product' onClick={toggleModalClose}>
+                  + Produto
+                </button>
+              </div>
             </section>
 
             <p id='result-product'>Resultados ({produtosFiltrados.length})</p>
@@ -272,13 +314,13 @@ const Produtos = () => {
                   </figure>
                   <p>{produto.nome}</p>
                   <p className='prod-name'>R$ {produto.preco}</p>
-                  <button onClick={() => setShowInfoModal(true)}>Ver produto</button>
+                  <button onClick={() => handleShowInfoModal(produto)}>Ver produto</button>
                 </article>
               ))}
             </section>
           </main>
         </div>
-      </div>
+      </div >
     </>
   );
 }

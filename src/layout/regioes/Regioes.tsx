@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import "./Regioes.css";
 import { IoSearch, IoCamera } from 'react-icons/io5';
 import RegionDoughnout from '../../components/charts/RegionDoughnout';
 import RegionColumnChart from '../../components/charts/RegionColumnChart.tsx';
+import axios from 'axios';
 
 const Regioes = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
+  const [regioes, setRegioes] = useState<any[]>([]); // Alterado para armazenar as regiões
+  const [filtroPesquisa, setFiltroPesquisa] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState<any>(null); // Estado para armazenar a região selecionada
+  const [categorias, setCategorias] = useState<string[]>([]); // Definindo o estado categorias como uma lista de strings
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
@@ -25,6 +31,36 @@ const Regioes = () => {
     }
   };
 
+  const fetchRegioes = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/v2/regioes');
+      setRegioes(response.data);
+      console.log(response.data)
+      const categoriasUnicas = new Set(response.data.map((regiao: any) => regiao.cidade));
+      const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
+      setCategorias(categoriasUnicasArray);
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRegioes();
+  }, []);
+
+  const filtrarPorCategoria = (categoria: string) => {
+    setCategoriaSelecionada(categoria);
+  };
+
+  const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltroPesquisa(e.target.value);
+  };
+
+  const handleShowInfoModal = (regiao: any) => {
+    setSelectedRegion(regiao);
+    setShowInfoModal(true);
+  };
+
   return (
     <>
       {showModal && (
@@ -35,20 +71,20 @@ const Regioes = () => {
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
 
-              <div className='img-region-up'>
-                <div className='img-input-container'>
-                  <input type="file" id='img-input' onChange={handleImageChange} />
-                  {selectedImage ? (
-                    <img src={selectedImage} className='img-region-add' alt="Selected Region" />
-                  ) : (
-                    <img src="./img/no_regionImg.jpeg" className='img-region-add' alt="Default Region" />
-                  )}
-                  <div className='icon-text-cam'>
-                    <i className='icon-cam'><IoCamera /></i>
-                    <p>Adicionar foto</p>
-                  </div>
+            <div className='img-region-up'>
+              <div className='img-input-container'>
+                <input type="file" id='img-input' onChange={handleImageChange} />
+                {selectedImage ? (
+                  <img src={selectedImage} className='img-region-add' alt="Selected Region" />
+                ) : (
+                  <img src="./img/no_regionImg.jpeg" className='img-region-add' alt="Default Region" />
+                )}
+                <div className='icon-text-cam'>
+                  <i className='icon-cam'><IoCamera /></i>
+                  <p>Adicionar foto</p>
                 </div>
               </div>
+            </div>
 
             <div className="Add-Item-container">
               <div className='input-item input-mult'>
@@ -93,7 +129,7 @@ const Regioes = () => {
       )}
 
       {showInfoModal && (
-        // Modal de exibição de informações do funcionário
+
         <div className="Modal-Add">
           <div className="container-Detail-Product">
             <div id="header-modal">
@@ -104,13 +140,13 @@ const Regioes = () => {
             <div id='Product-Info-Container'>
               <div id='infoprod-popup'>
                 <div id='prodInfo-popup'>
-                  <img src='/img/no_regionImg.jpeg' alt="region-avatar" />
-                  <h2 className='nameUserProd'> Piripiri</h2>
+                  <img src={selectedRegion.picture} alt="region-avatar" />
+                  <h2 className='nameUserProd'> {selectedRegion.nome}</h2>
                   <div id="ProdTextInfo">
-                    <p><span>Endereço:</span> Rua das Oliveiras, Bairro saci perere</p>
-                    <p><span>Cidade:</span> Piripiri</p>
-                    <p><span>Total de clientes:</span> 20K</p>
-                    <p><span>Descrição:</span> Cidade muito bala </p>
+                    <p><span>Endereço:</span> {selectedRegion.endereco}</p>
+                    <p><span>Cidade:</span> {selectedRegion.cidade}</p>
+                    <p><span>Total de clientes:</span> {selectedRegion.clientes}</p>
+                    <p><span>Descrição:</span> {selectedRegion.descricao}</p>
                   </div>
                 </div>
               </div>
@@ -150,244 +186,7 @@ const Regioes = () => {
                           <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
-                        </td>
-                      </tr>
+
                     </tbody>
                   </table>
                 </section>
@@ -397,7 +196,6 @@ const Regioes = () => {
           </div>
         </div>
       )}
-
 
       <div id='region-container'>
         <div id='region-inside'>
@@ -433,12 +231,21 @@ const Regioes = () => {
                 <i id='search-icon-region'><IoSearch id='icon-region' /></i>
               </div>
 
-              <button id='add-region' onClick={toggleModalClose}>
-                + Região
-              </button>
+              <div className='filter-container-btns'>
+                <select id="filter-expense" value={categoriaSelecionada} onChange={(e) => setCategoriaSelecionada(e.target.value)}>
+                  <option value="">Todos</option>
+                  {categorias.map((categoria, index) => (
+                    <option key={index} value={categoria}>{categoria}</option>
+                  ))}
+                </select>
+
+                <button id='add-product' onClick={toggleModalClose}>
+                  + Região
+                </button>
+              </div>
             </section>
 
-            <p id='result-reg'>Resultados (3)</p>
+            <p id='result-reg'>Resultados ({regioes.length})</p>
             <section id='container-table-regions'>
               <table>
                 <thead className='theadTableRegions'>
@@ -451,74 +258,27 @@ const Regioes = () => {
                   </tr>
                 </thead>
                 <tbody className='tBodyTableRegions'>
-                  <tr>
-                    <td>
-                      <div className="region-pic">
-                        <img src="./img/Piripiri-Igreja-Matriz.png" alt="piripiri" />
-                      </div>
-                    </td>
-                    <td>
-                      <div className="price">
-                        <h3>piripiri</h3>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="sold">
-                        <h3>1587</h3>
-                      </div>
-                    </td>
-                    <td>
-                      <h3>R$10000K</h3>
-                    </td>
-                    <td>
-                      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                        <button className="edit" onClick={() => setShowInfoModal(true)}>Ver</button>
-                      </div>
-                    </td>
-                  </tr>
 
-                  <tr className='row-white'>
-                    <td>
-                      <div className="region-pic">
-                        <img src="./img/Pdois.jpg" alt="piripiri" />
-                      </div>
-                    </td>
-                    <td><h3>Pedro II</h3></td>
-                    <td><h3>8300</h3></td>
-                    <td><h3>R$30000K</h3></td>
-                    <td>
-                      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                        <button className="edit" onClick={() => setShowInfoModal(true)}>Ver</button>
-                      </div></td>
-                  </tr>
+                  {regioes
+                    .filter((regiao) =>
+                      regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase())
+                    )
+                    .map((regiao, index) => (
+                      <tr key={index}>
+                        <td>
+                          <div className="region-pic">
+                            <img src={regiao.picture} alt={regiao.nome} />
+                          </div>
+                        </td>
+                        <td>{regiao.nome}</td>
+                        <td>{regiao.vendas}</td>
+                        <td>{regiao.faturamento}</td>
+                        <td>
+                          <button className="edit" onClick={() => handleShowInfoModal(regiao)}>Ver</button>
+                        </td>
+                      </tr>
+                    ))}
 
-                  <tr>
-                    <td>
-                      <div className="table-regions">
-                        <div className="region-pic">
-                          <img src="./img/no_regionImg.jpeg" alt="sem_regiao" />
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="price">
-                        <h3>Capitão de Campos</h3>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="sold">
-                        <h3>1587</h3>
-                      </div>
-                    </td>
-                    <td>
-                      <h3>R$50000K</h3>
-                    </td>
-                    <td>
-                      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                        <button className="edit" onClick={() => setShowInfoModal(true)}>Ver</button>
-                      </div>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </section>

@@ -197,6 +197,16 @@
     outline: none;
 }
 
+.filter-container-btns {
+    display: flex;
+    gap: 5px;
+}
+
+#filter-expense:hover {
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+
 #add-product {
     padding: .8rem 2rem;
     background: var(--secondy-color);
@@ -269,6 +279,7 @@
         opacity: 0;
         transform: scaleY(0);
     }
+
     100% {
         opacity: 1;
         transform: scaleY(1);
@@ -491,6 +502,8 @@
     border-radius: 20px;
     outline: 5px solid var(--secondy-color);
     width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
 .nameUserProd {
