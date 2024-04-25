@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Funcionarios.css";
-import { IoSearch, IoCaretDownSharp, IoCamera } from 'react-icons/io5';
+import { IoSearch, IoCaretDownSharp, IoCamera, IoPencil, IoTrash } from 'react-icons/io5';
 import StaffDoughnout from '../../components/charts/StaffDoughnout';
 import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 import axios from 'axios';
@@ -227,7 +227,7 @@ const Funcionarios = () => {
                 <p>Classificar</p>
                 <IoCaretDownSharp onClick={() => setFilteredFuncionarios(funcionarios)} />
               </button>
-              <button id='add-staff' onClick={() => {toggleModalClose(); adicionarFuncionario()}}>
+              <button id='add-staff' onClick={() => { toggleModalClose(); adicionarFuncionario() }}>
                 + Funcionário
               </button>
             </div>
@@ -255,7 +255,11 @@ const Funcionarios = () => {
                     <p>{funcionario.faturamento}</p>
                   </span>
                 </div>
-                <button onClick={() => toggleInfoModal(funcionario)}>Ver detalhes</button>
+                <button className='see-stf-btn' onClick={() => toggleInfoModal(funcionario)}>Ver detalhes</button>
+                <div className='manager-btn'>
+                  <button className='edit-item item-mng'><IoPencil id='edit-pen' /></button>
+                  <button className='delete-item item-mng'><IoTrash id='edit-trash' /></button>
+                </div>
               </article>
             ))}
           </section>
@@ -269,22 +273,22 @@ const Funcionarios = () => {
               <h4 className="modal-title">Adicionar Funcionário</h4>
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
-            <div className='img-stf-up'>
-              <div className='img-input-container'>
-                <input type="file" id='img-input' onChange={handleImageChange} />
+
+            <div className="Add-Item-container">
+              <div className='img-stf-up'>
+                <div className='img-input-container'>
+                  <input type="file" id='img-input' onChange={handleImageChange} />
                   {selectedImage ? (
                     <img src={selectedImage} className='img-staff-add' alt="Selected Region" />
                   ) : (
                     <img src="./img/no_profile.png" className='img-staff-add' alt="Default Region" />
                   )}
-                <div className='icon-text-cam'>
-                  <i className='icon-cam'><IoCamera /></i>
-                  <p>Adicionar foto</p>
+                  <div className='icon-text-cam'>
+                    <i className='icon-cam'><IoCamera /></i>
+                    <p>Adicionar foto</p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="Add-Item-container">
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do funcionário:</label>
@@ -383,7 +387,7 @@ const Funcionarios = () => {
                           <hr />
                         </div>
                         <div id='aboutMe-description'>
-                        <p>"Sou uma profissional dedicada e com mais de 5 anos de experiência na área, atuo remotamente pois moro em outro estado"</p>
+                          <p>"Sou uma profissional dedicada e com mais de 5 anos de experiência na área, atuo remotamente pois moro em outro estado"</p>
                         </div>
                         <div id="userStfTextInfo">
                           <p>idade: <span>{selectedUser.age} anos</span></p>
