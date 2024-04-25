@@ -35,6 +35,7 @@ const Regioes = () => {
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
 
+            <div className="Add-Item-container">
               <div className='img-region-up'>
                 <div className='img-input-container'>
                   <input type="file" id='img-input' onChange={handleImageChange} />
@@ -49,8 +50,6 @@ const Regioes = () => {
                   </div>
                 </div>
               </div>
-
-            <div className="Add-Item-container">
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="name-item">Nome da Região:</label>
@@ -452,7 +451,7 @@ const Regioes = () => {
                 </thead>
                 <tbody className='tBodyTableRegions'>
                   <tr>
-                    <td>
+                    <td onClick={() => setShowInfoModal(true)}>
                       <div className="region-pic">
                         <img src="./img/Piripiri-Igreja-Matriz.png" alt="piripiri" />
                       </div>
@@ -470,15 +469,15 @@ const Regioes = () => {
                     <td>
                       <h3>R$10000K</h3>
                     </td>
-                    <td>
+                    <td className='table-btns'>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                        <button className="edit" onClick={() => setShowInfoModal(true)}>Ver</button>
+                        <button className="edit" onClick={() => setShowInfoModal(true)}>Editar</button>
                       </div>
                     </td>
                   </tr>
 
                   <tr className='row-white'>
-                    <td>
+                    <td onClick={() => setShowInfoModal(true)}>
                       <div className="region-pic">
                         <img src="./img/Pdois.jpg" alt="piripiri" />
                       </div>
@@ -486,14 +485,15 @@ const Regioes = () => {
                     <td><h3>Pedro II</h3></td>
                     <td><h3>8300</h3></td>
                     <td><h3>R$30000K</h3></td>
-                    <td>
+                    <td className='table-btns'>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                        <button className="edit" onClick={() => setShowInfoModal(true)}>Ver</button>
-                      </div></td>
+                        <button className="edit" onClick={() => setShowInfoModal(true)}>Editar</button>
+                      </div>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>
+                    <td onClick={() => setShowInfoModal(true)}>
                       <div className="table-regions">
                         <div className="region-pic">
                           <img src="./img/no_regionImg.jpeg" alt="sem_regiao" />
@@ -513,9 +513,9 @@ const Regioes = () => {
                     <td>
                       <h3>R$50000K</h3>
                     </td>
-                    <td>
+                    <td className='table-btns'>
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                        <button className="edit" onClick={() => setShowInfoModal(true)}>Ver</button>
+                        <button className="edit" onClick={() => setShowInfoModal(true)}>Editar</button>
                       </div>
                     </td>
                   </tr>

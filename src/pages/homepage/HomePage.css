@@ -1,25 +1,26 @@
 #homepage {
-    display: flex;
-    overflow: hidden;
-    background-color: var(--gray-color);
-    
+  display: flex;
+  overflow: hidden;
+  background-color: var(--gray-color); 
 }
+
 #home-screen {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    overflow-y: auto;
-    overflow-x: auto;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-left: 80px;
 }
 
 @media screen and (min-width: 750px) and (max-width: 1030px){
-    #home-screen {
-    margin-left: 79px;
-    }
+  #home-screen {
+  margin-left: 80px;
   }
+}
 
 @media screen and (max-width: 749px){
-    #home-screen {
-    margin-left: 0;
-    }
+  #home-screen {
+  margin-left: 0;
   }
+}
