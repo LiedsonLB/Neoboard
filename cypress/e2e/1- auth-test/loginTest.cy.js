@@ -1,3 +1,5 @@
+/// <reference types='cypress'/>
+
 describe('Teste de carregamento da página de login', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000')
