@@ -251,19 +251,19 @@
     font-weight: bold;
 }
 
-.stf-card button {
+.see-stf-btn {
     padding: .8rem;
     width: 70%;
     background: var(--secondy-color);
     border: none;
-    border-radius: 100px;
+    border-radius: 10px;
     color: var(--white-color);
     cursor: pointer;
     font-family: var(--font-krub);
     font-weight: bold;
 }
 
-.stf-card button:hover {
+.see-stf-btn:hover {
     cursor: pointer;
     background: var(--hover-color);
     transition: .5s;
@@ -331,6 +331,7 @@
     justify-content: center;
     overflow-y: hidden;
     animation: downAcess .3s ease-in-out;
+    margin-right: 80px;
 }
 
 #header-modal {
@@ -461,6 +462,9 @@
     animation: spin 1s linear;
     border-radius: 20px;
     outline: 5px solid var(--secondy-color);
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
 .nameUserStf {
@@ -612,6 +616,7 @@
     justify-content: center;
     overflow-y: auto;
     animation: downAcess .3s ease-in-out;
+    margin-right: 80px;
 }
 
 #header-modal {
@@ -641,6 +646,11 @@
 
 .close-btn:hover {
     background-color: var(--gray-color);
+}
+
+.img-stf-up{
+    display: flex;
+    justify-content: center;
 }
 
 .img-stf-up p {
@@ -848,13 +858,14 @@
     #select-session-staff {
         width: 100% !important;
         font-size: 14px;
+        display: flex;
+        align-items: center;
     }
 
     #infouser-charts {
         display: flex;
         flex-direction: column;
         width: 60%;
-
     }
 
     #userInfo-popup {
@@ -993,7 +1004,7 @@
 
 }
 
-@media screen and (min-width: 480px) and (max-width: 750px) {
+@media screen and (max-width: 749px) {
     #staff-header {
         text-align: center;
     }
@@ -1008,7 +1019,6 @@
 
     #featured-staff {
         align-items: center;
-        margin: 0;
     }
 
     #search-staff {
@@ -1034,6 +1044,7 @@
         height: 90%;
         width: 90%;
         overflow-y: auto;
+        margin-right: 0;
     }
 
     #Add-Item-Staff {
@@ -1191,7 +1202,7 @@
     .body-list-stf tr td h3 {
         text-wrap: nowrap;
         overflow: hidden;
-        max-width: 100px;
+        max-width: 50px;
         text-overflow: ellipsis;
     }
 
@@ -1200,6 +1211,13 @@
     }
 
 }
+
+@media screen and (max-width: 749px) {
+    .container-Detail-Staff {
+        margin-right: 0;
+    }
+}
+
 
 @media screen and (max-width: 480px) {
     #staff-header {
@@ -1223,8 +1241,8 @@
         margin: 0;
     }
 
-    .staff-card header{
-    padding-inline: 5rem;
+    .staff-card header {
+        padding-inline: 5rem;
     }
 
 
@@ -1435,7 +1453,7 @@
 
     .body-list-stf tr {
         background-color: #EBEDF1;
-        font-size: .3rem;
+        font-size: .5rem;
     }
 
     .head-list-stf tr {
@@ -1457,10 +1475,10 @@
     }
 
     .body-list-stf tr td h3 {
-        text-wrap: nowrap;
-        overflow: auto;
-        max-width: 100px;
-        text-overflow: inherit;
+        text-wrap: balance;
+        overflow: hidden;
+        max-width: 50px;
+        text-overflow: ellipsis;
     }
 
     .body-list-stf tr:nth-child(even) {

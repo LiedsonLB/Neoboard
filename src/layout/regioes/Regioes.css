@@ -86,7 +86,7 @@
     display: flex;
     justify-content: center;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 10px;
 }
 
 #region-desc {
@@ -282,6 +282,7 @@ tbody tr td {
     width: 100%;
     align-items: center;
     justify-content: center;
+    min-width: 100px;
 }
 
 tbody tr td button {
@@ -295,6 +296,21 @@ tbody tr td button {
     font-weight: bold;
 }
 
+tbody tr td:nth-child(1) {
+cursor: pointer;
+}
+
+tbody tr td:nth-child(1):hover {
+    cursor: pointer;
+    background-color: var(--hover-color);
+    transition: .8s;
+}
+
+tbody tr td:nth-child(1):hover > .table-regions,
+tbody tr td:nth-child(1):hover > .region-pic{
+    transform: scale(1.1);
+}
+
 .table-regions {
     display: flex;
     justify-content: center;
@@ -303,14 +319,14 @@ tbody tr td button {
 }
 
 .region-pic {
-    width: 60px;
-    height: 60px;
+    width: 130px;
+    height: 4rem;
 }
 
 .region-pic img {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 10px;
     object-fit: cover;
 }
 
@@ -672,9 +688,6 @@ td {
         display: flex;
     }
 
-    .table-space {
-        display: none;
-    }
 }
 
 @media screen and (max-width: 750px) {
@@ -684,6 +697,14 @@ td {
 
     .container-Add-Region {
         width: 80%;
+    }
+
+    .table-space {
+        display: none;
+    }
+
+    .table-btns{
+        min-width: 300px;
     }
 }
 
