@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./Produtos.css";
-import { IoSearch, IoCamera } from 'react-icons/io5';
+import { IoSearch, IoCamera, IoPencil, IoTrash, IoPencilSharp, IoCreate } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
 import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 import axios from 'axios';
@@ -138,22 +138,22 @@ const Produtos = () => {
               <h4 className="modal-title">Adicionar Produto: </h4>
               <button type="button" className="close-btn" onClick={() => setShowModal(false)}>&times;</button>
             </div>
-            <div className='img-prod-up'>
-              <div className='img-input-container'>
-                <input type="file" id='img-input' onChange={handleImageChange} />
-                {selectedImage ? (
-                  <img src={selectedImage} className='img-region-add' alt="Selected Region" />
-                ) : (
-                  <img src="./img/no_productImg.jpeg" className='img-prod-add' alt="Default Region" />
-                )}
-                <div className='icon-text-cam'>
-                  <i className='icon-cam'><IoCamera /></i>
-                  <p>Adicionar foto</p>
-                </div>
-              </div>
-            </div>
 
             <div className="Add-Item-container">
+              <div className='img-prod-up'>
+                <div className='img-input-container'>
+                  <input type="file" id='img-input' onChange={handleImageChange} />
+                  {selectedImage ? (
+                    <img src={selectedImage} className='img-region-add' alt="Selected Region" />
+                  ) : (
+                    <img src="./img/no_productImg.jpeg" className='img-prod-add' alt="Default Region" />
+                  )}
+                  <div className='icon-text-cam'>
+                    <i className='icon-cam'><IoCamera /></i>
+                    <p>Adicionar foto</p>
+                  </div>
+                </div>
+              </div>
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do Produto:</label>
@@ -244,7 +244,7 @@ const Produtos = () => {
                           <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
                         </td>
                         <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão(debito)</h3>
+                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão (debito)</h3>
                         </td>
                       </tr>
                     </tbody>
@@ -314,7 +314,15 @@ const Produtos = () => {
                   </figure>
                   <p>{produto.nome}</p>
                   <p className='prod-name'>R$ {produto.preco}</p>
-                  <button onClick={() => handleShowInfoModal(produto)}>Ver produto</button>
+                  <button className='see-prod-btn' onClick={() => setShowInfoModal(true)}>Ver produto</button>
+                  <div className='manager-btn'>
+                    <div>
+                      <button className='edit-item item-mng'><IoCreate id='edit-pen' /></button>
+                    </div>
+                    <div>
+                    <button className='delete-item item-mng'><IoTrash id='edit-trash' /></button>
+                    </div>
+                  </div>
                 </article>
               ))}
             </section>
