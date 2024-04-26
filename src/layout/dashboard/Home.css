@@ -22,7 +22,7 @@
 #main-page {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
   width: 100%;
   background-color: var(--gray-color);
   overflow-y: auto;
@@ -35,7 +35,7 @@
   flex-direction: column;
   width: 90%;
   margin: 0 auto;
-
+  max-width: 1500px;
 }
 
 #title-main {
@@ -43,7 +43,7 @@
   font-size: .8rem;
   color: var(--primary-color);
   font-family: var(--font-Krona), sans-serif;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 0;
   animation: slideInUp 1s ease forwards;
 }
 
@@ -277,6 +277,36 @@
   background: var(--white-color);
   border-radius: 10px;
   padding: 1rem;
+}
+
+.homeChart {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  align-items: center;
+}
+
+.chartHome {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 200px;
+}
+
+.chartLine {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 400px;
+  max-height: 400px;
+}
+
+.pizzaChart {
+  display: flex;
+  justify-content: center;
+  min-width: 200px;
+  max-width: 200px;
 }
 
 #ranking-container {
@@ -824,6 +854,21 @@ footer {
   cursor: pointer;
   background: var(--hover-color);
   transition: .5s;
+}
+
+@media screen and (max-width: 480px) {
+  #card-presents {
+    flex-direction: column;
+  }
+
+  .homeChart {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 300px;
+    align-items: center;
+    transform: scaleY(1.8);
+  }
 }
 
 @media screen and (max-width: 750px) {

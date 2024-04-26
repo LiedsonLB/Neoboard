@@ -231,6 +231,106 @@
   color: var(--primary-color);
 }
 
+
+.modal-reset {
+  height: auto;
+  width: 100%;
+  z-index: 1;
+  height: 100%;
+  position: fixed;
+  backdrop-filter: brightness(0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.container-reset {
+  background: var(--white-color);
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+  flex-direction: column;
+  min-width: 30%;
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  height: auto;
+  max-height: 90%;
+  width: 50%;
+  justify-content: space-between;
+  gap: 1rem;
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-style: var(--font-Krub);
+}
+
+.header-reset {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-weight: bold;
+}
+
+.reset-email-container {
+  display: flex;
+  gap: 10px;
+  width: 90%;
+  justify-content: center;
+}
+
+.restore-password {
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.restore-password span {
+  color: var(--secondy-color);
+}
+
+.input-reset-email {
+  padding: .5rem 1rem;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid var(--primary-color);
+  outline: none;
+}
+
+.input-reset-email::placeholder {
+ font-style: var(--font-Krub);
+}
+
+.input-reset-email:focus {
+  border: 2px solid var(--secondy-color);
+}
+
+.send-reset {
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  background: var(--primary-color);
+  color: var(--white-color);
+  cursor: pointer;
+}
+
+.send-reset:hover {
+  background: var(--hover-color);
+  transition:.8s;
+}
+
+.cancel-reset {
+  padding: .5rem 3rem;
+  border-radius: 5px;
+  background: var(--white-color);
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.cancel-reset:hover {
+  background: var(--gray-color);
+  transition:.8s;
+}
+
 @media screen and (max-width: 752px) {
   .container {
     flex-direction: column;
@@ -305,6 +405,18 @@
 
   .login-field form {
     width: 100%;
+  }
+
+  .container-reset {
+    width: 90%;
+  }
+
+  .reset-email-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90%;
+    justify-content: center;
   }
 }
 

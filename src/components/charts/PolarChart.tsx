@@ -33,7 +33,7 @@ const PaymentMethodsChart = () => {
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <Pie data={paymentData} options={options} style={{ width: '100%', height: '100%' }} />
+            <Pie className='pizzaChart' data={paymentData} options={options} style={{ width: '100%', height: '100%' }} />
         </div>
     );
 };

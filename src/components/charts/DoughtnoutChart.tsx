@@ -32,7 +32,9 @@ const DoughnutChart = () => {
 
   return (
     <div style={containerStyle}>
-      <Doughnut data={data} options={options} />
+      <div className='chartHome'>
+        <Doughnut data={data} options={options} />
+      </div>
       <div>
         <div id="container-doughnut-datas">
           <ul>

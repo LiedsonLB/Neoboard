@@ -273,7 +273,7 @@ const Regioes = () => {
                         <td>{regiao.nome}</td>
                         <td>{regiao.vendas}</td>
                         <td>{regiao.faturamento}</td>
-                        <td>
+                        <td className='table-btns'>
                           <button className="edit" onClick={() => handleShowInfoModal(regiao)}>Ver</button>
                         </td>
                       </tr>
