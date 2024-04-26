@@ -86,8 +86,8 @@ const ColumnChart = () => {
   };
 
   return (
-    <div className='graficColunm-stf'>
-      <Bar data={data} options={options} />
+    <div className='homeChart'>
+      <Bar className='chartColumn' data={data} options={options} />
     </div>
   );
 };

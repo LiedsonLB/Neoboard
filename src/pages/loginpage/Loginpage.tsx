@@ -7,9 +7,11 @@ import { auth, provider } from '../../services/firebase';
 import { signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import Popup from '../../components/popup/Popup';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { IoLockClosed, IoLockClosedOutline } from 'react-icons/io5';
 
 const LoginPage = () => {
 
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -66,14 +68,14 @@ const LoginPage = () => {
             setTitle('Redefinição Enviada');
             setMensagem('Um e-mail de redefinição de senha foi enviado para o seu e-mail.');
             hideMessageAfterTimeout();
-        } catch (error : any) {
+        } catch (error: any) {
             setAlert('warning');
             setTitle('Erro');
             setMensagem('Erro ao redefinir a senha. Verifique o e-mail fornecido.');
             console.error('Erro ao resetar a senha:', error.message);
             hideMessageAfterTimeout();
         }
-    };    
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -100,6 +102,20 @@ const LoginPage = () => {
 
     return (
         <>
+            {showModal && <div className="modal-reset">
+                <div className='container-reset'>
+                    <div className="header-reset">
+                        <h4 className="reset-title"> Redefinir Senha <IoLockClosed /> </h4>
+                    </div>
+                    <p className='restore-password'><span>Restauração de Senha:</span> Restaure o Acesso a Sua Conta.</p>
+                    <div className='reset-email-container'>
+                        <input type="email" className='input-reset-email' placeholder='Informe seu email' />
+                        <button className='send-reset' onClick={handleResetSenha}>Enviar</button>
+                    </div>
+                    <button className='cancel-reset' onClick={() => setShowModal(false)}>Cancelar</button>
+                </div>
+            </div>}
+
             {mensagem && <Popup type={alert} title={title} text={mensagem} />}
             <div className="background-color"></div>
             <main className="container">
@@ -159,7 +175,7 @@ const LoginPage = () => {
                             </p>
                         </div>
                         <button className="login-google" onClick={handleSignin}>Login com o Google</button>
-                        <span id='link-resetPassword' onClick={handleResetSenha} style={{ width: 'fit-content', margin: '1.5rem auto' }}>Esqueci minha senha</span>
+                        <span id='link-resetPassword' onClick={() => setShowModal(true)} style={{ width: 'fit-content', margin: '1.5rem auto' }}>Esqueci minha senha</span>
                     </div>
                 </section>
             </main>

@@ -80,7 +80,7 @@ const LineChart = () => {
     },
   };
 
-  return <Line data={data} options={options} />;
+  return <Line className='chartLine' data={data} options={options} />;
 };
 
 export default LineChart;

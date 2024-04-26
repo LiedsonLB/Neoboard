@@ -58,7 +58,7 @@ const Produtos = () => {
     } catch (error) {
       console.error('Erro ao excluir produto:', error);
     }
-  };  
+  };
 
   useEffect(() => {
     fetchProdutos();
@@ -279,7 +279,7 @@ const Produtos = () => {
           </header>
 
           <main id='product-main'>
-            <article id='prod-card'>
+            <article id='product-card'>
               <p id='text-prod-mes'>Produto do Mês</p>
               <div id='prod-main'>
                 <div id='container-prod-img'>
@@ -334,7 +334,7 @@ const Produtos = () => {
                       <button className='edit-item item-mng'><IoCreate id='edit-pen' /></button>
                     </div>
                     <div>
-                    <button className='delete-item item-mng' onClick={handleDelete(produto)}><IoTrash id='edit-trash' /></button>
+                      <button className='delete-item item-mng' onClick={handleDelete(produto)}><IoTrash id='edit-trash' /></button>
                     </div>
                   </div>
                 </article>
