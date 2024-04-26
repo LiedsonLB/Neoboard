@@ -3,56 +3,69 @@ describe('Teste de carregamento da página de login', () => {
         cy.visit('http://localhost:3000/cadaster')
     })
 
-    it('teste preencher cadastro vazio', ()=> {
+    it('Test submit empty registration', ()=> {
+        const mensage = "Atenção"
+        // Testando se está vazio
+        cy.get('.user')
+        .should('not.have.value')
+        cy.get('.email')
+        .should('not.have.value')
+        cy.get('.password')
+        .should('not.have.value')
+        // Clica no botão para enviar cadastro
+        cy.get('.singup-btn')
+        .click()
+        // Verificando se o popup aparece
+        cy.contains('#popup', mensage)
+        .find('.title-popup')
+        .should('be.visible')
+    })
 
-        cy.wait(2000)
+    it('Test error email not filled out correctly', ()=> {
+        const newUser = "Alcemir"
+        const newEmail = "emailerror@gmail"
+        const newPassword = "alcemir123"
+        const mensage = 'Erro'
+
+        cy.get('.user').type(newUser).should('have.value', newUser)
+        cy.get('.email').type(newEmail).should('have.value', newEmail)
+        cy.get('.password').type(newPassword).should('have.value', newPassword)
+
+        cy.get('.singup-btn').click()
+        // Verificando se o popup aparece
+        cy.contains('#popup', mensage)
+        .find('.title-popup')
+        .should('be.visible')
+    })
+
+    it('Test email already registered', ()=> {
+        const newUser = "Liedson123"
+        const newEmail = "liedson.b9@gmail.com"
+        const newPassword = "liedson1234"
+        const mensage = 'Erro'
+
+        cy.get('.user').type(newUser).should('have.value', newUser)
+        cy.get('.email').type(newEmail).should('have.value', newEmail)
+        cy.get('.password').type(newPassword).should('have.value', newPassword)
+
+        cy.get('.singup-btn').click()
+        // Verificando se o popup aparece
+        cy.contains('#popup', mensage)
+        .find('.title-popup')
+        .should('be.visible')
+    })
+    it('Test successful registration', ()=> {
+        const newUser = "Liedson123"
+        const newEmail = "liedson1234@gmail.com"
+        const newPassword = "liedson1234"
+
+        cy.get('.user').type(newUser).should('have.value', newUser)
+        cy.get('.email').type(newEmail).should('have.value', newEmail)
+        cy.get('.password').type(newPassword).should('have.value', newPassword)
 
         cy.get('.singup-btn').click()
 
         cy.wait(3000)
     })
 
-    it('teste erro cadastro', ()=> {
-        const novoUser = "Alcemirous"
-        const novoEmail = "emailerror@gmail"
-        const novoPassword = "alcemir123"
-
-        cy.get('.user').type(novoUser).should('have.value', novoUser)
-        cy.get('.email').type(novoEmail).should('have.value', novoEmail)
-        cy.get('.password').type(novoPassword).should('have.value', novoPassword)
-
-        cy.get('.singup-btn').click()
-
-        cy.wait(3000)
-    })
-
-    it('teste cadastro bem sucedido', ()=> {
-        const novoUser = "Liedson123"
-        const novoEmail = "liedson1234@gmail.com"
-        const novoPassword = "liedson1234"
-
-        cy.get('.user').type(novoUser).should('have.value', novoUser)
-        cy.get('.email').type(novoEmail).should('have.value', novoEmail)
-        cy.get('.password').type(novoPassword).should('have.value', novoPassword)
-
-        cy.get('.singup-btn').click()
-
-        cy.wait(3000)
-
-        cy.get('.logout-user').click()
-    })
-
-    it('teste email já cadastrado', ()=> {
-        const novoUser = "Liedson123"
-        const novoEmail = "liedson.b9@gmail.com"
-        const novoPassword = "liedson1234"
-
-        cy.get('.user').type(novoUser).should('have.value', novoUser)
-        cy.get('.email').type(novoEmail).should('have.value', novoEmail)
-        cy.get('.password').type(novoPassword).should('have.value', novoPassword)
-
-        cy.get('.singup-btn').click()
-
-        cy.wait(3000)
-    })
 })
