@@ -4,11 +4,13 @@ import { IoSearch, IoCamera, IoPencil, IoTrash, IoCreate } from 'react-icons/io5
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
 import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 import axios from 'axios';
+// @ts-ignore
+import { storage } from '../../services/firebase';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
@@ -30,6 +32,24 @@ const Produtos = () => {
     };
     if (file) {
       reader.readAsDataURL(file);
+      setSelectedImage(file); // Armazena o arquivo selecionado
+    }
+  };
+
+  // Função para fazer upload da imagem para o Firebase Storage
+  const uploadImageToStorage = async (image: File) => {
+    try {
+      const storageRef = storage.ref();
+      const imageRef = storageRef.child(`images/${image.name}`);
+
+      await imageRef.put(image);
+
+      const downloadURL = await imageRef.getDownloadURL();
+
+      return downloadURL;
+    } catch (error) {
+      console.error('Erro ao fazer upload da imagem:', error);
+      throw error;
     }
   };
 
@@ -78,12 +98,14 @@ const Produtos = () => {
         const descricao = descricaoElement.value;
 
         if (nome && categoria && valor && descricao) {
+          const picture = selectedImage ? await uploadImageToStorage(selectedImage) : './img/no_productImg.jpeg';
+
           const novoProduto = {
             nome,
             categoria,
             preco: valor,
             descricao,
-            picture: selectedImage ? selectedImage : './img/no_productImg.jpeg',
+            picture,
           };
 
           nomeElement.value = '';
@@ -92,6 +114,8 @@ const Produtos = () => {
           descricaoElement.value = '';
           setSelectedImage(null);
           setShowModal(false);
+          setValorAcumulado('');
+          setValorFormatado('');
 
           await axios.post('http://localhost:4000/v2/produtos', novoProduto);
           fetchProdutos();
@@ -122,10 +146,10 @@ const Produtos = () => {
     const reais = Math.floor(parseInt(novoValorAcumulado) / 100);
     const centavos = parseInt(novoValorAcumulado) % 100;
 
-    const valorFormatado = `R$ ${reais}.${centavos}`;
+    const valorFormatado = `${reais}.${centavos}`;
 
     setValorAcumulado(valorAcumulado + valorDigitado);
-    setValorFormatado(valorFormatado); // Atualize o estado valorFormatado aqui
+    setValorFormatado(valorFormatado);
     console.log(valorFormatado)
   };
 

@@ -252,7 +252,6 @@ table {
 
 .tBodyTableRegions tr td {
     border: 1px solid #ddd;
-    background: var(--white-color);
 }
 
 
@@ -273,6 +272,7 @@ tbody {
 
 tbody tr {
     font-size: .9rem;
+    background-color: var(--white-color);
 }
 
 tbody tr td {
@@ -301,14 +301,13 @@ tbody tr td:nth-child(1) {
 cursor: pointer;
 }
 
-tbody tr td:nth-child(1):hover {
+tbody.tBodyTableRegions tr:hover {
     cursor: pointer;
-    background-color: var(--hover-color);
-    transition: .8s;
+    background: var(--gray-color) !important;
 }
 
-tbody tr td:nth-child(1):hover > .table-regions,
-tbody tr td:nth-child(1):hover > .region-pic{
+tbody tr td:hover > .table-regions,
+tbody tr td:hover > .region-pic{
     transform: scale(1.1);
 }
 
@@ -339,10 +338,6 @@ tbody tr td:nth-child(1):hover > .region-pic{
     font-weight: bold;
 }
 
-.row-white {
-    background-color: var(--white-color);
-}
-
 .status {
     width: 100px;
     color: var(--white-color);
@@ -364,19 +359,6 @@ tbody tr td:nth-child(1):hover > .region-pic{
 
 .remove:hover {
     background-color: #e43026;
-}
-
-/* COMANDOS */
-.comprado {
-    background-color: #eb0808;
-}
-
-.negociacao {
-    background-color: #e7e70b;
-}
-
-.venda {
-    background-color: #06d606;
 }
 
 /* CSS para tornar a tag <tr> responsiva */

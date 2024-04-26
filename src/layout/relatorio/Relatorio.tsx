@@ -213,7 +213,7 @@ const Relatorio: React.FC = () => {
       const response = await axios.post('http://localhost:4000/v2/vendas', vendas);
 
       if (response.status === 201) {
-        setPopupType('success');
+        setPopupType('sucess');
         setPopupTitle('Sucesso');
         setMensagem('Dados enviados com sucesso!');
         setOutputData([]);
@@ -259,7 +259,7 @@ const Relatorio: React.FC = () => {
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
       setMensagem('');
-    }, 3000);
+    }, 4000);
   };
 
   return (

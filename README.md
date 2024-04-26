@@ -18,7 +18,7 @@ NeoBoard é uma plataforma de dashboard empresarial projetada para gerenciar inf
 ## Funcionalidades
 
 - **Interface:**
-  - Input que recebe arquivo Excel para importação de dados
+  - Área que recebe relatório das vendas em Excel para importação de dados
 
 - **Home:**
   - Vendas, clientes, despesas e cálculo de lucro (geral)
@@ -28,20 +28,23 @@ NeoBoard é uma plataforma de dashboard empresarial projetada para gerenciar inf
   - Vendas, clientes, despesas e cálculo de lucro
 
 - **Produtos:**
-  - Informação do produto (nome, marca, descrição, valor)
+  - Informação do produto (nome, categoria, descrição, valor)
   - Números de vendas, capital bruto
   - Informações dos segmentos dos produtos (capital bruto, porcentagem do produto)
   - Histórico de vendas do mês, porcentagem de comparação com o mês anterior
 
 - **Pagamentos:**
   - Gráfico geral das formas de pagamento
-  - Detalhes para cartões (crédito e débito), PIX, boleto
+  - Detalhes para cartões (crédito e débito), PIX, boleto, etc.
 
 ## Testes
 
 - Teste de carregamento de componentes HTML
 - Teste de tipo de documento
 - Envio de dados normal
+- Testes funcionais
+- Testes de banco e API
+- Testes de sistema
 
 ## Extras
 
@@ -57,13 +60,12 @@ NeoBoard é uma plataforma de dashboard empresarial projetada para gerenciar inf
 
 ### Pagamentos
 
-- Gráfico de bolha nos pagamentos
+- Gráfico de pizza nos pagamentos
 
 ### Relatório
 
 - Confirmações de envio diário dos relatórios
-- Botão gerador de planilha
-- Popup de formulário
+- Botão gerador de planilha vazia
 
 ## Backend NeoBoard
 
@@ -135,7 +137,7 @@ NeoBoard é uma plataforma de dashboard empresarial projetada para gerenciar inf
 ## Releases
 
 - Release v1.0 ✅
-- Release v2.0 ❌
+- Release v2.0 ✅
 - Release v3.0 ❌
 
 ## Imagens do Projeto
