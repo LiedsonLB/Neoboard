@@ -10,6 +10,8 @@ interface Funcionario {
   picture: string;
   nome: string;
   email: string;
+  github: string;
+  linkedin : string;
   endereco: string;
   vendas: number;
   faturamento: number;
@@ -356,9 +358,9 @@ const Funcionarios = () => {
                 <h2 className='nameUserStf'>{selectedUser.nome}</h2>
                 <p className='emailUserStf'>{selectedUser.email}</p>
                 <div className='userStfSocialMidia'>
-                  <a href=""><i className="fa-solid fa-envelope"></i></a>
-                  <a href=""><i className="fa-brands fa-github"></i></a>
-                  <a href=""><i className="fa-brands fa-linkedin"></i></a>
+                  <a href={selectedUser.email}><i className="fa-solid fa-envelope"></i></a>
+                  <a href={selectedUser.github}><i className="fa-brands fa-github"></i></a>
+                  <a href={selectedUser.linkedin}><i className="fa-brands fa-linkedin"></i></a>
                 </div>
               </div>
 
