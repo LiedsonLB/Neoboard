@@ -150,9 +150,11 @@ let funcionarioFalsos = [
         endereco: "Meio do Mato - PI",
         genero: "Masculino",
         form_academ: "Licenciatura Matemática",
+        cargo: "Vendedor",
         data_contratacao: "24/08/2009",
-        vendas: 0,
-        faturamento: 0,
+        descricao: "Sem descrição",
+        vendas: 344444,
+        faturamento: 9000,
         regions: {
             create: [
                 {
@@ -177,6 +179,8 @@ let funcionarioFalsos = [
         genero: "Masculino",
         form_academ: "Licenciatura Matemática",
         data_contratacao: "24/08/2009",
+        cargo: "CEO",
+        descricao: "Sem descrição",
         vendas: 0,
         faturamento: 0,
         regions: {
@@ -202,7 +206,9 @@ let funcionarioFalsos = [
         endereco: "Meio do Mato - PI",
         genero: "Masculino",
         form_academ: "Licenciatura Matemática",
+        cargo: "Vendedor",
         data_contratacao: "24/08/2009",
+        descricao: "Sem descrição",
         vendas: 0,
         faturamento: 0,
         regions: {
@@ -228,9 +234,39 @@ let funcionarioFalsos = [
         endereco: "Meio do Mato - PI",
         genero: "Masculino",
         form_academ: "Licenciatura Matemática",
+        cargo: "Vendedor",
         data_contratacao: "24/08/2009",
+        descricao: "Sem descrição",
         vendas: 0,
         faturamento: 0,
+        regions: {
+            create: [
+                {
+                    nome: "Pedro II"
+                },
+                {
+                    nome: "Piripiri"
+                }
+            ]
+        }
+    },
+    {
+        picture: "https://media.licdn.com/dms/image/D4D03AQEDRhKeXOMUhQ/profile-displayphoto-shrink_200_200/0/1698698919930?e=1719446400&v=beta&t=7WTQ6oXr6343V7pezZGnmG8d_NsUmtKe8zewZ3ecSM4",
+        email: "liedson.b9@gmail.com",
+        cpf: "106.466.763-50",
+        github: "https://github.com/LiedsonLB",
+        linkedin: "https://www.linkedin.com/in/liedsonlb/",
+        nome: "Liedson Barros",
+        phone: "+5586998635571",
+        age: 20,
+        endereco: "Piripiri-PI",
+        genero: "Masculino",
+        form_academ: "Bacharelado ciência da computação",
+        cargo: "Desenvolvedor",
+        data_contratacao: "16/06/2011",
+        descricao: "Meu nome é Liédson, sou de Piripiri-PI, e atualmente estou cursando Ciência da Computação na Universidade Estadual do Piauí (UESPI). Sou um desenvolvedor de software altamente motivado, apaixonado por desafios que testam constantemente meus conhecimentos. Minha paixão pela computação reflete-se na minha capacidade de assimilar rapidamente novos conhecimentos, aprimorando minhas habilidades no meio tecnológico e empresarial. Minhas capacidades sólidas vão além do desenvolvimento de softwares; sou versátil e confiante em minha capacidade, me adaptar a qualquer tipo de tecnologia é uma tarefa fácil.  ",
+        vendas: 2000,
+        faturamento: 40000,
         regions: {
             create: [
                 {
@@ -415,6 +451,50 @@ routerV2.get("/funcionarios", async (req, res) => {
         res.status(500).json({ error: 'Erro ao obter funcionario' });
     }
 });
+
+// Rota para editar um funcionário
+routerV2.put("/funcionarios/:id", async (req, res) => {
+    try {
+        const funcionarioId = req.params.id;
+        const novoDadosFuncionario = req.body;
+
+        // Encontrar o funcionário pelo ID
+        const funcionarioIndex = funcionarioFalsos.findIndex(funcionario => funcionario.email === funcionarioId);
+
+        if (funcionarioIndex !== -1) {
+            // Atualizar os dados do funcionário
+            funcionarioFalsos[funcionarioIndex] = { ...funcionarioFalsos[funcionarioIndex], ...novoDadosFuncionario };
+            res.status(200).json(funcionarioFalsos[funcionarioIndex]);
+        } else {
+            res.status(404).json({ error: "Funcionário não encontrado" });
+        }
+    } catch (error) {
+        console.error('Erro ao editar funcionário:', error);
+        res.status(500).json({ error: 'Erro ao editar funcionário' });
+    }
+});
+
+// Rota para excluir um funcionário
+routerV2.delete("/funcionarios/:id", async (req, res) => {
+    try {
+        const funcionarioId = req.params.id;
+
+        // Encontrar o índice do funcionário pelo ID
+        const funcionarioIndex = funcionarioFalsos.findIndex(funcionario => funcionario.email === funcionarioId);
+
+        if (funcionarioIndex !== -1) {
+            // Remover o funcionário do array
+            funcionarioFalsos.splice(funcionarioIndex, 1);
+            res.status(204).send();
+        } else {
+            res.status(404).json({ error: "Funcionário não encontrado" });
+        }
+    } catch (error) {
+        console.error('Erro ao excluir funcionário:', error);
+        res.status(500).json({ error: 'Erro ao excluir funcionário' });
+    }
+});
+
 
 // Rota para adicionar uma nova venda
 routerV2.post("/vendas", async (req, res) => {

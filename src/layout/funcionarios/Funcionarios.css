@@ -404,6 +404,7 @@
     position: relative;
     width: max-content;
     padding-inline: 1rem;
+    font-size: .8rem;
 }
 
 #about-container hr {
@@ -420,9 +421,13 @@
 
 #aboutMe-description {
     background-color: var(--gray-color);
-    padding: 2rem;
+    padding: 1.5rem;
     margin-top: .5rem;
     border-radius: 10px;
+    max-height: 25%;
+    overflow: auto;
+    text-align: start;
+    font-size: 14px;
 }
 
 #userStfTextInfo {
@@ -462,7 +467,6 @@
 #userInfo-popup img {
     animation: spin 1s linear;
     border-radius: 20px;
-    outline: 5px solid var(--secondy-color);
     width: 150px;
     height: 150px;
     object-fit: cover;
@@ -649,7 +653,7 @@
     background-color: var(--gray-color);
 }
 
-.img-stf-up{
+.img-stf-up {
     display: flex;
     justify-content: center;
 }

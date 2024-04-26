@@ -11,12 +11,14 @@ interface Funcionario {
   nome: string;
   email: string;
   github: string;
-  linkedin : string;
+  linkedin: string;
   endereco: string;
+  descricao: string;
   vendas: number;
   faturamento: number;
   genero: string;
   age: number;
+  cargo: string;
   data_contratacao: string,
   phone: string,
   form_academ: string,
@@ -42,14 +44,21 @@ const Funcionarios = () => {
         if (!response.ok) {
           throw new Error('Erro ao buscar funcionários');
         }
+
         const data = await response.json();
+        // Ordenar funcionários por vendas
+        const funcionariosOrdenadosPorVendas = [...data].sort((a, b) => b.vendas - a.vendas);
+        const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
+
+        // Ordenar funcionários por faturamento
+        const funcionariosOrdenadosPorFaturamento = [...data].sort((a, b) => b.faturamento - a.faturamento);
+        const funcionarioDestaqueFaturamento = funcionariosOrdenadosPorFaturamento.slice(0, 1);
+
         setFuncionarios(data);
         setFilteredFuncionarios(data);
+        setFuncionariosDestaqueVendas(funcionarioDestaqueVendas);
+        setFuncionariosDestaqueFaturamento(funcionarioDestaqueFaturamento);
 
-        const funcionariosDestaqueVendas = data.sort(() => 2.5 - Math.random()).slice(0, 1);
-        const funcionariosDestaqueFaturamento = data.sort(() => 6.5 - Math.random()).slice(0, 1);
-        setFuncionariosDestaqueVendas(funcionariosDestaqueVendas);
-        setFuncionariosDestaqueFaturamento(funcionariosDestaqueFaturamento);
       } catch (error) {
         console.error('Erro ao buscar funcionários:', error);
       }
@@ -124,6 +133,20 @@ const Funcionarios = () => {
       }
     } catch (error) {
       console.error('Erro ao adicionar funcionário:', error);
+    }
+  };
+
+  const handleDelete = (funcionario: Funcionario) => async () => {
+    try {
+      // Faz a requisição DELETE para a rota da API para excluir o funcionário
+      await axios.delete(`http://localhost:4000/v2/funcionarios/${funcionario.email}`);
+      console.log('Funcionário excluído com sucesso!');
+      // Atualiza a lista de funcionários após a exclusão
+      const updatedFuncionarios = funcionarios.filter(f => f.email !== funcionario.email);
+      setFuncionarios(updatedFuncionarios);
+      setFilteredFuncionarios(updatedFuncionarios);
+    } catch (error) {
+      console.error('Erro ao excluir funcionário:', error);
     }
   };
 
@@ -250,7 +273,7 @@ const Funcionarios = () => {
                 <button className='see-stf-btn' onClick={() => toggleInfoModal(funcionario)}>Ver detalhes</button>
                 <div className='manager-btn'>
                   <button className='edit-item item-mng'><IoCreate id='edit-pen' /></button>
-                  <button className='delete-item item-mng'><IoTrash id='edit-trash' /></button>
+                  <button className='delete-item item-mng' onClick={handleDelete(funcionario)}><IoTrash id='edit-trash' /></button>
                 </div>
               </article>
             ))}
@@ -358,7 +381,7 @@ const Funcionarios = () => {
                 <h2 className='nameUserStf'>{selectedUser.nome}</h2>
                 <p className='emailUserStf'>{selectedUser.email}</p>
                 <div className='userStfSocialMidia'>
-                  <a href={selectedUser.email}><i className="fa-solid fa-envelope"></i></a>
+                  <a href={`mailto:${selectedUser.email}`}><i className="fa-solid fa-envelope"></i></a>
                   <a href={selectedUser.github}><i className="fa-brands fa-github"></i></a>
                   <a href={selectedUser.linkedin}><i className="fa-brands fa-linkedin"></i></a>
                 </div>
@@ -379,13 +402,14 @@ const Funcionarios = () => {
                           <hr />
                         </div>
                         <div id='aboutMe-description'>
-                          <p>"Sou uma profissional dedicada e com mais de 5 anos de experiência na área, atuo remotamente pois moro em outro estado"</p>
+                          <p>{selectedUser.descricao}</p>
                         </div>
                         <div id="userStfTextInfo">
                           <p>idade: <span>{selectedUser.age} anos</span></p>
                           <p>CPF: <span>{selectedUser.cpf}</span></p>
                           <p>Endereço: <span>{selectedUser.endereco}</span></p>
                           <p>Gênero: <span>{selectedUser.genero}</span></p>
+                          <p>Cargo: <span>{selectedUser.cargo}</span></p>
                           <p>Contratação: <span>{selectedUser.data_contratacao}</span></p>
                           <p>Acadêmico: <span>{selectedUser.form_academ}</span></p>
                           <p>Telefone: <span>{selectedUser.phone}</span></p>
