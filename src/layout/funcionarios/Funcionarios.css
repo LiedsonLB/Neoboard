@@ -1355,7 +1355,6 @@
     #userInfo-popup img {
         animation: spin 1s linear;
         border-radius: 20px;
-        outline: 5px solid var(--secondy-color);
     }
 
     #userStfTextInfo {
