@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./Produtos.css";
-import { IoSearch, IoCamera, IoPencil, IoTrash, IoPencilSharp, IoCreate } from 'react-icons/io5';
+import { IoSearch, IoCamera, IoPencil, IoTrash, IoCreate } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
 import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 import axios from 'axios';
@@ -69,7 +69,7 @@ const Produtos = () => {
             categoria,
             preco: valor,
             descricao,
-            imagem: selectedImage ? selectedImage : './img/no_productImg.jpeg',
+            picture: selectedImage ? selectedImage : './img/no_productImg.jpeg',
           };
 
           nomeElement.value = '';
@@ -202,7 +202,7 @@ const Produtos = () => {
             <div id='Product-Info-Container'>
               <div id='infoprod-popup'>
                 <div id='prodInfo-popup'>
-                  <img src={selectedProduct.imagem} alt="product-avatar" />
+                  <img src={selectedProduct.picture} alt="product-avatar" />
                   <h2 className='nameUserProd'>{selectedProduct.nome}</h2>
                   <div id="ProdTextInfo">
                     <p><span>Categoria:</span> {selectedProduct.categoria}</p>
@@ -310,11 +310,11 @@ const Produtos = () => {
               {produtosFiltrados.map((produto: any) => (
                 <article key={produto.id} className='prod-card'>
                   <figure className='container-list-img'>
-                    <img src={produto.imagem} alt={produto.nome} />
+                    <img src={produto.picture} alt={produto.nome} />
                   </figure>
                   <p>{produto.nome}</p>
                   <p className='prod-name'>R$ {produto.preco}</p>
-                  <button className='see-prod-btn' onClick={() => setShowInfoModal(true)}>Ver produto</button>
+                  <button className='see-prod-btn' onClick={() => { setShowInfoModal(true); setSelectedProduct(produto) }}>Ver produto</button>
                   <div className='manager-btn'>
                     <div>
                       <button className='edit-item item-mng'><IoCreate id='edit-pen' /></button>

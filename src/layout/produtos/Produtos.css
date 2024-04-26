@@ -272,23 +272,26 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    width: 80%;
+    gap: 5px;
+    width: 90%;
+}
+
+.manager-btn div {
+    flex-grow: 1;
 }
 
 .item-mng {
-    width: 50px;
-    height: 40px;
+    width: 100%;
+    height: 30px;
     background: var(--white-color);
     border-radius: 5px;
     cursor: pointer;
+    border:  none;
 }
 
 .edit-item {
-    background: var(--white-color);
-    border: 1px solid var(--primary-color);
-    border-right: 3px solid var(--primary-color);
-    border-bottom: 3px solid var(--primary-color);
+    background: var(--gray-color);
+    border: none;
 }
 
 .edit-item:hover {
@@ -306,9 +309,6 @@
 
 .delete-item {
     background: #ff5151;
-    border: 1px solid var(--primary-color);
-    border-right: 3px solid var(--primary-color);
-    border-bottom: 3px solid var(--primary-color);
 }
 
 .delete-item:hover { 

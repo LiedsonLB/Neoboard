@@ -477,10 +477,11 @@ input[type="file"] {
     gap: 5px;
     padding: .8rem 2rem;
     background: transparent;
-    border: 2px solid var(--primary-color);
+    border: none;
     border-radius: 5px;
     color: var(--primary-color);
     cursor: pointer;
+    background-color: var(--white-color);
     font-family: var(--font-krub);
 }
 
@@ -561,101 +562,31 @@ input[type="file"] {
 
 }
 
-.fa-dollar-sign {
+.fa-dollar-sign, .fa-building, .fa-truck, .fa-money-bill-alt, .fa-tools {
     position: absolute;
-    color: 388E3C;
-    font-size: 2rem !important;
+    font-size: 1.4rem !important;
 }
 
-.fa-stack1 {
+.fa-stack {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.fa-stack1 .fa-square {
-    color: #388E3C;
-}
-
-.fa-stack1 .fa-circle {
-    position: absolute;
-    color: white;
-    font-size: 2.2rem !important;
-}
-
-.fa-stack1 .fa-dollar-sign {
-    position: absolute;
-    color: #388E3C;
-    font-size: 2rem !important;
-}
-
-.fa-stack2 {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.fa-stack2 .fa-square {
-    color: #FFC107;
-}
-
-.fa-stack2 .fa-circle {
-    position: absolute;
-    color: white;
-    font-size: 2.2rem !important;
-}
-
-.fa-stack2 .fa-dollar-sign {
-    position: absolute;
-    color: #FFC107;
-    font-size: 2rem !important;
-}
-
-.fa-stack3 {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.fa-stack3 .fa-square {
+.fa-stack .fa-square {
     color: 1B2947;
 }
 
-.fa-stack3 .fa-circle {
+.fa-stack .fa-circle {
     position: absolute;
     color: white;
     font-size: 2.2rem !important;
 }
 
-.fa-stack3 .fa-dollar-sign {
+.fa-stack .fa-dollar-sign {
     position: absolute;
     color: 1B2947;
-    font-size: 2rem !important;
-}
-
-.fa-stack4 {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.fa-stack4 .fa-square {
-    color: var(--secondy-color);
-}
-
-.fa-stack4 .fa-circle {
-    position: absolute;
-    color: white;
-    font-size: 2.2rem !important;
-}
-
-.fa-stack4 .fa-dollar-sign {
-    position: absolute;
-    color: var(--secondy-color);
     font-size: 2rem !important;
 }
 

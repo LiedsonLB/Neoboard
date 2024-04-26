@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IoCloudDownloadOutline, IoSearch, IoCaretDownSharp, IoAddCircleOutline } from 'react-icons/io5';
 import { read, utils } from 'xlsx';
@@ -7,6 +7,13 @@ import './Relatorio.css';
 import LoadingComponent from '../../components/loading/LoadingComponent';
 import Popup from '../../components/popup/Popup';
 
+interface Despesa {
+  nome: string;
+  tipo: string;
+  descricao: string;
+  valor: number;
+}
+
 const Relatorio: React.FC = () => {
   const [outputData, setOutputData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -14,6 +21,23 @@ const Relatorio: React.FC = () => {
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
+  const [despesas, setDespesas] = useState<Despesa[]>([]);
+
+  const expenseIcons: { [key: string]: string } = {
+    "Salario": "fas fa-dollar-sign",
+    "Aluguel": "fas fa-building",
+    "Fornecedor": "fas fa-truck",
+    "Imposto": "fas fa-money-bill-alt",
+    "Manutencao": "fas fa-tools"
+  };
+
+  const expenseColors: { [key: string]: string } = {
+    "Salario": "#388E3C",
+    "Aluguel": "#1B2947",
+    "Fornecedor": "#C62828",
+    "Imposto": "#FFC107",
+    "Manutencao": "#5B7FFF"
+  }
 
   const dateNow = new Date();
   const day = dateNow.getDate();
@@ -156,6 +180,20 @@ const Relatorio: React.FC = () => {
     }
   }
 
+  useEffect(() => {
+    const fetchDespesas = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/v2/despesas');
+        setDespesas(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar despesas:', error);
+      }
+    };
+
+    fetchDespesas();
+  }, []);
+
+
   // Função para enviar os dados para a API
   const enviarRelatorioVendas = async () => {
     try {
@@ -172,7 +210,7 @@ const Relatorio: React.FC = () => {
 
       console.log('Dados a serem enviados:', vendas);
 
-      const response = await axios.post('http://localhost:4000/v3/vendas', vendas);
+      const response = await axios.post('http://localhost:4000/v2/vendas', vendas);
 
       if (response.status === 201) {
         setPopupType('success');
@@ -217,7 +255,6 @@ const Relatorio: React.FC = () => {
     link.click();
     document.body.removeChild(link);
   };
-
 
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
@@ -322,14 +359,15 @@ const Relatorio: React.FC = () => {
 
           <select id="filter-expense" value={selectedOption} onChange={handleOptionSelect}>
             <option value="">Todos</option>
-            <option value="opcao1">Opção 1</option>
-            <option value="opcao2">Opção 2</option>
-            <option value="opcao3">Opção 3</option>
-            <option value="opcao4">Opção 4</option>
+            <option value="opcao1">Salário</option>
+            <option value="opcao2">Aluguel</option>
+            <option value="opcao3">Fornecedor</option>
+            <option value="opcao4">Imposto</option>
+            <option value="opcao5">Manutenção</option>
           </select>
         </section>
 
-        <p id='result-expense'>Resultados (3)</p>
+        <p id='result-expense'>Resultados ({despesas.length})</p>
 
         <section id='exp-cards'>
           <button className='exp-card' id='add-exp-card'>
@@ -337,53 +375,22 @@ const Relatorio: React.FC = () => {
             <p>Adicionar despesa</p>
           </button>
 
-          <button className='exp-card'>
-            <span className="fa-stack1">
-              <div className='stack-container'>
-                <i className="fas fa-square"></i>
-                <i className="fas fa-circle"></i>
-                <i className="fas fa-dollar-sign"></i>
-              </div>
-            </span>
-            <p>Aluguel Ponto</p>
-            <p className='exp-desc'>Aluguel do dia 20 no ponto de Piripiri</p>
-          </button>
-
-          <button className='exp-card'>
-            <span className="fa-stack2">
-              <div className='stack-container'>
-                <i className="fas fa-square"></i>
-                <i className="fas fa-circle"></i>
-                <i className="fas fa-dollar-sign"></i>
-              </div>
-            </span>
-            <p>Aluguel Ponto</p>
-            <p className='exp-desc'>Aluguel do dia 21 no ponto de Piripiri</p>
-          </button>
-
-          <button className='exp-card'>
-            <span className="fa-stack3">
-              <div className='stack-container'>
-                <i className="fas fa-square"></i>
-                <i className="fas fa-circle"></i>
-                <i className="fas fa-dollar-sign"></i>
-              </div>
-            </span>
-            <p>Aluguel Ponto</p>
-            <p className='exp-desc'>Aluguel do dia 22 no ponto de Piripiri</p>
-          </button>
-
-          <button className='exp-card'>
-            <span className="fa-stack4">
-              <div className='stack-container'>
-                <i className="fas fa-square"></i>
-                <i className="fas fa-circle"></i>
-                <i className="fas fa-dollar-sign"></i>
-              </div>
-            </span>
-            <p>Aluguel Ponto</p>
-            <p className='exp-desc'>Aluguel do dia 23 no ponto de Piripiri</p>
-          </button>
+          {despesas
+            .filter(expense => selectedOption === '' || expense.tipo === selectedOption)
+            .map((expense, index) => (
+              <button key={index} className='exp-card'>
+                <span className="fa-stack">
+                  <div className='stack-container'>
+                    <i className="fas fa-square" style={{ color: expenseColors[expense.tipo] }}></i>
+                    <i className="fas fa-circle"></i>
+                    <i className={expenseIcons[expense.tipo]} style={{ color: expenseColors[expense.tipo] }}></i>
+                  </div>
+                </span>
+                <p>{expense.nome}</p>
+                <p className='exp-desc'>{expense.descricao}</p>
+                <p className='exp-desc'>R$ {expense.valor}</p>
+              </button>
+            ))}
 
         </section>
 

@@ -252,6 +252,7 @@ table {
 
 .tBodyTableRegions tr td {
     border: 1px solid #ddd;
+    background: var(--white-color);
 }
 
 

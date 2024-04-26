@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import "./Funcionarios.css";
-import { IoSearch, IoCaretDownSharp, IoCamera, IoPencil, IoTrash } from 'react-icons/io5';
+import { IoSearch, IoCaretDownSharp, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
 import StaffDoughnout from '../../components/charts/StaffDoughnout';
 import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 import axios from 'axios';
 
 interface Funcionario {
   ID_funcionario: number;
-  img_funcionario: string;
+  picture: string;
   nome: string;
   email: string;
   endereco: string;
   vendas: number;
-  faturamento: string;
-  gender: string;
+  faturamento: number;
+  genero: string;
   age: number;
-  date: string
+  data_contratacao: string,
+  phone: string,
+  form_academ: string,
+  cpf: string
 }
 
 const Funcionarios = () => {
@@ -33,29 +36,16 @@ const Funcionarios = () => {
   useEffect(() => {
     const fetchFuncionarios = async () => {
       try {
-        const response = await fetch('https://randomuser.me/api/?results=100');
+        const response = await fetch('http://localhost:4000/v2/funcionarios');
         if (!response.ok) {
           throw new Error('Erro ao buscar funcionários');
         }
         const data = await response.json();
-        const results = data.results;
-        const funcionariosData: Funcionario[] = results.map((result: any, index: number) => ({
-          ID_funcionario: index + 1,
-          img_funcionario: result.picture.large,
-          nome: `${result.name.first} ${result.name.last}`,
-          email: result.email,
-          endereco: `${result.location.city}, ${result.location.country}`,
-          vendas: Math.floor(Math.random() * 20000),
-          faturamento: `${Math.floor(Math.random() * 999)}k`,
-          gender: result.gender,
-          age: result.dob.age,
-          date: formatDate(result.dob.date),
-        }));
-        setFuncionarios(funcionariosData);
-        setFilteredFuncionarios(funcionariosData);
+        setFuncionarios(data);
+        setFilteredFuncionarios(data);
 
-        const funcionariosDestaqueVendas = funcionariosData.sort(() => 2.5 - Math.random()).slice(0, 1);
-        const funcionariosDestaqueFaturamento = funcionariosData.sort(() => 6.5 - Math.random()).slice(0, 1);
+        const funcionariosDestaqueVendas = data.sort(() => 2.5 - Math.random()).slice(0, 1);
+        const funcionariosDestaqueFaturamento = data.sort(() => 6.5 - Math.random()).slice(0, 1);
         setFuncionariosDestaqueVendas(funcionariosDestaqueVendas);
         setFuncionariosDestaqueFaturamento(funcionariosDestaqueFaturamento);
       } catch (error) {
@@ -121,7 +111,7 @@ const Funcionarios = () => {
             imagemUrl: selectedImage ? selectedImage : './img/no_profile.png',
           };
 
-          await axios.post('http://localhost:4000/v3/funcionarios', novoFuncionario);
+          await axios.post('http://localhost:4000/v2/funcionarios', novoFuncionario);
           console.log('Funcionário adicionado com sucesso!');
           setShowModal(false);
         } else {
@@ -184,7 +174,7 @@ const Funcionarios = () => {
                   <h2>Vendas</h2>
                 </header>
                 <figure className='staff-info'>
-                  <img src={funcionario.img_funcionario} alt="stf-img" />
+                  <img src={funcionario.picture} alt="stf-img" />
                   <figcaption className='staff-desc'>
                     <h2>{funcionario.nome}</h2>
                     <p>Vendas: <span>{funcionario.vendas}</span></p>
@@ -203,7 +193,7 @@ const Funcionarios = () => {
                   <h2>Faturamento</h2>
                 </header>
                 <figure className='staff-info'>
-                  <img src={funcionario.img_funcionario} alt="stf-img" />
+                  <img src={funcionario.picture} alt="stf-img" />
                   <figcaption className='staff-desc'>
                     <h2>{funcionario.nome}</h2>
                     <p>Vendas: <span>{funcionario.vendas}</span></p>
@@ -239,7 +229,7 @@ const Funcionarios = () => {
             {filteredFuncionarios.map(funcionario => (
               <article className='stf-card' key={funcionario.ID_funcionario}>
                 <figure className='staff-img'>
-                  <img src={funcionario.img_funcionario} alt="stf-img" />
+                  <img src={funcionario.picture} alt="stf-img" />
                 </figure>
                 <p className='staff-nick'>{funcionario.nome}</p>
                 <span>
@@ -257,7 +247,7 @@ const Funcionarios = () => {
                 </div>
                 <button className='see-stf-btn' onClick={() => toggleInfoModal(funcionario)}>Ver detalhes</button>
                 <div className='manager-btn'>
-                  <button className='edit-item item-mng'><IoPencil id='edit-pen' /></button>
+                  <button className='edit-item item-mng'><IoCreate id='edit-pen' /></button>
                   <button className='delete-item item-mng'><IoTrash id='edit-trash' /></button>
                 </div>
               </article>
@@ -362,7 +352,7 @@ const Funcionarios = () => {
             </div>
             <div id='infouser-popup'>
               <div id='userInfo-popup'>
-                <img src={selectedUser.img_funcionario} alt="user-avatar" />
+                <img src={selectedUser.picture} alt="user-avatar" />
                 <h2 className='nameUserStf'>{selectedUser.nome}</h2>
                 <p className='emailUserStf'>{selectedUser.email}</p>
                 <div className='userStfSocialMidia'>
@@ -391,12 +381,12 @@ const Funcionarios = () => {
                         </div>
                         <div id="userStfTextInfo">
                           <p>idade: <span>{selectedUser.age} anos</span></p>
-                          <p>CPF: <span>{selectedUser.vendas}</span></p>
+                          <p>CPF: <span>{selectedUser.cpf}</span></p>
                           <p>Endereço: <span>{selectedUser.endereco}</span></p>
-                          <p>Gênero: <span>{selectedUser.gender}</span></p>
-                          <p>Contratação: <span>{selectedUser.date}</span></p>
-                          <p>Acadêmico: <span>Bacharelado Ciência da Computação</span></p>
-                          <p>Telefone: <span>+55869976543</span></p>
+                          <p>Gênero: <span>{selectedUser.genero}</span></p>
+                          <p>Contratação: <span>{selectedUser.data_contratacao}</span></p>
+                          <p>Acadêmico: <span>{selectedUser.form_academ}</span></p>
+                          <p>Telefone: <span>{selectedUser.phone}</span></p>
                         </div>
                       </div>
                     )}

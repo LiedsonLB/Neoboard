@@ -11,11 +11,27 @@ import LoadingComponent from '../../components/loading/LoadingComponent.tsx';
 import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
 import { IoCamera, IoCube } from 'react-icons/io5';
 
-interface Produto {
+interface Product {
     img: string | undefined;
     id: number;
     nome: string;
-    imagem: string;
+    picture: string;
+    vendido: number;
+}
+
+interface Region {
+    img: string | undefined;
+    id: number;
+    nome: string;
+    picture: string;
+    vendido: number;
+}
+
+interface Staff {
+    img: string | undefined;
+    id: number;
+    nome: string;
+    picture: string;
     vendido: number;
 }
 
@@ -26,12 +42,12 @@ interface Event {
 
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");
-    const [produtos, setProdutos] = useState<Produto[]>([]);
-    const [regions, setRegions] = useState<Produto[]>([]);
-    const [staffs, setStaffs] = useState<Produto[]>([]);
-    const [events, setEvents] = useState<Event[]>([]);
+    const [produtos, setProdutos] = useState<Product[]>([]);
+    const [regions, setRegions] = useState<Region[]>([]);
+    const [staffs, setStaffs] = useState<Staff[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [events, setEvents] = useState<Event[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,6 +61,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                 setProdutos(produtosResponse.data);
                 setRegions(regionsResponse.data);
                 setStaffs(staffsResponse.data);
+                console.log(produtos)
+                console.log(regions)
+                console.log(staffs)
                 //setEvents(eventsResponse.data);
                 setLoading(false);
             } catch (error) {
@@ -292,7 +311,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                         {produtos.map(produto => (
                                             <li key={produto.id}>
                                                 <div className="ranking-img">
-                                                    <img src={produto.img} alt={produto.nome} />
+                                                    <img src={produto.picture} alt={produto.nome} />
                                                 </div>
                                                 <div className="product-name">
                                                     <p>{produto.nome}: {produto.vendido}%</p>
@@ -320,7 +339,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                         {regions.map(region => (
                                             <li key={region.id}>
                                                 <div className="ranking-img">
-                                                    <img src={region.img} alt={region.nome} />
+                                                    <img src={region.picture} alt={region.nome} />
                                                 </div>
                                                 <div className="product-name">
                                                     <p>{region.nome}: {region.vendido}%</p>
@@ -347,7 +366,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                         {staffs.map(staff => (
                                             <li key={staff.id}>
                                                 <div className="ranking-img">
-                                                    <img src={staff.img} alt={staff.nome} />
+                                                    <img src={staff.picture} alt={staff.nome} />
                                                 </div>
                                                 <div className="product-name">
                                                     <p>{staff.nome}: {staff.vendido}%</p>

@@ -82,6 +82,7 @@
     border-radius: 50%;
     display: flex;
     justify-content: center;
+    object-fit: cover;
 }
 
 .staff-desc h2 {
@@ -253,7 +254,7 @@
 
 .see-stf-btn {
     padding: .8rem;
-    width: 70%;
+    width: 90%;
     background: var(--secondy-color);
     border: none;
     border-radius: 10px;

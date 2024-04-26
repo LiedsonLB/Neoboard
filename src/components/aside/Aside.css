@@ -267,7 +267,7 @@ aside ul h2 {
 }
 
 /*Modal Help */
-.modal-logout{
+.modal-logout {
   height: auto;
   width: 100%;
   z-index: 1;
@@ -304,17 +304,17 @@ aside ul h2 {
   width: 100%;
 }
 
-.neo-logout{
+.neo-logout {
   height: 100px;
   width: 100px;
 }
 
-.txt-logout{
+.txt-logout {
   text-align: center;
   color: var(--primary-color);
 }
 
-.options-logout{
+.options-logout {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
@@ -322,27 +322,35 @@ aside ul h2 {
   margin-block: 1rem;
 }
 
-.logout-yes{
-  background-color: var(--secondy-color);
-  padding: .5rem 2rem;
+.logout-yes {
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-color);
   border-radius: 5px;
-  border: 2px solid var(--hover-color);
+  color: var(--white-color);
   cursor: pointer;
+  font-family: var(--font-Krub);
+  font-weight: 700;
+  padding: 0.5rem 2rem;
 }
 
-.logout-yes:hover{
+.logout-yes:hover {
   background-color: var(--hover-color);
+  background-color: var(--hover-color);
+  border: 2px solid var(--hover-color);
 }
 
-.logout-no{
+.logout-no {
   background-color: var(--gray-color);
-  padding: .5rem 2rem;
-  border-radius: 5px;
   border: 2px solid var(--gray-color);
+  border-radius: 5px;
+  color: var(--black-color);
   cursor: pointer;
+  font-family: var(--font-Krub);
+  font-weight: 700;
+  padding: 0.5rem 2rem;
 }
 
-.logout-no:hover{
+.logout-no:hover {
   filter: brightness(.9);
 }
 
