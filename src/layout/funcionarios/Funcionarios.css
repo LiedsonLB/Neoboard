@@ -236,6 +236,7 @@
     justify-content: space-around;
     margin: 2rem 0;
     gap: 1rem;
+    width: 100%;
 }
 
 .stf-card {
