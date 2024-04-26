@@ -38,6 +38,7 @@
     flex-direction: column;
     justify-content: center;
 }
+
 #region-card {
     background-color: var(--white-color);
     border-radius: 10px;
@@ -251,9 +252,13 @@ table {
     border-radius: 10px;
 }
 
-.tBodyTableRegions tr td {
-    border: 1px solid #ddd;
+.tBodyTableRegions tr{
     background: var(--white-color);
+}
+
+
+.tBodyTableRegions tr td{
+    border: 1px solid #ddd;
 }
 
 
@@ -284,10 +289,11 @@ tbody tr {
     width: 100%;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 
 tbody tr td button {
-    padding: .8rem 2rem;
+    padding: .8rem 1rem;
     background: var(--secondy-color);
     border: none;
     border-radius: 5px;
@@ -298,25 +304,31 @@ tbody tr td button {
 }
 
 .tBodyTableRegions tr td:nth-child(1) {
-cursor: pointer;
-}
-
-.tBodyTableRegions tr td:nth-child(1):hover {
     cursor: pointer;
-    background-color: var(--hover-color);
-    transition: .8s;
 }
 
-.tBodyTableRegions tr td:nth-child(1):hover > .table-regions,
-.tBodyTableRegions tr td:nth-child(1):hover > .region-pic{
+.tBodyTableRegions tr:hover {
+    cursor: pointer;
+    background-color: var(--gray-color);
+}
+
+.tBodyTableRegions tr:hover td:nth-child(1) .region-pic {
     transform: scale(1.1);
 }
 
 .table-regions {
     display: flex;
-    justify-content: center;
-    width: 80%;
-    margin: 0 auto;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+.delete {
+    background-color: #ff5151;
+}
+
+.delete:hover {
+    background-color: #e74c3c;
 }
 
 .region-pic {
@@ -433,7 +445,7 @@ td {
     min-width: 200px;
 }
 
-#Add-Item-Region{
+#Add-Item-Region {
     display: flex;
     flex-direction: column;
     gap: .5rem;
@@ -490,14 +502,14 @@ td {
 
 #img-input {
     display: block;
-    position: absolute; 
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%; 
-    height: 100%; 
-    opacity: 0; 
-    cursor: pointer; 
-    z-index: 5; 
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 5;
 }
 
 .img-region-up img {
@@ -689,11 +701,19 @@ td {
         display: flex;
     }
 
+    .table-space {
+        display: none;
+    }
+
+    .table-btns {
+        min-width: 500px;
+    }
+
 }
 
 @media screen and (max-width: 750px) {
     .input-mult {
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
     }
 
     .container-Add-Region {
@@ -704,12 +724,12 @@ td {
         display: none;
     }
 
-    .table-btns{
+    .table-btns {
         min-width: 300px;
     }
 }
 
-@media screen and (max-width: 480px) { 
+@media screen and (max-width: 480px) {
     #region-card {
         width: 95%;
     }
@@ -732,14 +752,14 @@ td {
         width: 100%;
         align-items: center;
         justify-content: center;
-        min-width:50px;
+        min-width: 50px;
     }
 
-    tbody tr td div{
-        width: 100%;       
+    tbody tr td div {
+        width: 100%;
     }
 
-    .edit{
+    .edit {
         display: flex;
         justify-content: center;
     }

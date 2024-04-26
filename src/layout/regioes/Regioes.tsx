@@ -264,7 +264,7 @@ const Regioes = () => {
                       regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase())
                     )
                     .map((regiao, index) => (
-                      <tr key={index}>
+                      <tr key={index} className="region-row" onClick={() => handleShowInfoModal(regiao)}>
                         <td>
                           <div className="region-pic">
                             <img src={regiao.picture} alt={regiao.nome} />
@@ -274,7 +274,8 @@ const Regioes = () => {
                         <td>{regiao.vendas}</td>
                         <td>{regiao.faturamento}</td>
                         <td className='table-btns'>
-                          <button className="edit" onClick={() => handleShowInfoModal(regiao)}>Ver</button>
+                          <button className="edit" onClick={() => handleShowInfoModal(regiao)}>Editar</button>
+                          <button className="delete" onClick={() => handleShowInfoModal(regiao)}>Excluir</button>
                         </td>
                       </tr>
                     ))}
