@@ -40,30 +40,20 @@ const Funcionarios = () => {
   useEffect(() => {
     const fetchFuncionarios = async () => {
       try {
-        const response = await fetch('http://localhost:4000/v2/funcionarios');
-        if (!response.ok) {
-          throw new Error('Erro ao buscar funcionários');
-        }
-
-        const data = await response.json();
-        // Ordenar funcionários por vendas
-        const funcionariosOrdenadosPorVendas = [...data].sort((a, b) => b.vendas - a.vendas);
+        const response = await axios.get('http://localhost:4000/v2/funcionarios');
+        const data = response.data;
+        const funcionariosOrdenadosPorVendas = [...data].sort((a: Funcionario, b: Funcionario) => b.vendas - a.vendas);
         const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
-
-        // Ordenar funcionários por faturamento
-        const funcionariosOrdenadosPorFaturamento = [...data].sort((a, b) => b.faturamento - a.faturamento);
+        const funcionariosOrdenadosPorFaturamento = [...data].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);
         const funcionarioDestaqueFaturamento = funcionariosOrdenadosPorFaturamento.slice(0, 1);
-
         setFuncionarios(data);
         setFilteredFuncionarios(data);
         setFuncionariosDestaqueVendas(funcionarioDestaqueVendas);
         setFuncionariosDestaqueFaturamento(funcionarioDestaqueFaturamento);
-
       } catch (error) {
         console.error('Erro ao buscar funcionários:', error);
       }
     };
-
     fetchFuncionarios();
   }, []);
 
@@ -141,14 +131,24 @@ const Funcionarios = () => {
       // Faz a requisição DELETE para a rota da API para excluir o funcionário
       await axios.delete(`http://localhost:4000/v2/funcionarios/${funcionario.email}`);
       console.log('Funcionário excluído com sucesso!');
+      
       // Atualiza a lista de funcionários após a exclusão
       const updatedFuncionarios = funcionarios.filter(f => f.email !== funcionario.email);
       setFuncionarios(updatedFuncionarios);
       setFilteredFuncionarios(updatedFuncionarios);
+  
+      // Atualiza funcionariosDestaqueVendas e funcionariosDestaqueFaturamento
+      const funcionariosOrdenadosPorVendas = [...updatedFuncionarios].sort((a: Funcionario, b: Funcionario) => b.vendas - a.vendas);
+      const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
+      setFuncionariosDestaqueVendas(funcionarioDestaqueVendas);
+  
+      const funcionariosOrdenadosPorFaturamento = [...updatedFuncionarios].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);
+      const funcionarioDestaqueFaturamento = funcionariosOrdenadosPorFaturamento.slice(0, 1);
+      setFuncionariosDestaqueFaturamento(funcionarioDestaqueFaturamento);
     } catch (error) {
       console.error('Erro ao excluir funcionário:', error);
     }
-  };
+  };  
 
   useEffect(() => {
     const filtered = funcionarios.filter(funcionario =>
