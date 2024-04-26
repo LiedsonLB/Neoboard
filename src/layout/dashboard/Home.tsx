@@ -9,7 +9,6 @@ import ColumnChart from '../../components/charts/ColumnChart.tsx';
 import Calendar from '../../components/calendar/Calendar.tsx';
 import LoadingComponent from '../../components/loading/LoadingComponent.tsx';
 import DoughnutChart from '../../components/charts/DoughtnoutChart.tsx';
-import { IoCamera, IoCube } from 'react-icons/io5';
 
 interface Product {
     img: string | undefined;
@@ -58,12 +57,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     axios.get('http://localhost:4000/v2/funcionarios')
                     //axios.get('http://localhost:4000/eventos')
                 ]);
-                setProdutos(produtosResponse.data);
-                setRegions(regionsResponse.data);
-                setStaffs(staffsResponse.data);
-                console.log(produtos)
-                console.log(regions)
-                console.log(staffs)
+                setProdutos(produtosResponse.data.slice(0, 5));
+                setRegions(regionsResponse.data.slice(0, 5));
+                setStaffs(staffsResponse.data.slice(0, 5));
                 //setEvents(eventsResponse.data);
                 setLoading(false);
             } catch (error) {
@@ -305,7 +301,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : produtos.length === 0 ? (
-                                    <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline' }}>Nenhum produto encontrado</p>
                                 ) : (
                                     <ul>
                                         {produtos.map(produto => (
@@ -333,7 +329,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : regions.length === 0 ? (
-                                    <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline'}}>Nenhuma região encontrada</p>
                                 ) : (
                                     <ul>
                                         {regions.map(region => (
@@ -360,7 +356,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : produtos.length === 0 ? (
-                                    <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline' }}>Nenhum funcionário encontrado</p>
                                 ) : (
                                     <ul>
                                         {staffs.map(staff => (

@@ -40,6 +40,20 @@ const Produtos = () => {
     }
   };
 
+  const handleDelete = (produto: any) => async () => {
+    try {
+      // Faz a requisição DELETE para a rota da API para excluir o produto
+      await axios.delete(`http://localhost:4000/v2/produtos/${produto.nome}`);
+      console.log('Produto excluído com sucesso!');
+      // Atualiza a lista de produtos após a exclusão
+      const updatedProdutos = produtos.filter(p => p.nome !== produto.nome);
+      setProdutos(updatedProdutos);
+      setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
+    } catch (error) {
+      console.error('Erro ao excluir produto:', error);
+    }
+  };  
+
   useEffect(() => {
     fetchProdutos();
   }, []);
@@ -362,7 +376,7 @@ const Produtos = () => {
                       <button className='edit-item item-mng'><IoCreate id='edit-pen' /></button>
                     </div>
                     <div>
-                      <button className='delete-item item-mng'><IoTrash id='edit-trash' /></button>
+                    <button className='delete-item item-mng' onClick={handleDelete(produto)}><IoTrash id='edit-trash' /></button>
                     </div>
                   </div>
                 </article>
