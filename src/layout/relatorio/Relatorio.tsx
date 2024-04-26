@@ -262,6 +262,11 @@ const Relatorio: React.FC = () => {
     }, 3000);
   };
 
+  const despesasFiltradas = despesas.filter((produto: any) =>
+    produto.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
+    (categoriaSelecionada ? produto.categoria === categoriaSelecionada : true)
+  );
+
   return (
     <div id='report-container'>
       {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
@@ -357,7 +362,7 @@ const Relatorio: React.FC = () => {
             <i id='search-icon'><IoSearch id='icon-exp' /></i>
           </div>
 
-          <select id="filter-expense" value={selectedOption} onChange={handleOptionSelect}>
+          <select id="filter-expense" value={selectedOption} onChange={(e) => handleOptionSelect(e.target.value)}>
             <option value="">Todos</option>
             <option value="opcao1">Salário</option>
             <option value="opcao2">Aluguel</option>
