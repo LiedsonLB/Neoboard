@@ -58,9 +58,9 @@ let regiaoFalsos = [
         "endereço": "Rua das Oliveiras, Bairro saci perere",
         "descrição": "uma cidadezinha bem bonitinha com buraquinhos",
         "cidade": "Piripiri",
-        "clientes": "30K",
-        "vendas": "4908",
-        "faturamento": "233K"
+        "clientes": "45",
+        "vendas": "4000",
+        "faturamento": "4100"
     },
     {
         "picture": "./img/Pdois.jpg",
@@ -68,117 +68,124 @@ let regiaoFalsos = [
         "endereço": "Rua das Oliveiras, Bairro saci perere",
         "descrição": "uma cidadezinha bem bonitinha com buraquinhos",
         "cidade": "Pedro II",
-        "clientes": "30K",
-        "vendas": "4908",
-        "faturamento": "233K"
+        "clientes": "40",
+        "vendas": "3900",
+        "faturamento": "4024"
     },
     {
-        "picture": "./img/no_regionImg.jpeg",
+        "picture": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Letrarias_de_Capit%C3%A3o_de_Campos.JPG",
         "nome": "Capitão de Campos",
-        "endereço": "Rua das Oliveiras, Bairro saci perere",
-        "descrição": "uma cidadezinha bem bonitinha com buraquinhos",
+        "endereço": "",
+        "descrição": "",
         "cidade": "Capitao de Campos",
-        "clientes": "30K",
-        "vendas": "4908",
-        "faturamento": "233K"
+        "clientes": "15",
+        "vendas": "1050",
+        "faturamento": "2010"
     },
     {
-        "picture": "https://catracalivre.com.br/wp-content/uploads/2018/10/japao-dicas-passeios-gratuitos-910x607.jpg",
-        "nome": "Japão",
-        "endereco": "Rua das Oliveiras, Bairro saci perere",
-        "descricao": "uma cidadezinha bem bonitinha com buraquinhos",
-        "cidade": "Exterior",
-        "clientes": "30K",
-        "vendas": "4908",
-        "faturamento": "233K"
+        "picture": "https://revistaaz.com.br/wp-content/uploads/2023/11/praca-batalha-revistaaz.jpeg",
+        "nome": "Batalha",
+        "endereco": "",
+        "descricao": "",
+        "cidade": "Batalha",
+        "clientes": "30",
+        "vendas": "2438",
+        "faturamento": "2400"
     },
     {
-        "picture": "https://singletrips.com.br/wp-content/uploads/2019/07/Suica_.jpg",
-        "nome": "Suiça",
+        "picture": "https://www.google.com/url?sa=i&url=http%3A%2F%2Fsiteantigo.pi.gov.br%2Fmateria%2Fconheca-o-piaui%2Fpiracuruca-e-o-municipio-com-a-maior-parte-do-parque-nacional-de-sete-cidades-591.html&psig=AOvVaw0UEbvkNWDSI3H0rqNCCCr3&ust=1714186497574000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCPDB37vw3oUDFQAAAAAdAAAAABAE",
+        "nome": "Piracuruca",
         "endereço": "Rua das Oliveiras, Bairro saci perere",
         "descrição": "uma cidadezinha bem bonitinha com buraquinhos",
-        "cidade": "Exterior",
-        "clientes": "30K",
-        "vendas": "4908",
-        "faturamento": "233K"
+        "cidade": "Piracuruca",
+        "clientes": "16",
+        "vendas": "2230",
+        "faturamento": "2000"
+    },
+    {
+        "picture": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fm.youtube.com%2Fwatch%3Fv%3DcCxetzj2aWQ&psig=AOvVaw2XGqVfZL2tcSO-maHrtLVi&ust=1714186263603000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCKDNrMzv3oUDFQAAAAAdAAAAABAK",
+        "nome": "Barras",
+        "endereço": "",
+        "descrição": "",
+        "cidade": "Barras",
+        "clientes": "20",
+        "vendas": "2000",
+        "faturamento": "2400"
     }
 ]
 
 let despesaFalsos = [
     {
         "tipo": "Salario",
-        "nome": "Salario do LB",
-        "valor": 1000000,
-        "descricao": "pagar o LB"
+        "nome": "Salario dos funcionários",
+        "valor": 1500,
+        "descricao": "Pagar todos os funcionários"
     },
     {
         "tipo": "Aluguel",
-        "nome": "filial Pedro II",
-        "valor": 1200,
-        "descricao": "pagar o aluguel do dia 30/04"
+        "nome": "Filial Pedro II",
+        "valor": 500,
+        "descricao": "Pagar o aluguel do dia 10/04"
     },
     {
         "tipo": "Fornecedor",
-        "nome": "pagar a max bono",
-        "valor": 3440,
-        "descricao": "pagar o fornecedor até proxima semana"
-    },
-    {
-        "tipo": "Imposto",
-        "nome": "Imposto de Picolé",
-        "valor": 300,
-        "descricao": "pagar o imposto da entrega da carga de picolé"
+        "nome": "Pagar a Fábrica Maxbono",
+        "valor": 10000,
+        "descricao": "Pagar o Fornecedor"
     },
     {
         "tipo": "Manutencao",
-        "nome": "gasolina",
-        "valor": 100,
-        "descricao": "abastecer veiculo proxima viagem para Pedro II"
+        "nome": "Gasolina",
+        "valor": 1440,
+        "descricao": "Abastecer veículo em todas as viagens feitas"
     }
 ]
 
 let funcionarioFalsos = [
     {
         picture: "https://cdn.akamai.steamstatic.com/steam/apps/1817070/ss_dfba6f2477bfa42be69ddfdffbd421d3943d20bf.1920x1080.jpg?t=1700663145",
-        email: "pedro@gmail.com",
-        cpf: "123.456.789-10",
-        github: "github.com",
-        linkedin: "linkedin.com",
+        email: "pedrolucaspir595@gmail.com",
+        cpf: "075.028.653-90",
+        github: "",
+        linkedin: "",
         nome: "Pedro Lucas",
-        phone: "40028922",
-        age: 48,
-        endereco: "Meio do Mato - PI",
+        phone: "86995120533",
+        age: 19,
+        endereco: "Piripiri - PI",
         genero: "Masculino",
-        form_academ: "Licenciatura Matemática",
+        form_academ: "Ensino Superior Incompleto",
+        data_contratacao: "20/12/2021",
         cargo: "Vendedor",
-        data_contratacao: "24/08/2009",
         descricao: "Sem descrição",
-        vendas: 344444,
+        vendas: 20000,
         faturamento: 9000,
         regions: {
             create: [
                 {
-                    nome: "Pedro II"
+                    nome: "Barras"
                 },
                 {
                     nome: "Piripiri"
+                },
+                {
+                    nome: "Piracuruca"
                 }
             ]
         }
     },
     {
         picture: "./img/Laesse.jpeg",
-        email: "Laesse@gmail.com",
-        cpf: "123.456.789-10",
-        github: "github.com",
-        linkedin: "linkedin.com",
+        email: "Laessethe@gmail.com",
+        cpf: "004.370.073-08",
+        github: "",
+        linkedin: "",
         nome: "Laesse",
-        phone: "40028922",
+        phone: "86999241727",
         age: 48,
-        endereco: "Meio do Mato - PI",
+        endereco: "Pedro II - PI",
         genero: "Masculino",
-        form_academ: "Licenciatura Matemática",
-        data_contratacao: "24/08/2009",
+        form_academ: "Ensino Médio completo",
+        data_contratacao: "21/03/2020",
         cargo: "CEO",
         descricao: "Sem descrição",
         vendas: 0,
@@ -188,36 +195,30 @@ let funcionarioFalsos = [
                 {
                     nome: "Pedro II"
                 },
-                {
-                    nome: "Piripiri"
-                }
             ]
         }
     },
     {
         picture: "./img/Romario.jpeg",
-        email: "Romário@gmail.com",
-        cpf: "123.456.789-10",
-        github: "github.com",
-        linkedin: "linkedin.com",
+        email: "Romario1508@gmail.com",
+        cpf: "430.458.078-50",
+        github: "",
+        linkedin: "",
         nome: "Romário",
-        phone: "40028922",
-        age: 48,
-        endereco: "Meio do Mato - PI",
+        phone: "11987394240",
+        age: 30,
+        endereco: "Pedro II - PI",
         genero: "Masculino",
-        form_academ: "Licenciatura Matemática",
+        form_academ: "Ensino Médio completo",
+        data_contratacao: "02/10/2023",
         cargo: "Vendedor",
-        data_contratacao: "24/08/2009",
         descricao: "Sem descrição",
         vendas: 0,
         faturamento: 0,
         regions: {
             create: [
                 {
-                    nome: "Pedro II"
-                },
-                {
-                    nome: "Piripiri"
+                    nome: "Capitão de Campos"
                 }
             ]
         }
@@ -225,27 +226,24 @@ let funcionarioFalsos = [
     {
         picture: "./img/Welignton.jpeg",
         email: "Welignton@gmail.com",
-        cpf: "123.456.789-10",
-        github: "github.com",
-        linkedin: "linkedin.com",
-        nome: "Welignton",
-        phone: "40028922",
+        cpf: "086.564.08-80",
+        github: "",
+        linkedin: "",
+        nome: "Welingnton",
+        phone: "86999174398",
         age: 48,
-        endereco: "Meio do Mato - PI",
+        endereco: "Piripiri - PI",
         genero: "Masculino",
-        form_academ: "Licenciatura Matemática",
+        form_academ: "Ensino Médio completo",
+        data_contratacao: "24/11/2020",
         cargo: "Vendedor",
-        data_contratacao: "24/08/2009",
         descricao: "Sem descrição",
         vendas: 0,
         faturamento: 0,
         regions: {
             create: [
                 {
-                    nome: "Pedro II"
-                },
-                {
-                    nome: "Piripiri"
+                    nome: "Batalha"
                 }
             ]
         }
