@@ -78,7 +78,7 @@ describe('Teste da pagina inicial(dashBoard)', () => {
         cy.wait(2000)
     });
 
-    it.only('teste neoguide', () =>{
+    it('teste neoguide', () =>{
         cy.get('#Neo-Help').click()
         cy.get('.Modal-Help').find('.container-Help').should('be.visible')
         cy.wait(2000)
