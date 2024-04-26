@@ -314,6 +314,7 @@ tbody tr td button {
 
 .tBodyTableRegions tr:hover td:nth-child(1) .region-pic {
     transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
 }
 
 .table-regions {
