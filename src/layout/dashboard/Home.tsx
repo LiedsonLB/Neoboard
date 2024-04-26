@@ -301,7 +301,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : produtos.length === 0 ? (
-                                    <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline' }}>Nenhum produto encontrado</p>
                                 ) : (
                                     <ul>
                                         {produtos.map(produto => (
@@ -329,7 +329,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : regions.length === 0 ? (
-                                    <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline'}}>Nenhuma região encontrada</p>
                                 ) : (
                                     <ul>
                                         {regions.map(region => (
@@ -356,7 +356,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : produtos.length === 0 ? (
-                                    <p style={{ color: 'red', textAlign: 'center' }}>Erro ao carregar os produtos. Por favor, tente novamente mais tarde.</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline' }}>Nenhum funcionário encontrado</p>
                                 ) : (
                                     <ul>
                                         {staffs.map(staff => (

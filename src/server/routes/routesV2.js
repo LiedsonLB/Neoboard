@@ -380,6 +380,27 @@ routerV2.get("/produtos", async (req, res) => {
     }
 });
 
+// Rota para excluir um produto
+routerV2.delete("/produtos/:id", async (req, res) => {
+    try {
+        const produtoId = req.params.id;
+
+        // Encontrar o índice do funcionário pelo ID
+        const produtoIndex = produtosFalsos.findIndex(produto => produto.nome === produtoId);
+
+        if (produtoIndex !== -1) {
+            // Remover o funcionário do array
+            produtosFalsos.splice(produtoIndex, 1);
+            res.status(204).send();
+        } else {
+            res.status(404).json({ error: "Funcionário não encontrado" });
+        }
+    } catch (error) {
+        console.error('Erro ao excluir funcionário:', error);
+        res.status(500).json({ error: 'Erro ao excluir funcionário' });
+    }
+});
+
 // Rota para adicionar uma nova região
 routerV2.post("/regioes", async (req, res) => {
     try {
