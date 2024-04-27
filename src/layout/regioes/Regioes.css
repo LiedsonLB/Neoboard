@@ -563,7 +563,7 @@ td {
     gap: 1rem;
 }
 
-#add-Region-Btn {
+#add-Region-Btn, #edit-Region-Btn {
     display: flex;
     padding: .8rem 0;
     justify-content: center;
@@ -577,7 +577,7 @@ td {
     margin-top: 1rem;
 }
 
-#add-Region-Btn:hover {
+#add-Region-Btn:hover, #edit-Region-Btn:hover {
     background: var(--hover-color);
 }
 

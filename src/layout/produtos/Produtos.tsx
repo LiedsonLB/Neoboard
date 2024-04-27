@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 import "./Produtos.css";
 import { IoSearch, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
@@ -19,6 +19,8 @@ const Produtos = () => {
   const [valorFormatado, setValorFormatado] = useState<string>('');
   const [valorAcumulado, setValorAcumulado] = useState('');
   const [categorias, setCategorias] = useState<string[]>([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [produtoParaEditar, setProdutoParaEditar] = useState<any>(null);
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
@@ -50,6 +52,23 @@ const Produtos = () => {
     }
   };
 
+  // Função para gerar um ID único
+  const generateUniqueRandomId = (): number => {
+
+    const existingIds = produtos.map((produto: any) => parseInt(produto.id, 10));
+
+    const generateRandomId = (): number => Math.floor(Math.random() * 100000000);
+
+    let randomId = generateRandomId();
+
+    // Verifica se o ID gerado já existe na lista de IDs existentes
+    while (existingIds.includes(randomId)) {
+      randomId = generateRandomId();
+    }
+
+    return randomId;
+  };
+
   const fetchProdutos = async () => {
     try {
       const response = await axios.get('http://localhost:4000/v2/produtos');
@@ -66,11 +85,22 @@ const Produtos = () => {
 
   const handleDelete = (produto: any) => async () => {
     try {
+      // Obtenha a URL da imagem associada ao produto
+      const imagemURL = produto.picture;
+
       // Faz a requisição DELETE para a rota da API para excluir o produto
-      await axios.delete(`http://localhost:4000/v2/produtos/${produto.nome}`);
+      await axios.delete(`http://localhost:4000/v2/produtos/${produto.id}`);
       console.log('Produto excluído com sucesso!');
+
+      // Excluir a imagem do Storage
+      if (imagemURL) {
+        const imagemRef = ref(storage, `products/${imagemURL}`);
+        await deleteObject(imagemRef);
+        console.log('Imagem excluída do Storage com sucesso!');
+      }
+
       // Atualiza a lista de produtos após a exclusão
-      const updatedProdutos = produtos.filter(p => p.nome !== produto.nome);
+      const updatedProdutos = produtos.filter(p => p.id !== produto.id);
       setProdutos(updatedProdutos);
       setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
     } catch (error) {
@@ -105,14 +135,20 @@ const Produtos = () => {
             picture = downloadURL;
           }
 
+          // Gera um ID aleatório para o novo produto
+          const id = generateUniqueRandomId().toString();
+
           // Cria o novo produto com a URL da imagem obtida
           const novoProduto = {
+            id,
             nome,
             categoria,
             preco: valor,
             descricao,
             picture,
           };
+
+          console.log(novoProduto)
 
           nomeElement.value = '';
           categoriaElement.value = '';
@@ -134,30 +170,6 @@ const Produtos = () => {
     }
   };
 
-
-  const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let valorDigitado = e.target.value;
-
-    valorDigitado = valorDigitado.replace(/[^\d.]/g, '');
-
-    if (!valorDigitado) {
-      setValorAcumulado('');
-      setValorFormatado(''); // Adicione esta linha para limpar o valor formatado quando não houver entrada
-      return;
-    }
-
-    const novoValorAcumulado = valorAcumulado + valorDigitado;
-
-    const reais = Math.floor(parseInt(novoValorAcumulado) / 100);
-    const centavos = parseInt(novoValorAcumulado) % 100;
-
-    const valorFormatado = `${reais}.${centavos}`;
-
-    setValorAcumulado(valorAcumulado + valorDigitado);
-    setValorFormatado(valorFormatado);
-    console.log(valorFormatado)
-  };
-
   const produtosFiltrados = produtos.filter((produto: any) =>
     produto.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
     (categoriaSelecionada ? produto.categoria === categoriaSelecionada : true)
@@ -172,8 +184,74 @@ const Produtos = () => {
     setShowInfoModal(true);
   };
 
+  const handleEdit = (produto: any) => {
+    // Define os dados do produto selecionado para edição
+    setProdutoParaEditar(produto);
+    // Abre o modal de edição
+    setShowEditModal(true);
+  };
+
+  const handleEditProduct = async () => {
+    try {
+      // Faça o envio dos novos dados do produto para a rota de edição
+      await axios.put(`http://localhost:4000/v2/produtos/${produtoParaEditar.id}`, produtoParaEditar);
+      fetchProdutos(); // Atualize a lista de produtos após a edição
+      setShowEditModal(false); // Feche o modal de edição após a conclusão
+    } catch (error) {
+      console.error('Erro ao editar produto:', error);
+    }
+  };
+
   return (
     <>
+      {showEditModal && (
+        <div className="Modal-Add">
+          <div className='container-Add'>
+            <div id="header-modal">
+              <h4 className="modal-title">Editar Produto: {produtoParaEditar.nome}</h4>
+              <button type="button" className="close-btn" onClick={() => setShowEditModal(false)}>&times;</button>
+            </div>
+
+            <div className="Add-Item-container">
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="name-item">Nome do Produto:</label>
+                  <input type="text" id='name-item' name='name-item' className='full-item' value={produtoParaEditar.nome} onChange={(e) => setProdutoParaEditar({ ...produtoParaEditar, nome: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="categoria-item">Categoria:</label>
+                  <input type="text" id='categoria-item' name='categoria-item' className='full-item' value={produtoParaEditar.categoria} onChange={(e) => setProdutoParaEditar({ ...produtoParaEditar, categoria: e.target.value })} />
+                </span>
+
+                <span>
+                  <label htmlFor="valor-item">Valor Unitário (R$):</label>
+                  <input type="text" id='valor-item' name='valor-item' className='full-item' value={produtoParaEditar.preco} onChange={(e) => setProdutoParaEditar({ ...produtoParaEditar, preco: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="descricao-item">Descrição:</label>
+                  <textarea
+                    id='descricao-item'
+                    name="descricao"
+                    className="desc-prod"
+                    value={produtoParaEditar.descricao}
+                    onChange={(e) => setProdutoParaEditar({ ...produtoParaEditar, descricao: e.target.value })}
+                  />
+                </span>
+              </div>
+
+              <button id='edit-product-Btn' onClick={handleEditProduct}>Salvar Alterações</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showModal && (
         <div className="Modal-Add">
           <div className='container-Add'>
@@ -212,7 +290,7 @@ const Produtos = () => {
 
                 <span>
                   <label htmlFor="valor-item">Valor Unitário (R$):</label>
-                  <input type="text" id='valor-item' name='valor-item' className='full-item' onChange={handleValorChange} value={valorFormatado} />
+                  <input type="text" id='valor-item' name='valor-item' className='full-item' />
                 </span>
               </div>
 
@@ -251,6 +329,9 @@ const Produtos = () => {
                     <p><span>Categoria:</span> {selectedProduct.categoria}</p>
                     <p><span>Valor:</span> R$ {selectedProduct.preco}</p>
                     <p><span>Descrição:</span> {selectedProduct.descricao}</p>
+                    <div className='userStfSocialMidia' style={{gap: '2rem'}}>
+                      <p><span>Código:</span> {selectedProduct.id}</p> <a href=""><i className="fa-solid fa-share-nodes"></i></a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -360,7 +441,7 @@ const Produtos = () => {
                   <button className='see-prod-btn' onClick={() => { setShowInfoModal(true); setSelectedProduct(produto) }}>Ver produto</button>
                   <div className='manager-btn'>
                     <div>
-                      <button className='edit-item item-mng'><IoCreate id='edit-pen' /></button>
+                      <button className='edit-item item-mng' onClick={() => handleEdit(produto)}><IoCreate id='edit-pen' /></button>
                     </div>
                     <div>
                       <button className='delete-item item-mng' onClick={handleDelete(produto)}><IoTrash id='edit-trash' /></button>

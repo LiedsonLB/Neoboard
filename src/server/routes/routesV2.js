@@ -7,6 +7,7 @@ const routerV2 = express.Router();
 // Array de produtos falsos inicialmente vazio
 let produtosFalsos = [
     {
+        "id": "54892675",
         "nome": "Picolé sem cobertura",
         "picture": "./img/Picole_sem_cobertura.jpeg",
         "preco": "0.65",
@@ -14,6 +15,7 @@ let produtosFalsos = [
         "descricao": "picole muito very gostosinho"
     },
     {
+        "id": "71034829",
         "nome": "Picolé de cobertura",
         "picture": "/img/Picole_com_cobertura.jpeg",
         "preco": "2.00",
@@ -21,6 +23,7 @@ let produtosFalsos = [
         "descricao": "picole muito very gostosinho"
     },
     {
+        "id": "23589104",
         "nome": "Açaí de 200ml",
         "picture": "/img/Acaí_200ml.jpeg",
         "preco": "6.00",
@@ -28,6 +31,7 @@ let produtosFalsos = [
         "descricao": "picole muito very gostosinho"
     },
     {
+        "id": "61742983",
         "nome": "Sorvete de 1L",
         "picture": "/img/Sorvete_1L.jpeg",
         "preco": "12.00",
@@ -35,6 +39,7 @@ let produtosFalsos = [
         "descricao": "picole muito very gostosinho"
     },
     {
+        "id": "89051732",
         "nome": "Sorvete de 1.5L",
         "picture": "/img/Sorvete_1.5L.jpeg",
         "preco": "15.00",
@@ -42,6 +47,7 @@ let produtosFalsos = [
         "descricao": "picole muito very gostosinho"
     },
     {
+        "id": "98765432",
         "nome": "Sorvete de 2L",
         "picture": "img/Sorvete_2L.jpeg",
         "preco": "18.00",
@@ -52,61 +58,73 @@ let produtosFalsos = [
 
 let regiaoFalsos = [
     {
+        "id": "1",
         "picture": "./img/Piripiri-Igreja-Matriz.png",
         "nome": "Piripiri",
         "endereço": "Rua das Oliveiras, Bairro saci perere",
         "descrição": "uma cidadezinha bem bonitinha com buraquinhos",
         "cidade": "Piripiri",
+        "responsavel": "",
         "clientes": "45",
         "vendas": "4000",
         "faturamento": "4100"
     },
     {
+        "id": "2",
         "picture": "./img/Pdois.jpg",
         "nome": "Pedro II",
         "endereço": "Rua das Oliveiras, Bairro saci perere",
         "descrição": "uma cidadezinha bem bonitinha com buraquinhos",
         "cidade": "Pedro II",
+        "responsavel": "",
         "clientes": "40",
         "vendas": "3900",
         "faturamento": "4024"
     },
     {
+        "id": "3",
         "picture": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Letrarias_de_Capit%C3%A3o_de_Campos.JPG",
         "nome": "Capitão de Campos",
         "endereço": "",
         "descrição": "",
         "cidade": "Capitao de Campos",
+        "responsavel": "",
         "clientes": "15",
         "vendas": "1050",
         "faturamento": "2010"
     },
     {
+        "id": "4",
         "picture": "https://revistaaz.com.br/wp-content/uploads/2023/11/praca-batalha-revistaaz.jpeg",
         "nome": "Batalha",
         "endereco": "",
         "descricao": "",
         "cidade": "Batalha",
+        "responsavel": "",
         "clientes": "30",
         "vendas": "2438",
         "faturamento": "2400"
     },
     {
+        "id": "5",
         "picture": "https://piracuruca.pi.gov.br/uploads/noticias/210.jpg",
         "nome": "Piracuruca",
         "endereço": "Rua das Oliveiras, Bairro saci perere",
         "descrição": "uma cidadezinha bem bonitinha com buraquinhos",
         "cidade": "Piracuruca",
+        "responsavel": "",
         "clientes": "16",
         "vendas": "2230",
         "faturamento": "2000"
     },
     {
+        "id": "6",
         "picture": "https://i.ytimg.com/vi/mbL0lqrbmb8/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGGUgWChQMA8=&rs=AOn4CLArrdgtLutLCClZIndxT532TY6FYA",
         "nome": "Barras",
         "endereço": "",
         "descrição": "",
         "cidade": "Barras",
+        "responsavel": "",
         "clientes": "20",
         "vendas": "2000",
         "faturamento": "2400"
@@ -115,24 +133,28 @@ let regiaoFalsos = [
 
 let despesaFalsos = [
     {
+        "id": "1",
         "tipo": "Salario",
         "nome": "Salario dos funcionários",
         "valor": 1500,
         "descricao": "Pagar todos os funcionários"
     },
     {
+        "id": "2",
         "tipo": "Aluguel",
         "nome": "Filial Pedro II",
         "valor": 500,
         "descricao": "Pagar o aluguel do dia 10/04"
     },
     {
+        "id": "3",
         "tipo": "Fornecedor",
         "nome": "Pagar a Fábrica Maxbono",
         "valor": 10000,
         "descricao": "Pagar o Fornecedor"
     },
     {
+        "id": "4",
         "tipo": "Manutencao",
         "nome": "Gasolina",
         "valor": 1440,
@@ -142,6 +164,7 @@ let despesaFalsos = [
 
 let funcionarioFalsos = [
     {
+        id: "1",
         picture: "https://cdn.akamai.steamstatic.com/steam/apps/1817070/ss_dfba6f2477bfa42be69ddfdffbd421d3943d20bf.1920x1080.jpg?t=1700663145",
         email: "pedrolucaspir595@gmail.com",
         cpf: "075.028.653-90",
@@ -173,6 +196,7 @@ let funcionarioFalsos = [
         }
     },
     {
+        id: "2",
         picture: "./img/Laesse.jpeg",
         email: "Laessethe@gmail.com",
         cpf: "004.370.073-08",
@@ -198,6 +222,7 @@ let funcionarioFalsos = [
         }
     },
     {
+        id: "3",
         picture: "./img/Romario.jpeg",
         email: "Romario1508@gmail.com",
         cpf: "430.458.078-50",
@@ -223,6 +248,7 @@ let funcionarioFalsos = [
         }
     },
     {
+        id: "4",
         picture: "./img/Welignton.jpeg",
         email: "Welignton@gmail.com",
         cpf: "086.564.08-80",
@@ -248,6 +274,7 @@ let funcionarioFalsos = [
         }
     },
     {
+        id: "5",
         picture: "https://media.licdn.com/dms/image/D4D03AQEDRhKeXOMUhQ/profile-displayphoto-shrink_200_200/0/1698698919930?e=1719446400&v=beta&t=7WTQ6oXr6343V7pezZGnmG8d_NsUmtKe8zewZ3ecSM4",
         email: "liedson.b9@gmail.com",
         cpf: "106.466.763-50",
@@ -382,19 +409,41 @@ routerV2.delete("/produtos/:id", async (req, res) => {
     try {
         const produtoId = req.params.id;
 
-        // Encontrar o índice do funcionário pelo ID
-        const produtoIndex = produtosFalsos.findIndex(produto => produto.nome === produtoId);
+        // Encontrar o índice do produto pelo ID
+        const produtoIndex = produtosFalsos.findIndex(produto => produto.id === produtoId);
 
         if (produtoIndex !== -1) {
-            // Remover o funcionário do array
+            // Remover o produto do array
             produtosFalsos.splice(produtoIndex, 1);
             res.status(204).send();
         } else {
-            res.status(404).json({ error: "Funcionário não encontrado" });
+            res.status(404).json({ error: "Produto não encontrado" });
         }
     } catch (error) {
-        console.error('Erro ao excluir funcionário:', error);
-        res.status(500).json({ error: 'Erro ao excluir funcionário' });
+        console.error('Erro ao excluir produto:', error);
+        res.status(500).json({ error: 'Erro ao excluir produto' });
+    }
+});
+
+// Rota para editar um produto
+routerV2.put("/produtos/:id", async (req, res) => {
+    try {
+        const produtoId = req.params.id;
+        const novosDadosProduto = req.body;
+
+        // Encontrar o produto pelo ID
+        const produtoIndex = produtosFalsos.findIndex(produto => produto.id === produtoId);
+
+        if (produtoIndex !== -1) {
+            // Atualizar os dados do produto
+            produtosFalsos[produtoIndex] = { ...produtosFalsos[produtoIndex], ...novosDadosProduto };
+            res.status(200).json(produtosFalsos[produtoIndex]);
+        } else {
+            res.status(404).json({ error: "Produto não encontrado" });
+        }
+    } catch (error) {
+        console.error('Erro ao editar produto:', error);
+        res.status(500).json({ error: 'Erro ao editar produto' });
     }
 });
 
@@ -419,6 +468,28 @@ routerV2.get("/regioes", async (req, res) => {
     } catch (error) {
         console.error('Erro ao obter regiao:', error);
         res.status(500).json({ error: 'Erro ao obter regiao' });
+    }
+});
+
+// Rota para editar um regiao
+routerV2.put("/regioes/:id", async (req, res) => {
+    try {
+        const regiaoId = req.params.id;
+        const novosDadosregiao = req.body;
+
+        // Encontrar o regiao pelo ID
+        const regiaoIndex = regiaoFalsos.findIndex(regiao => regiao.id === regiaoId);
+
+        if (regiaoIndex !== -1) {
+            // Atualizar os dados do regiao
+            regiaoFalsos[regiaoIndex] = { ...regiaoFalsos[regiaoIndex], ...novosDadosregiao };
+            res.status(200).json(regiaoFalsos[regiaoIndex]);
+        } else {
+            res.status(404).json({ error: "regiao não encontrado" });
+        }
+    } catch (error) {
+        console.error('Erro ao editar regiao:', error);
+        res.status(500).json({ error: 'Erro ao editar regiao' });
     }
 });
 

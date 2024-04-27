@@ -14,6 +14,9 @@ const Regioes = () => {
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<any>(null); // Estado para armazenar a região selecionada
   const [categorias, setCategorias] = useState<string[]>([]); // Definindo o estado categorias como uma lista de strings
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [regiaoParaEditar, setRegiaoParaEditar] = useState<any>(null);
+  const [regiaoParaAdicionar, setRegiaoParaAdicionar] = useState<any>(null);
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
@@ -53,6 +56,36 @@ const Regioes = () => {
     fetchRegioes();
   }, []);
 
+  const adicionarRegiao = async () => {
+    try {
+      // Envie os dados da nova região para a rota de adição na API
+      await axios.post('http://localhost:4000/v2/regioes', regiaoParaAdicionar);
+      fetchRegioes(); // Atualize a lista de regiões após a adição
+      setShowModal(false); // Feche o modal de adição após a conclusão
+      // Limpe os campos do formulário após adicionar com sucesso
+      setRegiaoParaAdicionar({
+        nome: '',
+        cidade: '',
+        endereco: '',
+        responsavel: '',
+        descricao: ''
+      });
+    } catch (error) {
+      console.error('Erro ao adicionar região:', error);
+    }
+  };
+  
+  const handleEditRegion = async () => {
+    try {
+      // Faça o envio dos novos dados do região para a rota de edição
+      await axios.put(`http://localhost:4000/v2/regioes/${regiaoParaEditar.id}`, regiaoParaEditar);
+      fetchRegioes(); // Atualize a lista de regiões após a edição
+      setShowEditModal(false); // Feche o modal de edição após a conclusão
+    } catch (error) {
+      console.error('Erro ao editar região:', error);
+    }
+  };
+
   const handleDelete = (produto: any) => async () => {
     try {
       // Faz a requisição DELETE para a rota da API para excluir o produto
@@ -67,10 +100,6 @@ const Regioes = () => {
     }
   };
 
-  const filtrarPorCategoria = (categoria: string) => {
-    setCategoriaSelecionada(categoria);
-  };
-
   const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFiltroPesquisa(e.target.value);
   };
@@ -80,8 +109,74 @@ const Regioes = () => {
     setShowInfoModal(true);
   };
 
+  const handleEdit = (regiao: any) => {
+    // Define os dados do regiao selecionado para edição
+    setRegiaoParaEditar(regiao);
+    // Abre o modal de edição
+    setShowEditModal(true);
+  };
+
   return (
     <>
+      {showEditModal && (
+        <div className="Modal-Add">
+          <div className='container-Add'>
+            <div id="header-modal">
+              <h4 className="modal-title">Editar Região: {regiaoParaEditar.nome}</h4>
+              <button type="button" className="close-btn" onClick={() => setShowEditModal(false)}>&times;</button>
+            </div>
+
+            <div className="Add-Item-container">
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="name-item">Nome da Região:</label>
+                  <input type="text" name='name-item' className='full-item'
+                    value={regiaoParaEditar.nome}
+                    onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, nome: e.target.value })} />
+                </span>
+                <span>
+                  <label htmlFor="name-item">Cidade:</label>
+                  <input type="text" name='name-item' className='full-item'
+                    value={regiaoParaEditar.cidade}
+                    onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, cidade: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="name-item">Endereço:</label>
+                  <input type="text" name='name-item' className='full-item'
+                    value={regiaoParaEditar.endereco}
+                    onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, endereco: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="name-item">Vendedor Responsável:</label>
+                  <input type="text" name='name-item' className='full-item' value={regiaoParaEditar.responsavel}
+                    onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, responsavel: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="name-item">Descrição:</label>
+                  <textarea
+                    name="message"
+                    className="desc-prod"
+                    value={regiaoParaEditar.descricao}
+                    onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, descricao: e.target.value })}
+                  />
+                </span>
+              </div>
+
+              <button id='edit-Region-Btn' onClick={() => handleEditRegion()}>Salvar Alterações</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showModal && (
         <div className='Modal-Add'>
           <div className='container-Add'>
@@ -109,25 +204,25 @@ const Regioes = () => {
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="name-item">Nome da Região:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <input type="text" name='name-item' className='full-item' value={regiaoParaAdicionar.nome} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, nome: e.target.value })} />
                 </span>
                 <span>
                   <label htmlFor="name-item">Cidade:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <input type="text" name='name-item' className='full-item' value={regiaoParaAdicionar.cidade} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, cidade: e.target.value })} />
                 </span>
               </div>
 
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Endereço:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <input type="text" name='name-item' className='full-item' value={regiaoParaAdicionar.endereco} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, endereco: e.target.value })} />
                 </span>
               </div>
 
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Vendedor Responsável:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <input type="text" name='name-item' className='full-item' value={regiaoParaAdicionar.responsavel} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, responsavel: e.target.value })} />
                 </span>
               </div>
 
@@ -137,11 +232,13 @@ const Regioes = () => {
                   <textarea
                     name="message"
                     className="desc-prod"
+                    value={regiaoParaAdicionar.descricao}
+                    onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, descricao: e.target.value })}
                   />
                 </span>
               </div>
 
-              <button id='add-Region-Btn'>Enviar</button>
+              <button id='add-Region-Btn' onClick={adicionarRegiao}>Enviar</button>
             </div>
           </div>
         </div>
@@ -246,7 +343,7 @@ const Regioes = () => {
 
             <section id='search-container-region'>
               <div id='search-bar-region'>
-                <input type="search" id="search-region" placeholder='Pesquisar região' aria-label="Buscar" onChange={handleFiltroChange}/>
+                <input type="search" id="search-region" placeholder='Pesquisar região' aria-label="Buscar" onChange={handleFiltroChange} />
                 <i id='search-icon-region'><IoSearch id='icon-region' /></i>
               </div>
 
@@ -293,7 +390,7 @@ const Regioes = () => {
                         <td onClick={() => handleShowInfoModal(regiao)}>{regiao.vendas}</td>
                         <td onClick={() => handleShowInfoModal(regiao)}>{regiao.faturamento}</td>
                         <td className='table-btns'>
-                          <button className="edit" onClick={toggleModalClose}>Editar</button>
+                          <button className="edit" onClick={() => handleEdit(regiao)}>Editar</button>
                           <button className="delete" onClick={handleDelete(regiao)}>Excluir</button>
                         </td>
                       </tr>

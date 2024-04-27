@@ -201,7 +201,7 @@
 
 .filter-container-btns {
     display: flex;
-    gap: 5px;
+    gap: 1rem;
 }
 
 #filter-expense:hover {
@@ -217,6 +217,7 @@
     color: white;
     cursor: pointer;
     font-family: var(--font-krub);
+    text-wrap: nowrap;
 }
 
 #add-product:hover {

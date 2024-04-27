@@ -739,7 +739,7 @@
     gap: 1rem;
 }
 
-#add-staff-Btn {
+#add-staff-Btn, #edit-product-Btn {
     padding: .8rem 2rem;
     background: var(--secondy-color);
     border: none;
@@ -751,7 +751,7 @@
     font-weight: bold;
 }
 
-#add-staff-Btn:hover {
+#add-staff-Btn:hover, #edit-product-Btn:hover {
     background: var(--hover-color);
 }
 
