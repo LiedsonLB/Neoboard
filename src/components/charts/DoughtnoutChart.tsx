@@ -25,13 +25,15 @@ const DoughnutChart = () => {
     },
   } as const;
 
-  const containerStyle = {
-    width: '90%',
-    margin: '0 auto'
-  };
-
   return (
-    <div style={containerStyle}>
+    <div style={{
+      width: '90%',
+      margin: '0 auto',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }}>
       <div className='chartHome'>
         <Doughnut data={data} options={options} />
       </div>

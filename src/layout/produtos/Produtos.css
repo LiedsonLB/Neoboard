@@ -292,8 +292,8 @@
 }
 
 .edit-item {
-    background: var(--gray-color);
-    border: none;
+    background: transparent;
+    border: 1px solid var(--secondy-color);
 }
 
 .edit-item:hover {
@@ -301,7 +301,7 @@
 }
 
 .edit-item:active {
-    border: none;
+    border: 1px solid transparent;
 }
 
 #edit-pen {
@@ -562,7 +562,6 @@
 #prodInfo-popup img {
     animation: spin 1s linear;
     border-radius: 20px;
-    outline: 5px solid var(--secondy-color);
     width: 150px;
     height: 150px;
     object-fit: cover;

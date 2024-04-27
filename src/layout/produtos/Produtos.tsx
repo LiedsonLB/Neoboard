@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import "./Produtos.css";
-import { IoSearch, IoCamera, IoPencil, IoTrash, IoCreate } from 'react-icons/io5';
+import { IoSearch, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
 import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 import axios from 'axios';
@@ -26,26 +27,22 @@ const Produtos = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const reader = new FileReader();
-    reader.onloadend = () => {
-      const result = reader.result as string;
-      setSelectedImage(result);
-    };
+
     if (file) {
+      setSelectedImage(file);
       reader.readAsDataURL(file);
-      setSelectedImage(file); // Armazena o arquivo selecionado
     }
   };
 
-  // Função para fazer upload da imagem para o Firebase Storage
-  const uploadImageToStorage = async (image: File) => {
+  const uploadImageToStorage = async (image: File): Promise<string> => {
     try {
-      const storageRef = storage.ref();
-      const imageRef = storageRef.child(`images/${image.name}`);
+      const storageRef = ref(storage, `products/${image.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
 
-      await imageRef.put(image);
+      const snapshot = await uploadTask;
 
-      const downloadURL = await imageRef.getDownloadURL();
-
+      // Após o upload ser concluído, obtenha o URL de download da imagem
+      const downloadURL = await getDownloadURL(snapshot.ref);
       return downloadURL;
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error);
@@ -59,6 +56,7 @@ const Produtos = () => {
       setProdutos(response.data);
       console.log(response.data)
       const categoriasUnicas = new Set(response.data.map((produto: any) => produto.categoria));
+      // Se tá rodando não mecha
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
       setCategorias(categoriasUnicasArray);
     } catch (error) {
@@ -98,8 +96,16 @@ const Produtos = () => {
         const descricao = descricaoElement.value;
 
         if (nome && categoria && valor && descricao) {
-          const picture = selectedImage ? await uploadImageToStorage(selectedImage) : './img/no_productImg.jpeg';
+          // Verifica se a imagem foi selecionada
+          let picture = './img/no_productImg.jpeg';
+          if (selectedImage) {
+            // Faz o upload da imagem para o Firebase Storage
+            const downloadURL = await uploadImageToStorage(selectedImage);
+            // Define a URL da imagem obtida
+            picture = downloadURL;
+          }
 
+          // Cria o novo produto com a URL da imagem obtida
           const novoProduto = {
             nome,
             categoria,
@@ -119,16 +125,15 @@ const Produtos = () => {
 
           await axios.post('http://localhost:4000/v2/produtos', novoProduto);
           fetchProdutos();
-        } else {
-          console.error('Erro ao adicionar produto: Algum campo não foi preenchido.');
         }
       } else {
-        console.error('Erro ao adicionar produto: Elemento não encontrado.');
+        console.error('Erro ao adicionar produto: Algum campo não foi preenchido.');
       }
     } catch (error) {
       console.error('Erro ao adicionar produto:', error);
     }
   };
+
 
   const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let valorDigitado = e.target.value;
@@ -182,7 +187,7 @@ const Produtos = () => {
                 <div className='img-input-container'>
                   <input type="file" id='img-input' onChange={handleImageChange} />
                   {selectedImage ? (
-                    <img src={selectedImage} className='img-region-add' alt="Selected Region" />
+                    <img src={URL.createObjectURL(selectedImage)} className='img-region-add' alt="Selected Region" />
                   ) : (
                     <img src="./img/no_productImg.jpeg" className='img-prod-add' alt="Default Region" />
                   )}

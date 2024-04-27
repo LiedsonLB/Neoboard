@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { IoCloudDownloadOutline, IoSearch, IoCaretDownSharp, IoAddCircleOutline } from 'react-icons/io5';
+import { IoCloudDownloadOutline } from 'react-icons/io5';
 import { read, utils } from 'xlsx';
 import Papa from 'papaparse';
 import './Relatorio.css';
 import LoadingComponent from '../../components/loading/LoadingComponent';
 import Popup from '../../components/popup/Popup';
-
-interface Despesa {
-  nome: string;
-  tipo: string;
-  descricao: string;
-  valor: number;
-}
 
 const Relatorio: React.FC = () => {
   const [outputData, setOutputData] = useState<any[]>([]);
@@ -20,24 +13,7 @@ const Relatorio: React.FC = () => {
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
-  const [despesas, setDespesas] = useState<Despesa[]>([]);
-
-  const expenseIcons: { [key: string]: string } = {
-    "Salario": "fas fa-dollar-sign",
-    "Aluguel": "fas fa-building",
-    "Fornecedor": "fas fa-truck",
-    "Imposto": "fas fa-money-bill-alt",
-    "Manutencao": "fas fa-tools"
-  };
-
-  const expenseColors: { [key: string]: string } = {
-    "Salario": "#388E3C",
-    "Aluguel": "#1B2947",
-    "Fornecedor": "#C62828",
-    "Imposto": "#FFC107",
-    "Manutencao": "#5B7FFF"
-  }
+  const [vendas, setvendas] = useState([]);
 
   const dateNow = new Date();
   const day = dateNow.getDate();
@@ -47,6 +23,17 @@ const Relatorio: React.FC = () => {
   const displayData = (data: any) => {
     setOutputData(data);
     setLoading(false);
+  };
+
+  const fetchVendas = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/v2/vendas');
+      setvendas(response.data);
+      console.log(response.data)
+      //const categoriasUnicas = new Set(response.data.map((produto: any) => produto.categoria));
+    } catch (error) {
+      console.error('Erro ao buscar vendas:', error);
+    }
   };
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -180,20 +167,6 @@ const Relatorio: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchDespesas = async () => {
-      try {
-        const response = await axios.get('http://localhost:4000/v2/despesas');
-        setDespesas(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar despesas:', error);
-      }
-    };
-
-    fetchDespesas();
-  }, []);
-
-
   // Função para enviar os dados para a API
   const enviarRelatorioVendas = async () => {
     try {
@@ -227,10 +200,6 @@ const Relatorio: React.FC = () => {
       setMensagem('Erro ao enviar dados para a API');
     }
     hidePopupAfterTimeout();
-  };
-
-  const handleOptionSelect = (event: any) => {
-    setSelectedOption(event.target.value);
   };
 
   const handleFormatChange = (event: any) => {
@@ -320,6 +289,15 @@ const Relatorio: React.FC = () => {
       </main>
 
       <div id="output">
+        {outputData.length <= 0 && 
+        <tr>
+        {vendas.map((header: any, index: number) => (
+          <td key={index}>
+            <h3>{vendas}</h3>
+          </td>
+        ))}
+      </tr>
+        }
         <table>
           <thead>
             {outputData.length > 0 &&
@@ -345,57 +323,6 @@ const Relatorio: React.FC = () => {
           </tbody>
         </table>
       </div>
-
-      <section id='exp-form'>
-        <header>
-          <h1>Informe suas despesas</h1>
-        </header>
-
-        <section id='search-expense'>
-          <div id='search-bar'>
-            <input type="search" id="search-exp" placeholder='Pesquisar despesa' aria-label="Buscar" />
-            <i id='search-icon'><IoSearch id='icon-exp' /></i>
-          </div>
-
-          <select id="filter-expense" value={selectedOption} onChange={handleOptionSelect}>
-            <option value="">Todos</option>
-            <option value="opcao1">Salário</option>
-            <option value="opcao2">Aluguel</option>
-            <option value="opcao3">Fornecedor</option>
-            <option value="opcao4">Imposto</option>
-            <option value="opcao5">Manutenção</option>
-          </select>
-        </section>
-
-        <p id='result-expense'>Resultados ({despesas.length})</p>
-
-        <section id='exp-cards'>
-          <button className='exp-card' id='add-exp-card'>
-            <i><IoAddCircleOutline /></i>
-            <p>Adicionar despesa</p>
-          </button>
-
-          {despesas
-            .filter(expense => selectedOption === '' || expense.tipo === selectedOption)
-            .map((expense, index) => (
-              <button key={index} className='exp-card'>
-                <span className="fa-stack">
-                  <div className='stack-container'>
-                    <i className="fas fa-square" style={{ color: expenseColors[expense.tipo] }}></i>
-                    <i className="fas fa-circle"></i>
-                    <i className={expenseIcons[expense.tipo]} style={{ color: expenseColors[expense.tipo] }}></i>
-                  </div>
-                </span>
-                <p>{expense.nome}</p>
-                <p className='exp-desc'>{expense.descricao}</p>
-                <p className='exp-desc'>R$ {expense.valor}</p>
-              </button>
-            ))}
-
-        </section>
-
-      </section>
-
     </div>
   );
 }

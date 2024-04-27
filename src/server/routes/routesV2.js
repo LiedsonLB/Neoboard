@@ -422,6 +422,27 @@ routerV2.get("/regioes", async (req, res) => {
     }
 });
 
+// Rota para excluir um região
+routerV2.delete("/regioes/:id", async (req, res) => {
+    try {
+        const regiaoId = req.params.id;
+
+        // Encontrar o índice do região pelo ID
+        const regiaoIndex = regiaoFalsos.findIndex(regiao => regiao.nome === regiaoId);
+
+        if (regiaoIndex !== -1) {
+            // Remover o região do array
+            regiaoFalsos.splice(regiaoIndex, 1);
+            res.status(204).send();
+        } else {
+            res.status(404).json({ error: "Região não encontrado" });
+        }
+    } catch (error) {
+        console.error('Erro ao excluir região:', error);
+        res.status(500).json({ error: 'Erro ao excluir região' });
+    }
+});
+
 // Rota para adicionar uma nova despesa
 routerV2.post("/despesas", async (req, res) => {
     try {
@@ -443,6 +464,27 @@ routerV2.get("/despesas", async (req, res) => {
     } catch (error) {
         console.error('Erro ao obter despesa:', error);
         res.status(500).json({ error: 'Erro ao obter despesa' });
+    }
+});
+
+// Rota para excluir um despesa
+routerV2.delete("/despesas/:id", async (req, res) => {
+    try {
+        const despesaId = req.params.id;
+
+        // Encontrar o índice do despesa pelo ID
+        const despesaIndex = despesaFalsos.findIndex(despesa => despesa.nome === despesaId);
+
+        if (despesaIndex !== -1) {
+            // Remover o despesa do array
+            despesaFalsos.splice(despesaIndex, 1);
+            res.status(204).send();
+        } else {
+            res.status(404).json({ error: "despesa não encontrado" });
+        }
+    } catch (error) {
+        console.error('Erro ao excluir despesa:', error);
+        res.status(500).json({ error: 'Erro ao excluir despesa' });
     }
 });
 

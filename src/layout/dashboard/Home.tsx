@@ -72,9 +72,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     }, []);
 
     const dataCards = {
-        faturamento: 1000,
-        despesas: 2000,
-        lucro: 100000,
+        faturamento: 0,
+        despesas: 0,
+        lucro: 0,
     };
 
     const AnimatedNumber = ({ value }: { value: number }) => {
@@ -355,7 +355,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 <p className="ranking-title">Funcionários</p>
                                 {loading ? (
                                     <LoadingComponent />
-                                ) : produtos.length === 0 ? (
+                                ) : staffs.length === 0 ? (
                                     <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline' }}>Nenhum funcionário encontrado</p>
                                 ) : (
                                     <ul>

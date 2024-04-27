@@ -19,6 +19,11 @@ const Regioes = () => {
     setShowModal(!showModal);
   };
 
+  const regioesFiltrados = regioes.filter((regiao: any) =>
+    regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
+    (categoriaSelecionada ? regiao.cidade === categoriaSelecionada : true)
+  );
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const reader = new FileReader();
@@ -47,6 +52,20 @@ const Regioes = () => {
   useEffect(() => {
     fetchRegioes();
   }, []);
+
+  const handleDelete = (produto: any) => async () => {
+    try {
+      // Faz a requisição DELETE para a rota da API para excluir o produto
+      await axios.delete(`http://localhost:4000/v2/regioes/${produto.nome}`);
+      console.log('Produto excluído com sucesso!');
+      // Atualiza a lista de produtos após a exclusão
+      const updatedProdutos = regioes.filter(r => r.nome !== produto.nome);
+      setRegioes(updatedProdutos);
+      setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
+    } catch (error) {
+      console.error('Erro ao excluir produto:', error);
+    }
+  };
 
   const filtrarPorCategoria = (categoria: string) => {
     setCategoriaSelecionada(categoria);
@@ -227,7 +246,7 @@ const Regioes = () => {
 
             <section id='search-container-region'>
               <div id='search-bar-region'>
-                <input type="search" id="search-region" placeholder='Pesquisar região' aria-label="Buscar" />
+                <input type="search" id="search-region" placeholder='Pesquisar região' aria-label="Buscar" onChange={handleFiltroChange}/>
                 <i id='search-icon-region'><IoSearch id='icon-region' /></i>
               </div>
 
@@ -259,23 +278,23 @@ const Regioes = () => {
                 </thead>
                 <tbody className='tBodyTableRegions'>
 
-                  {regioes
+                  {regioesFiltrados
                     .filter((regiao) =>
                       regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase())
                     )
                     .map((regiao, index) => (
-                      <tr key={index} className="region-row" onClick={() => handleShowInfoModal(regiao)}>
-                        <td>
+                      <tr key={index} className="region-row">
+                        <td onClick={() => handleShowInfoModal(regiao)}>
                           <div className="region-pic">
                             <img src={regiao.picture} alt={regiao.nome} />
                           </div>
                         </td>
-                        <td>{regiao.nome}</td>
-                        <td>{regiao.vendas}</td>
-                        <td>{regiao.faturamento}</td>
+                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.nome}</td>
+                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.vendas}</td>
+                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.faturamento}</td>
                         <td className='table-btns'>
-                          <button className="edit" onClick={() => handleShowInfoModal(regiao)}>Editar</button>
-                          <button className="delete" onClick={() => handleShowInfoModal(regiao)}>Excluir</button>
+                          <button className="edit" onClick={toggleModalClose}>Editar</button>
+                          <button className="delete" onClick={handleDelete(regiao)}>Excluir</button>
                         </td>
                       </tr>
                     ))}
