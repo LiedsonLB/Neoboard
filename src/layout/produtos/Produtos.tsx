@@ -7,6 +7,7 @@ import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 import axios from 'axios';
 // @ts-ignore
 import { storage } from '../../services/firebase';
+import Popup from '../../components/popup/Popup.tsx';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,11 +17,19 @@ const Produtos = () => {
   const [produtos, setProdutos] = useState([]);
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const [valorFormatado, setValorFormatado] = useState<string>('');
-  const [valorAcumulado, setValorAcumulado] = useState('');
   const [categorias, setCategorias] = useState<string[]>([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [produtoParaEditar, setProdutoParaEditar] = useState<any>(null);
+  //popup
+  const [mensagem, setMensagem] = useState('');
+  const [popupType, setPopupType] = useState('');
+  const [popupTitle, setPopupTitle] = useState('');
+
+  const hidePopupAfterTimeout = () => {
+    setTimeout(() => {
+      setMensagem('');
+    }, 4500);
+  };
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
@@ -80,6 +89,10 @@ const Produtos = () => {
       setCategorias(categoriasUnicasArray);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao procurar produtos');
+      hidePopupAfterTimeout();
     }
   };
 
@@ -99,12 +112,24 @@ const Produtos = () => {
         console.log('Imagem excluída do Storage com sucesso!');
       }
 
+      setPopupType('sucess');
+      setPopupTitle('Produto Excluído');
+      setMensagem('sucesso ao excluir o produto');
+      hidePopupAfterTimeout();
+
+      // Atualizar a lista de produtos após adição
+      fetchProdutos();
+
       // Atualiza a lista de produtos após a exclusão
       const updatedProdutos = produtos.filter(p => p.id !== produto.id);
       setProdutos(updatedProdutos);
       setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
     } catch (error) {
       console.error('Erro ao excluir produto:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao excluir o produto');
+      hidePopupAfterTimeout();
     }
   };
 
@@ -112,61 +137,76 @@ const Produtos = () => {
     fetchProdutos();
   }, []);
 
+  // Função para adicionar um produto
   const adicionarProduto = async () => {
     try {
+      // Obter os elementos dos campos do formulário
       const nomeElement = document.getElementById('name-item') as HTMLInputElement;
       const categoriaElement = document.getElementById('categoria-item') as HTMLInputElement;
       const valorElement = document.getElementById('valor-item') as HTMLInputElement;
       const descricaoElement = document.getElementById('descricao-item') as HTMLTextAreaElement;
 
-      if (nomeElement && categoriaElement && valorElement && descricaoElement) {
+      // Verificar se os campos de nome e preço estão preenchidos
+      if (nomeElement && valorElement && nomeElement.value && valorElement.value) {
+        // Obter os valores dos campos
         const nome = nomeElement.value;
-        const categoria = categoriaElement.value;
         const valor = valorElement.value;
-        const descricao = descricaoElement.value;
+        // Definir valores padrão para descrição e categoria caso não sejam preenchidos
+        const descricao = descricaoElement.value || 'sem descrição';
+        const categoria = categoriaElement.value || 'sem categoria';
 
-        if (nome && categoria && valor && descricao) {
-          // Verifica se a imagem foi selecionada
-          let picture = './img/no_productImg.jpeg';
-          if (selectedImage) {
-            // Faz o upload da imagem para o Firebase Storage
-            const downloadURL = await uploadImageToStorage(selectedImage);
-            // Define a URL da imagem obtida
-            picture = downloadURL;
-          }
-
-          // Gera um ID aleatório para o novo produto
-          const id = generateUniqueRandomId().toString();
-
-          // Cria o novo produto com a URL da imagem obtida
-          const novoProduto = {
-            id,
-            nome,
-            categoria,
-            preco: valor,
-            descricao,
-            picture,
-          };
-
-          console.log(novoProduto)
-
-          nomeElement.value = '';
-          categoriaElement.value = '';
-          valorElement.value = '';
-          descricaoElement.value = '';
-          setSelectedImage(null);
-          setShowModal(false);
-          setValorAcumulado('');
-          setValorFormatado('');
-
-          await axios.post('http://localhost:4000/v2/produtos', novoProduto);
-          fetchProdutos();
+        // Verificar se uma imagem foi selecionada
+        let picture = './img/no_productImg.jpeg';
+        if (selectedImage) {
+          // Fazer upload da imagem para o Firebase Storage
+          const downloadURL = await uploadImageToStorage(selectedImage);
+          // Definir a URL da imagem obtida
+          picture = downloadURL;
         }
+
+        // Gerar um ID aleatório para o novo produto
+        const id = generateUniqueRandomId().toString();
+
+        // Criar o novo produto
+        const novoProduto = {
+          id,
+          nome,
+          categoria,
+          preco: valor,
+          descricao,
+          picture,
+        };
+
+        // Exibir uma mensagem de sucesso
+        setPopupType('success');
+        setPopupTitle('Produto adicionado');
+        setMensagem('Sucesso ao adicionar o produto');
+        hidePopupAfterTimeout();
+
+        // Enviar a requisição para adicionar o novo produto
+        await axios.post('http://localhost:4000/v2/produtos', novoProduto);
+
+        // Limpar os campos do formulário e redefinir o estado do modal
+        nomeElement.value = '';
+        valorElement.value = '';
+        descricaoElement.value = '';
+        setSelectedImage(null);
+
+        // Atualizar a lista de produtos após adição
+        fetchProdutos();
       } else {
-        console.error('Erro ao adicionar produto: Algum campo não foi preenchido.');
+        console.error('Erro ao adicionar produto: Nome e Preço são campos obrigatórios.');
+        setPopupType('warning');
+        setPopupTitle('Erro');
+        setMensagem('Nome e Preço são campos obrigatórios');
+        hidePopupAfterTimeout();
       }
     } catch (error) {
       console.error('Erro ao adicionar produto:', error);
+      setPopupType('error');
+      setPopupTitle('Erro ao adicionar o produto');
+      setMensagem('Ocorreu um erro ao adicionar o produto. Por favor, tente novamente.');
+      hidePopupAfterTimeout();
     }
   };
 
@@ -179,11 +219,6 @@ const Produtos = () => {
     setFiltroPesquisa(e.target.value);
   };
 
-  const handleShowInfoModal = (produto: any) => {
-    setSelectedProduct(produto);
-    setShowInfoModal(true);
-  };
-
   const handleEdit = (produto: any) => {
     // Define os dados do produto selecionado para edição
     setProdutoParaEditar(produto);
@@ -193,6 +228,20 @@ const Produtos = () => {
 
   const handleEditProduct = async () => {
     try {
+
+      if (!produtoParaEditar.nome || !produtoParaEditar.preco) {
+        console.error('Erro ao editar produto: Preencha os campos Nome e Preço.');
+        console.error('Erro ao adicionar produto: Nome e Preço são campos obrigatórios.');
+        setPopupType('warning');
+        setPopupTitle('Erro');
+        setMensagem('Nome e Preço são campos obrigatórios');
+        return;
+      }
+
+      // Definir valores padrão para descrição e categoria caso não sejam preenchidos
+      produtoParaEditar.descricao = produtoParaEditar.descricao || 'sem descrição';
+      produtoParaEditar.categoria = produtoParaEditar.categoria || 'sem categoria';
+
       // Faça o envio dos novos dados do produto para a rota de edição
       await axios.put(`http://localhost:4000/v2/produtos/${produtoParaEditar.id}`, produtoParaEditar);
       fetchProdutos(); // Atualize a lista de produtos após a edição
@@ -204,6 +253,7 @@ const Produtos = () => {
 
   return (
     <>
+      {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
       {showEditModal && (
         <div className="Modal-Add">
           <div className='container-Add'>
@@ -329,7 +379,7 @@ const Produtos = () => {
                     <p><span>Categoria:</span> {selectedProduct.categoria}</p>
                     <p><span>Valor:</span> R$ {selectedProduct.preco}</p>
                     <p><span>Descrição:</span> {selectedProduct.descricao}</p>
-                    <div className='userStfSocialMidia' style={{gap: '2rem'}}>
+                    <div className='userStfSocialMidia' style={{ gap: '2rem' }}>
                       <p><span>Código:</span> {selectedProduct.id}</p> <a href=""><i className="fa-solid fa-share-nodes"></i></a>
                     </div>
                   </div>

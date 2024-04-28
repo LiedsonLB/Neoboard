@@ -205,7 +205,6 @@
 }
 
 #filter-expense:hover {
-    background-color: var(--primary-color);
     cursor: pointer;
 }
 
@@ -642,6 +641,7 @@
 
 .body-list-prod tr {
     background-color: #EBEDF1;
+    color: var(--black-color);
     font-size: .7rem;
 }
 

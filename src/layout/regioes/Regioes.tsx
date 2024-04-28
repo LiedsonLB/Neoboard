@@ -5,18 +5,28 @@ import RegionDoughnout from '../../components/charts/RegionDoughnout';
 import RegionColumnChart from '../../components/charts/RegionColumnChart.tsx';
 import axios from 'axios';
 
+
+import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
+// @ts-ignore
+import { storage } from '../../services/firebase';
+import Popup from '../../components/popup/Popup.tsx';
+
 const Regioes = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
-  const [regioes, setRegioes] = useState<any[]>([]); // Alterado para armazenar as regiões
+  const [regioes, setRegioes] = useState<any[]>([]);
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
-  const [selectedRegion, setSelectedRegion] = useState<any>(null); // Estado para armazenar a região selecionada
-  const [categorias, setCategorias] = useState<string[]>([]); // Definindo o estado categorias como uma lista de strings
+  const [selectedRegion, setSelectedRegion] = useState<any>(null);
+  const [categorias, setCategorias] = useState<string[]>([]);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [regiaoParaEditar, setRegiaoParaEditar] = useState<any>(null);
-  const [regiaoParaAdicionar, setRegiaoParaAdicionar] = useState<any>(null);
+  const [regiaoParaEditar, setRegiaoParaEditar] = useState<any>({});
+  const [regiaoParaAdicionar, setRegiaoParaAdicionar] = useState<any>({});
+  //popup
+  const [mensagem, setMensagem] = useState('');
+  const [popupType, setPopupType] = useState('');
+  const [popupTitle, setPopupTitle] = useState('');
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
@@ -30,12 +40,26 @@ const Regioes = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const reader = new FileReader();
-    reader.onloadend = () => {
-      const result = reader.result as string;
-      setSelectedImage(result);
-    };
+
     if (file) {
+      setSelectedImage(file);
       reader.readAsDataURL(file);
+    }
+  };
+
+  const uploadImageToStorage = async (image: File): Promise<string> => {
+    try {
+      const storageRef = ref(storage, `regions/${image.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+
+      const snapshot = await uploadTask;
+
+      // Após o upload ser concluído, obtenha o URL de download da imagem
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      return downloadURL;
+    } catch (error) {
+      console.error('Erro ao fazer upload da imagem:', error);
+      throw error;
     }
   };
 
@@ -43,7 +67,6 @@ const Regioes = () => {
     try {
       const response = await axios.get('http://localhost:4000/v2/regioes');
       setRegioes(response.data);
-      console.log(response.data)
       const categoriasUnicas = new Set(response.data.map((regiao: any) => regiao.cidade));
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
       setCategorias(categoriasUnicasArray);
@@ -74,29 +97,29 @@ const Regioes = () => {
       console.error('Erro ao adicionar região:', error);
     }
   };
-  
+
   const handleEditRegion = async () => {
     try {
-      // Faça o envio dos novos dados do região para a rota de edição
+      // Faz o envio dos dados editados da região para a rota de PUT
       await axios.put(`http://localhost:4000/v2/regioes/${regiaoParaEditar.id}`, regiaoParaEditar);
-      fetchRegioes(); // Atualize a lista de regiões após a edição
-      setShowEditModal(false); // Feche o modal de edição após a conclusão
+      fetchRegioes();
+      setShowEditModal(false);
     } catch (error) {
       console.error('Erro ao editar região:', error);
     }
   };
 
-  const handleDelete = (produto: any) => async () => {
+  const handleDelete = (regiao: any) => async () => {
     try {
-      // Faz a requisição DELETE para a rota da API para excluir o produto
-      await axios.delete(`http://localhost:4000/v2/regioes/${produto.nome}`);
-      console.log('Produto excluído com sucesso!');
-      // Atualiza a lista de produtos após a exclusão
-      const updatedProdutos = regioes.filter(r => r.nome !== produto.nome);
-      setRegioes(updatedProdutos);
+      // Faz a requisição DELETE para a rota da API para excluir o regiao
+      await axios.delete(`http://localhost:4000/v2/regioes/${regiao.nome}`);
+      console.log('regiao excluído com sucesso!');
+      // Atualiza a lista de regiaos após a exclusão
+      const updatedregiaos = regioes.filter(r => r.nome !== regiao.nome);
+      setRegioes(updatedregiaos);
       setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
     } catch (error) {
-      console.error('Erro ao excluir produto:', error);
+      console.error('Erro ao excluir regiao:', error);
     }
   };
 
@@ -111,13 +134,15 @@ const Regioes = () => {
 
   const handleEdit = (regiao: any) => {
     // Define os dados do regiao selecionado para edição
-    setRegiaoParaEditar(regiao);
+    console.log(regiao);
+    setRegiaoParaEditar(regiao); // Aqui você está definindo os dados do região selecionado para edição
     // Abre o modal de edição
     setShowEditModal(true);
   };
-
+  
   return (
     <>
+      {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
       {showEditModal && (
         <div className="Modal-Add">
           <div className='container-Add'>
@@ -138,7 +163,7 @@ const Regioes = () => {
                   <label htmlFor="name-item">Cidade:</label>
                   <input type="text" name='name-item' className='full-item'
                     value={regiaoParaEditar.cidade}
-                    onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, cidade: e.target.value })} />
+                    onChange={(e) => { setRegiaoParaEditar({ ...regiaoParaEditar, cidade: e.target.value }); console.log(regiaoParaEditar)}} />
                 </span>
               </div>
 
@@ -154,7 +179,8 @@ const Regioes = () => {
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Vendedor Responsável:</label>
-                  <input type="text" name='name-item' className='full-item' value={regiaoParaEditar.responsavel}
+                  <input type="text" name='name-item' className='full-item'
+                    value={regiaoParaEditar.responsavel}
                     onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, responsavel: e.target.value })} />
                 </span>
               </div>
@@ -189,7 +215,7 @@ const Regioes = () => {
               <div className='img-input-container'>
                 <input type="file" id='img-input' onChange={handleImageChange} />
                 {selectedImage ? (
-                  <img src={selectedImage} className='img-region-add' alt="Selected Region" />
+                  <img src={URL.createObjectURL(selectedImage)} className='img-region-add' alt="Selected Region" />
                 ) : (
                   <img src="./img/no_regionImg.jpeg" className='img-region-add' alt="Default Region" />
                 )}

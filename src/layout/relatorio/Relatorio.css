@@ -192,8 +192,7 @@ input[type="file"] {
   }
   
   #format-select:hover {
-    background-color: var(--primary-color);
-    color: var(--white-color);
+    cursor: pointer;
   }  
 
 #cancel-btn {
@@ -291,6 +290,7 @@ input[type="file"] {
     height: auto !important;
     padding: 5px !important;
     width: 200px !important;
+    text-align: center;
 }
 
 #output table tbody tr td h3 {
