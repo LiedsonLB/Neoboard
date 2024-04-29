@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/homepage/HomePage.tsx";
 import CadasterPage from "./pages/cadasterpage/CadasterPage.tsx";
 import ErrorPage from "./pages/errorpage/Errorpage.tsx";
+import Produto from "./layout/Produto.tsx";
 
 const App = () => {
   const [user, loading] = useAuthState(auth);
@@ -20,6 +21,7 @@ const App = () => {
         <>
           <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/product/:id" element={<Produto />} />
           <Route path="/*" element={<ErrorPage />} />
         </>
       ) : (

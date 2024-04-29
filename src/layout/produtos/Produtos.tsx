@@ -3,20 +3,18 @@ import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebas
 import "./Produtos.css";
 import { IoSearch, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout';
-import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 import axios from 'axios';
 // @ts-ignore
 import { storage } from '../../services/firebase';
 import Popup from '../../components/popup/Popup.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
-  const [showInfoModal, setShowInfoModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [categorias, setCategorias] = useState<string[]>([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [produtoParaEditar, setProdutoParaEditar] = useState<any>(null);
@@ -24,6 +22,7 @@ const Produtos = () => {
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
+  const navigate = useNavigate();
 
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
@@ -361,76 +360,6 @@ const Produtos = () => {
         </div>
       )}
 
-      {showInfoModal && (
-        <div className="Modal-Add">
-          <div className="container-Detail-Product">
-
-            <div id="header-modal">
-              <h4 className="modal-title">Informações do Produto</h4>
-              <button type="button" className="close-btn" onClick={() => setShowInfoModal(false)}>&times;</button>
-            </div>
-
-            <div id='Product-Info-Container'>
-              <div id='infoprod-popup'>
-                <div id='prodInfo-popup'>
-                  <img src={selectedProduct.picture} alt="product-avatar" />
-                  <h2 className='nameUserProd'>{selectedProduct.nome}</h2>
-                  <div id="ProdTextInfo">
-                    <p><span>Categoria:</span> {selectedProduct.categoria}</p>
-                    <p><span>Valor:</span> R$ {selectedProduct.preco}</p>
-                    <p><span>Descrição:</span> {selectedProduct.descricao}</p>
-                    <div className='userStfSocialMidia' style={{ gap: '2rem' }}>
-                      <p><span>Código:</span> {selectedProduct.id}</p> <a href=""><i className="fa-solid fa-share-nodes"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div id='infoprod-charts'>
-                <div id='container-ProductColumnChart'>
-                  <ProductColumnChart />
-                </div>
-
-                <p className="text-history">Histórico de vendas: </p>
-                <section id='container-table-prod'>
-                  <table id='table-prod'>
-                    <thead className='head-list-prod'>
-                      <tr>
-                        <td>Produto</td>
-                        <td>Região</td>
-                        <td>Quantidade</td>
-                        <td>Data</td>
-                        <td>Pagamento</td>
-                      </tr>
-                    </thead>
-                    <tbody className='body-list-prod'>
-                      <tr>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="5">5</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                        </td>
-                        <td>
-                          <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão (debito)</h3>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </section>
-              </div>
-
-            </div>
-          </div >
-        </div >
-      )}
-
       <div id='product-container'>
         <div id='product-inside'>
           <header id="prod-header">
@@ -488,7 +417,7 @@ const Produtos = () => {
                   </figure>
                   <p>{produto.nome}</p>
                   <p className='prod-name'>R$ {produto.preco}</p>
-                  <button className='see-prod-btn' onClick={() => { setShowInfoModal(true); setSelectedProduct(produto) }}>Ver produto</button>
+                  <button className='see-prod-btn' onClick={() => navigate(`/product/${produto.id}`, { state: { user: produto } })}>Ver produto</button>
                   <div className='manager-btn'>
                     <div>
                       <button className='edit-item item-mng' onClick={() => handleEdit(produto)}><IoCreate id='edit-pen' /></button>

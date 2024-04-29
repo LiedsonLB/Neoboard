@@ -379,6 +379,27 @@ let vendaFalsos = [
 // });
 
 // Endpoints para Produtos
+// Rota para obter um único produto
+routerV2.get("/produtos/:id", async (req, res) => {
+    try {
+        const produtoId = req.params.id;
+
+        // Encontrar o produto pelo ID
+        const produto = produtosFalsos.find(produto => produto.id === produtoId);
+
+        if (produto) {
+            // Se o produto for encontrado, retorná-lo
+            res.status(200).json(produto);
+        } else {
+            // Se o produto não for encontrado, retornar uma mensagem de erro
+            res.status(404).json({ error: "Produto não encontrado" });
+        }
+    } catch (error) {
+        console.error('Erro ao obter produto:', error);
+        res.status(500).json({ error: 'Erro ao obter produto' });
+    }
+});
+
 
 // Rota para adicionar um novo produto
 routerV2.post("/produtos", async (req, res) => {

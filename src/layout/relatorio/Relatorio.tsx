@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IoCloudDownloadOutline } from 'react-icons/io5';
 import { read, utils } from 'xlsx';
@@ -14,6 +14,7 @@ const Relatorio: React.FC = () => {
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
   const [vendas, setvendas] = useState([]);
+  const [funcionarios, setFuncionarios] = useState([]);
 
   const dateNow = new Date();
   const day = dateNow.getDate();
@@ -231,6 +232,19 @@ const Relatorio: React.FC = () => {
     }, 4000);
   };
 
+  useEffect(() => {
+    const fetchFuncionarios = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/v2/funcionarios');
+        const data = response.data;
+        setFuncionarios(data);
+      } catch (error) {
+        console.error('Erro ao buscar funcionários:', error);
+      }
+    };
+    fetchFuncionarios();
+  }, []);
+
   return (
     <div id='report-container'>
       {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
@@ -314,10 +328,10 @@ const Relatorio: React.FC = () => {
             {outputData.slice(1).map((row, rowIndex) => (
               <tr key={rowIndex}>
                 {row.map((cell: any, cellIndex: number) => (
-                  <td key={cellIndex}>
-                    {cell}
-                  </td>
-                ))}
+                    <td key={cellIndex}>
+                      <input type="text" value={cell} style={{ width: "100%" }} />
+                    </td>
+                  ))}
               </tr>
             ))}
           </tbody>

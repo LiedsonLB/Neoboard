@@ -141,6 +141,22 @@ routerV3.delete("/despesas/:id", async (req, res) => {
     }
 });
 
+// Rota para atualizar uma despesa
+routerV3.put("/despesas/:id", async (req, res) => {
+    try {
+        const despesaId = parseInt(req.params.id);
+        const novosDadosDespesa = req.body; // Certifique-se de que os campos que podem ser atualizados estão presentes no corpo da solicitação
+        const updatedDespesa = await prisma.despesa.update({
+            where: { id: despesaId },
+            data: novosDadosDespesa
+        });
+        res.status(200).json(updatedDespesa);
+    } catch (error) {
+        console.error('Erro ao atualizar despesa:', error);
+        res.status(500).json({ error: 'Erro ao atualizar despesa' });
+    }
+});
+
 // Rota para adicionar um novo funcionário
 routerV3.post("/funcionarios", async (req, res) => {
     try {

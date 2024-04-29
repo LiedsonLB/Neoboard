@@ -15,7 +15,7 @@ model Usuario {
   funcionarios Funcionario[]
   produtos     Produto[]
   vendas       Venda[]
-  regioes      Regiao[]      @relation("RegiaoToUsuario")
+  regioes      Regiao[]
 }
 
 model Produto {
@@ -31,14 +31,15 @@ model Produto {
 }
 
 model Regiao {
-  id        Int       @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   picture   String?
   nome      String
   descricao String
   endereco  String?
   cidade    String
   vendas    Venda[]
-  usuarios  Usuario[] @relation("RegiaoToUsuario")
+  usuarioId Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
 }
 
 model Funcionario {
