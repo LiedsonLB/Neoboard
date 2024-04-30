@@ -1,7 +1,186 @@
+#financial-container {
+    background-color: var(--gray-color);
+    height: 100vh;
+    width: 100%;
+    max-width: 1500px;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+#financial-header {
+    padding: 2rem 4rem;
+    font-family: var(--font-Krona), sans-serif;
+    animation: slideInUp 1s ease forwards;
+    font-size: .8rem;
+    color: var(--primary-color);
+}
+
+#financial-main {
+    width: 95%;
+    margin: 0 auto;
+    padding-inline: 3rem;
+}
+
+.debts-container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.debts-left {
+    width: 55%;
+}
+
+.debts-card {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: relative;
+    padding-inline: 1rem;
+}
+
+.dbt-card-container {
+    height: 10rem;
+    position: relative;
+}
+
+.dbt-circ {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.debt-icon {
+    font-size: 1.5rem;
+}
+
+.dbt-card {
+    color: white;
+    background: var(--primary-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 15rem;
+    height: 6rem;
+    margin: 1rem;
+    border-radius: 10px;
+}
+
+.dbt-card h1 {
+    font-size: 2rem;
+    margin-left: 1rem;
+    font-weight: 500;
+}
+
+.dbt-card p {
+    text-align: center;
+}
+
+.debts-right {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    background: var(--white-color);
+    border-radius: 20px;
+}
+
+.debt-chart {
+    margin-top: 2rem;
+}
+
+.debt-form ul li {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.debt-title {
+    text-align: center;
+    margin-block: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.debt-ranking {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-block: 3rem;
+    align-items: center;
+}
+
+.debt-ranking-header {
+    color: var(--primary-color);
+}
+
+.columns-debt {
+    display: flex;
+    width: 100%;
+    border-radius: 10px;
+    background: var(--white-color);
+    gap: 1rem;
+}
+
+.column-dbt {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    padding-block: 1rem;
+    gap: 1rem;
+    color: var(--primary-color);
+}
+
+#expense-types {
+    display: flex;
+    justify-content: space-between;
+    margin-block: 3rem;
+}
+
+.dbt-forms {
+    background-color: var(--white-color);
+    border-radius: 10px;
+    padding-block: 2rem;
+    align-items: center;
+    width: 40%;
+    justify-content: center;
+}
+
+.expense-line {
+    width: 55%;
+    background-color: var(--white-color);
+    height: 30rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.chart-line-exp {
+    background-color: var(--white-color);
+}
+
+#expense-container {
+    width: 100%;
+}
+
 #exp-form {
     display: flex;
     flex-direction: column;
-    padding: 3rem;
 }
 
 #exp-form header {
@@ -154,7 +333,11 @@
 
 }
 
-.fa-dollar-sign, .fa-building, .fa-truck, .fa-money-bill-alt, .fa-tools {
+.fa-dollar-sign,
+.fa-building,
+.fa-truck,
+.fa-money-bill-alt,
+.fa-tools {
     position: absolute;
     font-size: 1.4rem !important;
 }
@@ -180,4 +363,75 @@
     position: absolute;
     color: 1B2947;
     font-size: 2rem !important;
+}
+
+@media screen and (max-width: 1030px) {
+    #financial-main {
+        width: 90%;
+        margin: 0 auto;
+        padding-inline: 0;
+    }  
+
+    #financial-header {
+        text-align: center;
+    }
+
+    .debts-left {
+        width: 100%;
+    }
+
+    .debts-container {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    .debts-card {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0;
+       
+    }
+
+    .debts-right {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .columns-debt {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    #expense-types {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .dbt-forms {
+        background-color: var(--white-color);
+        border-radius: 10px;
+        padding-block: 2rem;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .expense-line {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .chartFinancialLine{
+        width: 1fr;
+    }
 }

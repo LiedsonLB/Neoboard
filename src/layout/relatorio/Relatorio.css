@@ -5,6 +5,7 @@
     margin: 0 auto;
     width: 100%;
     max-width: 1500px;
+    overflow: auto;
 }
 
 #report-header {
@@ -113,6 +114,9 @@
 
 #report-icon {
     font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #report-line {
@@ -185,15 +189,15 @@ input[type="file"] {
     background-color: var(--white-color);
     color: var(--black-color);
     font-family: var(--font-Krub);
-  }
-  
-  #format-select option {
+}
+
+#format-select option {
     font-family: var(--font-Krub);
-  }
-  
-  #format-select:hover {
+}
+
+#format-select:hover {
     cursor: pointer;
-  }  
+}
 
 #cancel-btn {
     background-color: transparent;
@@ -252,7 +256,7 @@ input[type="file"] {
 }
 
 #output {
-    height: 50% !important;
+    height:50%;
     overflow: auto;
     width: 90%;
     margin: 0 auto;

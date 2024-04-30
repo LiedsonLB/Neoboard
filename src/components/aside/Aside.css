@@ -52,6 +52,8 @@ aside {
 
 #aside-home.closed .user-acount button {
   font-size: 1.8em;
+  display: flex;
+  justify-content: center;
 }
 
 #aside-home.closed #navigation-home ul {
@@ -157,6 +159,7 @@ aside ul li {
   -webkit-user-select: none;
   user-select: none;
   justify-content: start;
+  font-weight: bold;
 }
 
 aside.closed ul li {
