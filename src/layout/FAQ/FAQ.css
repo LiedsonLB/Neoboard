@@ -63,6 +63,7 @@
     display: flex;
     flex-direction: column;
     gap: .3rem;
+    align-items: center;
 }
 
 .social-card a {
@@ -184,6 +185,10 @@
     font-weight: bold;
     transition: .8s;
     font-family: var(--font-Krub);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .faq-btn:hover {

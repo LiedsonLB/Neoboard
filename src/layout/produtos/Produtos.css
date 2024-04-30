@@ -289,6 +289,9 @@
     border-radius: 5px;
     cursor: pointer;
     border:  none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .edit-item {
@@ -643,6 +646,7 @@
     background-color: #EBEDF1;
     color: var(--black-color);
     font-size: .7rem;
+    text-align: center;
 }
 
 .head-list-prod tr {
@@ -664,7 +668,7 @@
 }
 
 .body-list-prod tr td h3 {
-    text-wrap: nowrap;
+    text-wrap: wrap;
     overflow: hidden;
     max-width: 100px;
     text-overflow: ellipsis;
