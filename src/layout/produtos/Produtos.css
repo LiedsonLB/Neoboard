@@ -643,7 +643,7 @@
 }
 
 .body-list-prod tr {
-    background-color: #EBEDF1;
+    background-color: var(--white-color);
     color: var(--black-color);
     font-size: .7rem;
     text-align: center;

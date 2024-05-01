@@ -19,6 +19,7 @@
     width: 95%;
     margin: 0 auto;
     padding-inline: 3rem;
+    height: 100%;
 }
 
 .debts-container {
@@ -26,6 +27,7 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    height: 100%;
 }
 
 .debts-left {
@@ -61,6 +63,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--secondy-color);
 }
 
 .debt-icon {
@@ -87,6 +90,12 @@
 
 .dbt-card p {
     text-align: center;
+}
+
+#container-table-debts {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .debts-right {
@@ -388,6 +397,7 @@
         justify-content: center;
         align-items: center;
         margin: 0 auto;
+        height: auto;
     }
 
     .debts-card {

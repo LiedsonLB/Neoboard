@@ -420,6 +420,7 @@
   top: 0.0374px;
   left: 0px;
   animation-delay: 2s;
+  opacity: 0.8;
 }
 
 @keyframes anime {

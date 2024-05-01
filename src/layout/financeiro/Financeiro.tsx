@@ -123,7 +123,7 @@ const Financeiro = () => {
                 </article>
               </div>
 
-              <section id='container-table-prod'>
+              <section id='container-table-debts'>
                 <table id='table-prod'>
                   <thead className='head-list-prod'>
                     <tr>
@@ -136,6 +136,503 @@ const Financeiro = () => {
                   </thead>
                   <tbody className='body-list-prod'>
                     <tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Piripiri">Sorvete de Batata</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="5">5</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
+                      </td>
+                    </tr><tr>
                       <td>
                         <h3 data-toggle="tooltip" title="Picolé sem cobertura">Kaiji</h3>
                       </td>
@@ -168,7 +665,7 @@ const Financeiro = () => {
                   <ul>
                     <li style={{ width: '300px', background: 'none' }}>
                       <div className="product-name">
-                        <p style={{ color: 'black' }}>Dinheiro</p>
+                        <p style={{ color: 'var(--black-color)' }}>Dinheiro</p>
                         <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                           <div className="product-scale">
                             <div className="scale" style={{ width: `50%`, background: '#2ecc71' }}>
@@ -180,7 +677,7 @@ const Financeiro = () => {
 
                     <li style={{ width: '300px', background: 'none' }}>
                       <div className="product-name">
-                        <p style={{ color: 'black' }}>Pix</p>
+                        <p style={{ color: 'var(--black-color)' }}>Pix</p>
                         <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                           <div className="product-scale">
                             <div className="scale" style={{ width: `50%`, background: '#3498db' }}>
@@ -192,7 +689,7 @@ const Financeiro = () => {
 
                     <li style={{ width: '300px', background: 'none' }}>
                       <div className="product-name">
-                        <p style={{ color: 'black' }}>Cartão (Crédito)</p>
+                        <p style={{ color: 'var(--black-color)' }}>Cartão (Crédito)</p>
                         <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                           <div className="product-scale">
                             <div className="scale" style={{ width: `50%`, background: 'red' }}>
@@ -204,7 +701,7 @@ const Financeiro = () => {
 
                     <li style={{ width: '300px', background: 'none' }}>
                       <div className="product-name">
-                        <p style={{ color: 'black' }}>Boleto</p>
+                        <p style={{ color: 'var(--black-color)' }}>Boleto</p>
                         <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                           <div className="product-scale">
                             <div className="scale" style={{ width: `50%`, background: 'orange' }}>
@@ -216,7 +713,7 @@ const Financeiro = () => {
 
                     <li style={{ width: '300px', background: 'none' }}>
                       <div className="product-name">
-                        <p style={{ color: 'black' }}>Cheque</p>
+                        <p style={{ color: 'var(--black-color)' }}>Cheque</p>
                         <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                           <div className="product-scale">
                             <div className="scale" style={{ width: `50%`, background: 'purple' }}>
@@ -228,7 +725,7 @@ const Financeiro = () => {
 
                     <li style={{ width: '300px', background: 'none', justifyContent: "space-between" }}>
                       <div className="product-name">
-                        <p style={{ color: 'black' }}>Transferência</p>
+                        <p style={{ color: 'var(--black-color)' }}>Transferência</p>
                         <div className="scale-container">
                           <div className="product-scale">
                             <div className="scale" style={{ width: `50%`, background: '#1abc9c' }}>
@@ -240,10 +737,10 @@ const Financeiro = () => {
 
                     <li style={{ width: '300px', background: 'none' }}>
                       <div className="product-name">
-                        <p style={{ color: 'black' }}>Em Dívida</p>
+                        <p style={{ color: 'var(--black-color)' }}>Em Dívida</p>
                         <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                           <div className="product-scale">
-                            <div className="scale" style={{ width: `50%`, background: 'black' }}>
+                            <div className="scale" style={{ width: `50%`, background: 'var(--black-color)' }}>
                             </div>
                           </div>
                         </div>
@@ -277,7 +774,7 @@ const Financeiro = () => {
                 <ul style={{display:'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto'}}>
                   <li style={{ width: '300px', background: 'none' }}>
                     <div className="product-name">
-                      <p style={{ color: 'black' }}>Dinheiro</p>
+                      <p style={{ color: 'var(--black-color)' }}>Dinheiro</p>
                       <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                         <div className="product-scale">
                           <div className="scale" style={{ width: `50%`, background: '#2ecc71' }}>
@@ -289,7 +786,7 @@ const Financeiro = () => {
 
                   <li style={{ width: '300px', background: 'none' }}>
                     <div className="product-name">
-                      <p style={{ color: 'black' }}>Pix</p>
+                      <p style={{ color: 'var(--black-color)' }}>Pix</p>
                       <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                         <div className="product-scale">
                           <div className="scale" style={{ width: `50%`, background: '#3498db' }}>
@@ -301,7 +798,7 @@ const Financeiro = () => {
 
                   <li style={{ width: '300px', background: 'none' }}>
                     <div className="product-name">
-                      <p style={{ color: 'black' }}>Cartão (Crédito)</p>
+                      <p style={{ color: 'var(--black-color)' }}>Cartão (Crédito)</p>
                       <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                         <div className="product-scale">
                           <div className="scale" style={{ width: `30%`, background: 'red' }}>
@@ -313,7 +810,7 @@ const Financeiro = () => {
 
                   <li style={{ width: '300px', background: 'none' }}>
                     <div className="product-name">
-                      <p style={{ color: 'black' }}>Boleto</p>
+                      <p style={{ color: 'var(--black-color)' }}>Boleto</p>
                       <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                         <div className="product-scale">
                           <div className="scale" style={{ width: `20%`, background: 'orange' }}>
@@ -325,7 +822,7 @@ const Financeiro = () => {
 
                   <li style={{ width: '300px', background: 'none' }}>
                     <div className="product-name">
-                      <p style={{ color: 'black' }}>Cheque</p>
+                      <p style={{ color: 'var(--black-color)' }}>Cheque</p>
                       <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                         <div className="product-scale">
                           <div className="scale" style={{ width: `10%`, background: 'purple' }}>
@@ -337,7 +834,7 @@ const Financeiro = () => {
 
                   <li style={{ width: '300px', background: 'none', justifyContent: "space-between" }}>
                     <div className="product-name">
-                      <p style={{ color: 'black' }}>Transferência</p>
+                      <p style={{ color: 'var(--black-color)' }}>Transferência</p>
                       <div className="scale-container">
                         <div className="product-scale">
                           <div className="scale" style={{ width: `30%`, background: '#1abc9c' }}>
@@ -349,10 +846,10 @@ const Financeiro = () => {
 
                   <li style={{ width: '300px', background: 'none' }}>
                     <div className="product-name">
-                      <p style={{ color: 'black' }}>Em Dívida</p>
+                      <p style={{ color: 'var(--black-color)' }}>Em Dívida</p>
                       <div className="scale-container" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                         <div className="product-scale">
-                          <div className="scale" style={{ width: `20%`, background: 'black' }}>
+                          <div className="scale" style={{ width: `20%`, background: 'var(--black-color)' }}>
                           </div>
                         </div>
                       </div>
