@@ -288,7 +288,7 @@
     background: var(--white-color);
     border-radius: 5px;
     cursor: pointer;
-    border:  none;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -316,7 +316,7 @@
     background: #ff5151;
 }
 
-.delete-item:hover { 
+.delete-item:hover {
     background: #e74c3c;
 }
 
@@ -665,6 +665,9 @@
 .head-list-prod tr td {
     height: auto !important;
     padding: 5px !important;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
 .body-list-prod tr td h3 {
@@ -771,7 +774,6 @@
     #prodInfo-popup img {
         animation: spin 1s linear;
         border-radius: 20px;
-        outline: 5px solid var(--secondy-color);
         width: 150px;
         margin-top: 1rem;
     }
@@ -821,6 +823,7 @@
     #product-card {
         width: 95%;
     }
+
     #result-product {
         text-align: center;
         margin-block: 2rem;

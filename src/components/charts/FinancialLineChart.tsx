@@ -100,7 +100,19 @@ const FinancialLineChart = () => {
     },
   };
 
-  return <Line className='chartFinancialLine' data={data} options={options} />;
+  const styleFinanceChartLine = {
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+
+  return (
+    <div style={styleFinanceChartLine}>
+      <Line className='chartFinancialLine' data={data} options={options} />
+    </div>
+  );
 };
 
 export default FinancialLineChart;

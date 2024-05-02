@@ -381,9 +381,9 @@ const Funcionarios = () => {
                 <h2 className='nameUserStf'>{selectedUser.nome}</h2>
                 <p className='emailUserStf'>{selectedUser.email}</p>
                 <div className='userStfSocialMidia'>
-                  <a href={`mailto:${selectedUser.email}`}><i className="fa-solid fa-envelope"></i></a>
-                  <a href={selectedUser.github}><i className="fa-brands fa-github"></i></a>
-                  <a href={selectedUser.linkedin}><i className="fa-brands fa-linkedin"></i></a>
+                  <a href={`mailto:${selectedUser.email}`} style={{color: 'var(--purple-color)'}}><i className="fa-solid fa-envelope"></i></a>
+                  <a href={selectedUser.github} style={{color: 'var(--black-color)'}}><i className="fa-brands fa-github"></i></a>
+                  <a href={selectedUser.linkedin} style={{color: 'var(--secondy-color)'}}><i className="fa-brands fa-linkedin"></i></a>
                 </div>
               </div>
 

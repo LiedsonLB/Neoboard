@@ -14,10 +14,11 @@ import Funcionarios from '../../layout/funcionarios/Funcionarios.tsx';
 import FAQ from '../../layout/FAQ/FAQ.tsx';
 
 const HomePage = () => {
+    const savedComponent = sessionStorage.getItem('currentComponent');
     const [photo, setPhoto] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [currentComponent, setCurrentComponent] = useState<String>('Dashboard')
+    const [currentComponent, setCurrentComponent] = useState<string>(savedComponent || 'Dashboard');
 
     const [user, loading] = useAuthState(auth);
 
@@ -31,10 +32,19 @@ const HomePage = () => {
             setEmail(user.email ?? "");
             setPhoto(user.photoURL ?? "img/no_profile.png");
         }
-    }, [user])
+    }, [user]);
 
-    const changeComponent = (componentName: String) => {
-        setCurrentComponent(componentName);
+    useEffect(() => {
+        if (savedComponent !== null) {
+            setCurrentComponent(savedComponent);
+        } else {
+            setCurrentComponent('Dashboard'); // Define o valor padrão como 'Dashboard'
+        }
+    }, []);
+
+    const changeComponentStorage = (componentName: string) => {
+        sessionStorage.setItem('currentComponent', componentName);
+        setCurrentComponent(componentName); // Defina o estado com o novo valor
     };
 
     const renderComponent = () => {
@@ -56,14 +66,14 @@ const HomePage = () => {
             default:
                 return <Home user={{ displayName: user ? user.displayName || undefined : undefined }} />;
         }
-    };      
+    };
 
     if (loading) return <Loading />;
 
     return (
         <>
             <div id="homepage">
-                <Aside user={user} changeComponent={(component: String) => setCurrentComponent(component)} />
+                <Aside user={user} changeComponent={(component: string) => changeComponentStorage(component)} />
                 <div id="home-screen">
                     {renderComponent()}
                 </div>
@@ -72,4 +82,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default HomePage;

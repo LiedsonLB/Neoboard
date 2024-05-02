@@ -23,6 +23,7 @@ const Regioes = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [regiaoParaEditar, setRegiaoParaEditar] = useState<any>({});
   const [regiaoParaAdicionar, setRegiaoParaAdicionar] = useState<any>({});
+
   //popup
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
@@ -31,11 +32,6 @@ const Regioes = () => {
   const toggleModalClose = () => {
     setShowModal(!showModal);
   };
-
-  const regioesFiltrados = regioes.filter((regiao: any) =>
-    regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
-    (categoriaSelecionada ? regiao.cidade === categoriaSelecionada : true)
-  );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -65,7 +61,7 @@ const Regioes = () => {
 
   const fetchRegioes = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/v2/regioes');
+      const response = await axios.get(`http://localhost:4000/v2/regioes?categoria=${categoriaSelecionada}`);
       setRegioes(response.data);
       const categoriasUnicas = new Set(response.data.map((regiao: any) => regiao.cidade));
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
@@ -139,7 +135,7 @@ const Regioes = () => {
     // Abre o modal de edição
     setShowEditModal(true);
   };
-  
+
   return (
     <>
       {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
@@ -163,7 +159,7 @@ const Regioes = () => {
                   <label htmlFor="name-item">Cidade:</label>
                   <input type="text" name='name-item' className='full-item'
                     value={regiaoParaEditar.cidade}
-                    onChange={(e) => { setRegiaoParaEditar({ ...regiaoParaEditar, cidade: e.target.value }); console.log(regiaoParaEditar)}} />
+                    onChange={(e) => { setRegiaoParaEditar({ ...regiaoParaEditar, cidade: e.target.value }); console.log(regiaoParaEditar) }} />
                 </span>
               </div>
 
@@ -401,10 +397,9 @@ const Regioes = () => {
                 </thead>
                 <tbody className='tBodyTableRegions'>
 
-                  {regioesFiltrados
-                    .filter((regiao) =>
-                      regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase())
-                    )
+                  {regioes
+                    .filter((regiao) => regiao.nome && regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()))
+                    .filter((regiao) => categoriaSelecionada ? regiao.cidade === categoriaSelecionada : true) // Filtrar por categoria selecionada
                     .map((regiao, index) => (
                       <tr key={index} className="region-row">
                         <td onClick={() => handleShowInfoModal(regiao)}>

@@ -30,6 +30,10 @@
     height: 100%;
 }
 
+.table-debts {
+    width: 100% !important;
+}
+
 .debts-left {
     width: 55%;
 }
@@ -46,7 +50,6 @@
 }
 
 .dbt-card-container {
-    height: 10rem;
     position: relative;
 }
 
@@ -137,7 +140,21 @@
     color: var(--primary-color);
 }
 
-.columns-debt {
+.debt {
+    max-height: 25rem !important;
+    overflow-y: auto !important;
+    height: 43rem !important;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.selection-container-debt {
+    display: flex;
+    justify-content: end;
+}
+
+.padding- .columns-debt {
     display: flex;
     width: 100%;
     border-radius: 10px;
@@ -180,7 +197,8 @@
 }
 
 .chart-line-exp {
-    background-color: var(--white-color);
+    height: 100%;
+    width: 100%;
 }
 
 #expense-container {
@@ -303,6 +321,7 @@
     transition: .5s;
     position: relative;
     padding: 1.5rem;
+    font-family: var(--font-Krub);
 }
 
 #add-exp-card:hover svg,
@@ -379,7 +398,7 @@
         width: 90%;
         margin: 0 auto;
         padding-inline: 0;
-    }  
+    }
 
     #financial-header {
         text-align: center;
@@ -407,7 +426,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 0;
-       
+
     }
 
     .debts-right {
@@ -434,14 +453,15 @@
         width: 100%;
         justify-content: center;
     }
-    
+
     .expense-line {
         width: 100%;
         display: grid;
         grid-template-columns: repeat(1, 1fr);
+        height: 100%;
     }
 
-    .chartFinancialLine{
+    .chartFinancialLine {
         width: 1fr;
     }
 }
