@@ -520,7 +520,7 @@ routerV2.delete("/regioes/:id", async (req, res) => {
         const regiaoId = req.params.id;
 
         // Encontrar o índice do região pelo ID
-        const regiaoIndex = regiaoFalsos.findIndex(regiao => regiao.nome === regiaoId);
+        const regiaoIndex = regiaoFalsos.findIndex(regiao => regiao.id === regiaoId);
 
         if (regiaoIndex !== -1) {
             // Remover o região do array

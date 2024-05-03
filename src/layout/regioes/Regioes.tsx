@@ -75,10 +75,33 @@ const Regioes = () => {
     fetchRegioes();
   }, []);
 
+  // Função para gerar um ID único
+  const generateUniqueRandomId = (): number => {
+
+    const existingIds = regioes.map((regiao: any) => parseInt(regiao.id, 10));
+
+    const generateRandomId = (): number => Math.floor(Math.random() * 100000000);
+
+    let randomId = generateRandomId();
+
+    // Verifica se o ID gerado já existe na lista de IDs existentes
+    while (existingIds.includes(randomId)) {
+      randomId = generateRandomId();
+    }
+
+    return randomId;
+  };
+
   const adicionarRegiao = async () => {
     try {
+      // Gerar um ID aleatório para o novo produto
+      const id = generateUniqueRandomId().toString();
+  
+      // Definir o id para a nova região antes de enviar para a API
+      const regiaoComId = { ...regiaoParaAdicionar, id };
+  
       // Envie os dados da nova região para a rota de adição na API
-      await axios.post('http://localhost:4000/v2/regioes', regiaoParaAdicionar);
+      await axios.post('http://localhost:4000/v2/regioes', regiaoComId);
       fetchRegioes(); // Atualize a lista de regiões após a adição
       setShowModal(false); // Feche o modal de adição após a conclusão
       // Limpe os campos do formulário após adicionar com sucesso
@@ -92,11 +115,12 @@ const Regioes = () => {
     } catch (error) {
       console.error('Erro ao adicionar região:', error);
     }
-  };
+  };  
 
   const handleEditRegion = async () => {
     try {
       // Faz o envio dos dados editados da região para a rota de PUT
+      console.log(regiaoParaEditar)
       await axios.put(`http://localhost:4000/v2/regioes/${regiaoParaEditar.id}`, regiaoParaEditar);
       fetchRegioes();
       setShowEditModal(false);
@@ -108,10 +132,10 @@ const Regioes = () => {
   const handleDelete = (regiao: any) => async () => {
     try {
       // Faz a requisição DELETE para a rota da API para excluir o regiao
-      await axios.delete(`http://localhost:4000/v2/regioes/${regiao.nome}`);
+      await axios.delete(`http://localhost:4000/v2/regioes/${regiao.id}`);
       console.log('regiao excluído com sucesso!');
       // Atualiza a lista de regiaos após a exclusão
-      const updatedregiaos = regioes.filter(r => r.nome !== regiao.nome);
+      const updatedregiaos = regioes.filter(r => r.id !== regiao.id);
       setRegioes(updatedregiaos);
       setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
     } catch (error) {
@@ -131,7 +155,7 @@ const Regioes = () => {
   const handleEdit = (regiao: any) => {
     // Define os dados do regiao selecionado para edição
     console.log(regiao);
-    setRegiaoParaEditar(regiao); // Aqui você está definindo os dados do região selecionado para edição
+    setRegiaoParaEditar((prevRegiaoParaEditar) => ({ ...prevRegiaoParaEditar, ...regiao }));
     // Abre o modal de edição
     setShowEditModal(true);
   };

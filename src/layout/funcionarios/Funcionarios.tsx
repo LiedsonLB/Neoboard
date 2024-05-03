@@ -129,11 +129,11 @@ const Funcionarios = () => {
   const handleDelete = (funcionario: Funcionario) => async () => {
     try {
       // Faz a requisição DELETE para a rota da API para excluir o funcionário
-      await axios.delete(`http://localhost:4000/v2/funcionarios/${funcionario.email}`);
+      await axios.delete(`http://localhost:4000/v2/funcionarios/${funcionario.id}`);
       console.log('Funcionário excluído com sucesso!');
       
       // Atualiza a lista de funcionários após a exclusão
-      const updatedFuncionarios = funcionarios.filter(f => f.email !== funcionario.email);
+      const updatedFuncionarios = funcionarios.filter(f => f.id !== funcionario.id);
       setFuncionarios(updatedFuncionarios);
       setFilteredFuncionarios(updatedFuncionarios);
   

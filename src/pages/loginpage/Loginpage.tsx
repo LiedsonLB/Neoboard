@@ -14,6 +14,7 @@ const LoginPage = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
+    const [resetEmail, setResetEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [mensagem, setMensagem] = useState('');
@@ -54,28 +55,47 @@ const LoginPage = () => {
     };
 
     const handleResetSenha = async () => {
-        if (!email) {
-            /*await axios.post('http://localhost:4000/v2/resetSenha', { email });*/
-            setAlert('alert');
-            setTitle('Atenção');
-            setMensagem('Por favor, preencha o campo de e-mail.');
+        console.log('Entrou na função handleResetSenha');
+        console.log('Email fornecido:', resetEmail);
+    
+        // Verifica se o campo de e-mail está vazio
+        if (!resetEmail) {
+            console.log('E-mail está vazio. Retornando...');
+            setAlert('warning');
+            setTitle('Erro');
+            setMensagem('Por favor, preencha o e-mail corretamente.');
             hideMessageAfterTimeout();
-            return;
+            return; // Retorna imediatamente se o campo de e-mail estiver vazio
         }
+    
+        // Verifica se o e-mail fornecido é válido usando uma expressão regular
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(resetEmail)) {
+            console.log('E-mail inválido. Retornando...');
+            setAlert('warning');
+            setTitle('Erro');
+            setMensagem('Por favor, insira um endereço de e-mail válido.');
+            hideMessageAfterTimeout();
+            return; // Retorna imediatamente se o e-mail não for válido
+        }
+    
+        console.log('Enviando solicitação de redefinição de senha...');
         try {
-            await sendPasswordResetEmail(auth, email);
+            await sendPasswordResetEmail(auth, resetEmail);
+            console.log('Solicitação de redefinição de senha enviada com sucesso!');
             setAlert('sucess');
             setTitle('Redefinição Enviada');
-            setMensagem('Um e-mail de redefinição de senha foi enviado para o seu e-mail.');
+            setMensagem('Um e-mail de redefinição de senha foi enviado para o seu endereço de e-mail.');
             hideMessageAfterTimeout();
         } catch (error: any) {
+            console.error('Erro ao resetar a senha:', error.message);
             setAlert('warning');
             setTitle('Erro');
             setMensagem('Erro ao redefinir a senha. Verifique o e-mail fornecido.');
-            console.error('Erro ao resetar a senha:', error.message);
             hideMessageAfterTimeout();
         }
     };
+    
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -109,7 +129,10 @@ const LoginPage = () => {
                     </div>
                     <p className='restore-password'><span>Restauração de Senha:</span> Restaure o Acesso a Sua Conta.</p>
                     <div className='reset-email-container'>
-                        <input type="email" className='input-reset-email' placeholder='Informe seu email' />
+                        <input type="email" className='input-reset-email' placeholder='Informe seu email' 
+                        value={resetEmail}
+                        onChange={(e) => setResetEmail(e.target.value)}
+                        />
                         <button className='send-reset' onClick={handleResetSenha}>Enviar</button>
                     </div>
                     <button className='cancel-reset' onClick={() => setShowModal(false)}>Cancelar</button>

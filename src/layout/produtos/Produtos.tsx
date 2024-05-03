@@ -81,7 +81,6 @@ const Produtos = () => {
     try {
       const response = await axios.get('http://localhost:4000/v2/produtos');
       setProdutos(response.data);
-      console.log(response.data)
       const categoriasUnicas = new Set(response.data.map((produto: any) => produto.categoria));
       // Se tá rodando não mecha
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
@@ -97,19 +96,21 @@ const Produtos = () => {
 
   const handleDelete = (produto: any) => async () => {
     try {
+      console.log(produto)
       // Obtenha a URL da imagem associada ao produto
-      const imagemURL = produto.picture;
-
-      // Faz a requisição DELETE para a rota da API para excluir o produto
-      await axios.delete(`http://localhost:4000/v2/produtos/${produto.id}`);
-      console.log('Produto excluído com sucesso!');
+      const imagemURL = produto.URLimg;
 
       // Excluir a imagem do Storage
       if (imagemURL) {
         const imagemRef = ref(storage, `products/${imagemURL}`);
+        console.log(imagemRef)
         await deleteObject(imagemRef);
         console.log('Imagem excluída do Storage com sucesso!');
       }
+
+      // Faz a requisição DELETE para a rota da API para excluir o produto
+      await axios.delete(`http://localhost:4000/v2/produtos/${produto.id}`);
+      console.log('Produto excluído com sucesso!');
 
       setPopupType('sucess');
       setPopupTitle('Produto Excluído');
@@ -174,6 +175,7 @@ const Produtos = () => {
           preco: valor,
           descricao,
           picture,
+          URLimg: selectedImage ? selectedImage.name : '',
         };
 
         // Exibir uma mensagem de sucesso

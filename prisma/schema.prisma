@@ -14,20 +14,20 @@ model Usuario {
   despesas     Despesa[]
   funcionarios Funcionario[]
   produtos     Produto[]
-  vendas       Venda[]
   regioes      Regiao[]
+  vendas       Venda[]
 }
 
 model Produto {
-  id         Int         @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   picture    String?
   nome       String
   descricao  String
   categoria  String
   preco      Float
   usuarioId  Int?
-  itensVenda ItemVenda[]
-  usuario    Usuario?    @relation(fields: [usuarioId], references: [id])
+  usuario    Usuario?  @relation(fields: [usuarioId], references: [id])
+  vendas     Venda[]
 }
 
 model Regiao {
@@ -37,9 +37,9 @@ model Regiao {
   descricao String
   endereco  String?
   cidade    String
-  vendas    Venda[]
   usuarioId Int
   usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  vendas    Venda[]
 }
 
 model Funcionario {
@@ -80,20 +80,12 @@ model Venda {
   valor              Float
   quantidadeProdutos Int
   comprador          String
+  produtoid          Int
   regiaoId           Int
   formaPagamento     String
   usuarioId          Int
-  itensVenda         ItemVenda[]
+  produto            Produto     @relation(fields: [produtoid], references: [id])
   funcionario        Funcionario @relation(fields: [funcionarioId], references: [id])
   regiao             Regiao      @relation(fields: [regiaoId], references: [id])
   usuario            Usuario     @relation(fields: [usuarioId], references: [id])
-}
-
-model ItemVenda {
-  id         Int     @id @default(autoincrement())
-  produtoId  Int
-  quantidade Int
-  vendaId    Int
-  produto    Produto @relation(fields: [produtoId], references: [id])
-  venda      Venda   @relation(fields: [vendaId], references: [ID_venda])
 }

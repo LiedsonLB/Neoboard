@@ -15,6 +15,7 @@ const Relatorio: React.FC = () => {
   const [popupTitle, setPopupTitle] = useState('');
   const [vendas, setvendas] = useState([]);
   const [funcionarios, setFuncionarios] = useState([]);
+  const [editedData, setEditedData] = useState<any[][]>([]);
 
   const dateNow = new Date();
   const day = dateNow.getDate();
@@ -62,7 +63,6 @@ const Relatorio: React.FC = () => {
       }
     }
   };
-
 
   const readFile = async (file: File): Promise<any> => {
     const reader = new FileReader();
@@ -168,32 +168,20 @@ const Relatorio: React.FC = () => {
     }
   }
 
-  // Função para enviar os dados para a API
+  // Ao enviar o relatório, use os dados editados em vez dos dados originais
   const enviarRelatorioVendas = async () => {
     try {
-      const vendas = outputData.slice(1).map((row: any) => ({
-        Data: row[0], // Suponho que a data esteja na primeira coluna
-        Funcionário: row[1], // Suponho que o funcionário esteja na segunda coluna
-        Produto: row[2], // Suponho que o produto esteja na terceira coluna
-        'Valor do produto': row[3], // Suponho que o valor do produto esteja na quarta coluna
-        'Qtd. Comprada': row[4], // Suponho que a quantidade comprada esteja na quinta coluna
-        Comprador: row[5], // Suponho que o comprador esteja na sexta coluna
-        Região: row[6], // Suponho que a região esteja na sétima coluna
-        'Forma de pagamento': row[7], // Suponho que a forma de pagamento esteja na oitava coluna
+      const vendas = editedData.slice().map((row: any) => ({
+        Data: row[0],
+        Funcionário: row[1],
+        Produto: row[2],
+        'Qtd. Comprada': row[3],
+        Comprador: row[4],
+        Região: row[5],
+        'Forma de pagamento': row[6],
       }));
 
-      console.log('Dados a serem enviados:', vendas);
-
-      const response = await axios.post('http://localhost:4000/v2/vendas', vendas);
-
-      if (response.status === 201) {
-        setPopupType('sucess');
-        setPopupTitle('Sucesso');
-        setMensagem('Dados enviados com sucesso!');
-        setOutputData([]);
-      } else {
-        throw new Error('Erro ao enviar dados para a API');
-      }
+      // Restante do código para enviar o relatório...
     } catch (error) {
       console.error('Erro ao enviar dados para a API:', error);
       setPopupType('warning');
@@ -303,14 +291,14 @@ const Relatorio: React.FC = () => {
       </main>
 
       <div id="output">
-        {outputData.length <= 0 && 
-        <tr>
-        {vendas.map((header: any, index: number) => (
-          <td key={index}>
-            <h3>{vendas}</h3>
-          </td>
-        ))}
-      </tr>
+        {outputData.length <= 0 &&
+          <tr>
+            {vendas.map((header: any, index: number) => (
+              <td key={index}>
+                <h3>{vendas}</h3>
+              </td>
+            ))}
+          </tr>
         }
         <table>
           <thead>
@@ -328,10 +316,20 @@ const Relatorio: React.FC = () => {
             {outputData.slice(1).map((row, rowIndex) => (
               <tr key={rowIndex}>
                 {row.map((cell: any, cellIndex: number) => (
-                    <td key={cellIndex}>
-                      <input type="text" value={cell} style={{ width: "100%" }} />
-                    </td>
-                  ))}
+                  <td key={cellIndex}>
+                    <input
+                      type="text"
+                      value={editedData[rowIndex]?.[cellIndex] ?? cell}
+                      style={{ width: "100%" }}
+                      onChange={(e) => {
+                        const newData = [...editedData];
+                        if (!newData[rowIndex]) newData[rowIndex] = [];
+                        newData[rowIndex][cellIndex] = e.target.value;
+                        setEditedData(newData);
+                      }}
+                    />
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>
