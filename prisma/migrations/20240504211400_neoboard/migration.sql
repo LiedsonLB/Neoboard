@@ -10,14 +10,26 @@ CREATE TABLE "Usuario" (
 -- CreateTable
 CREATE TABLE "Produto" (
     "id" SERIAL NOT NULL,
-    "picture" TEXT,
+    "picture" TEXT NOT NULL,
+    "NameImg" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
     "descricao" TEXT NOT NULL,
     "categoria" TEXT NOT NULL,
-    "preco" DOUBLE PRECISION NOT NULL,
+    "precoAtual" DOUBLE PRECISION NOT NULL,
     "usuarioId" INTEGER,
 
     CONSTRAINT "Produto_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "VariacaoPreco" (
+    "id" SERIAL NOT NULL,
+    "produtoId" INTEGER NOT NULL,
+    "data" TIMESTAMP(3) NOT NULL,
+    "preco" DOUBLE PRECISION NOT NULL,
+    "variacao" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "VariacaoPreco_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -28,7 +40,7 @@ CREATE TABLE "Regiao" (
     "descricao" TEXT NOT NULL,
     "endereco" TEXT,
     "cidade" TEXT NOT NULL,
-    "usuarioId" INTEGER NOT NULL,
+    "usuarioId" INTEGER,
 
     CONSTRAINT "Regiao_pkey" PRIMARY KEY ("id")
 );
@@ -36,7 +48,7 @@ CREATE TABLE "Regiao" (
 -- CreateTable
 CREATE TABLE "Funcionario" (
     "id" SERIAL NOT NULL,
-    "img_funcionario" TEXT,
+    "picture" TEXT,
     "nome" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "descricao" TEXT,
@@ -49,7 +61,7 @@ CREATE TABLE "Funcionario" (
     "formacaoAcademica" TEXT NOT NULL,
     "linkedin" TEXT,
     "github" TEXT,
-    "usuarioId" INTEGER NOT NULL,
+    "usuarioId" INTEGER,
 
     CONSTRAINT "Funcionario_pkey" PRIMARY KEY ("id")
 );
@@ -75,21 +87,21 @@ CREATE TABLE "Venda" (
     "valor" DOUBLE PRECISION NOT NULL,
     "quantidadeProdutos" INTEGER NOT NULL,
     "comprador" TEXT NOT NULL,
+    "produtoid" INTEGER NOT NULL,
     "regiaoId" INTEGER NOT NULL,
     "formaPagamento" TEXT NOT NULL,
-    "usuarioId" INTEGER NOT NULL,
+    "usuarioId" INTEGER,
+    "relatorioId" INTEGER NOT NULL,
 
     CONSTRAINT "Venda_pkey" PRIMARY KEY ("ID_venda")
 );
 
 -- CreateTable
-CREATE TABLE "ItemVenda" (
+CREATE TABLE "Relatorio" (
     "id" SERIAL NOT NULL,
-    "produtoId" INTEGER NOT NULL,
-    "quantidade" INTEGER NOT NULL,
-    "vendaId" INTEGER NOT NULL,
+    "idVenda" INTEGER NOT NULL,
 
-    CONSTRAINT "ItemVenda_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Relatorio_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -99,10 +111,13 @@ CREATE UNIQUE INDEX "Usuario_email_key" ON "Usuario"("email");
 ALTER TABLE "Produto" ADD CONSTRAINT "Produto_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Regiao" ADD CONSTRAINT "Regiao_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "VariacaoPreco" ADD CONSTRAINT "VariacaoPreco_produtoId_fkey" FOREIGN KEY ("produtoId") REFERENCES "Produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Funcionario" ADD CONSTRAINT "Funcionario_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Regiao" ADD CONSTRAINT "Regiao_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Funcionario" ADD CONSTRAINT "Funcionario_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Despesa" ADD CONSTRAINT "Despesa_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -111,13 +126,13 @@ ALTER TABLE "Despesa" ADD CONSTRAINT "Despesa_usuarioId_fkey" FOREIGN KEY ("usua
 ALTER TABLE "Venda" ADD CONSTRAINT "Venda_funcionarioId_fkey" FOREIGN KEY ("funcionarioId") REFERENCES "Funcionario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Venda" ADD CONSTRAINT "Venda_produtoid_fkey" FOREIGN KEY ("produtoid") REFERENCES "Produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Venda" ADD CONSTRAINT "Venda_regiaoId_fkey" FOREIGN KEY ("regiaoId") REFERENCES "Regiao"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Venda" ADD CONSTRAINT "Venda_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Venda" ADD CONSTRAINT "Venda_relatorioId_fkey" FOREIGN KEY ("relatorioId") REFERENCES "Relatorio"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ItemVenda" ADD CONSTRAINT "ItemVenda_produtoId_fkey" FOREIGN KEY ("produtoId") REFERENCES "Produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ItemVenda" ADD CONSTRAINT "ItemVenda_vendaId_fkey" FOREIGN KEY ("vendaId") REFERENCES "Venda"("ID_venda") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Venda" ADD CONSTRAINT "Venda_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;

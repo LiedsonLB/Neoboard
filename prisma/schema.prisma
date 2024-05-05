@@ -19,32 +19,43 @@ model Usuario {
 }
 
 model Produto {
-  id         Int       @id @default(autoincrement())
-  picture    String?
-  nome       String
-  descricao  String
-  categoria  String
-  preco      Float
-  usuarioId  Int?
-  usuario    Usuario?  @relation(fields: [usuarioId], references: [id])
-  vendas     Venda[]
+  id             Int             @id @default(autoincrement())
+  picture        String
+  NameImg        String
+  nome           String
+  descricao      String
+  categoria      String
+  precoAtual     Float
+  usuarioId      Int?
+  usuario        Usuario?        @relation(fields: [usuarioId], references: [id])
+  variacoesPreco VariacaoPreco[]
+  vendas         Venda[]
+}
+
+model VariacaoPreco {
+  id        Int      @id @default(autoincrement())
+  produtoId Int
+  data      DateTime
+  preco     Float
+  variacao  Float
+  produto   Produto  @relation(fields: [produtoId], references: [id])
 }
 
 model Regiao {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   picture   String?
   nome      String
   descricao String
   endereco  String?
   cidade    String
-  usuarioId Int
-  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int?
+  usuario   Usuario? @relation(fields: [usuarioId], references: [id])
   vendas    Venda[]
 }
 
 model Funcionario {
   id                Int      @id @default(autoincrement())
-  img_funcionario   String?
+  picture           String?
   nome              String
   email             String
   descricao         String?
@@ -57,8 +68,8 @@ model Funcionario {
   formacaoAcademica String
   linkedin          String?
   github            String?
-  usuarioId         Int
-  usuario           Usuario  @relation(fields: [usuarioId], references: [id])
+  usuarioId         Int?
+  usuario           Usuario? @relation(fields: [usuarioId], references: [id])
   vendas            Venda[]
 }
 
@@ -83,9 +94,17 @@ model Venda {
   produtoid          Int
   regiaoId           Int
   formaPagamento     String
-  usuarioId          Int
-  produto            Produto     @relation(fields: [produtoid], references: [id])
+  usuarioId          Int?
+  relatorioId        Int
   funcionario        Funcionario @relation(fields: [funcionarioId], references: [id])
+  produto            Produto     @relation(fields: [produtoid], references: [id])
   regiao             Regiao      @relation(fields: [regiaoId], references: [id])
-  usuario            Usuario     @relation(fields: [usuarioId], references: [id])
+  relatorio          Relatorio   @relation(fields: [relatorioId], references: [id])
+  usuario            Usuario?    @relation(fields: [usuarioId], references: [id])
+}
+
+model Relatorio {
+  id      Int     @id @default(autoincrement())
+  idVenda Int
+  Venda   Venda[]
 }

@@ -58,7 +58,6 @@
   height: 100%;
   width: 100%;
   margin-bottom: 1em;
-  filter: hue-rotate(322deg) brightness(0.8) contrast(1.3);
   animation: floatAnimation 4s ease-in-out infinite alternate;
 }
 
@@ -153,6 +152,7 @@
   border: none;
   transition: .8s;
   font-weight: bold;
+  font-family: var(--font-Krub);
 }
 
 .login-google {
@@ -167,6 +167,7 @@
   border-radius: 2px;
   transition: .8s;
   font-weight: bold;
+  font-family: var(--font-Krub);
 }
 
 .login-btn:hover {
@@ -296,6 +297,7 @@
   border: 2px solid transparent;
   background: var(--gray-color);
   outline: none;
+  font-family: var(--font-Krub);
 }
 
 .input-reset-email::placeholder {
@@ -312,6 +314,9 @@
   background: var(--primary-color);
   color: var(--white-color);
   cursor: pointer;
+  border: none;
+  font-family: var(--font-Krub);
+  font-weight: bold;
 }
 
 .send-reset:hover {
@@ -323,8 +328,11 @@
   padding: .5rem 3rem;
   border-radius: 5px;
   background: var(--white-color);
-  color: var(--primary-color);
+  color: var(--black-color);
   cursor: pointer;
+  font-weight: bold;
+  font-family: var(--font-Krub);
+  border: 1px solid var(--primary-color);
 }
 
 .cancel-reset:hover {

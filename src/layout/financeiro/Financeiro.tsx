@@ -41,7 +41,7 @@ const Financeiro = () => {
   useEffect(() => {
     const fetchDespesas = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/v2/despesas');
+        const response = await axios.get('http://localhost:4000/v3/despesas');
         setDespesas(response.data);
       } catch (error) {
         console.error('Erro ao buscar despesas:', error);
@@ -54,7 +54,7 @@ const Financeiro = () => {
   const handleDelete = (despesa: any) => async () => {
     try {
       // Faz a requisição DELETE para a rota da API para excluir o despesas
-      await axios.delete(`http://localhost:4000/v2/despesas/${despesa.nome}`);
+      await axios.delete(`http://localhost:4000/v3/despesas/${despesa.nome}`);
       console.log('despesa excluído com sucesso!');
       // Atualiza a lista de despesas após a exclusão
       const updatedDespesas = despesas.filter(d => d.nome !== despesa.nome);
@@ -73,9 +73,9 @@ const Financeiro = () => {
     const fetchData = async () => {
       try {
         const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
-          axios.get('http://localhost:4000/v2/produtos'),
-          axios.get('http://localhost:4000/v2/regioes'),
-          axios.get('http://localhost:4000/v2/funcionarios')
+          axios.get('http://localhost:4000/v3/produtos'),
+          axios.get('http://localhost:4000/v3/regioes'),
+          axios.get('http://localhost:4000/v3/funcionarios')
           //axios.get('http://localhost:4000/eventos')
         ]);
         //setProdutos(produtosResponse.data.slice(0, 5));

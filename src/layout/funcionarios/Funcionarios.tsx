@@ -40,7 +40,7 @@ const Funcionarios = () => {
   useEffect(() => {
     const fetchFuncionarios = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/v2/funcionarios');
+        const response = await axios.get('http://localhost:4000/v3/funcionarios');
         const data = response.data;
         const funcionariosOrdenadosPorVendas = [...data].sort((a: Funcionario, b: Funcionario) => b.vendas - a.vendas);
         const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
@@ -112,7 +112,7 @@ const Funcionarios = () => {
             imagemUrl: selectedImage ? selectedImage : './img/no_profile.png',
           };
 
-          await axios.post('http://localhost:4000/v2/funcionarios', novoFuncionario);
+          await axios.post('http://localhost:4000/v3/funcionarios', novoFuncionario);
           console.log('Funcionário adicionado com sucesso!');
           setShowModal(false);
         } else {
@@ -129,7 +129,7 @@ const Funcionarios = () => {
   const handleDelete = (funcionario: Funcionario) => async () => {
     try {
       // Faz a requisição DELETE para a rota da API para excluir o funcionário
-      await axios.delete(`http://localhost:4000/v2/funcionarios/${funcionario.id}`);
+      await axios.delete(`http://localhost:4000/v3/funcionarios/${funcionario.id}`);
       console.log('Funcionário excluído com sucesso!');
       
       // Atualiza a lista de funcionários após a exclusão

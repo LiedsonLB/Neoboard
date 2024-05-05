@@ -61,7 +61,7 @@ const Regioes = () => {
 
   const fetchRegioes = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/v2/regioes?categoria=${categoriaSelecionada}`);
+      const response = await axios.get(`http://localhost:4000/v3/regioes?categoria=${categoriaSelecionada}`);
       setRegioes(response.data);
       const categoriasUnicas = new Set(response.data.map((regiao: any) => regiao.cidade));
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
@@ -94,18 +94,26 @@ const Regioes = () => {
 
   const adicionarRegiao = async () => {
     try {
-      // Gerar um ID aleatório para o novo produto
-      const id = generateUniqueRandomId().toString();
-  
-      // Definir o id para a nova região antes de enviar para a API
-      const regiaoComId = { ...regiaoParaAdicionar, id };
+      const usuario = 1
+
+      const userID = { ...regiaoParaAdicionar, usuario };
+
+      // Verificar se uma imagem foi selecionada
+      let picture = './img/no_productImg.jpeg';
+      if (selectedImage) {
+        // Fazer upload da imagem para o Firebase Storage
+        const downloadURL = await uploadImageToStorage(selectedImage);
+        // Definir a URL da imagem obtida
+        picture = downloadURL;
+      }
   
       // Envie os dados da nova região para a rota de adição na API
-      await axios.post('http://localhost:4000/v2/regioes', regiaoComId);
+      await axios.post('http://localhost:4000/v3/regioes', regiaoParaAdicionar);
       fetchRegioes(); // Atualize a lista de regiões após a adição
       setShowModal(false); // Feche o modal de adição após a conclusão
       // Limpe os campos do formulário após adicionar com sucesso
       setRegiaoParaAdicionar({
+        picture,
         nome: '',
         cidade: '',
         endereco: '',
@@ -121,7 +129,7 @@ const Regioes = () => {
     try {
       // Faz o envio dos dados editados da região para a rota de PUT
       console.log(regiaoParaEditar)
-      await axios.put(`http://localhost:4000/v2/regioes/${regiaoParaEditar.id}`, regiaoParaEditar);
+      await axios.put(`http://localhost:4000/v3/regioes/${regiaoParaEditar.id}`, regiaoParaEditar);
       fetchRegioes();
       setShowEditModal(false);
     } catch (error) {
@@ -132,7 +140,7 @@ const Regioes = () => {
   const handleDelete = (regiao: any) => async () => {
     try {
       // Faz a requisição DELETE para a rota da API para excluir o regiao
-      await axios.delete(`http://localhost:4000/v2/regioes/${regiao.id}`);
+      await axios.delete(`http://localhost:4000/v3/regioes/${regiao.id}`);
       console.log('regiao excluído com sucesso!');
       // Atualiza a lista de regiaos após a exclusão
       const updatedregiaos = regioes.filter(r => r.id !== regiao.id);
@@ -155,10 +163,10 @@ const Regioes = () => {
   const handleEdit = (regiao: any) => {
     // Define os dados do regiao selecionado para edição
     console.log(regiao);
-    setRegiaoParaEditar((prevRegiaoParaEditar) => ({ ...prevRegiaoParaEditar, ...regiao }));
+    setRegiaoParaEditar((prevRegiaoParaEditar: any) => ({ ...prevRegiaoParaEditar, ...regiao }));
     // Abre o modal de edição
     setShowEditModal(true);
-  };
+  };  
 
   return (
     <>

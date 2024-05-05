@@ -8,17 +8,17 @@ import axios from 'axios';
 import { storage } from '../../services/firebase';
 import Popup from '../../components/popup/Popup.tsx';
 import { useNavigate } from 'react-router-dom';
+import Produto from '../../models/Produto.tsx';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
-  const [produtos, setProdutos] = useState([]);
+  const [produtos, setProdutos] = useState<Produto[]>([]);
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
   const [categorias, setCategorias] = useState<string[]>([]);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [produtoParaEditar, setProdutoParaEditar] = useState<any>(null);
-  //popup
+  const [editandoProduto, setEditandoProduto] = useState<Produto | null>(null);
+  const [modalEditOpen, setModalEditOpen] = useState(false);
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
@@ -43,99 +43,6 @@ const Produtos = () => {
       reader.readAsDataURL(file);
     }
   };
-
-  const uploadImageToStorage = async (image: File): Promise<string> => {
-    try {
-      const storageRef = ref(storage, `products/${image.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, image);
-
-      const snapshot = await uploadTask;
-
-      // Após o upload ser concluído, obtenha o URL de download da imagem
-      const downloadURL = await getDownloadURL(snapshot.ref);
-      return downloadURL;
-    } catch (error) {
-      console.error('Erro ao fazer upload da imagem:', error);
-      throw error;
-    }
-  };
-
-  // Função para gerar um ID único
-  const generateUniqueRandomId = (): number => {
-
-    const existingIds = produtos.map((produto: any) => parseInt(produto.id, 10));
-
-    const generateRandomId = (): number => Math.floor(Math.random() * 100000000);
-
-    let randomId = generateRandomId();
-
-    // Verifica se o ID gerado já existe na lista de IDs existentes
-    while (existingIds.includes(randomId)) {
-      randomId = generateRandomId();
-    }
-
-    return randomId;
-  };
-
-  const fetchProdutos = async () => {
-    try {
-      const response = await axios.get('http://localhost:4000/v2/produtos');
-      setProdutos(response.data);
-      const categoriasUnicas = new Set(response.data.map((produto: any) => produto.categoria));
-      // Se tá rodando não mecha
-      const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
-      setCategorias(categoriasUnicasArray);
-    } catch (error) {
-      console.error('Erro ao buscar produtos:', error);
-      setPopupType('warning');
-      setPopupTitle('Erro');
-      setMensagem('Erro ao procurar produtos');
-      hidePopupAfterTimeout();
-    }
-  };
-
-  const handleDelete = (produto: any) => async () => {
-    try {
-      console.log(produto)
-      // Obtenha a URL da imagem associada ao produto
-      const imagemURL = produto.URLimg;
-
-      // Excluir a imagem do Storage
-      if (imagemURL) {
-        const imagemRef = ref(storage, `products/${imagemURL}`);
-        console.log(imagemRef)
-        await deleteObject(imagemRef);
-        console.log('Imagem excluída do Storage com sucesso!');
-      }
-
-      // Faz a requisição DELETE para a rota da API para excluir o produto
-      await axios.delete(`http://localhost:4000/v2/produtos/${produto.id}`);
-      console.log('Produto excluído com sucesso!');
-
-      setPopupType('sucess');
-      setPopupTitle('Produto Excluído');
-      setMensagem('sucesso ao excluir o produto');
-      hidePopupAfterTimeout();
-
-      // Atualizar a lista de produtos após adição
-      fetchProdutos();
-
-      // Atualiza a lista de produtos após a exclusão
-      const updatedProdutos = produtos.filter(p => p.id !== produto.id);
-      setProdutos(updatedProdutos);
-      setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
-    } catch (error) {
-      console.error('Erro ao excluir produto:', error);
-      setPopupType('warning');
-      setPopupTitle('Erro');
-      setMensagem('Erro ao excluir o produto');
-      hidePopupAfterTimeout();
-    }
-  };
-
-  useEffect(() => {
-    fetchProdutos();
-  }, []);
 
   // Função para adicionar um produto
   const adicionarProduto = async () => {
@@ -164,28 +71,19 @@ const Produtos = () => {
           picture = downloadURL;
         }
 
-        // Gerar um ID aleatório para o novo produto
-        const id = generateUniqueRandomId().toString();
-
         // Criar o novo produto
-        const novoProduto = {
-          id,
+        const novoProduto: Produto = {
           nome,
           categoria,
-          preco: valor,
+          precoAtual: parseFloat(valor),
           descricao,
           picture,
-          URLimg: selectedImage ? selectedImage.name : '',
+          NameImg: selectedImage ? selectedImage.name : '',
+          usuarioId: 1,
         };
 
-        // Exibir uma mensagem de sucesso
-        setPopupType('success');
-        setPopupTitle('Produto adicionado');
-        setMensagem('Sucesso ao adicionar o produto');
-        hidePopupAfterTimeout();
-
         // Enviar a requisição para adicionar o novo produto
-        await axios.post('http://localhost:4000/v2/produtos', novoProduto);
+        await axios.post('http://localhost:4000/v3/produtos', novoProduto);
 
         // Limpar os campos do formulário e redefinir o estado do modal
         nomeElement.value = '';
@@ -195,6 +93,12 @@ const Produtos = () => {
 
         // Atualizar a lista de produtos após adição
         fetchProdutos();
+
+        // Exibir uma mensagem de sucesso
+        setPopupType('success');
+        setPopupTitle('Produto adicionado');
+        setMensagem('Sucesso ao adicionar o produto');
+        hidePopupAfterTimeout();
       } else {
         console.error('Erro ao adicionar produto: Nome e Preço são campos obrigatórios.');
         setPopupType('warning');
@@ -204,83 +108,160 @@ const Produtos = () => {
       }
     } catch (error) {
       console.error('Erro ao adicionar produto:', error);
-      setPopupType('error');
+      setPopupType('warning');
       setPopupTitle('Erro ao adicionar o produto');
       setMensagem('Ocorreu um erro ao adicionar o produto. Por favor, tente novamente.');
       hidePopupAfterTimeout();
     }
   };
 
-  const produtosFiltrados = produtos.filter((produto: any) =>
-    produto.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
-    (categoriaSelecionada ? produto.categoria === categoriaSelecionada : true)
-  );
+  const handleDelete = (produto: Produto) => async () => {
+    try {
+      // Obtenha a URL da imagem associada ao produto
+      const imagemURL = produto.NameImg;
+
+      // Excluir a imagem do Storage
+      if (imagemURL) {
+        const imagemRef = ref(storage, `products/${imagemURL}`);
+        await deleteObject(imagemRef);
+      }
+
+      // Faz a requisição DELETE para a rota da API para excluir o produto
+      await axios.delete(`http://localhost:4000/v3/produtos/${produto.id}`);
+
+      // Atualiza a lista de produtos após a exclusão
+      fetchProdutos();
+
+      // Exibir uma mensagem de sucesso
+      setPopupType('success');
+      setPopupTitle('Produto Excluído');
+      setMensagem('Sucesso ao excluir o produto');
+      hidePopupAfterTimeout();
+    } catch (error) {
+      console.error('Erro ao excluir produto:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao excluir o produto');
+      hidePopupAfterTimeout();
+    }
+  };
+
+  const fetchProdutos = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/v3/produtos');
+      setProdutos(response.data);
+      const categoriasUnicas = new Set(response.data.map((produto: Produto) => produto.categoria));
+      // se esta rodando não mexa
+      const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
+      setCategorias(categoriasUnicasArray);
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao procurar produtos');
+      hidePopupAfterTimeout();
+    }
+  };
 
   const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFiltroPesquisa(e.target.value);
   };
 
-  const handleEdit = (produto: any) => {
-    // Define os dados do produto selecionado para edição
-    setProdutoParaEditar(produto);
-    // Abre o modal de edição
-    setShowEditModal(true);
+  const handleEdit = (produto: Produto) => {
+    abrirModalEdicao(produto)
   };
 
-  const handleEditProduct = async () => {
+  const uploadImageToStorage = async (image: File): Promise<string> => {
     try {
+      const storageRef = ref(storage, `products/${image.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+      const snapshot = await uploadTask;
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      return downloadURL;
+    } catch (error) {
+      console.error('Erro ao fazer upload da imagem:', error);
+      throw error;
+    }
+  };
 
-      if (!produtoParaEditar.nome || !produtoParaEditar.preco) {
-        console.error('Erro ao editar produto: Preencha os campos Nome e Preço.');
-        console.error('Erro ao adicionar produto: Nome e Preço são campos obrigatórios.');
-        setPopupType('warning');
-        setPopupTitle('Erro');
-        setMensagem('Nome e Preço são campos obrigatórios');
-        return;
-      }
+  useEffect(() => {
+    fetchProdutos();
+  }, []);
 
-      // Definir valores padrão para descrição e categoria caso não sejam preenchidos
-      produtoParaEditar.descricao = produtoParaEditar.descricao || 'sem descrição';
-      produtoParaEditar.categoria = produtoParaEditar.categoria || 'sem categoria';
+  const produtosFiltrados = produtos.filter((produto: Produto) =>
+    produto.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
+    (categoriaSelecionada ? produto.categoria === categoriaSelecionada : true)
+  );
+
+  const abrirModalEdicao = (produto: Produto) => {
+    if (produto) {
+      setEditandoProduto(produto);
+      setModalEditOpen(true);
+    }
+  };
+
+  const fecharModalEdicao = () => {
+    setEditandoProduto(null);
+    setModalEditOpen(false);
+  };
+
+  const atualizarProduto = async (produtoEditado: Produto) => {
+    try {
+      // Obtenha os dados do produto existente
+      const produtoExistente = await axios.get(`http://localhost:4000/v3/produtos/${produtoEditado.id}`);
 
       // Faça o envio dos novos dados do produto para a rota de edição
-      await axios.put(`http://localhost:4000/v2/produtos/${produtoParaEditar.id}`, produtoParaEditar);
-      fetchProdutos(); // Atualize a lista de produtos após a edição
-      setShowEditModal(false); // Feche o modal de edição após a conclusão
+      await axios.put(`http://localhost:4000/v3/produtos/${produtoEditado.id}`, {
+        ...produtoEditado,
+        produtoExistente: produtoExistente.data // Envie o objeto produtoExistente junto com os novos dados
+      });
+
+      // Atualize a lista de produtos após a edição
+      fetchProdutos();
+      // Feche o modal de edição após a conclusão
+      fecharModalEdicao();
+      // Exibir uma mensagem de sucesso
+      setPopupType('sucess');
+      setPopupTitle('Produto editado');
+      setMensagem('Sucesso ao editar o produto');
+      hidePopupAfterTimeout();
     } catch (error) {
       console.error('Erro ao editar produto:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao editar o produto');
+      hidePopupAfterTimeout();
     }
   };
 
   return (
     <>
       {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
-      {showEditModal && (
+      {modalEditOpen && editandoProduto && (
         <div className="Modal-Add">
           <div className='container-Add'>
             <div id="header-modal">
-              <h4 className="modal-title">Editar Produto: {produtoParaEditar.nome}</h4>
-              <button type="button" className="close-btn" onClick={() => setShowEditModal(false)}>&times;</button>
+              <h4 className="modal-title">Editar Produto: {editandoProduto?.nome}</h4>
+              <button type="button" className="close-btn" onClick={fecharModalEdicao}>&times;</button>
             </div>
 
             <div className="Add-Item-container">
-
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do Produto:</label>
-                  <input type="text" id='name-item' name='name-item' className='full-item' value={produtoParaEditar.nome} onChange={(e) => setProdutoParaEditar({ ...produtoParaEditar, nome: e.target.value })} />
+                  <input type="text" id='name-item' name='name-item' className='full-item' value={editandoProduto.nome} onChange={(e) => setEditandoProduto({ ...editandoProduto, nome: e.target.value })} />
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="categoria-item">Categoria:</label>
-                  <input type="text" id='categoria-item' name='categoria-item' className='full-item' value={produtoParaEditar.categoria} onChange={(e) => setProdutoParaEditar({ ...produtoParaEditar, categoria: e.target.value })} />
+                  <input type="text" id='categoria-item' name='categoria-item' className='full-item' value={editandoProduto.categoria} onChange={(e) => setEditandoProduto({ ...editandoProduto, categoria: e.target.value })} />
                 </span>
 
                 <span>
                   <label htmlFor="valor-item">Valor Unitário (R$):</label>
-                  <input type="text" id='valor-item' name='valor-item' className='full-item' value={produtoParaEditar.preco} onChange={(e) => setProdutoParaEditar({ ...produtoParaEditar, preco: e.target.value })} />
+                  <input type="text" id='valor-item' name='valor-item' className='full-item' value={editandoProduto.precoAtual} onChange={(e) => setEditandoProduto({ ...editandoProduto, precoAtual: parseFloat(e.target.value) || 0 })} />
                 </span>
               </div>
 
@@ -291,13 +272,13 @@ const Produtos = () => {
                     id='descricao-item'
                     name="descricao"
                     className="desc-prod"
-                    value={produtoParaEditar.descricao}
-                    onChange={(e) => setProdutoParaEditar({ ...produtoParaEditar, descricao: e.target.value })}
+                    value={editandoProduto.descricao}
+                    onChange={(e) => setEditandoProduto({ ...editandoProduto, descricao: e.target.value })}
                   />
                 </span>
               </div>
 
-              <button id='edit-product-Btn' onClick={handleEditProduct}>Salvar Alterações</button>
+              <button id='edit-product-Btn' onClick={() => atualizarProduto(editandoProduto)}>Salvar Alterações</button>
             </div>
           </div>
         </div>
@@ -412,13 +393,13 @@ const Produtos = () => {
             <p id='result-product'>Resultados ({produtosFiltrados.length})</p>
             <section id='products-list'>
 
-              {produtosFiltrados.map((produto: any) => (
+              {produtosFiltrados.map((produto: Produto) => (
                 <article key={produto.id} className='prod-card'>
                   <figure className='container-list-img'>
                     <img src={produto.picture} alt={produto.nome} />
                   </figure>
                   <p>{produto.nome}</p>
-                  <p className='prod-name'>R$ {produto.preco}</p>
+                  <p className='prod-name'>R$ {produto.precoAtual}</p>
                   <button className='see-prod-btn' onClick={() => navigate(`/product/${produto.id}`, { state: { user: produto } })}>Ver produto</button>
                   <div className='manager-btn'>
                     <div>

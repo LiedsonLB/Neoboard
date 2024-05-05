@@ -1,8 +1,106 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
+import { auth } from '../../services/firebase.js';
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, updateProfile } from 'firebase/auth';
 
 const prisma = new PrismaClient();
 const routerV3 = express.Router();
+
+routerV3.post("/login", async (req, res) => {
+    const { email } = req.body;
+    try {
+        // Verificar se o usuário já existe no banco de dados
+        const existingUser = await prisma.usuario.findUnique({
+            where: {
+                email: email
+            }
+        });
+
+        // Se o usuário não existir, retornar um erro
+        if (!existingUser) {
+            return res.status(404).json({ message: 'Usuário não cadastrado' });
+        }
+
+        return res.status(200).json({ message: 'Login bem-sucedido!', user: existingUser });
+
+    } catch (error) {
+        console.error('Erro ao fazer login:', error.message);
+        res.status(500).send('Erro ao fazer login');
+    }
+});
+
+routerV3.post("/loginGoogle", async (req, res) => {
+    const { username, email } = req.body;
+    try {
+        // Verificar se o usuário já existe no banco de dados
+        const existingUser = await prisma.usuario.findUnique({
+            where: { email: email },
+        });
+
+        if (existingUser) {
+            // Se o usuário já existir, retorne os detalhes do usuário existente
+            return res.status(200).json({ message: 'Login bem-sucedido!', user: existingUser });
+        } else {
+            // Se o usuário não existir, crie um novo usuário no banco de dados
+            const savedUser = await prisma.usuario.create({
+                data: {
+                    nome: username,
+                    email: email,
+                }
+            });
+
+            return res.status(200).json({ message: 'Login bem-sucedido!', user: savedUser });
+        }
+    } catch (error) {
+        console.error('Erro ao fazer login:', error.message);
+        res.status(500).send('Erro ao fazer login');
+    }
+});
+
+routerV3.post("/cadaster", async (req, res) => {
+    const { email, password, username } = req.body;
+    try {
+
+        // Criar o usuário no Firebase
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        if (user) {
+            // Atualizar nome de perfil do usuario
+            await updateProfile(user, {
+                displayName: username,
+            });
+
+            // Salvar o usuário no banco de dados
+            const savedUser = await prisma.usuario.create({
+                data: {
+                    nome: username,
+                    email: email,
+                }
+            });
+
+            // Envie uma única resposta com sucesso após todas as operações
+            res.status(201).json({ message: 'Cadastro realizado com sucesso', user: savedUser });
+        } else {
+            console.error('Usuário não encontrado após criação.');
+            res.status(500).send('Erro ao cadastrar usuário');
+        }
+    } catch (error) {
+        console.error('Erro ao cadastrar usuário:', error.message);
+        res.status(500).send('Erro ao cadastrar usuário');
+    }
+});
+
+routerV3.post("/resetSenha", async (req, res) => {
+    const { email } = req.body;
+    try {
+        await sendPasswordResetEmail(auth, email);
+        res.status(200).json({ message: 'Um e-mail de redefinição de senha foi enviado para o seu e-mail.' });
+    } catch (error) {
+        console.error('Erro ao enviar e-mail de redefinição de senha:', error.message);
+        res.status(500).send('Erro ao enviar e-mail de redefinição de senha');
+    }
+});
 
 // Rota para adicionar um novo produto
 routerV3.post("/produtos", async (req, res) => {
@@ -31,7 +129,28 @@ routerV3.get("/produtos", async (req, res) => {
 routerV3.delete("/produtos/:id", async (req, res) => {
     try {
         const produtoId = parseInt(req.params.id);
-        await prisma.produto.delete({ where: { id: produtoId } });
+
+        // Consultar todas as variações de preço relacionadas ao produto
+        const variacoesPreco = await prisma.variacaoPreco.findMany({
+            where: {
+                produtoId: produtoId
+            }
+        });
+
+        // Excluir todas as variações de preço relacionadas ao produto
+        await prisma.variacaoPreco.deleteMany({
+            where: {
+                produtoId: produtoId
+            }
+        });
+
+        // Em seguida, exclua o próprio produto
+        await prisma.produto.delete({
+            where: {
+                id: produtoId
+            }
+        });
+
         res.status(204).send();
     } catch (error) {
         console.error('Erro ao excluir produto:', error);
@@ -39,21 +158,61 @@ routerV3.delete("/produtos/:id", async (req, res) => {
     }
 });
 
-// Rota para editar um produto
 routerV3.put("/produtos/:id", async (req, res) => {
     try {
         const produtoId = parseInt(req.params.id);
-        const novosDadosProduto = req.body;
+        const { precoAtual, variacoesPreco, produtoExistente, ...novosDadosProduto } = req.body;
+
+        let updateData = { ...novosDadosProduto };
+
+        // Verificar se o preço atual foi alterado
+        if (precoAtual !== produtoExistente.precoAtual) {
+            // Calcular a variação de preço
+            const variacaoPreco = {
+                produtoId: produtoId,
+                data: new Date(), // Data da alteração do preço
+                variacao: precoAtual - produtoExistente.precoAtual, // Variação de preço
+                preco: produtoExistente.precoAtual
+            };
+
+            // Salvar a variação de preço
+            await prisma.variacaoPreco.create({
+                data: variacaoPreco
+            });
+
+            updateData.precoAtual = precoAtual;
+        }
+
         const produto = await prisma.produto.update({
             where: { id: produtoId },
-            data: novosDadosProduto
+            data: updateData,
+            include: {
+                variacoesPreco: true
+            }
         });
+
         res.status(200).json(produto);
     } catch (error) {
         console.error('Erro ao editar produto:', error);
         res.status(500).json({ error: 'Erro ao editar produto' });
     }
 });
+
+// Rota para obter um produto por ID
+routerV3.get("/produtos/:id", async (req, res) => {
+    try {
+        const produtoId = parseInt(req.params.id); // Extrai o ID do parâmetro da URL e converte para inteiro
+        const produto = await prisma.produto.findUnique({ where: { id: produtoId } }); // Busca o produto pelo ID
+        if (!produto) { // Verifica se o produto foi encontrado
+            return res.status(404).json({ error: 'Produto não encontrado' });
+        }
+        res.status(200).json(produto);
+    } catch (error) {
+        console.error('Erro ao obter produto:', error);
+        res.status(500).json({ error: 'Erro ao obter produto' });
+    }
+});
+
 
 // Rota para adicionar uma nova região
 routerV3.post("/regioes", async (req, res) => {

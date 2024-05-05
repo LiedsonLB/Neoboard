@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../components/loading/Loading';
 
 const Produto = () => {
-    const { id } = useParams(); // Obtém o ID do produto da URL
+    const { id } = useParams();
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
     const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ const Produto = () => {
         const fetchProdutoById = async () => {
             try {
                 console.log(id)
-                const response = await axios.get(`http://localhost:4000/v2/produtos/${id}`);
+                const response = await axios.get(`http://localhost:4000/v3/produtos/${id}`);
                 setSelectedProduct(response.data); // Define os detalhes do produto recuperado do servidor
                 console.log(selectedProduct.picture)
             } catch (error) {
@@ -49,7 +49,7 @@ const Produto = () => {
                             <h2 className='nameUserProd'>{selectedProduct.nome}</h2>
                             <div id="ProdTextInfo">
                                 <p><span>Categoria:</span> {selectedProduct.categoria}</p>
-                                <p><span>Valor:</span> R$ {selectedProduct.preco}</p>
+                                <p><span>Valor:</span> R$ {selectedProduct.precoAtual}</p>
                                 <p><span>Descrição:</span> {selectedProduct.descricao}</p>
                                 <div className='userStfSocialMidia' style={{ gap: '2rem' }}>
                                     <p><span>Código:</span> {selectedProduct.id}</p> <a href=""><i className="fa-solid fa-share-nodes"></i></a>

@@ -52,9 +52,9 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         const fetchData = async () => {
             try {
                 const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
-                    axios.get('http://localhost:4000/v2/produtos'),
-                    axios.get('http://localhost:4000/v2/regioes'),
-                    axios.get('http://localhost:4000/v2/funcionarios')
+                    axios.get('http://localhost:4000/v3/produtos'),
+                    axios.get('http://localhost:4000/v3/regioes'),
+                    axios.get('http://localhost:4000/v3/funcionarios')
                     //axios.get('http://localhost:4000/eventos')
                 ]);
                 setProdutos(produtosResponse.data.slice(0, 5));

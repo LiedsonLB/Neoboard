@@ -7,7 +7,7 @@ import { auth, provider } from '../../services/firebase';
 import { signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import Popup from '../../components/popup/Popup';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { IoLockClosed, IoLockClosedOutline } from 'react-icons/io5';
+import { IoLockClosed } from 'react-icons/io5';
 
 const LoginPage = () => {
 
@@ -27,27 +27,6 @@ const LoginPage = () => {
         document.title = `NeoBoard | Logue Agora`;
     }, []);
 
-    const handleLogin = async (e: any) => {
-        e.preventDefault();
-        if (!email || !password) {
-            setAlert('alert');
-            setTitle('Atenção');
-            setMensagem('Por favor, preencha todos os campos.');
-            hideMessageAfterTimeout();
-            return;
-        }
-        try {
-            //await axios.post('http://localhost:4000/v2/login', { email, password });
-            await signInWithEmailAndPassword(auth, email, password);
-        } catch (error: any) {
-            setAlert('warning');
-            setTitle('Erro');
-            setMensagem('Erro ao fazer login: ' + error.message);
-            console.error('Erro ao fazer login:', error.message);
-            hideMessageAfterTimeout();
-        }
-    };
-
     const hideMessageAfterTimeout = () => {
         setTimeout(() => {
             setMensagem('');
@@ -57,7 +36,7 @@ const LoginPage = () => {
     const handleResetSenha = async () => {
         console.log('Entrou na função handleResetSenha');
         console.log('Email fornecido:', resetEmail);
-    
+
         // Verifica se o campo de e-mail está vazio
         if (!resetEmail) {
             console.log('E-mail está vazio. Retornando...');
@@ -67,8 +46,8 @@ const LoginPage = () => {
             hideMessageAfterTimeout();
             return; // Retorna imediatamente se o campo de e-mail estiver vazio
         }
-    
-        // Verifica se o e-mail fornecido é válido usando uma expressão regular
+
+        // Verifica se o e-mail é válido
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(resetEmail)) {
             console.log('E-mail inválido. Retornando...');
@@ -78,10 +57,12 @@ const LoginPage = () => {
             hideMessageAfterTimeout();
             return; // Retorna imediatamente se o e-mail não for válido
         }
-    
+
         console.log('Enviando solicitação de redefinição de senha...');
         try {
-            await sendPasswordResetEmail(auth, resetEmail);
+            await axios.post('http://localhost:4000/v3/resetSenha', {
+                email: resetEmail,
+            });
             console.log('Solicitação de redefinição de senha enviada com sucesso!');
             setAlert('sucess');
             setTitle('Redefinição Enviada');
@@ -95,25 +76,49 @@ const LoginPage = () => {
             hideMessageAfterTimeout();
         }
     };
-    
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    const handleLogin = async (e: any) => {
+        e.preventDefault();
+        if (!email || !password) {
+            setAlert('alert');
+            setTitle('Atenção');
+            setMensagem('Por favor, preencha todos os campos.');
+            hideMessageAfterTimeout();
+            return;
+        }
+        try {
+            const response = await axios.post('http://localhost:4000/v3/login', { email, password });
+
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate("/");
+        } catch (error: any) {
+            setAlert('warning');
+            setTitle('Erro');
+            setMensagem('Erro ao fazer login: ' + error.message);
+            console.error('Erro ao fazer login:', error.message);
+            hideMessageAfterTimeout();
+        }
+    };
+
     const handleSignin = async () => {
-        //await axios.post('http://localhost:4000/v2/login', { user, email, password });
-        signInWithPopup(auth, provider).then((result) => {
+        try {
+            const result = await signInWithPopup(auth, provider);
             const user = result.user;
             console.log('Usuário autenticado:', user);
-        })
-            .catch((error) => {
-                setAlert('warning');
-                setTitle('Erro');
-                setMensagem('Erro ao autenticar: ' + error.message);
-                console.error('Erro ao autenticar:', error);
-            });
 
+            await axios.post('http://localhost:4000/v3/loginGoogle', { username: user.displayName, email: user.email });
+
+            navigate("/")
+        } catch (error) {
+            setAlert('warning');
+            setTitle('Erro');
+            setMensagem('Erro ao autenticar: ' + error);
+            console.error('Erro ao autenticar:', error);
+        }
     };
 
     function handleCadaster() {
@@ -129,9 +134,9 @@ const LoginPage = () => {
                     </div>
                     <p className='restore-password'><span>Restauração de Senha:</span> Restaure o Acesso a Sua Conta.</p>
                     <div className='reset-email-container'>
-                        <input type="email" className='input-reset-email' placeholder='Informe seu email' 
-                        value={resetEmail}
-                        onChange={(e) => setResetEmail(e.target.value)}
+                        <input type="email" className='input-reset-email' placeholder='Informe seu email'
+                            value={resetEmail}
+                            onChange={(e) => setResetEmail(e.target.value)}
                         />
                         <button className='send-reset' onClick={handleResetSenha}>Enviar</button>
                     </div>
@@ -148,7 +153,7 @@ const LoginPage = () => {
                         <p className="logo-name">NeoBoard</p>
                     </header>
                     <figure id='container-img'>
-                        <img src="img/loginImg.png" alt="img login" className="left-image" />
+                        <img src="img/loginTesteImg2.png" alt="img login" className="left-image" />
                     </figure>
                 </section>
 

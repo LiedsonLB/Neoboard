@@ -31,24 +31,15 @@ const CadasterPage = () => {
             return;
         }
         try {
-            /*
-            const response = await axios.post('http://localhost:4000/v2/cadastro', {
+            const response = await axios.post('http://localhost:4000/v3/cadaster', {
                 email: email,
-                password: password,
-                username: username
+                username: username,
+                password: password
             });
-            console.log('Resposta do cadastro:', response.data);
-            */
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-            if (user) {
-                await updateProfile(user, {
-                    displayName: username,
-                });
-            } else {
-                console.error('Usuário não encontrado após criação.');
-            }
-            navigate("/home");
+
+            console.log(response)
+
+            navigate("/login");
         } catch (error: any) {
             setAlert('warning');
             setTitle('Erro');
