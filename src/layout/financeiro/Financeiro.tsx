@@ -98,7 +98,7 @@ const Financeiro = () => {
 
   return (
     <>
-      <div id='financial-container'>
+       <div id='financial-container'>
         <header id='financial-header'>
           <h1>Financeiro</h1>
         </header>
@@ -135,12 +135,12 @@ const Financeiro = () => {
 
               <section id='container-table-debts'>
                 <table id='table-prod' className='table-debts'>
-                  <thead className='head-list-prod'>
+                  <thead className='head-list-fin'>
                     <tr style={{ paddingBlock: '.5rem' }}>
                       <td>Cliente</td>
                       <td>Data da Compra</td>
                       <td>Valor</td>
-                      <td>Ações</td>
+                      <td className='action-space'>Ações</td>
                     </tr>
                   </thead>
                   <tbody className='body-list-prod debt'>
@@ -155,7 +155,7 @@ const Financeiro = () => {
                       <td>
                         <h3 data-toggle="tooltip" title="Cartão(debito)">10K</h3>
                       </td>
-                      <td className='table-btns' style={{ display: 'flex', gap: '5px' }}>
+                      <td className='action-btns' style={{ display: 'flex', gap: '5px' }}>
                         <button className="edit" style={{ padding: '.6rem .8rem', height: '2.5rem', width: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => handleEdit()}><FaCheckSquare /></button>
                         <button className="delete" style={{ padding: '.6rem .8rem', height: '2.5rem', width: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={handleDelete()}><FaTrash /></button>
                       </td>

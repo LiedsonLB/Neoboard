@@ -94,9 +94,9 @@ const FinancialColumnChart = () => {
   };
 
   return (
-    <div className='graficColunm-stf' style={{fontSize: '.8rem'}}>
+    <div  style={{fontSize: '.8rem', display:'flex', flexDirection:'column', justifyContent:'center', alignContent:'center'}}>
       <p className='text-historico'>Gráfico de Faturamento</p>
-      <Bar data={data} options={options} />
+      <Bar className='graficColunm-financial' data={data} options={options} />
     </div>
   );
 };

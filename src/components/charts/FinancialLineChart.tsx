@@ -77,7 +77,7 @@ const FinancialLineChart = () => {
         backgroundColor: 'rgba(91, 127, 255, 0.3)',
         borderColor: '#5B7FFF',
         borderWidth: 2,
-        pointBackgroundColor: '#5B7FFF', // Cor dos pontos
+        pointBackgroundColor: '#5B7FFF',
         pointBorderColor: '#fff',
         pointBorderWidth: 2,
         pointRadius: 5,
@@ -89,12 +89,12 @@ const FinancialLineChart = () => {
     scales: {
       x: {
         grid: {
-          display: false, // Ocultar linhas de grade no eixo X
+          display: false, 
         },
       },
       y: {
         grid: {
-          color: 'rgba(0, 0, 0, 0.1)', // Cor das linhas de grade no eixo Y
+          color: 'rgba(0, 0, 0, 0.1)',
         },
       },
     },
