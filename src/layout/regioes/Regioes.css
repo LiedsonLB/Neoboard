@@ -286,6 +286,7 @@ tbody tr {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    min-width: none !important;
 }
 
 tbody tr td button {
@@ -597,7 +598,7 @@ td {
     }
 }
 
-@media screen and (max-width: 1078px) {
+@media screen and (max-width: 1030px) {
     #region-header {
         text-align: center;
     }
@@ -686,7 +687,7 @@ td {
     }
 
     .table-btns {
-        min-width: 500px;
+        min-width: 100% !important;
     }
 
 }
@@ -721,7 +722,7 @@ td {
 
     .theadTableRegions tr,
     .tBodyTableRegions td {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     tbody tr td {
@@ -732,7 +733,7 @@ td {
         width: 100%;
         align-items: center;
         justify-content: center;
-        min-width: 50px;
+        min-width: 10px !important;
     }
 
     tbody tr td div {

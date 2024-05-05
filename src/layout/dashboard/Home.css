@@ -279,14 +279,6 @@
   padding: 1rem;
 }
 
-.homeChart {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 300px;
-  align-items: center;
-}
-
 .chartHome {
   display: flex;
   justify-content: center;
@@ -305,8 +297,10 @@
 .pizzaChart {
   display: flex;
   justify-content: center;
-  min-width: 200px;
-  max-width: 200px;
+  max-width: 250px;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 250px;
 }
 
 #ranking-container {
@@ -654,7 +648,22 @@
   align-items: center;
   padding: 0.5rem;
   border-radius: 10px;
+  justify-content: center;
+}
 
+.homeChart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width:100%;
+  height: 400px;
+}
+
+.chartColumn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
 }
 
 #expense-calendar {
@@ -662,31 +671,37 @@
   max-height: 400px;
 }
 
-#expense-calendar .calendar {
+#expense-calendar .calendar { 
   max-width: 100%;
   max-height: 400px;
-
 }
 
 #calendar-description {
   text-align: center;
 }
 
-footer {
+#footer-home {
   font-size: 1.2rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: var(--primary-color);
   color: var(--white-color);
   padding: 1rem 0px;
-  margin: 0;
-  flex-direction: column;
+  margin: 0 auto;
   width: 100%;
 }
 
 #container-footer {
-  width: 80%;
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icons-footer{
+  display: flex;
+  gap: 1rem;
 }
 
 #container-footer p {
@@ -696,11 +711,12 @@ footer {
 }
 
 #autoria {
+  width: 49%;
   text-align: center;
 }
 
 #lineFooter {
-  margin-block: 1rem;
+ height: 50px;
 }
 
 #container-footer a {
@@ -861,15 +877,6 @@ footer {
   #card-presents {
     flex-direction: column;
   }
-
-  .homeChart {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 300px;
-    align-items: center;
-    transform: scaleY(1.8);
-  }
 }
 
 @media screen and (max-width: 750px) {
@@ -1015,6 +1022,37 @@ footer {
     margin: auto;
   }
 
+  #footer-home {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--primary-color);
+    color: var(--white-color);
+    padding: 1rem 0px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  #container-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #autoria {
+    width: 100%;
+    text-align: center;
+  }
+
+  #lineFooter {
+    height: auto;
+    margin-block: 1rem;
+    width: 70%;
+}
+
   .container-Help {
     background: var(--white-color);
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
@@ -1085,6 +1123,7 @@ footer {
     height: 100%;
     cursor: pointer;
   }
+
 }
 
 @media screen and (min-width: 750px) and (max-width: 1030px) {
@@ -1154,6 +1193,12 @@ footer {
     justify-content: center;
 
   }
+
+  #expense-chart {
+    width: 100%;
+    height: auto;
+  }
+
 
   #expenses-data {
     flex-direction: column;
