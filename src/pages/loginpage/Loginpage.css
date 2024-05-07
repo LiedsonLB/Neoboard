@@ -430,7 +430,7 @@
   }
 }
 
-@media screen and (min-width:753px) and (max-width:1000px) {
+@media screen and (max-width:1030px) {
   .left {
     width: 100%;
     display: block;
@@ -440,18 +440,13 @@
 
   .container-logo {
     width: 100%;
-    font-size: 0.8rem;
     align-items: center;
     text-align: center;
-  }
-
-  .container-logo p {
-    font-size: 1.7rem;
+    margin-top: 2.7rem;
   }
 
   #container-img {
     width: 100%;
-    margin-top: 4rem;
   }
 
   .left-image {

@@ -130,6 +130,15 @@ const CadasterPage = () => {
 
                 </section>
             </main>
+            <footer id='footer-home'>
+                <div id="container-footer">
+                    <p><a href=" ">Termos de Uso</a> | <a href=" ">Política de Privacidade</a> | <a href=" ">Central de Ajuda</a></p>
+                </div>
+                <hr id="lineFooter" />
+                <div id="autoria">
+                    <p>&copy; 2024 NeoBoard. Todos os direitos reservados.</p>
+                </div>
+            </footer>
         </>
     );
 };
