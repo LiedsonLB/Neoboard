@@ -281,6 +281,10 @@
     cursor: pointer;
     background-color: var(--white-color);
     font-family: var(--font-krub);
+    max-width: 20ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #filter-expense:hover {

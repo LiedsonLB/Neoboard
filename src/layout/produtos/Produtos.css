@@ -241,6 +241,13 @@
     justify-content: space-between;
 }
 
+.name-product {
+    max-width: 20ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .prod-card {
     background: var(--white-color);
     display: flex;

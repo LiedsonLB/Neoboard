@@ -640,6 +640,10 @@
 .modal-title {
     font-family: var(--font-krub);
     color: var(--primary-color);
+    max-width: 50ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .close-btn {
@@ -739,7 +743,8 @@
     gap: 1rem;
 }
 
-#add-staff-Btn, #edit-product-Btn {
+#add-staff-Btn,
+#edit-product-Btn {
     padding: .8rem 2rem;
     background: var(--secondy-color);
     border: none;
@@ -751,7 +756,8 @@
     font-weight: bold;
 }
 
-#add-staff-Btn:hover, #edit-product-Btn:hover {
+#add-staff-Btn:hover,
+#edit-product-Btn:hover {
     background: var(--hover-color);
 }
 

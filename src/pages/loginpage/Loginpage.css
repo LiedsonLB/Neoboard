@@ -209,7 +209,8 @@
   bottom: 15%;
 }
 
-#link-resetPassword, #link-cadaster {
+#link-resetPassword,
+#link-cadaster {
   text-decoration: underline;
   color: var(--secondy-color);
   cursor: pointer;
@@ -301,7 +302,7 @@
 }
 
 .input-reset-email::placeholder {
- font-style: var(--font-Krub);
+  font-style: var(--font-Krub);
 }
 
 .input-reset-email:focus {
@@ -321,7 +322,7 @@
 
 .send-reset:hover {
   background: var(--hover-color);
-  transition:.8s;
+  transition: .8s;
 }
 
 .cancel-reset {
@@ -337,7 +338,7 @@
 
 .cancel-reset:hover {
   background: var(--gray-color);
-  transition:.8s;
+  transition: .8s;
 }
 
 @media screen and (max-width: 752px) {

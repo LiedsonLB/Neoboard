@@ -215,11 +215,12 @@ const Produtos = () => {
         ...produtoEditado,
         produtoExistente: produtoExistente.data // Envie o objeto produtoExistente junto com os novos dados
       });
+      // Feche o modal de edição após a conclusão
+      fecharModalEdicao();
 
       // Atualize a lista de produtos após a edição
       fetchProdutos();
-      // Feche o modal de edição após a conclusão
-      fecharModalEdicao();
+
       // Exibir uma mensagem de sucesso
       setPopupType('sucess');
       setPopupTitle('Produto editado');
@@ -398,7 +399,7 @@ const Produtos = () => {
                   <figure className='container-list-img'>
                     <img src={produto.picture} alt={produto.nome} />
                   </figure>
-                  <p>{produto.nome}</p>
+                  <p className='name-product'>{produto.nome}</p>
                   <p className='prod-name'>R$ {produto.precoAtual}</p>
                   <button className='see-prod-btn' onClick={() => navigate(`/product/${produto.id}`, { state: { user: produto } })}>Ver produto</button>
                   <div className='manager-btn'>
