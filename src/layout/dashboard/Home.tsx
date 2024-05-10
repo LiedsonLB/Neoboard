@@ -55,12 +55,10 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                     axios.get('http://localhost:4000/v3/produtos'),
                     axios.get('http://localhost:4000/v3/regioes'),
                     axios.get('http://localhost:4000/v3/funcionarios')
-                    //axios.get('http://localhost:4000/eventos')
                 ]);
                 setProdutos(produtosResponse.data.slice(0, 5));
                 setRegions(regionsResponse.data.slice(0, 5));
                 setStaffs(staffsResponse.data.slice(0, 5));
-                //setEvents(eventsResponse.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);

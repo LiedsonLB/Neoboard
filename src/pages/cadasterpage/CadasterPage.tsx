@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 // @ts-ignore
-import { auth } from '../../services/firebase';
 import './CadasterPage.css';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
@@ -31,6 +30,7 @@ const CadasterPage = () => {
             return;
         }
         try {
+
             const response = await axios.post('http://localhost:4000/v3/cadaster', {
                 email: email,
                 username: username,

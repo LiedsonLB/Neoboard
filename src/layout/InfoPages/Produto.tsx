@@ -13,7 +13,7 @@ const Produto = () => {
         const fetchProdutoById = async () => {
             try {
                 console.log(id)
-                const response = await axios.get(`http://localhost:4000/v3/produtos/${id}`);
+                const response = await axios.get(`http://localhost:4000/v3/produtos/info/${id}`);
                 setSelectedProduct(response.data); // Define os detalhes do produto recuperado do servidor
                 console.log(selectedProduct.picture)
             } catch (error) {

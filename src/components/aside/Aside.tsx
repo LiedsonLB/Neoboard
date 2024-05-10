@@ -4,6 +4,7 @@ import { signOut } from 'firebase/auth'
 // @ts-ignore
 import { auth } from '../../services/firebase'
 import '../aside/Aside.css'
+import { FaArrowLeft, FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 interface Props {
     user: any | null;
@@ -70,7 +71,7 @@ const Aside = ({ user, changeComponent }: Props) => {
             <main id='aside-container'>
                 <div id='togle-btn'>
                     <button id="toggleSidebarBtn" onClick={toggleSidebar}>
-                        {sidebarOpen ? <IoCloseOutline /> : <IoMenuOutline />}
+                        {sidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
                     </button>
                 </div>
                 <aside id="aside-home" className={sidebarOpen ? '' : 'closed'}>

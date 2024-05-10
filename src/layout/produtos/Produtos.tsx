@@ -24,6 +24,8 @@ const Produtos = () => {
   const [popupTitle, setPopupTitle] = useState('');
   const navigate = useNavigate();
 
+  const userId = localStorage.getItem('userID');
+
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
       setMensagem('');
@@ -79,7 +81,7 @@ const Produtos = () => {
           descricao,
           picture,
           NameImg: selectedImage ? selectedImage.name : '',
-          usuarioId: 1,
+          usuarioId: userId,
         };
 
         // Enviar a requisição para adicionar o novo produto
@@ -95,7 +97,7 @@ const Produtos = () => {
         fetchProdutos();
 
         // Exibir uma mensagem de sucesso
-        setPopupType('success');
+        setPopupType('sucess');
         setPopupTitle('Produto adicionado');
         setMensagem('Sucesso ao adicionar o produto');
         hidePopupAfterTimeout();
@@ -133,7 +135,7 @@ const Produtos = () => {
       fetchProdutos();
 
       // Exibir uma mensagem de sucesso
-      setPopupType('success');
+      setPopupType('sucess');
       setPopupTitle('Produto Excluído');
       setMensagem('Sucesso ao excluir o produto');
       hidePopupAfterTimeout();
@@ -148,17 +150,15 @@ const Produtos = () => {
 
   const fetchProdutos = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/v3/produtos');
+      const response = await axios.get(`http://localhost:4000/v3/produtos/${userId}`);
       setProdutos(response.data);
+      console.log('produtos: ' + response.data)
       const categoriasUnicas = new Set(response.data.map((produto: Produto) => produto.categoria));
       // se esta rodando não mexa
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
       setCategorias(categoriasUnicasArray);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
-      setPopupType('warning');
-      setPopupTitle('Erro');
-      setMensagem('Erro ao procurar produtos');
       hidePopupAfterTimeout();
     }
   };
@@ -211,10 +211,11 @@ const Produtos = () => {
       const produtoExistente = await axios.get(`http://localhost:4000/v3/produtos/${produtoEditado.id}`);
 
       // Faça o envio dos novos dados do produto para a rota de edição
-      await axios.put(`http://localhost:4000/v3/produtos/${produtoEditado.id}`, {
+      await axios.put(`http://localhost:4000/v3/produtos/edit/${produtoEditado.id}`, {
         ...produtoEditado,
         produtoExistente: produtoExistente.data // Envie o objeto produtoExistente junto com os novos dados
       });
+      
       // Feche o modal de edição após a conclusão
       fecharModalEdicao();
 

@@ -66,13 +66,14 @@ aside {
   flex-direction: column;
   justify-content: center;
   position: absolute;
-  right: -3rem;
-  top: 1rem;
+  right: -1.5rem;
+  bottom: 1rem;
   z-index: 5;
 }
 
-#toggleSidebarBtn:hover {
+#toggleSidebarBtn:hover, #toggleSidebarBtn:focus {
   color: var(--white-color) !important;
+  outline: 3px solid var(--gray-color) !important;
 }
 
 #toggleSidebarBtn {
@@ -80,19 +81,23 @@ aside {
   border: none;
   cursor: pointer;
   color: var(--white-color);
-  font-size: 2.5rem;
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   flex: 1;
-  width: 50px;
-  height: 50px;
-  padding: 5px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  max-width: 50px;
+  max-height: 50px;
+  padding: 10px;
+  border-radius: 100px;
+  outline: 3px solid var(--gray-color) !important;
 }
 
 #toggleSidebarBtn:focus {
   outline: none;
+}
+
+#toggleSidebarBtn:hover {
+  background: var(--secondy-color);
 }
 
 aside header {
@@ -103,7 +108,7 @@ aside header {
 }
 
 aside header img {
-  max-width: 50px;
+  max-width: 40px;
   height: auto;
   margin-right: .5rem;
 }
@@ -112,9 +117,11 @@ aside header span h2 {
   font-size: 1.5em;
   color: var(--white-color);
   font-weight: 400;
-  margin-right: 5em;
-  margin-top: .7em;
   text-align: center;
+}
+
+.closed header span h2 {
+  display: none;
 }
 
 #description {
@@ -375,6 +382,9 @@ aside ul h2 {
     flex-direction: column;
     z-index: 2;
     background: none;
+    right: -3rem !important;
+    top: 1rem !important;
+    bottom: auto;
   }
 
   #togle-btn.closed {
@@ -384,6 +394,15 @@ aside ul h2 {
     z-index: 2;
     padding: .5rem;
     background: none;
+  }
+
+  #toggleSidebarBtn, #toggleSidebarBtn:hover, #toggleSidebarBtn:focus {
+    border-radius: 0;
+    outline: none !important;
+  }
+
+  aside header span h2 {
+    display: block !important;
   }
 
   .user-acount button {

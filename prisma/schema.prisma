@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Usuario {
-  id           Int           @id @default(autoincrement())
+  id           String        @id @default(uuid())
   nome         String
   email        String        @unique
   despesas     Despesa[]
@@ -26,8 +26,8 @@ model Produto {
   descricao      String
   categoria      String
   precoAtual     Float
-  usuarioId      Int?
-  usuario        Usuario?        @relation(fields: [usuarioId], references: [id])
+  usuarioId      String
+  usuario        Usuario         @relation(fields: [usuarioId], references: [id])
   variacoesPreco VariacaoPreco[]
   vendas         Venda[]
 }
@@ -48,7 +48,7 @@ model Regiao {
   descricao String
   endereco  String?
   cidade    String
-  usuarioId Int?
+  usuarioId String?
   usuario   Usuario? @relation(fields: [usuarioId], references: [id])
   vendas    Venda[]
 }
@@ -68,7 +68,7 @@ model Funcionario {
   formacaoAcademica String
   linkedin          String?
   github            String?
-  usuarioId         Int?
+  usuarioId         String?
   usuario           Usuario? @relation(fields: [usuarioId], references: [id])
   vendas            Venda[]
 }
@@ -80,7 +80,7 @@ model Despesa {
   descricao String?
   tipo      String
   valor     Float
-  usuarioId Int?
+  usuarioId String?
   usuario   Usuario? @relation(fields: [usuarioId], references: [id])
 }
 
@@ -94,7 +94,7 @@ model Venda {
   produtoid          Int
   regiaoId           Int
   formaPagamento     String
-  usuarioId          Int?
+  usuarioId          String?
   relatorioId        Int
   funcionario        Funcionario @relation(fields: [funcionarioId], references: [id])
   produto            Produto     @relation(fields: [produtoid], references: [id])
@@ -105,6 +105,7 @@ model Venda {
 
 model Relatorio {
   id      Int     @id @default(autoincrement())
+  Data    String
   idVenda Int
   Venda   Venda[]
 }

@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Usuario" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
     "email" TEXT NOT NULL,
 
@@ -16,7 +16,7 @@ CREATE TABLE "Produto" (
     "descricao" TEXT NOT NULL,
     "categoria" TEXT NOT NULL,
     "precoAtual" DOUBLE PRECISION NOT NULL,
-    "usuarioId" INTEGER,
+    "usuarioId" TEXT NOT NULL,
 
     CONSTRAINT "Produto_pkey" PRIMARY KEY ("id")
 );
@@ -40,7 +40,7 @@ CREATE TABLE "Regiao" (
     "descricao" TEXT NOT NULL,
     "endereco" TEXT,
     "cidade" TEXT NOT NULL,
-    "usuarioId" INTEGER,
+    "usuarioId" TEXT,
 
     CONSTRAINT "Regiao_pkey" PRIMARY KEY ("id")
 );
@@ -61,7 +61,7 @@ CREATE TABLE "Funcionario" (
     "formacaoAcademica" TEXT NOT NULL,
     "linkedin" TEXT,
     "github" TEXT,
-    "usuarioId" INTEGER,
+    "usuarioId" TEXT,
 
     CONSTRAINT "Funcionario_pkey" PRIMARY KEY ("id")
 );
@@ -74,7 +74,7 @@ CREATE TABLE "Despesa" (
     "descricao" TEXT,
     "tipo" TEXT NOT NULL,
     "valor" DOUBLE PRECISION NOT NULL,
-    "usuarioId" INTEGER,
+    "usuarioId" TEXT,
 
     CONSTRAINT "Despesa_pkey" PRIMARY KEY ("id")
 );
@@ -90,7 +90,7 @@ CREATE TABLE "Venda" (
     "produtoid" INTEGER NOT NULL,
     "regiaoId" INTEGER NOT NULL,
     "formaPagamento" TEXT NOT NULL,
-    "usuarioId" INTEGER,
+    "usuarioId" TEXT,
     "relatorioId" INTEGER NOT NULL,
 
     CONSTRAINT "Venda_pkey" PRIMARY KEY ("ID_venda")
@@ -108,7 +108,7 @@ CREATE TABLE "Relatorio" (
 CREATE UNIQUE INDEX "Usuario_email_key" ON "Usuario"("email");
 
 -- AddForeignKey
-ALTER TABLE "Produto" ADD CONSTRAINT "Produto_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Produto" ADD CONSTRAINT "Produto_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "VariacaoPreco" ADD CONSTRAINT "VariacaoPreco_produtoId_fkey" FOREIGN KEY ("produtoId") REFERENCES "Produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

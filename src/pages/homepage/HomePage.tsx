@@ -12,6 +12,7 @@ import Financeiro from '../../layout/financeiro/Financeiro.tsx';
 import Relatorio from '../../layout/relatorio/Relatorio.tsx';
 import Funcionarios from '../../layout/funcionarios/Funcionarios.tsx';
 import FAQ from '../../layout/FAQ/FAQ.tsx';
+import axios from 'axios';
 
 const HomePage = () => {
     const savedComponent = sessionStorage.getItem('currentComponent');
@@ -21,6 +22,22 @@ const HomePage = () => {
     const [currentComponent, setCurrentComponent] = useState<string>(savedComponent || 'Dashboard');
 
     const [user, loading] = useAuthState(auth);
+
+    useEffect(() => {
+        const updateUserUID = async () => {
+            try {
+                const response = await axios.get(`http://localhost:4000/v3/user/${user?.email}`);
+                console.log(response.data)
+                const userID = response.data[0].id; // assuming response.data has a property 'userID'
+                localStorage.setItem('userID', userID); // storing only the userID in localStorage
+            } catch (error) {
+                // Handle error if the request fails
+                console.error('Error fetching user data:', error);
+            }
+        };
+    
+        updateUserUID();
+    }, [user]);
 
     useEffect(() => {
         document.title = `${user?.displayName + " | NeoBoard" || "Home"}, bem vindo!!`;

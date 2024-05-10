@@ -55,7 +55,7 @@ const LoginPage = () => {
             setTitle('Erro');
             setMensagem('Por favor, insira um endereço de e-mail válido.');
             hideMessageAfterTimeout();
-            return; // Retorna imediatamente se o e-mail não for válido
+            return;
         }
 
         console.log('Enviando solicitação de redefinição de senha...');
@@ -91,7 +91,8 @@ const LoginPage = () => {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:4000/v3/login', { email, password });
+
+            await axios.post('http://localhost:4000/v3/login', { email, password });
 
             await signInWithEmailAndPassword(auth, email, password);
             navigate("/");
@@ -207,11 +208,10 @@ const LoginPage = () => {
                     </div>
                 </section>
             </main>
-            <footer id='footer-home'>
+            <footer id='footer-home' style={{padding: '20px', fontSize: '14px !important'}}>
                 <div id="container-footer">
-                    <p><a href=" ">Termos de Uso</a> | <a href=" ">Política de Privacidade</a> | <a href=" ">Central de Ajuda</a></p>
+                    <p style={{paddingTop: '0'}}><a href=" ">Termos de Uso</a> | <a href=" ">Política de Privacidade</a> | <a href=" ">Central de Ajuda</a></p>
                 </div>
-                <hr id="lineFooter" />
                 <div id="autoria">
                     <p>&copy; 2024 NeoBoard. Todos os direitos reservados.</p>
                 </div>

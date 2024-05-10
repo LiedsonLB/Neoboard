@@ -30,7 +30,7 @@ routerV3.post("/login", async (req, res) => {
 });
 
 routerV3.post("/loginGoogle", async (req, res) => {
-    const { username, email } = req.body;
+    const { username, email, id } = req.body;
     try {
         // Verificar se o usuário já existe no banco de dados
         const existingUser = await prisma.usuario.findUnique({
@@ -46,6 +46,7 @@ routerV3.post("/loginGoogle", async (req, res) => {
                 data: {
                     nome: username,
                     email: email,
+                    id: id
                 }
             });
 
@@ -102,10 +103,27 @@ routerV3.post("/resetSenha", async (req, res) => {
     }
 });
 
+// Rota para obter todos os produtos
+routerV3.get("/user/:userEmail", async (req, res) => {
+    try {
+        const userEmail = req.params.userEmail;
+        const usuarios = await prisma.usuario.findMany({
+            where: {
+                email: userEmail
+            }
+        });
+        res.status(200).json(usuarios);
+    } catch (error) {
+        console.error('Erro ao obter produtos:', error);
+        res.status(500).json({ error: 'Erro ao obter produtos' });
+    }
+});
+
 // Rota para adicionar um novo produto
 routerV3.post("/produtos", async (req, res) => {
     try {
         const novoProdutoData = req.body;
+
         const produto = await prisma.produto.create({ data: novoProdutoData });
         res.status(201).json(produto);
     } catch (error) {
@@ -115,9 +133,14 @@ routerV3.post("/produtos", async (req, res) => {
 });
 
 // Rota para obter todos os produtos
-routerV3.get("/produtos", async (req, res) => {
+routerV3.get("/produtos/:userId", async (req, res) => {
     try {
-        const produtos = await prisma.produto.findMany();
+        const userId = req.params.userId;
+        const produtos = await prisma.produto.findMany({
+            where: {
+                usuarioId: userId
+            }
+        });
         res.status(200).json(produtos);
     } catch (error) {
         console.error('Erro ao obter produtos:', error);
@@ -158,7 +181,7 @@ routerV3.delete("/produtos/:id", async (req, res) => {
     }
 });
 
-routerV3.put("/produtos/:id", async (req, res) => {
+routerV3.put("/produtos/edit/:id", async (req, res) => {
     try {
         const produtoId = parseInt(req.params.id);
         const { precoAtual, variacoesPreco, produtoExistente, ...novosDadosProduto } = req.body;
@@ -199,7 +222,7 @@ routerV3.put("/produtos/:id", async (req, res) => {
 });
 
 // Rota para obter um produto por ID
-routerV3.get("/produtos/:id", async (req, res) => {
+routerV3.get("/produtos/info/:id", async (req, res) => {
     try {
         const produtoId = parseInt(req.params.id); // Extrai o ID do parâmetro da URL e converte para inteiro
         const produto = await prisma.produto.findUnique({ where: { id: produtoId } }); // Busca o produto pelo ID

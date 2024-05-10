@@ -5,7 +5,7 @@ interface Produto {
   descricao: string;
   categoria: string;
   precoAtual: number;
-  usuarioId: number;
+  usuarioId: string | null;
 }
 
 export default Produto;
