@@ -32,7 +32,7 @@ const CadasterPage = () => {
         try {
 
             const response = await axios.post('http://localhost:4000/v3/cadaster', {
-                email: email,
+                email: email.toLocaleLowerCase(),
                 username: username,
                 password: password
             });

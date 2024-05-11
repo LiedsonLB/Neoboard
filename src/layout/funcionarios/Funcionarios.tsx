@@ -19,9 +19,9 @@ interface Funcionario {
   genero: string;
   age: number;
   cargo: string;
-  data_contratacao: string,
+  dataContratacao: string,
   phone: string,
-  form_academ: string,
+  formacaoAcademica: string,
   cpf: string
 }
 
@@ -36,6 +36,21 @@ const Funcionarios = () => {
   const [filteredFuncionarios, setFilteredFuncionarios] = useState<Funcionario[]>([]);
   const [selectionSession, setSelectionSession] = useState<'info' | 'charts'>('info');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const formatDateBr = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    
+    const monthNames = [
+      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
+    const monthName = monthNames[month - 1];
+  
+    return `em ${day < 10 ? '0' + day : day} de ${monthName} de ${year}`;
+  };  
 
   useEffect(() => {
     const fetchFuncionarios = async () => {
@@ -410,8 +425,8 @@ const Funcionarios = () => {
                           <p>Endereço: <span>{selectedUser.endereco}</span></p>
                           <p>Gênero: <span>{selectedUser.genero}</span></p>
                           <p>Cargo: <span>{selectedUser.cargo}</span></p>
-                          <p>Contratação: <span>{selectedUser.data_contratacao}</span></p>
-                          <p>Acadêmico: <span>{selectedUser.form_academ}</span></p>
+                          <p>Contratação: <span>{formatDateBr(selectedUser.dataContratacao)}</span></p>
+                          <p>Acadêmico: <span>{selectedUser.formacaoAcademica}</span></p>
                           <p>Telefone: <span>{selectedUser.phone}</span></p>
                         </div>
                       </div>

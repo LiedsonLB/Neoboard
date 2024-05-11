@@ -29,6 +29,8 @@ const Regioes = () => {
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
 
+  const userId = localStorage.getItem('userID');
+
   const toggleModalClose = () => {
     setShowModal(!showModal);
   };
@@ -94,12 +96,10 @@ const Regioes = () => {
 
   const adicionarRegiao = async () => {
     try {
-      const usuario = 1
-
-      const userID = { ...regiaoParaAdicionar, usuario };
 
       // Verificar se uma imagem foi selecionada
       let picture = './img/no_productImg.jpeg';
+
       if (selectedImage) {
         // Fazer upload da imagem para o Firebase Storage
         const downloadURL = await uploadImageToStorage(selectedImage);
@@ -118,7 +118,8 @@ const Regioes = () => {
         cidade: '',
         endereco: '',
         responsavel: '',
-        descricao: ''
+        descricao: '',
+        usuarioId: userId,
       });
     } catch (error) {
       console.error('Erro ao adicionar região:', error);

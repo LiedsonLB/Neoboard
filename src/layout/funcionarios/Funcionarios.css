@@ -81,7 +81,6 @@
 .staff-info img {
     width: 100px;
     height: 100px;
-    background-color: black;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -305,7 +304,6 @@
 .staff-img img {
     height: 100%;
     width: 100%;
-    background-color: black;
     border-radius: 50%;
     object-fit: cover;
 }

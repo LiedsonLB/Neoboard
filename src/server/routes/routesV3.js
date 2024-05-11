@@ -103,8 +103,12 @@ routerV3.post("/resetSenha", async (req, res) => {
     }
 });
 
-// Rota para obter todos os produtos
-routerV3.get("/user/:userEmail", async (req, res) => {
+routerV3.get("/users", async (req, res) => {
+    const users = await prisma.usuario.findMany();
+    res.status(200).json(users);
+})
+
+routerV3.get("/users/:userEmail", async (req, res) => {
     try {
         const userEmail = req.params.userEmail;
         const usuarios = await prisma.usuario.findMany({
@@ -112,10 +116,18 @@ routerV3.get("/user/:userEmail", async (req, res) => {
                 email: userEmail
             }
         });
-        res.status(200).json(usuarios);
+
+        if (usuarios.length === 0) {
+            // Se nenhum usuário for encontrado, responda com um ID vazio ou nulo
+            res.status(200).json({ id: null }); // Ou responda com { id: '' } se preferir um ID vazio
+            return;
+        }
+
+        // Se um usuário for encontrado, responda com o ID do usuário
+        res.status(200).json({ id: usuarios[0].id });
     } catch (error) {
-        console.error('Erro ao obter produtos:', error);
-        res.status(500).json({ error: 'Erro ao obter produtos' });
+        console.error('Erro ao obter usuário:', error);
+        res.status(500).json({ error: 'Erro ao obter usuário' });
     }
 });
 
@@ -132,10 +144,10 @@ routerV3.post("/produtos", async (req, res) => {
     }
 });
 
-// Rota para obter todos os produtos
-routerV3.get("/produtos/:userId", async (req, res) => {
+// Rota para obter os produtos do usuário
+routerV3.get("/produtos", async (req, res) => {
     try {
-        const userId = req.params.userId;
+        const userId = req.query.userId;
         const produtos = await prisma.produto.findMany({
             where: {
                 usuarioId: userId
@@ -148,17 +160,33 @@ routerV3.get("/produtos/:userId", async (req, res) => {
     }
 });
 
+routerV3.get('/produtos/:id', async (req, res) => {
+    const produtoId = parseInt(req.params.id);
+
+    try {
+        // Busca o produto no banco de dados usando o Prisma
+        const produto = await prisma.produto.findUnique({
+            where: {
+                id: produtoId,
+            },
+        });
+
+        // Verifica se o produto foi encontrado
+        if (produto) {
+            res.status(200).json(produto); // Retorna os dados do produto em formato JSON
+        } else {
+            res.status(404).json({ error: 'Produto não encontrado' }); // Retorna um status 404 se o produto não foi encontrado
+        }
+    } catch (error) {
+        console.error('Erro ao buscar produto:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' }); // Retorna um status 500 em caso de erro interno do servidor
+    }
+});
+
 // Rota para excluir um produto
 routerV3.delete("/produtos/:id", async (req, res) => {
     try {
         const produtoId = parseInt(req.params.id);
-
-        // Consultar todas as variações de preço relacionadas ao produto
-        const variacoesPreco = await prisma.variacaoPreco.findMany({
-            where: {
-                produtoId: produtoId
-            }
-        });
 
         // Excluir todas as variações de preço relacionadas ao produto
         await prisma.variacaoPreco.deleteMany({
@@ -184,7 +212,7 @@ routerV3.delete("/produtos/:id", async (req, res) => {
 routerV3.put("/produtos/edit/:id", async (req, res) => {
     try {
         const produtoId = parseInt(req.params.id);
-        const { precoAtual, variacoesPreco, produtoExistente, ...novosDadosProduto } = req.body;
+        const { precoAtual, produtoExistente, ...novosDadosProduto } = req.body;
 
         let updateData = { ...novosDadosProduto };
 
@@ -222,9 +250,9 @@ routerV3.put("/produtos/edit/:id", async (req, res) => {
 });
 
 // Rota para obter um produto por ID
-routerV3.get("/produtos/info/:id", async (req, res) => {
+routerV3.get("/produtos/info", async (req, res) => {
     try {
-        const produtoId = parseInt(req.params.id); // Extrai o ID do parâmetro da URL e converte para inteiro
+        const produtoId = parseInt(req.query.id); // Extrai o ID do parâmetro da URL e converte para inteiro
         const produto = await prisma.produto.findUnique({ where: { id: produtoId } }); // Busca o produto pelo ID
         if (!produto) { // Verifica se o produto foi encontrado
             return res.status(404).json({ error: 'Produto não encontrado' });
@@ -287,6 +315,39 @@ routerV3.put("/regioes/:id", async (req, res) => {
         res.status(500).json({ error: 'Erro ao editar região' });
     }
 });
+
+// Rota para obter as regiões de um usuário específico
+routerV3.get("/regioes/:userId", async (req, res) => {
+    try {
+        const userId = parseInt(req.params.userId);
+        const regioes = await prisma.regiao.findMany({
+            where: {
+                userId: userId
+            }
+        });
+        res.status(200).json(regioes);
+    } catch (error) {
+        console.error('Erro ao obter regiões:', error);
+        res.status(500).json({ error: 'Erro ao obter regiões' });
+    }
+});
+
+// Rota para obter os funcionários de um usuário específico
+routerV3.get("/funcionarios/:userId", async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const funcionarios = await prisma.funcionario.findMany({
+            where: {
+                usuarioId: userId
+            }
+        });
+        res.status(200).json(funcionarios);
+    } catch (error) {
+        console.error('Erro ao obter funcionários:', error);
+        res.status(500).json({ error: 'Erro ao obter funcionários' });
+    }
+});
+
 
 // Rota para adicionar uma nova despesa
 routerV3.post("/despesas", async (req, res) => {
@@ -390,12 +451,47 @@ routerV3.put("/funcionarios/:id", async (req, res) => {
     }
 });
 
-// Rota para adicionar uma nova venda
 routerV3.post("/vendas", async (req, res) => {
     try {
         const novaVendaData = req.body;
-        const venda = await prisma.venda.create({ data: novaVendaData });
-        res.status(201).json(venda);
+
+        // Obtenha a data atual
+        const dataAtual = new Date().toISOString().split('T')[0];
+
+        // Verifique se já existe um relatório para a data atual
+        let relatorio = await prisma.relatorio.findUnique({
+            where: { Data: dataAtual }
+        });
+
+        // Se não houver um relatório para a data atual, crie um novo
+        if (!relatorio) {
+            relatorio = await prisma.relatorio.create({
+                data: {
+                    Data: dataAtual,
+                    vendas: {
+                        create: [novaVendaData]
+                    }
+                },
+                include: {
+                    vendas: true
+                }
+            });
+        } else {
+            // Se já houver um relatório, adicione a nova venda ao relatório existente
+            relatorio = await prisma.relatorio.update({
+                where: { id: relatorio.id },
+                data: {
+                    vendas: {
+                        create: [novaVendaData]
+                    }
+                },
+                include: {
+                    vendas: true
+                }
+            });
+        }
+
+        res.status(201).json(relatorio);
     } catch (error) {
         console.error('Erro ao adicionar venda:', error);
         res.status(500).json({ error: 'Erro ao adicionar venda' });

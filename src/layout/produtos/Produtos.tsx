@@ -24,8 +24,6 @@ const Produtos = () => {
   const [popupTitle, setPopupTitle] = useState('');
   const navigate = useNavigate();
 
-  const userId = localStorage.getItem('userID');
-
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
       setMensagem('');
@@ -77,7 +75,7 @@ const Produtos = () => {
         const novoProduto: Produto = {
           nome,
           categoria,
-          precoAtual: parseFloat(valor),
+          precoAtual: valor,
           descricao,
           picture,
           NameImg: selectedImage ? selectedImage.name : '',
@@ -150,8 +148,11 @@ const Produtos = () => {
 
   const fetchProdutos = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/v3/produtos/${userId}`);
+      const response = await axios.get(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`);
+
+      console.log(response.data)
       setProdutos(response.data);
+
       console.log('produtos: ' + response.data)
       const categoriasUnicas = new Set(response.data.map((produto: Produto) => produto.categoria));
       // se esta rodando não mexa
@@ -184,9 +185,32 @@ const Produtos = () => {
     }
   };
 
+  const userId = localStorage.getItem('userID');
+
   useEffect(() => {
-    fetchProdutos();
-  }, []);
+    if (userId) {
+      fetchUserAndProducts();
+    } else {
+      console.error('ID do usuário não encontrado na localStorage.');
+    }
+  }, [userId]);
+
+  const fetchUserAndProducts = async () => {
+    try {
+      // Obter o ID do usuário da localStorage
+      const userId = localStorage.getItem('userID');
+
+      if (userId) {
+        // Se o ID do usuário existir, então podemos buscar os produtos
+        await fetchProdutos();
+      } else {
+        console.error('Erro: ID do usuário não encontrado na localStorage.');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar usuário e produtos:', error);
+      hidePopupAfterTimeout();
+    }
+  };
 
   const produtosFiltrados = produtos.filter((produto: Produto) =>
     produto.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
@@ -205,23 +229,26 @@ const Produtos = () => {
     setModalEditOpen(false);
   };
 
-  const atualizarProduto = async (produtoEditado: Produto) => {
+  const atualizarProduto = async (produtoEditado : Produto) => {
     try {
-      // Obtenha os dados do produto existente
+      // Obter os dados do produto existente
       const produtoExistente = await axios.get(`http://localhost:4000/v3/produtos/${produtoEditado.id}`);
-
-      // Faça o envio dos novos dados do produto para a rota de edição
-      await axios.put(`http://localhost:4000/v3/produtos/edit/${produtoEditado.id}`, {
-        ...produtoEditado,
-        produtoExistente: produtoExistente.data // Envie o objeto produtoExistente junto com os novos dados
-      });
-      
-      // Feche o modal de edição após a conclusão
+  
+      // Atualizar apenas os campos relevantes do produto existente com os novos dados
+      const novosDadosProduto = {
+        ...produtoExistente,
+        ...produtoEditado
+      };
+  
+      // Enviar os novos dados do produto para a rota de edição
+      await axios.put(`http://localhost:4000/v3/produtos/edit/${produtoEditado.id}`, novosDadosProduto);
+  
+      // Fechar o modal de edição após a conclusão
       fecharModalEdicao();
-
-      // Atualize a lista de produtos após a edição
+  
+      // Atualizar a lista de produtos após a edição
       fetchProdutos();
-
+  
       // Exibir uma mensagem de sucesso
       setPopupType('sucess');
       setPopupTitle('Produto editado');
@@ -229,12 +256,13 @@ const Produtos = () => {
       hidePopupAfterTimeout();
     } catch (error) {
       console.error('Erro ao editar produto:', error);
+      // Exibir uma mensagem de erro
       setPopupType('warning');
       setPopupTitle('Erro');
       setMensagem('Erro ao editar o produto');
       hidePopupAfterTimeout();
     }
-  };
+  };  
 
   return (
     <>

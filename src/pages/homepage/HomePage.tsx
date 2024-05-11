@@ -26,18 +26,28 @@ const HomePage = () => {
     useEffect(() => {
         const updateUserUID = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/v3/user/${user?.email}`);
-                console.log(response.data)
-                const userID = response.data[0].id; // assuming response.data has a property 'userID'
-                localStorage.setItem('userID', userID); // storing only the userID in localStorage
+                if (user) {
+                    const response = await axios.get(`http://localhost:4000/v3/users/${user.email}`);
+                    console.log(response.data)
+                    if (response.data && response.data.id) {
+                        localStorage.setItem('userID', response.data.id);
+                        console.log(localStorage.getItem('userID'));
+                    } else {
+                        console.log(response.data)
+                        console.log(response.data.id)
+                        console.error('User not found');
+                        localStorage.setItem('userID', '2');
+                    }
+                } else {
+                    localStorage.setItem('userID', '');
+                }
             } catch (error) {
-                // Handle error if the request fails
                 console.error('Error fetching user data:', error);
             }
-        };
+        };        
     
         updateUserUID();
-    }, [user]);
+    }, [user]);    
 
     useEffect(() => {
         document.title = `${user?.displayName + " | NeoBoard" || "Home"}, bem vindo!!`;

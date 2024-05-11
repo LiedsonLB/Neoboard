@@ -13,6 +13,11 @@ import Produto from "./layout/InfoPages/Produto.tsx";
 const App = () => {
   const [user, loading] = useAuthState(auth);
 
+  // Remove o userID se não houver usuário
+  if (!user) {
+    localStorage.removeItem('userID');
+  }
+
   if (loading) return <Loading />;
 
   return (

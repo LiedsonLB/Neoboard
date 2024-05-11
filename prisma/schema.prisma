@@ -42,15 +42,16 @@ model VariacaoPreco {
 }
 
 model Regiao {
-  id        Int      @id @default(autoincrement())
-  picture   String?
-  nome      String
-  descricao String
-  endereco  String?
-  cidade    String
-  usuarioId String?
-  usuario   Usuario? @relation(fields: [usuarioId], references: [id])
-  vendas    Venda[]
+  id          Int      @id @default(autoincrement())
+  picture     String?
+  nome        String
+  descricao   String
+  responsavel String
+  endereco    String?
+  cidade      String
+  usuarioId   String?
+  usuario     Usuario? @relation(fields: [usuarioId], references: [id])
+  vendas      Venda[]
 }
 
 model Funcionario {
@@ -68,9 +69,12 @@ model Funcionario {
   formacaoAcademica String
   linkedin          String?
   github            String?
-  usuarioId         String?
-  usuario           Usuario? @relation(fields: [usuarioId], references: [id])
+  usuarioId         String
+  usuario           Usuario  @relation(fields: [usuarioId], references: [id])
   vendas            Venda[]
+  idade             Int?
+  faturamento       Float?
+  numVendas         Int?
 }
 
 model Despesa {

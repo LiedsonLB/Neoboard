@@ -61,7 +61,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                 setStaffs(staffsResponse.data.slice(0, 5));
                 setLoading(false);
             } catch (error) {
-                console.error('Erro ao buscar dados:', error);
+                //console.error('Erro ao buscar dados:', error);
                 setLoading(false);
             }
         };
