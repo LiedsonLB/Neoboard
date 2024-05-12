@@ -23,6 +23,7 @@ const Produtos = () => {
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
   const navigate = useNavigate();
+  
 
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
