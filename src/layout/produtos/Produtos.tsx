@@ -75,7 +75,7 @@ const Produtos = () => {
         const novoProduto: Produto = {
           nome,
           categoria,
-          precoAtual: valor,
+          precoAtual: parseFloat(valor),
           descricao,
           picture,
           NameImg: selectedImage ? selectedImage.name : '',

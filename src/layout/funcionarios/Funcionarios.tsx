@@ -42,42 +42,60 @@ const Funcionarios = () => {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    
+
     const monthNames = [
       "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
       "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
     ];
     const monthName = monthNames[month - 1];
-  
+
     return `em ${day < 10 ? '0' + day : day} de ${monthName} de ${year}`;
-  };  
+  };
 
+  const userId = localStorage.getItem('userID');
+  
   useEffect(() => {
-    const fetchFuncionarios = async () => {
-      try {
-        const response = await axios.get('http://localhost:4000/v3/funcionarios');
-        const data = response.data;
-        const funcionariosOrdenadosPorVendas = [...data].sort((a: Funcionario, b: Funcionario) => b.vendas - a.vendas);
-        const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
-        const funcionariosOrdenadosPorFaturamento = [...data].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);
-        const funcionarioDestaqueFaturamento = funcionariosOrdenadosPorFaturamento.slice(0, 1);
-        setFuncionarios(data);
-        setFilteredFuncionarios(data);
-        setFuncionariosDestaqueVendas(funcionarioDestaqueVendas);
-        setFuncionariosDestaqueFaturamento(funcionarioDestaqueFaturamento);
-      } catch (error) {
-        console.error('Erro ao buscar funcionários:', error);
-      }
-    };
-    fetchFuncionarios();
-  }, []);
+    
+    if (userId) {
+      fetchUserAndStaffs();
+    } else {
+      console.error('ID do usuário não encontrado na localStorage.');
+    }
+  }, [userId]);
 
-  const formatDate = (dateString: Date) => {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+  const fetchUserAndStaffs = async () => {
+    try {
+      // Obter o ID do usuário da localStorage
+      const userId = localStorage.getItem('userID');
+
+      if (userId) {
+        // Se o ID do usuário existir, então podemos buscar os produtos
+        await fetchFuncionarios();
+      } else {
+        console.error('Erro: ID do usuário não encontrado na localStorage.');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar usuário e produtos:', error);
+      //hidePopupAfterTimeout();
+    }
+  };
+
+  const fetchFuncionarios = async () => {
+
+    try {
+      const response = await axios.get(`http://localhost:4000/v3/funcionarios?userId=${userId}`);
+      const data = response.data;
+      const funcionariosOrdenadosPorVendas = [...data].sort((a: Funcionario, b: Funcionario) => b.vendas - a.vendas);
+      const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
+      const funcionariosOrdenadosPorFaturamento = [...data].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);
+      const funcionarioDestaqueFaturamento = funcionariosOrdenadosPorFaturamento.slice(0, 1);
+      setFuncionarios(data);
+      setFilteredFuncionarios(data);
+      setFuncionariosDestaqueVendas(funcionarioDestaqueVendas);
+      setFuncionariosDestaqueFaturamento(funcionarioDestaqueFaturamento);
+    } catch (error) {
+      console.error('Erro ao buscar funcionários:', error);
+    }
   };
 
   const adicionarFuncionario = async () => {
@@ -146,24 +164,24 @@ const Funcionarios = () => {
       // Faz a requisição DELETE para a rota da API para excluir o funcionário
       await axios.delete(`http://localhost:4000/v3/funcionarios/${funcionario.id}`);
       console.log('Funcionário excluído com sucesso!');
-      
+
       // Atualiza a lista de funcionários após a exclusão
       const updatedFuncionarios = funcionarios.filter(f => f.id !== funcionario.id);
       setFuncionarios(updatedFuncionarios);
       setFilteredFuncionarios(updatedFuncionarios);
-  
+
       // Atualiza funcionariosDestaqueVendas e funcionariosDestaqueFaturamento
       const funcionariosOrdenadosPorVendas = [...updatedFuncionarios].sort((a: Funcionario, b: Funcionario) => b.vendas - a.vendas);
       const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
       setFuncionariosDestaqueVendas(funcionarioDestaqueVendas);
-  
+
       const funcionariosOrdenadosPorFaturamento = [...updatedFuncionarios].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);
       const funcionarioDestaqueFaturamento = funcionariosOrdenadosPorFaturamento.slice(0, 1);
       setFuncionariosDestaqueFaturamento(funcionarioDestaqueFaturamento);
     } catch (error) {
       console.error('Erro ao excluir funcionário:', error);
     }
-  };  
+  };
 
   useEffect(() => {
     const filtered = funcionarios.filter(funcionario =>
@@ -396,9 +414,9 @@ const Funcionarios = () => {
                 <h2 className='nameUserStf'>{selectedUser.nome}</h2>
                 <p className='emailUserStf'>{selectedUser.email}</p>
                 <div className='userStfSocialMidia'>
-                  <a href={`mailto:${selectedUser.email}`} style={{color: 'var(--purple-color)'}}><i className="fa-solid fa-envelope"></i></a>
-                  <a href={selectedUser.github} style={{color: 'var(--black-color)'}}><i className="fa-brands fa-github"></i></a>
-                  <a href={selectedUser.linkedin} style={{color: 'var(--secondy-color)'}}><i className="fa-brands fa-linkedin"></i></a>
+                  <a href={`mailto:${selectedUser.email}`} style={{ color: 'var(--purple-color)' }}><i className="fa-solid fa-envelope"></i></a>
+                  <a href={selectedUser.github} style={{ color: 'var(--black-color)' }}><i className="fa-brands fa-github"></i></a>
+                  <a href={selectedUser.linkedin} style={{ color: 'var(--secondy-color)' }}><i className="fa-brands fa-linkedin"></i></a>
                 </div>
               </div>
 

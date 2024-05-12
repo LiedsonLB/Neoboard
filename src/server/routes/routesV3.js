@@ -249,20 +249,29 @@ routerV3.put("/produtos/edit/:id", async (req, res) => {
     }
 });
 
-// Rota para obter um produto por ID
-routerV3.get("/produtos/info", async (req, res) => {
+routerV3.get('/produtos/:id', async (req, res) => {
+    const produtoId = parseInt(req.params.id);
+
     try {
-        const produtoId = parseInt(req.query.id); // Extrai o ID do parâmetro da URL e converte para inteiro
-        const produto = await prisma.produto.findUnique({ where: { id: produtoId } }); // Busca o produto pelo ID
-        if (!produto) { // Verifica se o produto foi encontrado
-            return res.status(404).json({ error: 'Produto não encontrado' });
+        // Busca o produto no banco de dados usando o Prisma
+        const produto = await prisma.produto.findUnique({
+            where: {
+                id: produtoId,
+            },
+        });
+
+        // Verifica se o produto foi encontrado
+        if (produto) {
+            res.status(200).json(produto); // Retorna os dados do produto em formato JSON
+        } else {
+            res.status(404).json({ error: 'Produto não encontrado' }); // Retorna um status 404 se o produto não foi encontrado
         }
-        res.status(200).json(produto);
     } catch (error) {
-        console.error('Erro ao obter produto:', error);
-        res.status(500).json({ error: 'Erro ao obter produto' });
+        console.error('Erro ao buscar produto:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' }); // Retorna um status 500 em caso de erro interno do servidor
     }
 });
+
 
 
 // Rota para adicionar uma nova região
