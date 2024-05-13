@@ -37,9 +37,11 @@ const HomePage = () => {
                         console.log(response.data.id)
                         console.error('User not found');
                         localStorage.setItem('userID', '2');
+
                     }
                 } else {
                     localStorage.setItem('userID', '');
+                    console.log('teste')
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);

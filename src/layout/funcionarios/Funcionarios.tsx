@@ -36,6 +36,23 @@ const Funcionarios = () => {
   const [filteredFuncionarios, setFilteredFuncionarios] = useState<Funcionario[]>([]);
   const [selectionSession, setSelectionSession] = useState<'info' | 'charts'>('info');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const[userId, setUserId] = useState<string | null>(null)
+
+  useEffect(() => {
+    setUserId(localStorage.getItem('userID'))
+    console.log(userId)
+
+    const fetchUserID = () => {
+      if (userId) {
+        // Se o ID do usuário existir na localStorage, buscar os funcionários
+        fetchFuncionarios();
+      } else {
+        console.error('ID do usuário não encontrado na localStorage.');
+      }
+    };
+  
+    fetchUserID();
+  }, []);
 
   const formatDateBr = (dateString: string) => {
     const date = new Date(dateString);
@@ -51,17 +68,6 @@ const Funcionarios = () => {
 
     return `em ${day < 10 ? '0' + day : day} de ${monthName} de ${year}`;
   };
-
-  const userId = localStorage.getItem('userID');
-  
-  useEffect(() => {
-    
-    if (userId) {
-      fetchUserAndStaffs();
-    } else {
-      console.error('ID do usuário não encontrado na localStorage.');
-    }
-  }, [userId]);
 
   const fetchUserAndStaffs = async () => {
     try {
@@ -132,17 +138,21 @@ const Funcionarios = () => {
           telefone && cpf && formacaoAcademica && linkedin && github
         ) {
           const novoFuncionario = {
+            imagemUrl: selectedImage ? selectedImage : './img/no_profile.png',
             nome,
-            dataNascimento,
-            localAtuacao,
             email,
+            //descricao, 
             endereco,
-            telefone,
+            localAtuacao,
+            //genero,
             cpf,
+            //dataContratacao,
+            dataNascimento,
+            telefone,
             formacaoAcademica,
             linkedin,
             github,
-            imagemUrl: selectedImage ? selectedImage : './img/no_profile.png',
+            usuarioId: userId
           };
 
           await axios.post('http://localhost:4000/v3/funcionarios', novoFuncionario);

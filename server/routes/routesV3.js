@@ -1,6 +1,6 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import { auth } from '../../services/firebase.js';
+import { auth } from '../../src/services/firebase.js';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, updateProfile } from 'firebase/auth';
 
 const prisma = new PrismaClient();
@@ -212,10 +212,8 @@ routerV3.delete("/produtos/:id", async (req, res) => {
 routerV3.put("/produtos/edit/:id", async (req, res) => {
     try {
         const produtoId = parseInt(req.params.id);
-        const { precoAtual, produtoExistente, ...novosDadosProduto } = req.body;
-
+        const { precoAtual, variacoesPreco, produtoExistente, ...novosDadosProduto } = req.body;
         let updateData = { ...novosDadosProduto };
-
         // Verificar se o preço atual foi alterado
         if (precoAtual !== produtoExistente.precoAtual) {
             // Calcular a variação de preço
@@ -225,15 +223,12 @@ routerV3.put("/produtos/edit/:id", async (req, res) => {
                 variacao: precoAtual - produtoExistente.precoAtual, // Variação de preço
                 preco: produtoExistente.precoAtual
             };
-
             // Salvar a variação de preço
             await prisma.variacaoPreco.create({
                 data: variacaoPreco
             });
-
             updateData.precoAtual = precoAtual;
         }
-
         const produto = await prisma.produto.update({
             where: { id: produtoId },
             data: updateData,
@@ -241,7 +236,6 @@ routerV3.put("/produtos/edit/:id", async (req, res) => {
                 variacoesPreco: true
             }
         });
-
         res.status(200).json(produto);
     } catch (error) {
         console.error('Erro ao editar produto:', error);

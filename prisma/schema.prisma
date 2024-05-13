@@ -64,17 +64,17 @@ model Funcionario {
   localAtuacao      String
   genero            String
   cpf               String
+  idade             Int?
   dataContratacao   DateTime
   telefone          String
   formacaoAcademica String
   linkedin          String?
   github            String?
   usuarioId         String
-  usuario           Usuario  @relation(fields: [usuarioId], references: [id])
-  vendas            Venda[]
-  idade             Int?
   faturamento       Float?
   numVendas         Int?
+  usuario           Usuario  @relation(fields: [usuarioId], references: [id])
+  vendas            Venda[]
 }
 
 model Despesa {
