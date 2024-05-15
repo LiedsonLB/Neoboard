@@ -64,7 +64,6 @@ model Funcionario {
   localAtuacao      String
   genero            String
   cpf               String
-  idade             Int?
   dataContratacao   DateTime
   telefone          String
   formacaoAcademica String
@@ -89,7 +88,7 @@ model Despesa {
 }
 
 model Venda {
-  ID_venda           Int         @id @default(autoincrement())
+  ID_venda           Int             @id @default(autoincrement())
   Data               String
   funcionarioId      Int
   valor              Float
@@ -100,11 +99,12 @@ model Venda {
   formaPagamento     String
   usuarioId          String?
   relatorioId        Int
-  funcionario        Funcionario @relation(fields: [funcionarioId], references: [id])
-  produto            Produto     @relation(fields: [produtoid], references: [id])
-  regiao             Regiao      @relation(fields: [regiaoId], references: [id])
-  relatorio          Relatorio   @relation(fields: [relatorioId], references: [id])
-  usuario            Usuario?    @relation(fields: [usuarioId], references: [id])
+  funcionario        Funcionario     @relation(fields: [funcionarioId], references: [id])
+  produto            Produto         @relation(fields: [produtoid], references: [id])
+  regiao             Regiao          @relation(fields: [regiaoId], references: [id])
+  relatorio          Relatorio       @relation(fields: [relatorioId], references: [id])
+  dividas            VendasEmDivida? @relation(fields: [ID_venda], references: [id])
+  usuario            Usuario?        @relation(fields: [usuarioId], references: [id])
 }
 
 model Relatorio {
@@ -112,4 +112,11 @@ model Relatorio {
   Data    String
   idVenda Int
   Venda   Venda[]
+}
+
+model VendasEmDivida {
+  id      Int     @id @default(autoincrement())
+  idVenda Int
+  pago    Boolean
+  dividas Venda[]
 }

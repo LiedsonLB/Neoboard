@@ -4,8 +4,8 @@ import { IoCloudDownloadOutline } from 'react-icons/io5';
 import { read, utils } from 'xlsx';
 import Papa from 'papaparse';
 import './Relatorio.css';
-import LoadingComponent from '../../components/loading/LoadingComponent';
-import Popup from '../../components/popup/Popup';
+import LoadingComponent from '../../components/loading/LoadingComponent.tsx';
+import Popup from '../../components/popup/Popup.tsx';
 
 const Relatorio: React.FC = () => {
   const [outputData, setOutputData] = useState<any[]>([]);

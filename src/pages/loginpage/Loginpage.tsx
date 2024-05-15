@@ -5,7 +5,7 @@ import axios from 'axios';
 // @ts-ignore
 import { auth, provider } from '../../services/firebase';
 import { signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
-import Popup from '../../components/popup/Popup';
+import Popup from '../../components/popup/Popup.tsx';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { IoLockClosed } from 'react-icons/io5';
 

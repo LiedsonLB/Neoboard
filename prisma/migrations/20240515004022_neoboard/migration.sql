@@ -38,6 +38,7 @@ CREATE TABLE "Regiao" (
     "picture" TEXT,
     "nome" TEXT NOT NULL,
     "descricao" TEXT NOT NULL,
+    "responsavel" TEXT NOT NULL,
     "endereco" TEXT,
     "cidade" TEXT NOT NULL,
     "usuarioId" TEXT,
@@ -61,7 +62,9 @@ CREATE TABLE "Funcionario" (
     "formacaoAcademica" TEXT NOT NULL,
     "linkedin" TEXT,
     "github" TEXT,
-    "usuarioId" TEXT,
+    "usuarioId" TEXT NOT NULL,
+    "faturamento" DOUBLE PRECISION,
+    "numVendas" INTEGER,
 
     CONSTRAINT "Funcionario_pkey" PRIMARY KEY ("id")
 );
@@ -99,9 +102,19 @@ CREATE TABLE "Venda" (
 -- CreateTable
 CREATE TABLE "Relatorio" (
     "id" SERIAL NOT NULL,
+    "Data" TEXT NOT NULL,
     "idVenda" INTEGER NOT NULL,
 
     CONSTRAINT "Relatorio_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "VendasEmDivida" (
+    "id" SERIAL NOT NULL,
+    "idVenda" INTEGER NOT NULL,
+    "pago" BOOLEAN NOT NULL,
+
+    CONSTRAINT "VendasEmDivida_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -117,7 +130,7 @@ ALTER TABLE "VariacaoPreco" ADD CONSTRAINT "VariacaoPreco_produtoId_fkey" FOREIG
 ALTER TABLE "Regiao" ADD CONSTRAINT "Regiao_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Funcionario" ADD CONSTRAINT "Funcionario_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Funcionario" ADD CONSTRAINT "Funcionario_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Despesa" ADD CONSTRAINT "Despesa_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -133,6 +146,9 @@ ALTER TABLE "Venda" ADD CONSTRAINT "Venda_regiaoId_fkey" FOREIGN KEY ("regiaoId"
 
 -- AddForeignKey
 ALTER TABLE "Venda" ADD CONSTRAINT "Venda_relatorioId_fkey" FOREIGN KEY ("relatorioId") REFERENCES "Relatorio"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Venda" ADD CONSTRAINT "Venda_ID_venda_fkey" FOREIGN KEY ("ID_venda") REFERENCES "VendasEmDivida"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Venda" ADD CONSTRAINT "Venda_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;

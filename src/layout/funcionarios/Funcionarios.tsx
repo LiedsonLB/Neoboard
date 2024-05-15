@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Funcionarios.css";
 import { IoSearch, IoCaretDownSharp, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
-import StaffDoughnout from '../../components/charts/StaffDoughnout';
+import StaffDoughnout from '../../components/charts/StaffDoughnout.tsx';
 import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 import axios from 'axios';
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProductColumnChart from '../../components/charts/ProductColumnChart';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Loading from '../../components/loading/Loading';
+import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
+import { useNavigate, useParams } from 'react-router-dom';
+import Loading from '../../components/loading/Loading.tsx';
 
 const Produto = () => {
     const { id } = useParams();

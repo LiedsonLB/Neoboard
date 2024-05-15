@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 import "./Produtos.css";
 import { IoSearch, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
-import ProductDoughnut from '../../components/charts/ProductDoughtnout';
+import ProductDoughnut from '../../components/charts/ProductDoughtnout.tsx';
 import axios from 'axios';
 // @ts-ignore
-import { storage } from '../../services/firebase';
+import { storage } from '../../services/firebase.js';
 import Popup from '../../components/popup/Popup.tsx';
 import { useNavigate } from 'react-router-dom';
 import Produto from '../../models/Produto.tsx';

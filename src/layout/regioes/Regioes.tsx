@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Regioes.css";
 import { IoSearch, IoCamera } from 'react-icons/io5';
-import RegionDoughnout from '../../components/charts/RegionDoughnout';
+import RegionDoughnout from '../../components/charts/RegionDoughnout.tsx';
 import RegionColumnChart from '../../components/charts/RegionColumnChart.tsx';
 import axios from 'axios';
 

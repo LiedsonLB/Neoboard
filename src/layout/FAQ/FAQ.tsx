@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 import "./FAQ.css";
 import { IoChevronForwardOutline, IoLogoWhatsapp, IoLogoLinkedin, IoMail, IoPaperPlane } from 'react-icons/io5';
-import Popup from '../../components/popup/Popup';
+import Popup from '../../components/popup/Popup.tsx';
 
 const FAQ = () => {
   const [mensagem, setMensagem] = useState('');

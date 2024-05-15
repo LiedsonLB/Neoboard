@@ -3,8 +3,7 @@ import axios from 'axios';
 // @ts-ignore
 import './CadasterPage.css';
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import Popup from '../../components/popup/Popup';
+import Popup from '../../components/popup/Popup.tsx';
 
 const CadasterPage = () => {
     const navigate = useNavigate();
@@ -31,7 +30,7 @@ const CadasterPage = () => {
         }
         try {
 
-            const response = await axios.post('http://localhost:4000/v3/cadaster', {
+            const response = await axios.post('http://localhost:4000/v3/register', {
                 email: email.toLocaleLowerCase(),
                 username: username,
                 password: password

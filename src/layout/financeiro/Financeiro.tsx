@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { IoAddCircleOutline, IoCashOutline, IoCreate, IoPerson, IoSearch, IoTrash } from 'react-icons/io5';
 import '../financeiro/Financeiro.css';
-import FinancialDoughnut from '../../components/charts/FinancialDoughnut';
+import FinancialDoughnut from '../../components/charts/FinancialDoughnut.tsx';
 import axios from 'axios';
-import FinancialColumnChart from '../../components/charts/FinancialColumnChart';
-import FinancialLineChart from '../../components/charts/FinancialLineChart';
+import FinancialColumnChart from '../../components/charts/FinancialColumnChart.tsx';
+import FinancialLineChart from '../../components/charts/FinancialLineChart.tsx';
 import { FaCheckSquare, FaTrash } from 'react-icons/fa';
 
 interface Despesa {
