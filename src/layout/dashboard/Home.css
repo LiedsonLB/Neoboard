@@ -133,7 +133,6 @@
   margin-top: 20px;
 }
 
-
 .periods-btn {
   opacity: 0;
   animation: slideInUp 1s ease forwards;
@@ -849,6 +848,10 @@
   height: 60%;
 }
 
+.NeoHands{
+  transform: scaleX(-1);
+}
+
 .help-imgs {
   width: 100%;
   margin-block: 1rem;
@@ -865,6 +868,7 @@
   cursor: pointer;
   font-family: var(--font-krub);
   margin: 0 auto;
+  height: 50px;
 }
 
 .help-btn:hover {

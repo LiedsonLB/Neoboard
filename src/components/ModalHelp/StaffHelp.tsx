@@ -5,53 +5,65 @@ const StaffHelp: React.FC<{ toggleModalClose: () => void }> = ({ toggleModalClos
         <div className='Help-Info'>
             <div className='Help-Text'>
                 <div id='Neo-Text'>
-                    <h1>Olá, eu sou o <span>Neo </span>!</h1>
-                    <img src="./img/NeoL.png" alt="Neo-Sit" />
-                    <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
-                        Atualmente você está na seção principal do NeoBoard, aqui vai um breve resumo de cada trecho desta página.</p>
+                    <h1>Bem-vindo à página de <span>Funcionários</span> !</h1>
+                    <img src="img\Neo\NeoSit.png" alt="Neo-Sit" />
+                    <p>Esta página é onde você pode gerenciar e visualizar todos os funcionários 
+                        disponíveis em <span className='span-right'>sua</span> empresa.
+                    </p>
                 </div>
                 <ul>
                     <li>
-                        <h4>Selecione o Período:</h4>
-                        <img className='help-imgs' src="./img/periodsimg.png" alt="periodo" />
-                        <p>Os dados da página podem ser selecionados de acordo com o período que você desejar.</p>
+                        <h4>Funcionários Principais:</h4>
+                        <img className='help-imgs' src="./img/helpProduct/produtoCard.png" alt="Funcionário do mes" />
+                        <p>Na seção destacada Funcionário do Mês, você encontrará informações sobre 
+                            o funcionário com mais vendas e com mais faturamento.</p>
                     </li>
 
                     <li>
-                        <h4>Cartões Financeiros:</h4>
-                        <img className='help-imgs' src="./img/cardsfatura.png" alt="faturamento" />
-                        <p>Números importantes, como o faturamento, despesas e lucro.</p>
+                        <h4>Adicionar um Novo Funcionário:</h4>
+                        <img className='help-imgs' src="./img/helpProduct/AddProduto.png" alt="adicionar Funcionário" />
+                        <img className='help-imgs' src="./img/helpProduct/ModalProduto.png" alt="adicionar Funcionário" />
+                        <p>Para adicionar um novo funcionário, clique no botão "+ Funcionário" 
+                            e preencha os campos corretamente.</p>
                     </li>
 
                     <li>
-                        <h4>Gráficos de Arrecadação:</h4>
-                        <img className='help-imgs' src="./img/arrecada.png" alt="arrecadação" />
-                        <p>Explore os gráficos de arrecadação para entender melhor a distribuição da sua receita. Os gráficos de linha e de rosca oferecem um panorama sobre padrões e tendências de arrecadação.</p>
+                        <h4>Editar um Funcionário Existente:</h4>
+                        <img className='help-imgs' src="./img/helpProduct/produtoEditar.png" alt="editar Funcionário" />
+                        <img className='help-imgs' src="./img/helpProduct/ProdutoEditado.png" alt="Funcionário editado" />
+                        <p> Para editar um funcionário, clique no ícone de lápis do cartão do
+                            funcionário desejado. Isso abre um modal de edição onde você pode
+                            fazer as alterações necessárias nos detalhes do funcionário, como
+                            nome, idade, formação, formas de contatos, etc.</p>
                     </li>
 
                     <li>
-                        <h4>Ranking de Desempenho:</h4>
-                        <img className='help-imgs' src="./img/rankingimg.png" alt="ranking" />
-                        <p>Descubra quais produtos estão se destacando em vendas, a arrecadação por região e o desempenho dos funcionários.. </p>
+                        <h4>Filtrar e Pesquisar Funcionários:</h4>
+                        <img className='help-imgs' src="./img/helpProduct/ProdutoFiltrado.png" alt="Funcionário filtrado" />
+                        <img className='help-imgs' src="./img/helpProduct/ProdutoFiltradoResultado.png" alt="Funcionário filtrado" />
+                        <p>Você pode filtrar os funcionário por categoria usando o menu suspenso de
+                            filtragem localizado acima da lista de funcionário. </p>
+                        <img className='help-imgs' src="./img/helpProduct/FiltragemProduto.png" alt="filtragem Funcionário" />
+                        <p> Além disso, você pode pesquisar funcionário
+                            específicos digitando o nome do funcionário na barra de pesquisa. </p>
                     </li>
 
                     <li>
-                        <h4>Dados de Pagamento e Despesas:</h4>
-                        <img className='help-imgs' src="./img/pagamentosimg.png" alt="pagamento" />
-                        <p>Veja as formas de pagamento utilizadas pelos clientes, juntamente com um gráfico que ilustra a distribuição dessas formas. </p>
-                    </li>
-
-                    <li>
-                        <h4>Dados de Pagamento e Despesas:</h4>
-                        <img className='help-imgs' src="./img/Despesasimg.png" alt="despesas" />
-                        <p>Analise de forma geral as suas despesas com um gráfico de coluna, além disso o NeoBoard oferece um calendário para registrar as despesas de determinado dia. </p>
+                        <h4>Visualizar Detalhes do Funcionário:</h4>
+                        <img className='help-imgs' src="./img/helpProduct/verDetalhes.png" alt="detalhes Funcionário" />
+                        <p>Para visualizar mais detalhes de um funcionário, como sua descrição
+                            completa e outras informações relevantes, clique no botão
+                            "Ver detalhes" no cartão do funcionário desejado. </p>
+                        <img className='help-imgs' src="./img/helpProduct/paginaProduto.png" alt="pagina do Funcionário" />
+                        <p>Isso o levará a uma página separada com detalhes mais abrangentes
+                            sobre o funcionário selecionado.</p>
                     </li>
                 </ul>
                 <button onClick={toggleModalClose} className='help-btn'>Entendi</button>
             </div>
 
             <figure className='Neo-Left'>
-                <img src="./img/NeoL.png" alt="Neo-Sit" />
+            <img src="img\Neo\NeoSit.png" alt="Neo-Sit" />
             </figure>
         </div>
     );

@@ -1,57 +1,41 @@
-import React from 'react';
+                                                                         import React from 'react';
 
 const ReportHelp: React.FC<{ toggleModalClose: () => void }> = ({ toggleModalClose }) => {
     return (
         <div className='Help-Info'>
             <div className='Help-Text'>
                 <div id='Neo-Text'>
-                    <h1>Olá, eu sou o <span>Neo </span>!</h1>
-                    <img src="./img/NeoL.png" alt="Neo-Sit" />
-                    <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
-                        Atualmente você está na seção principal do NeoBoard, aqui vai um breve resumo de cada trecho desta página.</p>
+                <h1>Bem-vindo à página <span>Relatório</span> !</h1>
+                    <img src="img\Neo\NeoPresents.png" alt="Neo-Sit" />
+                    <p>A página Relatório permite aos usuários
+                        carregar arquivos de relatório de vendas, revisar e editar os dados conforme necessário
+                         e, em seguida, enviar o <span className='span-right'>relatório</span> para processamento adicional. </p>
                 </div>
                 <ul>
                     <li>
-                        <h4>Selecione o Período:</h4>
-                        <img className='help-imgs' src="./img/periodsimg.png" alt="periodo" />
-                        <p>Os dados da página podem ser selecionados de acordo com o período que você desejar.</p>
+                        <h4>Carregar um arquivo de relatório:</h4>
+                        <img className='help-imgs' src="./img/helpReport/AddReport.png" alt="enviar relatorio" />
+                        <p> Clique no botão "Clique para escolher um arquivo" ou arraste e solte o arquivo
+                            de relatório de vendas na área designada. Os formatos de arquivo suportados são
+                            .xlsx (Excel), .csv (CSV) e .txt (texto). Você pode baixar um <span className='span-right'>modelo</span> de relatório 
+                            no formato .csv, .xlsx ou .txt clicando na opção correspondente no menu suspenso.
+                            Isso fornece a estrutura básica do relatório para você preencher com seus próprios dados.</p>
                     </li>
 
                     <li>
-                        <h4>Cartões Financeiros:</h4>
-                        <img className='help-imgs' src="./img/cardsfatura.png" alt="faturamento" />
-                        <p>Números importantes, como o faturamento, despesas e lucro.</p>
-                    </li>
-
-                    <li>
-                        <h4>Gráficos de Arrecadação:</h4>
-                        <img className='help-imgs' src="./img/arrecada.png" alt="arrecadação" />
-                        <p>Explore os gráficos de arrecadação para entender melhor a distribuição da sua receita. Os gráficos de linha e de rosca oferecem um panorama sobre padrões e tendências de arrecadação.</p>
-                    </li>
-
-                    <li>
-                        <h4>Ranking de Desempenho:</h4>
-                        <img className='help-imgs' src="./img/rankingimg.png" alt="ranking" />
-                        <p>Descubra quais produtos estão se destacando em vendas, a arrecadação por região e o desempenho dos funcionários.. </p>
-                    </li>
-
-                    <li>
-                        <h4>Dados de Pagamento e Despesas:</h4>
-                        <img className='help-imgs' src="./img/pagamentosimg.png" alt="pagamento" />
-                        <p>Veja as formas de pagamento utilizadas pelos clientes, juntamente com um gráfico que ilustra a distribuição dessas formas. </p>
-                    </li>
-
-                    <li>
-                        <h4>Dados de Pagamento e Despesas:</h4>
-                        <img className='help-imgs' src="./img/Despesasimg.png" alt="despesas" />
-                        <p>Analise de forma geral as suas despesas com um gráfico de coluna, além disso o NeoBoard oferece um calendário para registrar as despesas de determinado dia. </p>
-                    </li>
+                        <h4>Visualizar e editar dados:</h4>
+                        <img className='help-imgs' src="./img/helpReport/TabelaReport.png" alt="editar tabela" />
+                        <p>Depois de carregar o arquivo, você verá uma tabela exibindo os dados do relatório.
+                            Você pode revisar os dados e fazer edições conforme necessário diretamente na tabela.
+                            As células são editáveis e você pode modificar os valores conforme desejado. </p>
+                    </li>               
+                    
                 </ul>
                 <button onClick={toggleModalClose} className='help-btn'>Entendi</button>
             </div>
 
             <figure className='Neo-Left'>
-                <img src="./img/NeoL.png" alt="Neo-Sit" />
+            <img src="img\Neo\NeoPresents.png" alt="Neo-Sit" />
             </figure>
         </div>
     );
