@@ -7,7 +7,7 @@ const ErrorPage = () => {
     <div id="screen-error">
       <div id="container-error">
         <div id="img-error">
-          <img src="/img/avatarHomeSkills.png" alt="" />
+          <img src="img\Neo\NeoConfusion.png" alt="xiii" />
         </div>
         <div id="text-error">
           <h1>ERROR <span>404</span>:<br className='br-error' /> Página não encontrada</h1>
