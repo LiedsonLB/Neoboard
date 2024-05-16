@@ -344,7 +344,7 @@
 @media screen and (max-width: 1000px) {
   .container {
     flex-direction: column;
-    min-height: auto;
+    height: auto;
   }
 
   .background-color {

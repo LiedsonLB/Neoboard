@@ -160,7 +160,7 @@
 
 #container-img-cadaster {
     display: flex;
-    width: 25em;
+    width: auto;
     height: 70%;
     align-items: end;
 }
@@ -178,7 +178,7 @@
 @media screen and (max-width: 1000px) {
     .container-sign {
         flex-direction: column-reverse;
-        min-height: auto;
+        height: 100vh;
     }
 
     .background-color-sign {
