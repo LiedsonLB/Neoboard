@@ -117,7 +117,7 @@ const Financeiro = () => {
               <div className="input-item input-mult">
                 <span>
                   <label htmlFor="data-nascimento-item">
-                    Data de nascimento:
+                    Data da despesa:
                   </label>
                   <input
                     type="text"
@@ -127,7 +127,7 @@ const Financeiro = () => {
                   />
                 </span>
                 <span>
-                  <label htmlFor="local-atuacao-item">Local de atuação:</label>
+                  <label htmlFor="local-atuacao-item">Tipo:</label>
                   <input
                     type="text"
                     name="local-atuacao-item"
@@ -139,7 +139,7 @@ const Financeiro = () => {
 
               <div className="input-item input-single">
                 <span>
-                  <label htmlFor="email-item">Email:</label>
+                  <label htmlFor="email-item">Valor:</label>
                   <input
                     type="text"
                     name="email-item"
@@ -147,28 +147,19 @@ const Financeiro = () => {
                     id="email-item"
                   />
                 </span>
-              </div>
+              </div>             
 
-              <div className="input-item input-mult">
+              <div className="input-item input-single">
                 <span>
-                  <label htmlFor="endereco-item">Endereço:</label>
-                  <input
+                  <label htmlFor="description-item">Descrição:</label>
+                  <textarea
                     type="text"
-                    name="endereco-item"
-                    className="full-item"
-                    id="endereco-item"
+                    name="description-item"
+                    className="desc-staff"
+                    id="description-item"
                   />
                 </span>
-                <span>
-                  <label htmlFor="telefone-item">Telefone:</label>
-                  <input
-                    type="text"
-                    name="telefone-item"
-                    className="full-item"
-                    id="telefone-item"
-                  />
-                </span>
-              </div>
+              </div>                    
               
               <button id="add-staff-Btn" onClick={adicionarDespesa}>
                 Enviar
