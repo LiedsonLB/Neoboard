@@ -588,3 +588,23 @@
     }
 
 }
+
+/* MODAL */
+.container-Add-despesa {
+    background: var(--white-color);
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    min-width: 30%;
+    padding: 20px;
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: auto;
+    width: 60%;
+    z-index: 3;
+    justify-content: center;
+    overflow-y: auto;
+    animation: downAcess .3s ease-in-out;
+    margin-right: 80px;
+}

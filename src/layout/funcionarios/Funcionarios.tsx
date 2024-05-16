@@ -4,26 +4,7 @@ import { IoSearch, IoCaretDownSharp, IoCamera, IoTrash, IoCreate } from 'react-i
 import StaffDoughnout from '../../components/charts/StaffDoughnout.tsx';
 import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 import axios from 'axios';
-
-interface Funcionario {
-  ID_funcionario: number;
-  picture: string;
-  nome: string;
-  email: string;
-  github: string;
-  linkedin: string;
-  endereco: string;
-  descricao: string;
-  vendas: number;
-  faturamento: number;
-  genero: string;
-  age: number;
-  cargo: string;
-  dataContratacao: string,
-  phone: string,
-  formacaoAcademica: string,
-  cpf: string
-}
+import Funcionario from '../../models/Funcionario.tsx';
 
 const Funcionarios = () => {
   const [showModal, setShowModal] = useState(false);
@@ -69,23 +50,6 @@ const Funcionarios = () => {
     return `em ${day < 10 ? '0' + day : day} de ${monthName} de ${year}`;
   };
 
-  const fetchUserAndStaffs = async () => {
-    try {
-      // Obter o ID do usuário da localStorage
-      const userId = localStorage.getItem('userID');
-
-      if (userId) {
-        // Se o ID do usuário existir, então podemos buscar os produtos
-        await fetchFuncionarios();
-      } else {
-        console.error('Erro: ID do usuário não encontrado na localStorage.');
-      }
-    } catch (error) {
-      console.error('Erro ao buscar usuário e produtos:', error);
-      //hidePopupAfterTimeout();
-    }
-  };
-
   const fetchFuncionarios = async () => {
 
     try {
@@ -106,32 +70,32 @@ const Funcionarios = () => {
 
   const adicionarFuncionario = async () => {
     try {
-      const nomeElement = document.getElementById('nome-item') as HTMLInputElement;
-      const dataNascimentoElement = document.getElementById('data-nascimento-item') as HTMLInputElement;
-      const localAtuacaoElement = document.getElementById('local-atuacao-item') as HTMLInputElement;
-      const emailElement = document.getElementById('email-item') as HTMLInputElement;
-      const enderecoElement = document.getElementById('endereco-item') as HTMLInputElement;
-      const telefoneElement = document.getElementById('telefone-item') as HTMLInputElement;
-      const cpfElement = document.getElementById('cpf-item') as HTMLInputElement;
-      const formacaoAcademicaElement = document.getElementById('formacao-academica-item') as HTMLInputElement;
-      const linkedinElement = document.getElementById('linkedin-item') as HTMLInputElement;
-      const githubElement = document.getElementById('github-item') as HTMLInputElement;
+      let nomeElement = document.getElementById('nome-item') as HTMLInputElement;
+      let dataNascimentoElement = document.getElementById('data-nascimento-item') as HTMLInputElement;
+      let localAtuacaoElement = document.getElementById('local-atuacao-item') as HTMLInputElement;
+      let emailElement = document.getElementById('email-item') as HTMLInputElement;
+      let enderecoElement = document.getElementById('endereco-item') as HTMLInputElement;
+      let telefoneElement = document.getElementById('telefone-item') as HTMLInputElement;
+      let cpfElement = document.getElementById('cpf-item') as HTMLInputElement;
+      let formacaoAcademicaElement = document.getElementById('formacao-academica-item') as HTMLInputElement;
+      let linkedinElement = document.getElementById('linkedin-item') as HTMLInputElement;
+      let githubElement = document.getElementById('github-item') as HTMLInputElement;
 
       if (
         nomeElement && dataNascimentoElement && localAtuacaoElement && emailElement &&
         enderecoElement && telefoneElement && cpfElement && formacaoAcademicaElement &&
         linkedinElement && githubElement
       ) {
-        const nome = nomeElement.value;
-        const dataNascimento = dataNascimentoElement.value;
-        const localAtuacao = localAtuacaoElement.value;
-        const email = emailElement.value;
-        const endereco = enderecoElement.value;
-        const telefone = telefoneElement.value;
-        const cpf = cpfElement.value;
-        const formacaoAcademica = formacaoAcademicaElement.value;
-        const linkedin = linkedinElement.value;
-        const github = githubElement.value;
+        let nome = nomeElement.value;
+        let dataNascimento = dataNascimentoElement.value;
+        let localAtuacao = localAtuacaoElement.value;
+        let email = emailElement.value;
+        let endereco = enderecoElement.value;
+        let telefone = telefoneElement.value;
+        let cpf = cpfElement.value;
+        let formacaoAcademica = formacaoAcademicaElement.value;
+        let linkedin = linkedinElement.value;
+        let github = githubElement.value;
 
         if (
           nome && dataNascimento && localAtuacao && email && endereco &&
@@ -350,61 +314,61 @@ const Funcionarios = () => {
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do funcionário:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <input type="text" name='name-item' className='full-item' id='name-item'/>
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
-                  <label htmlFor="name-item">Data de nascimento:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="data-nascimento-item">Data de nascimento:</label>
+                  <input type="text" name='data-nascimento-item' className='full-item' id='data-nascimento-item'/>
                 </span>
                 <span>
-                  <label htmlFor="name-item">Local de atuação:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="local-atuacao-item">Local de atuação:</label>
+                  <input type="text" name='local-atuacao-item' className='full-item' id='local-atuacao-item'/>
                 </span>
               </div>
 
               <div className='input-item input-single'>
                 <span>
-                  <label htmlFor="name-item">Email:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="email-item">Email:</label>
+                  <input type="text" name='email-item' className='full-item' id='email-item'/>
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
-                  <label htmlFor="name-item">Endereço:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="endereco-item">Endereço:</label>
+                  <input type="text" name='endereco-item' className='full-item' id='endereco-item'/>
                 </span>
                 <span>
-                  <label htmlFor="name-item">Telefone:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="telefone-item">Telefone:</label>
+                  <input type="text" name='telefone-item' className='full-item' id='telefone-item'/>
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
-                  <label htmlFor="name-item">CPF:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="cpf-item">CPF:</label>
+                  <input type="text" name='cpf-item' className='full-item' id='cpf-item'/>
                 </span>
                 <span>
-                  <label htmlFor="name-item">Formação Acadêmica:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="formacao-academica-item">Formação Acadêmica:</label>
+                  <input type="text" name='formacao-academica-item' className='full-item' id='formacao-academica-item'/>
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
-                  <label htmlFor="name-item">Linkedin:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="linkedin-item">Linkedin:</label>
+                  <input type="text" name='linkedin-item' className='full-item' id='linkedin-item'/>
                 </span>
                 <span>
-                  <label htmlFor="name-item">Github:</label>
-                  <input type="text" name='name-item' className='full-item' />
+                  <label htmlFor="github-item">Github:</label>
+                  <input type="text" name='github-item' className='full-item' id='github-item'/>
                 </span>
               </div>
-              <button id='add-staff-Btn'>Enviar</button>
+              <button id='add-staff-Btn' onClick={adicionarFuncionario}>Enviar</button>
             </div>
           </div>
         </div>

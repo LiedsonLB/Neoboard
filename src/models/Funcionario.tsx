@@ -15,8 +15,9 @@ interface Funcionario {
     formacaoAcademica: string;
     linkedin: string;
     github: string;
+    faturamento: number;
     usuarioId: number;
-    vendas: Venda[];
+    vendas: Venda[] | any;
 }
 
 export default Funcionario;
