@@ -6,7 +6,7 @@ const ProductHelp: React.FC<{ toggleModalClose: () => void }> = ({ toggleModalCl
             <div className='Help-Text'>
                 <div id='Neo-Text'>
                     <h1>Bem-vindo à página de <span>Produtos</span> !</h1>
-                    <img src="./img/NeoL.png" alt="Neo-Sit" />
+                    <img src="img\Neo\NeoFinger.png" alt="Neo-Sit" />
                     <p>Esta página é onde você pode gerenciar e visualizar todos os produtos disponíveis em <span className='span-right'>sua</span> empresa.
                     </p>
                 </div>
@@ -20,40 +20,24 @@ const ProductHelp: React.FC<{ toggleModalClose: () => void }> = ({ toggleModalCl
                     <li>
                         <h4>Adicionar um Novo Produto:</h4>
                         <img className='help-imgs' src="./img/helpProduct/AddProduto.png" alt="adicionar produto" />
-                        <p>Para adicionar um novo produto, clique no botão "+ Produto" localizado no centro da tela à direita.</p>
                         <img className='help-imgs' src="./img/helpProduct/ModalProduto.png" alt="adicionar produto" />
-                        <p>Isso abrirá um modal onde você pode inserir os detalhes do novo produto, como nome, categoria, valor
-                            unitário e uma descrição opcional. Você também pode adicionar uma foto clicando no ícone da câmera e
-                            selecionando uma imagem do seu dispositivo. Depois de preencher todos os detalhes, clique em "Enviar"
-                            para adicionar o produto.</p>
+                        <p>Para adicionar um novo produto, clique no botão "+ Produto" localizado no centro da tela à direita
+                            e preencha os campos corretamente.</p>
                     </li>
 
                     <li>
                         <h4>Editar um Produto Existente:</h4>
                         <img className='help-imgs' src="./img/helpProduct/produtoEditar.png" alt="editar produto" />
-                        <p>Cada produto listado na página é exibido como um cartão contendo sua imagem, nome e preço.
-                            Para editar um produto, clique no ícone de lápis no canto superior direito do cartão do
-                            produto desejado.
-                        </p>
                         <img className='help-imgs' src="./img/helpProduct/ProdutoEditado.png" alt="produto editado" />
-                        <p> Isso abrirá um modal de edição onde você pode fazer as alterações necessárias
-                            nos detalhes do produto, como nome, categoria, valor e descrição. Depois de fazer as alterações,
-                            clique em "Salvar Alterações" para confirmar.</p>
-                        <img className='help-imgs' src="./img/helpProduct/ProdutoEditadoFinal.png" alt="resultado do produto editado" />
-                    </li>
-
-                    <li>
-                        <h4>Excluir um Produto Existente:</h4>
-                        <img className='help-imgs' src="./img/helpProduct/excluirProduto.png" alt="excluir produto" />
-                        <p>Se precisar excluir um produto, clique no ícone de lixeira no canto superior direito do
-                            cartão do produto desejado.</p>
-                        <img className='help-imgs' src="./img/helpProduct/produtoExcluidoSucesso.png" alt="excluido sucesso" />
+                        <p> Para editar um produto, clique no ícone de lápis no canto superior direito do cartão do
+                            produto desejado. Isso abre um modal de edição onde você pode fazer as alterações necessárias
+                            nos detalhes do produto, como nome, categoria, valor e descrição.</p>
                     </li>
 
                     <li>
                         <h4>Filtrar e Pesquisar Produtos:</h4>
                         <img className='help-imgs' src="./img/helpProduct/ProdutoFiltrado.png" alt="produto filtrado" />
-                        <img className='help-imgs' src="./img/helpProduct/ProdutoFiltrado.png" alt="produto filtrado" />
+                        <img className='help-imgs' src="./img/helpProduct/ProdutoFiltradoResultado.png" alt="produto filtrado" />
                         <p>Você pode filtrar os produtos por categoria usando o menu suspenso de
                             filtragem localizado acima da lista de produtos. </p>
                         <img className='help-imgs' src="./img/helpProduct/FiltragemProduto.png" alt="filtragem produto" />
@@ -76,7 +60,7 @@ const ProductHelp: React.FC<{ toggleModalClose: () => void }> = ({ toggleModalCl
             </div>
 
             <figure className='Neo-Left'>
-                <img src="./img/NeoL.png" alt="Neo-Sit" />
+            <img src="img\Neo\NeoFinger.png" alt="Neo-Sit" />
             </figure>
         </div>
     );

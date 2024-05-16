@@ -329,6 +329,29 @@ const Funcionarios = () => {
                 </span>
               </div>
 
+              <div className="input-item input-mult">
+                <span>
+                  <label htmlFor="data-contrato-item">
+                    Data de Contratação:
+                  </label>
+                  <input
+                    type="text"
+                    name="data-contrato-item"
+                    className="full-item"
+                    id="data-contrato-item"
+                  />
+                </span>
+                <span>
+                  <label htmlFor="genero-item">Genero:</label>
+                  <input
+                    type="text"
+                    name="genero-item"
+                    className="full-item"
+                    id="genero-item"
+                  />
+                </span>
+              </div>
+
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="email-item">Email:</label>
@@ -368,6 +391,19 @@ const Funcionarios = () => {
                   <input type="text" name='github-item' className='full-item' id='github-item'/>
                 </span>
               </div>
+
+              <div className="input-item input-single">
+                <span>
+                  <label htmlFor="description-item">Descrição:</label>
+                  <textarea
+                    type="text"
+                    name="description-item"
+                    className="desc-staff"
+                    id="description-item"
+                  />
+                </span>
+              </div>
+
               <button id='add-staff-Btn' onClick={adicionarFuncionario}>Enviar</button>
             </div>
           </div>

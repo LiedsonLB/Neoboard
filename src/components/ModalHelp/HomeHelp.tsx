@@ -6,7 +6,7 @@ const HomeHelp: React.FC<{ toggleModalClose: () => void }> = ({ toggleModalClose
             <div className='Help-Text'>
                 <div id='Neo-Text'>
                     <h1>Olá, eu sou o <span>Neo </span>!</h1>
-                    <img src="./img/NeoL.png" alt="Neo-Sit" />
+                    <img className='NeoScale' src="img\Neo\NeoCruzado.png" alt="Neo-Sit" />
                     <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
                         Atualmente você está na seção principal do NeoBoard, aqui vai um breve resumo de cada trecho desta página.</p>
                 </div>
@@ -51,7 +51,7 @@ const HomeHelp: React.FC<{ toggleModalClose: () => void }> = ({ toggleModalClose
             </div>
 
             <figure className='Neo-Left'>
-                <img src="./img/NeoL.png" alt="Neo-Sit" />
+            <img className='NeoScale' src="img\Neo\NeoCruzado.png" alt="Neo-Sit" />
             </figure>
         </div>
     );

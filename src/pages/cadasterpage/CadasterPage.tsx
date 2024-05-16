@@ -124,7 +124,7 @@ const CadasterPage = () => {
                         <p className="logo-name">NeoBoard</p>
                     </header>
                     <figure id="container-img-cadaster">
-                        <img src="img/cadasterImg.png" alt="img-singup" className="right-image" />
+                    <img src="img\Neo\vecteezy_3d-male-character-laying-and-presenting-on-a-big-smart-phone_24658936.png" alt="img-singup" className="right-image" />
                     </figure>
 
                 </section>

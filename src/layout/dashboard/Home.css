@@ -133,7 +133,6 @@
   margin-top: 20px;
 }
 
-
 .periods-btn {
   opacity: 0;
   animation: slideInUp 1s ease forwards;
@@ -756,7 +755,7 @@
   align-items: center;
   height: 90%;
   width: 80%;
-  justify-content: space-between;
+  justify-content: center;
   position: fixed;
   overflow-y: auto;
   overflow-x: hidden;
@@ -841,12 +840,16 @@
   justify-content: center;
   align-items: center;
   max-width: 50%;
-  height: 100%;
+  height: auto;
 }
 
 .Neo-Left img {
   position: fixed;
-  height: 60%;
+  max-height: 60%;
+}
+
+.NeoHands{
+  transform: scaleX(-1);
 }
 
 .help-imgs {
@@ -865,6 +868,7 @@
   cursor: pointer;
   font-family: var(--font-krub);
   margin: 0 auto;
+  height: 50px;
 }
 
 .help-btn:hover {

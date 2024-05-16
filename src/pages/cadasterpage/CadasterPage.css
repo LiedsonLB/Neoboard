@@ -160,7 +160,7 @@
 
 #container-img-cadaster {
     display: flex;
-    width: 25em;
+    width: auto;
     height: 70%;
     align-items: end;
 }
@@ -175,10 +175,10 @@
     animation: floatAnimation 4s ease-in-out infinite alternate;
 }
 
-@media screen and (max-width: 752px) {
+@media screen and (max-width: 1000px) {
     .container-sign {
         flex-direction: column-reverse;
-        min-height: auto;
+        height: 100vh;
     }
 
     .background-color-sign {
@@ -252,45 +252,5 @@
     .singup-field #form {
         width: 100%;
     }
-
-}
-
-@media screen and (min-width:753px) and (max-width:1030px) {
-    .right-sign {
-        transition: .5s;
-        display: block;
-    }
-
-    .container-logo-sign {
-        width: 100%;
-        text-align: center;
-        padding: 1em;
-        padding-top: 4rem;     
-    }
-
-    #container-img-cadaster {
-        display: flex;
-        width: 20em;
-        height: 68%;
-    }
-
-    .right-image {
-        width: 100%;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-        margin-top: 3em;
-    }
-
-    .left-sign {
-        width: 50%;
-        margin: 1em; 
-        gap: 0;
-        padding: 0;
-    }
-
-    #singup-header {
-        padding-top: 4rem;
-      }
 
 }

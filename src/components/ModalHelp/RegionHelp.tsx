@@ -5,52 +5,62 @@ const RegionHelp: React.FC<{ toggleModalClose: () => void }> = ({ toggleModalClo
         <div className='Help-Info'>
             <div className='Help-Text'>
                 <div id='Neo-Text'>
-                    <h1>Olá, eu sou o <span>Neo </span>!</h1>
-                    <img src="./img/NeoL.png" alt="Neo-Sit" />
-                    <p>Serei o seu guia do NeoBoard, sempre que precisar de mim, clique em meu ícone na lateral <span className='span-right'>direita </span>.
-                        Atualmente você está na seção Regiões, aqui vai um breve resumo de cada trecho desta página.</p>
+                    <h1>Bem-vindo à página de <span>Regiões</span> !</h1>
+                    <img className='NeoScale2' src="img\Neo\NeoRun.png" alt="Neo-Sit" />
+                    <p>Esta página é onde você pode gerenciar e visualizar todos as regiões disponíveis em <span className='span-right'>sua</span> empresa.
+                    </p>
                 </div>
                 <ul>
                     <li>
-                        <h4>Card da Região do Mês</h4>
-                        <img className='help-imgs' src="./img/CardRegiaomaisvendida.png" alt="periodo" />
-                        <p>Este card serve para mostrar qual das regiões cadastradas no site teve 
-                            o maior faturamento no último mês e além de identificar 
-                            essa região é mostrado a foto da região e seu faturamento </p>
+                        <h4>Produto Principal:</h4>
+                        <img className='help-imgs' src="img\helpRegion\CardRegion.png" alt="Região do mes" />
+                        <p>Na seção destacada Região do Mês, você encontrará informações sobre a região com mais vendas do mês com faturamento e número de unidades vendidas.</p>
                     </li>
 
                     <li>
-                        <h4>Barra de Pesquisa</h4>
-                        <img className='help-imgs' src="./img/Barradepesquisa.png" alt="periodo" />
-                        <p>Esta barra de pesquisa serve par ao usuário conseguir pesquisar um região 
-                            específica através do nome</p>
+                        <h4>Adicionar uma Nova Região:</h4>
+                        <img className='help-imgs' src="img\helpRegion\addRegion.png" alt="adicionar Região" />
+                        <img className='help-imgs' src="img\helpRegion\modalRegion.png" alt="adicionar Região" />
+                        <p>Para adicionar uma nova região, clique no botão "+ Região" localizado no centro da tela à direita
+                            e preencha os campos corretamente.</p>
                     </li>
 
                     <li>
-                        <h4> Filtragem</h4>
-                        <img className='help-imgs' src="./img/cardsfatura.png" alt="faturamento" />
-                        <p>O usuário pode filtrar as regiões sem ser por meio do nome da região e 
-                            sim usando uma característica específia da região </p>
+                        <h4>Editar uma Região Existente:</h4>
+                        <img className='help-imgs' src="img\helpRegion\tabelaAdd.png" alt="produto Região" />
+                        <img className='help-imgs' src="img\helpRegion\editarTabela.png" alt="editar Região" />  
+                        <p> Para editar uma região, clique no botão de editar no canto direito da linha na tabela da
+                            região desejada.Isso um modal de edição onde você pode fazer as alterações necessárias
+                            nos detalhes do produto, como nome, categoria, valor e descrição.</p>
                     </li>
 
                     <li>
-                        <h4>Adicionar Região:</h4>
-                        <img className='help-imgs' src="./img/arrecada.png" alt="arrecadação" />
-                        <p>Este botão é usado para adicionar uma região específica e ele abre uma 
-                            mini aba com dados a serem preenchidos de acordo com a sua necessidade. </p>
+                        <h4>Filtrar e Pesquisar Regiões:</h4>
+                        <img className='help-imgs' src="img/helpRegion/TabelaFiltro.png" alt="Região filtrada" />
+                        <img className='help-imgs' src="img\helpRegion\tabelaPedro.png" alt="Região filtrada" />
+                        <p>Você pode filtrar as regiões por categoria usando o menu suspenso de
+                            filtragem localizado acima da tabela de regiões. </p>
+                        <img className='help-imgs' src="img\helpRegion\TabelaFiltragem.png" alt="filtragem Região" />
+                        <p> Além disso, você pode pesquisar produtos
+                            específicos digitando o nome do produto na barra de pesquisa. </p>
                     </li>
 
                     <li>
-                        <h4>Lista de Regiões:</h4>
-                        <img className='help-imgs' src="./img/rankingimg.png" alt="ranking" />
-                        <p>Aqui é o local onde ficarão todas as regiões que forem cadastradas por você através do botão de adicionar região </p>
+                        <h4>Visualizar Detalhes da Região:</h4>
+                        <img className='help-imgs' src="img\helpRegion\EscolherRegião.png" alt="detalhes Região" />
+                        <p>Para visualizar mais detalhes de um produto, como sua descrição
+                            completa e outras informações relevantes, clique no linha da
+                            tebela da região desejada. </p>
+                        <img className='help-imgs' src="img\helpRegion\TabelaIndividual.png" alt="pagina do Região" />
+                        <p>Isso o levará a uma página separada com detalhes mais abrangentes
+                            sobre a região selecionada.</p>
                     </li>
                 </ul>
                 <button onClick={toggleModalClose} className='help-btn'>Entendi</button>
             </div>
 
             <figure className='Neo-Left'>
-                <img src="./img/NeoL.png" alt="Neo-Sit" />
+            <img className='NeoScale2' src="img\Neo\NeoRun.png" alt="Neo-Sit" />
             </figure>
         </div>
     );

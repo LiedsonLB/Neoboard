@@ -154,7 +154,7 @@ const LoginPage = () => {
                         <p className="logo-name">NeoBoard</p>
                     </header>
                     <figure id='container-img'>
-                        <img src="img/loginTesteImg2.png" alt="img login" className="left-image" />
+                    <img src="img\Neo\vecteezy_3d-male-character-strikes-with-an-idea-while-working-on-a_24658901.png" alt="img login" className="left-image" />
                     </figure>
                 </section>
 
