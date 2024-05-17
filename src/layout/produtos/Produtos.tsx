@@ -9,9 +9,11 @@ import { storage } from '../../services/firebase.js';
 import Popup from '../../components/popup/Popup.tsx';
 import { useNavigate } from 'react-router-dom';
 import Produto from '../../models/Produto.tsx';
+import Loadingprod from '../../components/loading/Loading.tsx';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -38,6 +40,10 @@ const Produtos = () => {
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
+  };
+
+  const toggleModalDelete = () => {
+    setShowDeleteModal(!showDeleteModal);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,6 +137,10 @@ const Produtos = () => {
 
       // Faz a requisição DELETE para a rota da API para excluir o produto
       await axios.delete(`http://localhost:4000/v3/produtos/${produto.id}`);
+
+      //Fecha o Modal
+
+      setShowDeleteModal(!showDeleteModal);
 
       // Atualiza a lista de produtos após a exclusão
       fetchProdutos();
@@ -363,6 +373,25 @@ const Produtos = () => {
         </div>
       )}
 
+      {showDeleteModal && <div className='modal-logout'>
+        {produtosFiltrados.map((produto: Produto) => (
+          <div className='container-logout'>
+            <div className="header-logout">
+              <button type="button" className="close-btn" onClick={toggleModalDelete}>&times;</button>
+            </div>
+
+            <h2 className='txt-logout'>Você tem certeza que quer excluir este produto?</h2>
+             
+            <hr className='modal-line' style={{ width: '80%', height: '3px', background:'#000', color:'#000'}}/>
+
+            <div className='options-logout'>
+              <button className="logout-yes" onClick={handleDelete(produto)}>Sim</button>
+              <button className="logout-no" onClick={toggleModalDelete}>Não</button>
+            </div>
+          </div>
+        ))}
+      </div>}
+
       <div id='product-container'>
         <div id='product-inside'>
           <header id="prod-header">
@@ -420,7 +449,7 @@ const Produtos = () => {
             <p id='result-product'>Resultados ({produtosFiltrados.length})</p>
             <section id='products-list'>
 
-              {produtosFiltrados.map((produto: Produto) => (
+            {produtosFiltrados.map((produto: Produto) => (
                 <article key={produto.id} className='prod-card'>
                   <figure className='container-list-img'>
                     <img src={produto.picture} alt={produto.nome} />
@@ -433,7 +462,7 @@ const Produtos = () => {
                       <button className='edit-item item-mng' onClick={() => handleEdit(produto)}><IoCreate id='edit-pen' /></button>
                     </div>
                     <div>
-                      <button className='delete-item item-mng' onClick={handleDelete(produto)}><IoTrash id='edit-trash' /></button>
+                      <button className='delete-item item-mng' onClick={toggleModalDelete}><IoTrash id='edit-trash' /></button>
                     </div>
                   </div>
                 </article>
