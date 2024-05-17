@@ -56,7 +56,7 @@ const Aside = ({ user, changeComponent }: Props) => {
                         <button type="button" className="close-btn" onClick={toggleModalClose}>&times;</button>
                     </div>
 
-                    <img className='neo-logout' src="/img/NeoSad.png" alt="neo_logout" />
+                    <img className='neo-logout' src="/img/Neo/NeoSusto.png" alt="neo_logout" />
 
                     <h2 className='txt-logout'>Você tem certeza que quer sair?</h2>
 

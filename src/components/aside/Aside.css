@@ -280,7 +280,7 @@ aside ul h2 {
   color: var(--hover-color);
 }
 
-/*Modal Help */
+/*Modal Logout */
 .modal-logout {
   height: auto;
   width: 100%;
@@ -337,8 +337,8 @@ aside ul h2 {
 }
 
 .logout-yes {
-  background-color: var(--primary-color);
-  border: 2px solid var(--primary-color);
+  background-color: var(--secondy-color);
+  border: 2px solid var(--secondy-color);
   border-radius: 5px;
   color: var(--white-color);
   cursor: pointer;

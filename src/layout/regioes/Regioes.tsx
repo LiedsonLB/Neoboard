@@ -14,6 +14,7 @@ import Popup from '../../components/popup/Popup.tsx';
 const Regioes = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
   const [regioes, setRegioes] = useState<any[]>([]);
@@ -106,7 +107,7 @@ const Regioes = () => {
         // Definir a URL da imagem obtida
         picture = downloadURL;
       }
-  
+
       // Envie os dados da nova região para a rota de adição na API
       await axios.post('http://localhost:4000/v3/regioes', regiaoParaAdicionar);
       fetchRegioes(); // Atualize a lista de regiões após a adição
@@ -124,7 +125,7 @@ const Regioes = () => {
     } catch (error) {
       console.error('Erro ao adicionar região:', error);
     }
-  };  
+  };
 
   const handleEditRegion = async () => {
     try {
@@ -143,6 +144,8 @@ const Regioes = () => {
       // Faz a requisição DELETE para a rota da API para excluir o regiao
       await axios.delete(`http://localhost:4000/v3/regioes/${regiao.id}`);
       console.log('regiao excluído com sucesso!');
+      //fecha o modal
+      setShowDeleteModal(!showDeleteModal);
       // Atualiza a lista de regiaos após a exclusão
       const updatedregiaos = regioes.filter(r => r.id !== regiao.id);
       setRegioes(updatedregiaos);
@@ -161,13 +164,17 @@ const Regioes = () => {
     setShowInfoModal(true);
   };
 
+  const toggleModalDelete = () => {
+    setShowDeleteModal(!showDeleteModal);
+  };
+
   const handleEdit = (regiao: any) => {
     // Define os dados do regiao selecionado para edição
     console.log(regiao);
     setRegiaoParaEditar((prevRegiaoParaEditar: any) => ({ ...prevRegiaoParaEditar, ...regiao }));
     // Abre o modal de edição
     setShowEditModal(true);
-  };  
+  };
 
   return (
     <>
@@ -368,6 +375,27 @@ const Regioes = () => {
         </div>
       )}
 
+
+      {showDeleteModal && <div className='modal-logout'>
+        {regioes.map((regiao) => (
+            <div className='container-logout'>
+              <div className="header-logout">
+                <button type="button" className="close-btn" onClick={toggleModalDelete}>&times;</button>
+              </div>
+
+              <h2 className='txt-logout'>Você tem certeza que quer excluir esta região?</h2>
+
+              <hr className='modal-line' style={{ width: '80%', height: '3px', background:'#000', color:'#000'}}/>
+
+              <div className='options-logout'>
+                <button className="logout-yes" onClick={handleDelete(regiao)}>Sim</button>
+                <button className="logout-no" onClick={toggleModalDelete}>Não</button>
+              </div>
+            </div>
+            ))}
+      </div>}
+        
+
       <div id='region-container'>
         <div id='region-inside'>
           <header id="region-header">
@@ -445,7 +473,7 @@ const Regioes = () => {
                         <td onClick={() => handleShowInfoModal(regiao)}>{regiao.faturamento}</td>
                         <td className='table-btns'>
                           <button className="edit" onClick={() => handleEdit(regiao)}>Editar</button>
-                          <button className="delete" onClick={handleDelete(regiao)}>Excluir</button>
+                          <button className="delete" onClick={toggleModalDelete}>Excluir</button>
                         </td>
                       </tr>
                     ))}
