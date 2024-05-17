@@ -10,19 +10,22 @@ import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebas
 // @ts-ignore
 import { storage } from '../../services/firebase';
 import Popup from '../../components/popup/Popup.tsx';
+import Regiao from '../../models/Regiao.tsx';
 
 const Regioes = () => {
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
-  const [regioes, setRegioes] = useState<any[]>([]);
+  const [regioes, setRegioes] = useState<Regiao[]>([]);
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<any>(null);
   const [categorias, setCategorias] = useState<string[]>([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [regiaoParaEditar, setRegiaoParaEditar] = useState<any>({});
   const [regiaoParaAdicionar, setRegiaoParaAdicionar] = useState<any>({});
+  const [regiaoMaisVendido, setRegiaoMaisVendido] = useState<Regiao>();
 
   //popup
   const [mensagem, setMensagem] = useState('');
@@ -37,11 +40,24 @@ const Regioes = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const reader = new FileReader();
 
     if (file) {
       setSelectedImage(file);
-      reader.readAsDataURL(file);
+
+      // Verifica se o tipo de arquivo é uma imagem
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          // Atualiza a URL da imagem para ser exibida no componente
+          setSelectedImageUrl(reader.result as string);
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        // Se o tipo de arquivo não for uma imagem, exibe uma mensagem de erro
+        console.error('O arquivo selecionado não é uma imagem.');
+      }
     }
   };
 
@@ -63,11 +79,30 @@ const Regioes = () => {
 
   const fetchRegioes = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/v3/regioes?categoria=${categoriaSelecionada}`);
+      const response = await axios.get(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`);
       setRegioes(response.data);
       const categoriasUnicas = new Set(response.data.map((regiao: any) => regiao.cidade));
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
       setCategorias(categoriasUnicasArray);
+
+      // Função para encontrar o produto mais vendido
+      const encontrarRegiaoMaisVendido = () => {
+        let regiaoMaisVendido = regioes[0]; // Começa com o primeiro produto na lista
+
+        // Percorre todas as regiões para encontrar o produto com mais vendas
+        regioes.forEach(regiao => {
+          if (regiao.numVendas > regiaoMaisVendido.numVendas) {
+            regiaoMaisVendido = regiao; // Atualiza o produto mais vendido
+          }
+        });
+
+        return regiaoMaisVendido; // Retorna o produto mais vendido encontrado
+      };
+
+      // Atualiza o estado do produto mais vendido
+      const regiaoMaisVendido = encontrarRegiaoMaisVendido();
+      setRegiaoMaisVendido(regiaoMaisVendido);
+
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
     }
@@ -75,30 +110,18 @@ const Regioes = () => {
 
   useEffect(() => {
     fetchRegioes();
-  }, []);
+  });
 
-  // Função para gerar um ID único
-  const generateUniqueRandomId = (): number => {
-
-    const existingIds = regioes.map((regiao: any) => parseInt(regiao.id, 10));
-
-    const generateRandomId = (): number => Math.floor(Math.random() * 100000000);
-
-    let randomId = generateRandomId();
-
-    // Verifica se o ID gerado já existe na lista de IDs existentes
-    while (existingIds.includes(randomId)) {
-      randomId = generateRandomId();
-    }
-
-    return randomId;
+  const hidePopupAfterTimeout = () => {
+    setTimeout(() => {
+      setMensagem('');
+    }, 4500);
   };
 
   const adicionarRegiao = async () => {
     try {
-
       // Verificar se uma imagem foi selecionada
-      let picture = './img/no_productImg.jpeg';
+      let picture = '/img/no_regionImg.jpeg';
 
       if (selectedImage) {
         // Fazer upload da imagem para o Firebase Storage
@@ -106,11 +129,25 @@ const Regioes = () => {
         // Definir a URL da imagem obtida
         picture = downloadURL;
       }
-  
+
       // Envie os dados da nova região para a rota de adição na API
-      await axios.post('http://localhost:4000/v3/regioes', regiaoParaAdicionar);
+      await axios.post('http://localhost:4000/v3/regioes', {
+        ...regiaoParaAdicionar,
+        picture: picture, // Adiciona a URL da imagem aos dados da região
+        nameImg: selectedImage ? selectedImage.name : '',
+        faturamento: 0.0,
+        numVendas: 0,
+        usuarioId: userId,
+        clientes: 0,
+      });
+
+      // Exibir uma mensagem de sucesso
+      setPopupType('sucess');
+      setPopupTitle('Produto adicionado');
+      setMensagem('Sucesso ao adicionar o produto');
+      hidePopupAfterTimeout();
+
       fetchRegioes(); // Atualize a lista de regiões após a adição
-      setShowModal(false); // Feche o modal de adição após a conclusão
       // Limpe os campos do formulário após adicionar com sucesso
       setRegiaoParaAdicionar({
         picture,
@@ -118,13 +155,15 @@ const Regioes = () => {
         cidade: '',
         endereco: '',
         responsavel: '',
-        descricao: '',
-        usuarioId: userId,
+        descricao: ''
       });
+
+      setSelectedImage(null);
+
     } catch (error) {
       console.error('Erro ao adicionar região:', error);
     }
-  };  
+  };
 
   const handleEditRegion = async () => {
     try {
@@ -167,7 +206,7 @@ const Regioes = () => {
     setRegiaoParaEditar((prevRegiaoParaEditar: any) => ({ ...prevRegiaoParaEditar, ...regiao }));
     // Abre o modal de edição
     setShowEditModal(true);
-  };  
+  };
 
   return (
     <>
@@ -293,7 +332,9 @@ const Regioes = () => {
                 </span>
               </div>
 
-              <button id='add-Region-Btn' onClick={adicionarRegiao}>Enviar</button>
+              <button id='add-Region-Btn' onClick={() => { adicionarRegiao(); setShowModal(false); }}>
+                Enviar
+              </button>
             </div>
           </div>
         </div>
@@ -377,23 +418,29 @@ const Regioes = () => {
 
           <main id='region-main'>
             <article id='region-card'>
-              <p id='text-region-mes'>Região do Mês</p>
-              <div id='reg-main'>
-                <div id='container-region-img'>
-                  <figure className='city-img'>
-                    <img src="./img/Piripiri-Igreja-Matriz.png" alt="piripiri" />
-                  </figure>
-                  <div id='region-desc'>
-                    <h1>Piripiri</h1>
-                    <p>Faturamento: <span>250K</span></p>
-                    <p>Unidades vendidas: <span>51K</span></p>
-                  </div>
-                </div>
+              {regiaoMaisVendido ? (
+                <>
+                  <p id='text-region-mes'>Região do Mês</p>
+                  <div id='reg-main'>
+                    <div id='container-region-img'>
+                      <figure className='city-img'>
+                        <img src={regiaoMaisVendido.picture} alt="piripiri" />
+                      </figure>
+                      <div id='region-desc'>
+                        <h1>{regiaoMaisVendido.nome}</h1>
+                        <p>Faturamento: <span>{regiaoMaisVendido.faturamento}</span></p>
+                        <p>Vendas: <span>{regiaoMaisVendido.numVendas}</span></p>
+                      </div>
+                    </div>
 
-                <div id='region-chart'>
-                  <RegionDoughnout />
-                </div>
-              </div>
+                    <div id='region-chart'>
+                      <RegionDoughnout />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <p id='text-region-mes'>Nenhuma região disponível</p>
+              )}
             </article>
 
             <section id='search-container-region'>
@@ -421,9 +468,10 @@ const Regioes = () => {
               <table>
                 <thead className='theadTableRegions'>
                   <tr>
-                    <td>região</td>
+                    <td>img</td>
                     <td>nome</td>
-                    <td>vendido</td>
+                    <td>cidade</td>
+                    <td>vendas</td>
                     <td>faturamento</td>
                     <td className='table-space'></td>
                   </tr>
@@ -441,7 +489,8 @@ const Regioes = () => {
                           </div>
                         </td>
                         <td onClick={() => handleShowInfoModal(regiao)}>{regiao.nome}</td>
-                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.vendas}</td>
+                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.cidade}</td>
+                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.numVendas}</td>
                         <td onClick={() => handleShowInfoModal(regiao)}>{regiao.faturamento}</td>
                         <td className='table-btns'>
                           <button className="edit" onClick={() => handleEdit(regiao)}>Editar</button>

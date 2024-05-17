@@ -686,7 +686,6 @@
   justify-content: space-between;
   background: var(--primary-color);
   color: var(--white-color);
-  padding: 1rem 0px;
   margin: 0 auto;
   width: 100%;
 }
@@ -705,7 +704,6 @@
 
 #container-footer p {
   margin: 0;
-  padding-top: 1rem;
   text-align: center;
 }
 

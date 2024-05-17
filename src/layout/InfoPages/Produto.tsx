@@ -3,27 +3,28 @@ import axios from 'axios';
 import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../components/loading/Loading.tsx';
+import Produto from '../../models/Produto.tsx';
 
-const Produto = () => {
+const ProdutoInfo = () => {
     const { id } = useParams();
-    const [selectedProduct, setSelectedProduct] = useState<any>(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProdutoById = async () => {
             try {
-                console.log(id)
                 const response = await axios.get(`http://localhost:4000/v3/produtos/${id}`);
-                setSelectedProduct(response.data); // Define os detalhes do produto recuperado do servidor
-                console.log(selectedProduct.picture)
+                setSelectedProduct(response.data);
             } catch (error) {
                 console.error('Erro ao buscar detalhes do produto:', error);
                 // Lógica para lidar com erros ao buscar os detalhes do produto
             }
         };
-
+    
         fetchProdutoById();
     }, [id]);
+    
+    console.log(selectedProduct); // Fora do useEffect    
 
     if (!selectedProduct) {
         return <Loading />;
@@ -108,4 +109,4 @@ const Produto = () => {
     )
 }
 
-export default Produto
+export default ProdutoInfo

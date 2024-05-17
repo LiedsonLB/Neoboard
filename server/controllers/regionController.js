@@ -19,11 +19,16 @@ export async function addRegion (req, res) {
 // Rota para obter todos as regiões
 export async function getRegion (req, res) {
     try {
-        const regioes = await prisma.regiao.findMany();
+        const userId = req.query.userId;
+        const regioes = await prisma.regiao.findMany({
+            where: {
+                usuarioId: userId
+            }
+        });
         res.status(200).json(regioes);
     } catch (error) {
-        console.error('Erro ao obter regiões:', error);
-        res.status(500).json({ error: 'Erro ao obter regiões' });
+        console.error('Erro ao obter regioes:', error);
+        res.status(500).json({ error: 'Erro ao obter regioes' });
     }
 };
 

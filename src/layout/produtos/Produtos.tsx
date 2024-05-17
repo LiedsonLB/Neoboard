@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
 import "./Produtos.css";
 import { IoSearch, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
@@ -22,8 +22,13 @@ const Produtos = () => {
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
+  const [produtoMaisVendido, setProdutoMaisVendido] = useState<Produto>();
   const navigate = useNavigate();
-  
+
+  const nomeRef = useRef<HTMLInputElement>(null);
+  const categoriaRef = useRef<HTMLInputElement>(null);
+  const valorRef = useRef<HTMLInputElement>(null);
+  const descricaoRef = useRef<HTMLTextAreaElement>(null);
 
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
@@ -48,23 +53,18 @@ const Produtos = () => {
   // Função para adicionar um produto
   const adicionarProduto = async () => {
     try {
-      // Obter os elementos dos campos do formulário
-      const nomeElement = document.getElementById('name-item') as HTMLInputElement;
-      const categoriaElement = document.getElementById('categoria-item') as HTMLInputElement;
-      const valorElement = document.getElementById('valor-item') as HTMLInputElement;
-      const descricaoElement = document.getElementById('descricao-item') as HTMLTextAreaElement;
+      const userId = localStorage.getItem('userID');
+      
+      // Obter os valores dos campos
+      const nome = nomeRef.current?.value;
+      const categoria = categoriaRef.current?.value || 'sem categoria';
+      const valor = parseFloat(valorRef.current?.value || '0');
+      const descricao = descricaoRef.current?.value || 'sem descrição';
 
       // Verificar se os campos de nome e preço estão preenchidos
-      if (nomeElement && valorElement && nomeElement.value && valorElement.value) {
-        // Obter os valores dos campos
-        const nome = nomeElement.value;
-        const valor = valorElement.value;
-        // Definir valores padrão para descrição e categoria caso não sejam preenchidos
-        const descricao = descricaoElement.value || 'sem descrição';
-        const categoria = categoriaElement.value || 'sem categoria';
-
+      if (nome && valor) {
         // Verificar se uma imagem foi selecionada
-        let picture = './img/no_productImg.jpeg';
+        let picture = '/img/no_productImg.jpeg';
         if (selectedImage) {
           // Fazer upload da imagem para o Firebase Storage
           const downloadURL = await uploadImageToStorage(selectedImage);
@@ -76,20 +76,22 @@ const Produtos = () => {
         const novoProduto: Produto = {
           nome,
           categoria,
-          precoAtual: parseFloat(valor),
+          precoAtual: valor,
           descricao,
           picture,
           NameImg: selectedImage ? selectedImage.name : '',
           usuarioId: userId,
+          faturamento: 0,
+          numVendas: 0,
         };
 
         // Enviar a requisição para adicionar o novo produto
         await axios.post('http://localhost:4000/v3/produtos', novoProduto);
 
         // Limpar os campos do formulário e redefinir o estado do modal
-        nomeElement.value = '';
-        valorElement.value = '';
-        descricaoElement.value = '';
+        if (nomeRef.current) nomeRef.current.value = '';
+        if (valorRef.current) valorRef.current.value = '';
+        if (descricaoRef.current) descricaoRef.current.value = '';
         setSelectedImage(null);
 
         // Atualizar a lista de produtos após adição
@@ -150,15 +152,29 @@ const Produtos = () => {
   const fetchProdutos = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`);
-
-      console.log(response.data)
       setProdutos(response.data);
-
-      console.log('produtos: ' + response.data)
       const categoriasUnicas = new Set(response.data.map((produto: Produto) => produto.categoria));
-      // se esta rodando não mexa
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
       setCategorias(categoriasUnicasArray);
+
+      // Função para encontrar o produto mais vendido
+      const encontrarProdutoMaisVendido = () => {
+        let produtoMaisVendido = produtos[0]; // Começa com o primeiro produto na lista
+
+        // Percorre todas as regiões para encontrar o produto com mais vendas
+        produtos.forEach(produto => {
+          if (produto.numVendas > produtoMaisVendido.numVendas) {
+            produtoMaisVendido = produto; // Atualiza o produto mais vendido
+          }
+        });
+
+        return produtoMaisVendido; // Retorna o produto mais vendido encontrado
+      };
+
+      // Atualiza o estado do produto mais vendido
+      const produtoMaisVendido = encontrarProdutoMaisVendido();
+      setProdutoMaisVendido(produtoMaisVendido);
+
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       hidePopupAfterTimeout();
@@ -186,32 +202,9 @@ const Produtos = () => {
     }
   };
 
-  const userId = localStorage.getItem('userID');
-
   useEffect(() => {
-    if (userId) {
-      fetchUserAndProducts();
-    } else {
-      console.error('ID do usuário não encontrado na localStorage.');
-    }
-  }, [userId]);
-
-  const fetchUserAndProducts = async () => {
-    try {
-      // Obter o ID do usuário da localStorage
-      const userId = localStorage.getItem('userID');
-
-      if (userId) {
-        // Se o ID do usuário existir, então podemos buscar os produtos
-        await fetchProdutos();
-      } else {
-        console.error('Erro: ID do usuário não encontrado na localStorage.');
-      }
-    } catch (error) {
-      console.error('Erro ao buscar usuário e produtos:', error);
-      hidePopupAfterTimeout();
-    }
-  };
+    fetchProdutos();
+  });
 
   const produtosFiltrados = produtos.filter((produto: Produto) =>
     produto.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
@@ -259,6 +252,7 @@ const Produtos = () => {
       hidePopupAfterTimeout();
     }
   };
+
   return (
     <>
       {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
@@ -324,7 +318,7 @@ const Produtos = () => {
                   {selectedImage ? (
                     <img src={URL.createObjectURL(selectedImage)} className='img-region-add' alt="Selected Region" />
                   ) : (
-                    <img src="./img/no_productImg.jpeg" className='img-prod-add' alt="Default Region" />
+                    <img src="/img/no_productImg.jpeg" className='img-prod-add' alt="Default Region" />
                   )}
                   <div className='icon-text-cam'>
                     <i className='icon-cam'><IoCamera /></i>
@@ -335,19 +329,19 @@ const Produtos = () => {
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do Produto:</label>
-                  <input type="text" id='name-item' name='name-item' className='full-item' />
+                  <input ref={nomeRef} type="text" id='name-item' name='name-item' className='full-item' />
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="categoria-item">Categoria:</label>
-                  <input type="text" id='categoria-item' name='categoria-item' className='full-item' />
+                  <input ref={categoriaRef} type="text" id='categoria-item' name='categoria-item' className='full-item' />
                 </span>
 
                 <span>
                   <label htmlFor="valor-item">Valor Unitário (R$):</label>
-                  <input type="text" id='valor-item' name='valor-item' className='full-item' />
+                  <input ref={valorRef} type="text" id='valor-item' name='valor-item' className='full-item'/>
                 </span>
               </div>
 
@@ -355,6 +349,7 @@ const Produtos = () => {
                 <span>
                   <label htmlFor="descricao-item">Descrição:</label>
                   <textarea
+                    ref={descricaoRef}
                     id='descricao-item'
                     name="descricao"
                     className="desc-prod"
@@ -376,23 +371,30 @@ const Produtos = () => {
           </header>
 
           <main id='product-main'>
-            <article id='product-card'>
-              <p id='text-prod-mes'>Produto do Mês</p>
-              <div id='prod-main'>
-                <div id='container-prod-img'>
-                  <figure className='container-list-img'>
-                    <img src="/img/Sorvete_1L.jpeg" alt="picole_flocos" />
-                  </figure>
-                  <div id='prod-desc'>
-                    <h1>Sorvete de 1L</h1>
-                    <p>Faturamento: <span>250K</span></p>
-                    <p>Unidades vendidas: <span>51K</span></p>
+          <article id='region-card'>
+              {produtoMaisVendido ? (
+                <>
+                  <p id='text-region-mes'>Região do Mês</p>
+                  <div id='reg-main'>
+                    <div id='container-region-img'>
+                      <figure className='city-img'>
+                        <img src={produtoMaisVendido.picture} alt="piripiri" />
+                      </figure>
+                      <div id='region-desc'>
+                        <h1>{produtoMaisVendido.nome}</h1>
+                        <p>Faturamento: <span>{produtoMaisVendido.faturamento}</span></p>
+                        <p>Vendas: <span>{produtoMaisVendido.numVendas}</span></p>
+                      </div>
+                    </div>
+
+                    <div id='region-chart'>
+                      <ProductDoughnut />
+                    </div>
                   </div>
-                </div>
-                <div id='card-prod-desc'>
-                  <ProductDoughnut />
-                </div>
-              </div>
+                </>
+              ) : (
+                <p id='text-region-mes'>Nenhum Produto disponível</p>
+              )}
             </article>
 
             <section id='search-prod'>
@@ -424,7 +426,7 @@ const Produtos = () => {
                     <img src={produto.picture} alt={produto.nome} />
                   </figure>
                   <p className='name-product'>{produto.nome}</p>
-                  <p className='prod-name'>R$ {produto.precoAtual}</p>
+                  <p className='prod-name'>R$ {produto.precoAtual.toFixed(2)}</p>
                   <button className='see-prod-btn' onClick={() => navigate(`/product/${produto.id}`, { state: { user: produto } })}>Ver produto</button>
                   <div className='manager-btn'>
                     <div>

@@ -161,7 +161,7 @@
 #container-img-cadaster {
     display: flex;
     width: auto;
-    height: 70%;
+    height: auto;
     align-items: end;
 }
 
@@ -169,7 +169,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    object-fit: cover;
     height: 100%;
     width: 100%;
     animation: floatAnimation 4s ease-in-out infinite alternate;

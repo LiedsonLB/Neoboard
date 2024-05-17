@@ -33,7 +33,7 @@ const Funcionarios = () => {
     };
   
     fetchUserID();
-  }, []);
+  });
 
   const formatDateBr = (dateString: string) => {
     const date = new Date(dateString);

@@ -16,6 +16,8 @@ CREATE TABLE "Produto" (
     "descricao" TEXT NOT NULL,
     "categoria" TEXT NOT NULL,
     "precoAtual" DOUBLE PRECISION NOT NULL,
+    "faturamento" DOUBLE PRECISION NOT NULL,
+    "numVendas" INTEGER NOT NULL,
     "usuarioId" TEXT NOT NULL,
 
     CONSTRAINT "Produto_pkey" PRIMARY KEY ("id")
@@ -36,12 +38,16 @@ CREATE TABLE "VariacaoPreco" (
 CREATE TABLE "Regiao" (
     "id" SERIAL NOT NULL,
     "picture" TEXT,
+    "nameImg" TEXT,
     "nome" TEXT NOT NULL,
     "descricao" TEXT NOT NULL,
     "responsavel" TEXT NOT NULL,
     "endereco" TEXT,
     "cidade" TEXT NOT NULL,
     "usuarioId" TEXT,
+    "faturamento" DOUBLE PRECISION NOT NULL,
+    "numVendas" INTEGER NOT NULL,
+    "clientes" INTEGER NOT NULL,
 
     CONSTRAINT "Regiao_pkey" PRIMARY KEY ("id")
 );

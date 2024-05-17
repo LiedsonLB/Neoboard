@@ -26,6 +26,8 @@ model Produto {
   descricao      String
   categoria      String
   precoAtual     Float
+  faturamento    Float
+  numVendas      Int
   usuarioId      String
   usuario        Usuario         @relation(fields: [usuarioId], references: [id])
   variacoesPreco VariacaoPreco[]
@@ -44,12 +46,16 @@ model VariacaoPreco {
 model Regiao {
   id          Int      @id @default(autoincrement())
   picture     String?
+  nameImg     String?
   nome        String
   descricao   String
   responsavel String
   endereco    String?
   cidade      String
   usuarioId   String?
+  faturamento Float
+  numVendas   Int
+  clientes    Int
   usuario     Usuario? @relation(fields: [usuarioId], references: [id])
   vendas      Venda[]
 }
