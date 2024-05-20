@@ -7,7 +7,7 @@ import Produto from '../../models/Produto.tsx';
 
 const ProdutoInfo = () => {
     const { id } = useParams();
-    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState<Produto | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,14 +17,14 @@ const ProdutoInfo = () => {
                 setSelectedProduct(response.data);
             } catch (error) {
                 console.error('Erro ao buscar detalhes do produto:', error);
-                // Lógica para lidar com erros ao buscar os detalhes do produto
+                navigate("/produto_nao_encontrado")
             }
         };
     
         fetchProdutoById();
     }, [id]);
     
-    console.log(selectedProduct); // Fora do useEffect    
+    console.log(selectedProduct);   
 
     if (!selectedProduct) {
         return <Loading />;
@@ -50,10 +50,10 @@ const ProdutoInfo = () => {
                             <h2 className='nameUserProd'>{selectedProduct.nome}</h2>
                             <div id="ProdTextInfo">
                                 <p><span>Categoria:</span> {selectedProduct.categoria}</p>
-                                <p><span>Valor:</span> R$ {selectedProduct.precoAtual}</p>
+                                <p><span>Valor:</span> R$ {selectedProduct.precoAtual.toFixed(2)}</p>
                                 <p><span>Descrição:</span> {selectedProduct.descricao}</p>
                                 <div className='userStfSocialMidia' style={{ gap: '2rem' }}>
-                                    <p><span>Código:</span> {selectedProduct.id}</p> <a href=""><i className="fa-solid fa-share-nodes"></i></a>
+                                    <p><span>Código:</span> {selectedProduct.id}</p> <a href={"/product/" + selectedProduct.id}><i className="fa-solid fa-share-nodes"></i></a>
                                 </div>
                             </div>
                         </div>

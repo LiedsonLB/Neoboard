@@ -326,6 +326,7 @@ aside ul h2 {
 .txt-logout {
   text-align: center;
   color: var(--primary-color);
+  font-size: 1.3rem;
 }
 
 .options-logout {

@@ -31,8 +31,8 @@ routerV3.get("/regioes/:userId", getInfoRegion);
 
 // Staff routers
 routerV3.post("/funcionarios", addFuncionario);
-routerV3.get("/funcionarios/:userId", getFuncionarios);
-routerV3.put("/funcionarios/:id", editFuncionario);
+routerV3.get("/funcionarios", getFuncionarios);
+routerV3.put("/funcionarios/edit/:id", editFuncionario);
 routerV3.delete("/funcionarios/:id", deleteFuncionario);
 
 // Expense routers

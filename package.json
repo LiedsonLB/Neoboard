@@ -29,14 +29,17 @@
     "react-scripts": "^5.0.1",
     "react-spring": "^9.7.3",
     "web-vitals": "^2.1.4",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "concurrently": "^7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js",
+    "prisma": "npx prisma studio",
+    "dev-all": "concurrently \"npm:start\" \"npm run dev\" \"npm run prisma\""
   },
   "eslintConfig": {
     "extends": [

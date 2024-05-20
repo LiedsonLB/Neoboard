@@ -719,12 +719,13 @@
     text-align: start;
 }
 
-.input-item span input {
+.input-item span input, .select-gender {
     padding: .8rem;
     background-color: var(--gray-color);
     outline: none;
     border-radius: 5px;
     border: 2px solid transparent;
+    font-family: var(--font-Krub);
 }
 
 .input-item span input:focus {

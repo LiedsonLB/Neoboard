@@ -1,23 +1,24 @@
 import Venda from "./Venda";
 
 interface Funcionario {
-    id: number;
+    id?: number;
     picture: string;
+    nameImg: string;
     nome: string;
+    cargo: string;
     email: string;
-    descricao: string;
-    endereco: string;
-    localAtuacao: string;
+    descricao?: string;
+    localAtuacao?: string;
     genero: string;
     cpf: string;
-    dataContratacao: Date;
-    telefone: string;
-    formacaoAcademica: string;
-    linkedin: string;
-    github: string;
+    dataContratacao?: string;
+    dataNascimento?: string;
+    telefone?: string;
+    linkedin?: string;
+    github?: string;
     faturamento: number;
-    usuarioId: number;
-    vendas: Venda[] | any;
+    numVendas: number;
+    usuarioId: string;
 }
 
 export default Funcionario;

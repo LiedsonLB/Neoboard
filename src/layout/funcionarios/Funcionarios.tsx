@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
+// @ts-ignore
+import { storage } from '../../services/firebase.js';
 import "./Funcionarios.css";
 import { IoSearch, IoCaretDownSharp, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
 import StaffDoughnout from '../../components/charts/StaffDoughnout.tsx';
 import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 import axios from 'axios';
 import Funcionario from '../../models/Funcionario.tsx';
+import Popup from '../../components/popup/Popup.tsx';
 
 const Funcionarios = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,28 +20,40 @@ const Funcionarios = () => {
   const [selectedUser, setSelectedUser] = useState<Funcionario | null>(null);
   const [filteredFuncionarios, setFilteredFuncionarios] = useState<Funcionario[]>([]);
   const [selectionSession, setSelectionSession] = useState<'info' | 'charts'>('info');
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const[userId, setUserId] = useState<string | null>(null)
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [userId, setUserId] = useState<string | null>(null)
+  const [editandoFuncionario, setEditandoFuncionario] = useState<Funcionario | null>(null);
+  const [modalEditOpen, setModalEditOpen] = useState(false);
+
+  const [mensagem, setMensagem] = useState('');
+  const [popupType, setPopupType] = useState('');
+  const [popupTitle, setPopupTitle] = useState('');
+
+  const nomeRef = useRef<HTMLInputElement>(null);
+  const dataNascimentoRef = useRef<HTMLInputElement>(null);
+  const localAtuacaoRef = useRef<HTMLInputElement>(null);
+  const dataContratoRef = useRef<HTMLInputElement>(null);
+  const generoRef = useRef<HTMLSelectElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const cargoRef = useRef<HTMLInputElement>(null);
+  const telefoneRef = useRef<HTMLInputElement>(null);
+  const cpfRef = useRef<HTMLInputElement>(null);
+  const formacaoAcademicaRef = useRef<HTMLInputElement>(null);
+  const linkedinRef = useRef<HTMLInputElement>(null);
+  const githubRef = useRef<HTMLInputElement>(null);
+  const descricaoRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setUserId(localStorage.getItem('userID'))
-    console.log(userId)
 
-    const fetchUserID = () => {
-      if (userId) {
-        // Se o ID do usuário existir na localStorage, buscar os funcionários
-        fetchFuncionarios();
-      } else {
-        console.error('ID do usuário não encontrado na localStorage.');
-      }
-    };
-  
-    fetchUserID();
+    fetchFuncionarios();
   });
 
-  const formatDateBr = (dateString: string) => {
+  const formatDateBr = (dateString: string | undefined) => {
+    if (!dateString) return 'Não informado';
+
     const date = new Date(dateString);
-    const day = date.getDate();
+    const day = date.getDate() + 1;
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
@@ -47,15 +63,33 @@ const Funcionarios = () => {
     ];
     const monthName = monthNames[month - 1];
 
-    return `em ${day < 10 ? '0' + day : day} de ${monthName} de ${year}`;
+    return `${day < 10 ? '0' + day : day} de ${monthName} de ${year}`;
+  };
+
+  const uploadImageToStorage = async (image: File): Promise<string> => {
+    try {
+      const storageRef = ref(storage, `staffs/${image.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+      const snapshot = await uploadTask;
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      return downloadURL;
+    } catch (error) {
+      console.error('Erro ao fazer upload da imagem:', error);
+      throw error;
+    }
+  };
+
+  const hidePopupAfterTimeout = () => {
+    setTimeout(() => {
+      setMensagem('');
+    }, 4500);
   };
 
   const fetchFuncionarios = async () => {
-
     try {
       const response = await axios.get(`http://localhost:4000/v3/funcionarios?userId=${userId}`);
       const data = response.data;
-      const funcionariosOrdenadosPorVendas = [...data].sort((a: Funcionario, b: Funcionario) => b.vendas - a.vendas);
+      const funcionariosOrdenadosPorVendas = [...data].sort((a: Funcionario, b: Funcionario) => b.numVendas - a.numVendas);
       const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
       const funcionariosOrdenadosPorFaturamento = [...data].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);
       const funcionarioDestaqueFaturamento = funcionariosOrdenadosPorFaturamento.slice(0, 1);
@@ -70,71 +104,108 @@ const Funcionarios = () => {
 
   const adicionarFuncionario = async () => {
     try {
-      let nomeElement = document.getElementById('nome-item') as HTMLInputElement;
-      let dataNascimentoElement = document.getElementById('data-nascimento-item') as HTMLInputElement;
-      let localAtuacaoElement = document.getElementById('local-atuacao-item') as HTMLInputElement;
-      let emailElement = document.getElementById('email-item') as HTMLInputElement;
-      let enderecoElement = document.getElementById('endereco-item') as HTMLInputElement;
-      let telefoneElement = document.getElementById('telefone-item') as HTMLInputElement;
-      let cpfElement = document.getElementById('cpf-item') as HTMLInputElement;
-      let formacaoAcademicaElement = document.getElementById('formacao-academica-item') as HTMLInputElement;
-      let linkedinElement = document.getElementById('linkedin-item') as HTMLInputElement;
-      let githubElement = document.getElementById('github-item') as HTMLInputElement;
+      const nome = nomeRef.current?.value;
+      const dataNascimento = dataNascimentoRef.current?.value;
+      const localAtuacao = localAtuacaoRef.current?.value;
+      const cargo = cargoRef.current?.value || 'Não informado';
+      const email = emailRef.current?.value;
+      const telefone = telefoneRef.current?.value;
+      const cpf = cpfRef.current?.value;
+      const linkedin = linkedinRef.current?.value;
+      const github = githubRef.current?.value;
+      const genero = generoRef.current?.value || 'Não informado';
+      const descricao = descricaoRef.current?.value || 'Não informado';
+      const dataContratacao = dataContratoRef.current?.value || 'Não informado';
 
-      if (
-        nomeElement && dataNascimentoElement && localAtuacaoElement && emailElement &&
-        enderecoElement && telefoneElement && cpfElement && formacaoAcademicaElement &&
-        linkedinElement && githubElement
-      ) {
-        let nome = nomeElement.value;
-        let dataNascimento = dataNascimentoElement.value;
-        let localAtuacao = localAtuacaoElement.value;
-        let email = emailElement.value;
-        let endereco = enderecoElement.value;
-        let telefone = telefoneElement.value;
-        let cpf = cpfElement.value;
-        let formacaoAcademica = formacaoAcademicaElement.value;
-        let linkedin = linkedinElement.value;
-        let github = githubElement.value;
 
-        if (
-          nome && dataNascimento && localAtuacao && email && endereco &&
-          telefone && cpf && formacaoAcademica && linkedin && github
-        ) {
-          const novoFuncionario = {
-            imagemUrl: selectedImage ? selectedImage : './img/no_profile.png',
-            nome,
-            email,
-            //descricao, 
-            endereco,
-            localAtuacao,
-            //genero,
-            cpf,
-            //dataContratacao,
-            dataNascimento,
-            telefone,
-            formacaoAcademica,
-            linkedin,
-            github,
-            usuarioId: userId
-          };
+      let picture = '/img/no_productImg.jpeg';
+      if (selectedImage) {
+        // Fazer upload da imagem para o Firebase Storage
+        const downloadURL = await uploadImageToStorage(selectedImage);
+        // Definir a URL da imagem obtida
+        picture = downloadURL;
+      }
 
-          await axios.post('http://localhost:4000/v3/funcionarios', novoFuncionario);
-          console.log('Funcionário adicionado com sucesso!');
-          setShowModal(false);
-        } else {
-          console.error('Erro ao adicionar funcionário: Algum campo não foi preenchido.');
-        }
+      if (nome && dataNascimento && localAtuacao && email && telefone && cpf && linkedin && github) {
+        const novoFuncionario: Funcionario = {
+          picture,
+          nameImg: selectedImage ? selectedImage.name : '/img/no_productImg.jpeg',
+          nome,
+          email,
+          genero,
+          localAtuacao,
+          cpf,
+          dataNascimento,
+          dataContratacao,
+          telefone,
+          linkedin,
+          github,
+          descricao,
+          cargo,
+          usuarioId: userId || '',
+          numVendas: 26,
+          faturamento: 9000,
+        };
+
+        await axios.post('http://localhost:4000/v3/funcionarios', novoFuncionario);
+        console.log('Funcionário adicionado com sucesso!');
+        setShowModal(false);
+
+        // Limpar os campos do formulário e redefinir o estado do modal
+        if (dataNascimentoRef.current) dataNascimentoRef.current.value = '';
+        if (localAtuacaoRef.current) localAtuacaoRef.current.value = '';
+        if (dataContratoRef.current) dataContratoRef.current.value = '';
+        if (generoRef.current) generoRef.current.value = '';
+        if (emailRef.current) emailRef.current.value = '';
+        if (cargoRef.current) cargoRef.current.value = '';
+        if (telefoneRef.current) telefoneRef.current.value = '';
+        if (cpfRef.current) cpfRef.current.value = '';
+        if (formacaoAcademicaRef.current) formacaoAcademicaRef.current.value = '';
+        if (linkedinRef.current) linkedinRef.current.value = '';
+        if (githubRef.current) githubRef.current.value = '';
+        if (descricaoRef.current) descricaoRef.current.value = '';
+
+        setSelectedImage(null);
+
+        // Atualizar a lista de funcionarios após adição
+        fetchFuncionarios();
+
+        // Exibir uma mensagem de sucesso
+        setPopupType('sucess');
+        setPopupTitle('funcionário adicionado');
+        setMensagem('Sucesso ao adicionar o funcionário');
+        hidePopupAfterTimeout();
       } else {
-        console.error('Erro ao adicionar funcionário: Elemento não encontrado.');
+        console.error('Erro ao adicionar funcionário: Algum campo não foi preenchido.');
+        setPopupType('warning');
+        setPopupTitle('Erro');
+        setMensagem("Erro ao adicionar funcionário: Algum campo não foi preenchido.");
+        hidePopupAfterTimeout();
       }
     } catch (error) {
       console.error('Erro ao adicionar funcionário:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem(`Erro ao editar o funcionário ${error}`);
+      hidePopupAfterTimeout();
     }
   };
 
   const handleDelete = (funcionario: Funcionario) => async () => {
     try {
+      // Obtenha a URL da imagem associada ao funcionario
+      const imagemURL = funcionario.nameImg;
+
+      // Verifica se a imagem existe antes de tentar excluí-la
+      if (imagemURL) {
+        try {
+          await getDownloadURL(ref(storage, `staffs/${imagemURL}`));
+        } catch (error) {
+          console.log('A imagem já foi excluída do Firebase Storage.');
+          funcionario.nameImg = ''; // Limpa o nome da imagem para evitar tentativas futuras de exclusão
+        }
+      }
+
       // Faz a requisição DELETE para a rota da API para excluir o funcionário
       await axios.delete(`http://localhost:4000/v3/funcionarios/${funcionario.id}`);
       console.log('Funcionário excluído com sucesso!');
@@ -145,7 +216,7 @@ const Funcionarios = () => {
       setFilteredFuncionarios(updatedFuncionarios);
 
       // Atualiza funcionariosDestaqueVendas e funcionariosDestaqueFaturamento
-      const funcionariosOrdenadosPorVendas = [...updatedFuncionarios].sort((a: Funcionario, b: Funcionario) => b.vendas - a.vendas);
+      const funcionariosOrdenadosPorVendas = [...updatedFuncionarios].sort((a: Funcionario, b: Funcionario) => b.numVendas - a.numVendas);
       const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
       setFuncionariosDestaqueVendas(funcionarioDestaqueVendas);
 
@@ -177,16 +248,64 @@ const Funcionarios = () => {
     setShowInfoModal(true);
   };
 
+  const fecharModalEdicao = () => {
+    setEditandoFuncionario(null);
+    setModalEditOpen(false);
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const reader = new FileReader();
-    reader.onloadend = () => {
-      const result = reader.result as string;
-      console.log(result)
-      setSelectedImage(result);
-    };
+
     if (file) {
+      setSelectedImage(file);
       reader.readAsDataURL(file);
+    }
+  };
+
+  const calcularIdade = (dataNascimento: string | undefined): string => {
+    if (!dataNascimento) return 'Não informado';
+
+    const hoje = new Date();
+    const dataNasc = new Date(dataNascimento);
+    let idade = hoje.getFullYear() - dataNasc.getFullYear();
+    const mesAtual = hoje.getMonth() + 1;
+    const mesNasc = dataNasc.getMonth() + 1;
+
+    if (mesAtual < mesNasc || (mesAtual === mesNasc && hoje.getDate() < dataNasc.getDate())) {
+      idade--;
+    }
+
+    return idade.toString();
+  };
+
+  const atualizarFuncionario = async (funcionarioEditado: Funcionario) => {
+    try {
+      // Obtenha os dados do funcionario existente
+      const funcionarioExistente = await axios.get(`http://localhost:4000/v3/funcionarios/${funcionarioEditado.id}`);
+
+      // Faça o envio dos novos dados do funcionario para a rota de edição
+      await axios.put(`http://localhost:4000/v3/funcionarios/edit/${funcionarioEditado.id}`, {
+        ...funcionarioEditado,
+        funcionarioExistente: funcionarioExistente.data // Envie o objeto funcionarioExistente junto com os novos dados
+      });
+
+      // Feche o modal de edição após a conclusão
+      fecharModalEdicao();
+
+      // Atualize a lista de funcionarios após a edição
+      fetchFuncionarios();
+      // Exibir uma mensagem de sucesso
+      setPopupType('sucess');
+      setPopupTitle('funcionario editado');
+      setMensagem('Sucesso ao editar o funcionario');
+      hidePopupAfterTimeout();
+    } catch (error) {
+      console.error('Erro ao editar funcionario:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao editar o funcionario');
+      hidePopupAfterTimeout();
     }
   };
 
@@ -201,7 +320,7 @@ const Funcionarios = () => {
         <main id='staff-main'>
           <section id='featured-staff'>
             {funcionariosDestaqueVendas.map(funcionario => (
-              <article className='staff-card' key={funcionario.ID_funcionario}>
+              <article className='staff-card' key={funcionario.id}>
                 <header>
                   <h2>Vendas</h2>
                 </header>
@@ -209,7 +328,7 @@ const Funcionarios = () => {
                   <img src={funcionario.picture} alt="stf-img" />
                   <figcaption className='staff-desc'>
                     <h2>{funcionario.nome}</h2>
-                    <p>Vendas: <span>{funcionario.vendas}</span></p>
+                    <p>Vendas: <span>{funcionario.numVendas}</span></p>
                     <p>Faturamento: <span>{funcionario.faturamento}</span></p>
                   </figcaption>
                 </figure>
@@ -220,7 +339,7 @@ const Funcionarios = () => {
             ))}
 
             {funcionariosDestaqueFaturamento.map(funcionario => (
-              <article className='staff-card' key={funcionario.ID_funcionario}>
+              <article className='staff-card' key={funcionario.id}>
                 <header>
                   <h2>Faturamento</h2>
                 </header>
@@ -228,7 +347,7 @@ const Funcionarios = () => {
                   <img src={funcionario.picture} alt="stf-img" />
                   <figcaption className='staff-desc'>
                     <h2>{funcionario.nome}</h2>
-                    <p>Vendas: <span>{funcionario.vendas}</span></p>
+                    <p>Vendas: <span>{funcionario.numVendas}</span></p>
                     <p>Faturamento: <span>{funcionario.faturamento}</span></p>
                   </figcaption>
                 </figure>
@@ -249,7 +368,7 @@ const Funcionarios = () => {
                 <p>Classificar</p>
                 <IoCaretDownSharp onClick={() => setFilteredFuncionarios(funcionarios)} />
               </button>
-              <button id='add-staff' onClick={() => { toggleModalClose(); adicionarFuncionario() }}>
+              <button id='add-staff' onClick={toggleModalClose}>
                 + Funcionário
               </button>
             </div>
@@ -259,18 +378,18 @@ const Funcionarios = () => {
 
           <section id='staff-list'>
             {filteredFuncionarios.map(funcionario => (
-              <article className='stf-card' key={funcionario.ID_funcionario}>
+              <article className='stf-card' key={funcionario.id}>
                 <figure className='staff-img'>
                   <img src={funcionario.picture} alt="stf-img" />
                 </figure>
                 <p className='staff-nick'>{funcionario.nome}</p>
                 <span>
-                  <p><i className="fas fa-thumbtack"></i> {funcionario.endereco}</p>
+                  <p><i className="fas fa-thumbtack"></i> {funcionario.cargo}</p>
                 </span>
                 <div className='stf-desc'>
                   <span>
                     <p className='stf-gain'>Vendas</p>
-                    <p>{funcionario.vendas}</p>
+                    <p>{funcionario.numVendas}</p>
                   </span>
                   <span>
                     <p className='stf-gain'>Faturamento</p>
@@ -288,6 +407,48 @@ const Funcionarios = () => {
         </main>
       </div>
 
+      {modalEditOpen && editandoFuncionario && (
+        <div className="Modal-Add">
+          <div className='container-Add'>
+            <div id="header-modal">
+              <h4 className="modal-title">Editar Funcionario: {editandoFuncionario?.nome}</h4>
+              <button type="button" className="close-btn" onClick={fecharModalEdicao}>&times;</button>
+            </div>
+
+            <div className="Add-Item-container">
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="name-item">Nome do Funcionario:</label>
+                  <input type="text" id='name-item' name='name-item' className='full-item' value={editandoFuncionario.nome} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, nome: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="localAtuacao-item">Local de atuação:</label>
+                  <input type="text" id='localAtuacao-item' name='localAtuacao-item' className='full-item' value={editandoFuncionario.localAtuacao} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, localAtuacao: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="descricao-item">Descrição:</label>
+                  <textarea
+                    id='descricao-item'
+                    name="descricao"
+                    className="desc-prod"
+                    value={editandoFuncionario.descricao}
+                    onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, descricao: e.target.value })}
+                  />
+                </span>
+              </div>
+
+              <button id='edit-product-Btn' onClick={() => atualizarFuncionario(editandoFuncionario)}>Salvar Alterações</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showModal && (
         <div className='Modal-Add'>
           <div className='container-Add'>
@@ -301,7 +462,7 @@ const Funcionarios = () => {
                 <div className='img-input-container'>
                   <input type="file" id='img-input' onChange={handleImageChange} />
                   {selectedImage ? (
-                    <img src={selectedImage} className='img-staff-add' alt="Selected Region" />
+                    <img src={URL.createObjectURL(selectedImage)} className='img-staff-add' alt="Selected Region" />
                   ) : (
                     <img src="./img/no_profile.png" className='img-staff-add' alt="Default Region" />
                   )}
@@ -314,81 +475,74 @@ const Funcionarios = () => {
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Nome do funcionário:</label>
-                  <input type="text" name='name-item' className='full-item' id='name-item'/>
+                  <input type="text" name='name-item' className='full-item' id='name-item' ref={nomeRef} />
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="data-nascimento-item">Data de nascimento:</label>
-                  <input type="text" name='data-nascimento-item' className='full-item' id='data-nascimento-item'/>
+                  <input type="date" name='data-nascimento-item' className='full-item' id='data-nascimento-item' ref={dataNascimentoRef} />
                 </span>
                 <span>
                   <label htmlFor="local-atuacao-item">Local de atuação:</label>
-                  <input type="text" name='local-atuacao-item' className='full-item' id='local-atuacao-item'/>
+                  <input type="text" name='local-atuacao-item' className='full-item' id='local-atuacao-item' ref={localAtuacaoRef} />
                 </span>
               </div>
 
               <div className="input-item input-mult">
                 <span>
-                  <label htmlFor="data-contrato-item">
-                    Data de Contratação:
-                  </label>
-                  <input
-                    type="text"
-                    name="data-contrato-item"
-                    className="full-item"
-                    id="data-contrato-item"
-                  />
+                  <label htmlFor="data-contrato-item">Data de Contratação:</label>
+                  <input type="date" name="data-contrato-item" className="full-item" id="data-contrato-item" ref={dataContratoRef} />
                 </span>
                 <span>
-                  <label htmlFor="genero-item">Genero:</label>
-                  <input
-                    type="text"
-                    name="genero-item"
-                    className="full-item"
-                    id="genero-item"
-                  />
+                  <label htmlFor="genero-item">Gênero:</label>
+                  <select name="genero-item" className="select-gender" id="genero-item" ref={generoRef}>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                    <option value="outro">Outro</option>
+                    <option value="prefiro-nao-dizer">Prefiro não dizer</option>
+                  </select>
                 </span>
               </div>
 
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="email-item">Email:</label>
-                  <input type="text" name='email-item' className='full-item' id='email-item'/>
+                  <input type="text" name='email-item' className='full-item' id='email-item' ref={emailRef} />
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
-                  <label htmlFor="endereco-item">Endereço:</label>
-                  <input type="text" name='endereco-item' className='full-item' id='endereco-item'/>
+                  <label htmlFor="cargo-item">Cargo:</label>
+                  <input type="text" name='cargo-item' className='full-item' id='cargo-item' ref={cargoRef} />
                 </span>
                 <span>
                   <label htmlFor="telefone-item">Telefone:</label>
-                  <input type="text" name='telefone-item' className='full-item' id='telefone-item'/>
+                  <input type="text" name='telefone-item' className='full-item' id='telefone-item' ref={telefoneRef} />
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="cpf-item">CPF:</label>
-                  <input type="text" name='cpf-item' className='full-item' id='cpf-item'/>
+                  <input type="text" name='cpf-item' className='full-item' id='cpf-item' ref={cpfRef} />
                 </span>
                 <span>
                   <label htmlFor="formacao-academica-item">Formação Acadêmica:</label>
-                  <input type="text" name='formacao-academica-item' className='full-item' id='formacao-academica-item'/>
+                  <input type="text" name='formacao-academica-item' className='full-item' id='formacao-academica-item' ref={formacaoAcademicaRef} />
                 </span>
               </div>
 
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="linkedin-item">Linkedin:</label>
-                  <input type="text" name='linkedin-item' className='full-item' id='linkedin-item'/>
+                  <input type="text" name='linkedin-item' className='full-item' id='linkedin-item' ref={linkedinRef} />
                 </span>
                 <span>
                   <label htmlFor="github-item">Github:</label>
-                  <input type="text" name='github-item' className='full-item' id='github-item'/>
+                  <input type="text" name='github-item' className='full-item' id='github-item' ref={githubRef} />
                 </span>
               </div>
 
@@ -396,10 +550,10 @@ const Funcionarios = () => {
                 <span>
                   <label htmlFor="description-item">Descrição:</label>
                   <textarea
-                    type="text"
                     name="description-item"
                     className="desc-staff"
                     id="description-item"
+                    ref={descricaoRef}
                   />
                 </span>
               </div>
@@ -448,14 +602,13 @@ const Funcionarios = () => {
                           <p>{selectedUser.descricao}</p>
                         </div>
                         <div id="userStfTextInfo">
-                          <p>idade: <span>{selectedUser.age} anos</span></p>
+                          <p>Data de Nascimento: <span>{formatDateBr(selectedUser.dataNascimento)}</span></p>
+                          <p>idade: <span>{calcularIdade(selectedUser.dataNascimento)} anos</span></p>
                           <p>CPF: <span>{selectedUser.cpf}</span></p>
-                          <p>Endereço: <span>{selectedUser.endereco}</span></p>
                           <p>Gênero: <span>{selectedUser.genero}</span></p>
                           <p>Cargo: <span>{selectedUser.cargo}</span></p>
                           <p>Contratação: <span>{formatDateBr(selectedUser.dataContratacao)}</span></p>
-                          <p>Acadêmico: <span>{selectedUser.formacaoAcademica}</span></p>
-                          <p>Telefone: <span>{selectedUser.phone}</span></p>
+                          <p>Telefone: <span>{selectedUser.telefone}</span></p>
                         </div>
                       </div>
                     )}
@@ -508,6 +661,7 @@ const Funcionarios = () => {
           </div>
         </div>
       )}
+      {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
     </div>
   );
 };

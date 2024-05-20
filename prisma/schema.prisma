@@ -44,7 +44,7 @@ model VariacaoPreco {
 }
 
 model Regiao {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   picture     String?
   nameImg     String?
   nome        String
@@ -52,34 +52,35 @@ model Regiao {
   responsavel String
   endereco    String?
   cidade      String
-  usuarioId   String?
+  usuarioId   String
   faturamento Float
   numVendas   Int
   clientes    Int
-  usuario     Usuario? @relation(fields: [usuarioId], references: [id])
+  usuario     Usuario @relation(fields: [usuarioId], references: [id])
   vendas      Venda[]
 }
 
 model Funcionario {
-  id                Int      @id @default(autoincrement())
-  picture           String?
-  nome              String
-  email             String
-  descricao         String?
-  endereco          String
-  localAtuacao      String
-  genero            String
-  cpf               String
-  dataContratacao   DateTime
-  telefone          String
-  formacaoAcademica String
-  linkedin          String?
-  github            String?
-  usuarioId         String
-  faturamento       Float?
-  numVendas         Int?
-  usuario           Usuario  @relation(fields: [usuarioId], references: [id])
-  vendas            Venda[]
+  id              Int     @id @default(autoincrement())
+  picture         String?
+  nameImg         String?
+  nome            String
+  dataNascimento  String?
+  email           String?
+  descricao       String?
+  localAtuacao    String?
+  genero          String
+  cpf             String
+  dataContratacao String?
+  cargo           String?
+  telefone        String?
+  linkedin        String?
+  github          String?
+  usuarioId       String
+  faturamento     Float?
+  numVendas       Int?
+  usuario         Usuario @relation(fields: [usuarioId], references: [id])
+  vendas          Venda[]
 }
 
 model Despesa {

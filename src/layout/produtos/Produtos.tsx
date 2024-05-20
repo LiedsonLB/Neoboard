@@ -403,7 +403,7 @@ const Produtos = () => {
           <article id='region-card'>
               {produtoMaisVendido ? (
                 <>
-                  <p id='text-region-mes'>Região do Mês</p>
+                  <p id='text-region-mes'>Produto do Mês</p>
                   <div id='reg-main'>
                     <div id='container-region-img'>
                       <figure className='city-img'>

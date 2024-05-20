@@ -20,15 +20,15 @@ export async function addFuncionario (req, res) {
 export async function getFuncionarios (req, res) {
     try {
         const userId = req.query.userId;
-        const produtos = await prisma.funcionario.findMany({
+        const funcionarios = await prisma.funcionario.findMany({
             where: {
                 usuarioId: userId
             }
         });
-        res.status(200).json(produtos);
+        res.status(200).json(funcionarios);
     } catch (error) {
-        console.error('Erro ao obter produtos:', error);
-        res.status(500).json({ error: 'Erro ao obter produtos' });
+        console.error('Erro ao obter funcionarios:', error);
+        res.status(500).json({ error: 'Erro ao obter funcionarios' });
     }
 };
 

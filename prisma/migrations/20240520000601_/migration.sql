@@ -44,7 +44,7 @@ CREATE TABLE "Regiao" (
     "responsavel" TEXT NOT NULL,
     "endereco" TEXT,
     "cidade" TEXT NOT NULL,
-    "usuarioId" TEXT,
+    "usuarioId" TEXT NOT NULL,
     "faturamento" DOUBLE PRECISION NOT NULL,
     "numVendas" INTEGER NOT NULL,
     "clientes" INTEGER NOT NULL,
@@ -56,16 +56,17 @@ CREATE TABLE "Regiao" (
 CREATE TABLE "Funcionario" (
     "id" SERIAL NOT NULL,
     "picture" TEXT,
+    "nameImg" TEXT,
     "nome" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
+    "dataNascimento" TEXT,
+    "email" TEXT,
     "descricao" TEXT,
-    "endereco" TEXT NOT NULL,
-    "localAtuacao" TEXT NOT NULL,
+    "localAtuacao" TEXT,
     "genero" TEXT NOT NULL,
     "cpf" TEXT NOT NULL,
-    "dataContratacao" TIMESTAMP(3) NOT NULL,
-    "telefone" TEXT NOT NULL,
-    "formacaoAcademica" TEXT NOT NULL,
+    "dataContratacao" TEXT,
+    "cargo" TEXT,
+    "telefone" TEXT,
     "linkedin" TEXT,
     "github" TEXT,
     "usuarioId" TEXT NOT NULL,
@@ -133,7 +134,7 @@ ALTER TABLE "Produto" ADD CONSTRAINT "Produto_usuarioId_fkey" FOREIGN KEY ("usua
 ALTER TABLE "VariacaoPreco" ADD CONSTRAINT "VariacaoPreco_produtoId_fkey" FOREIGN KEY ("produtoId") REFERENCES "Produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Regiao" ADD CONSTRAINT "Regiao_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Regiao" ADD CONSTRAINT "Regiao_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Funcionario" ADD CONSTRAINT "Funcionario_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

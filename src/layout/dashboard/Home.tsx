@@ -52,8 +52,8 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         const fetchData = async () => {
             try {
                 const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
-                    axios.get('http://localhost:4000/v3/produtos'),
-                    axios.get('http://localhost:4000/v3/regioes'),
+                    axios.get(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`),
+                    axios.get(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`),
                     axios.get('http://localhost:4000/v3/funcionarios')
                 ]);
                 setProdutos(produtosResponse.data.slice(0, 5));
