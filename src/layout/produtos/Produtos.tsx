@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Produto from '../../models/Produto.tsx';
 import Loadingprod from '../../components/loading/Loading.tsx';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { FaCheckSquare, FaTrash } from 'react-icons/fa';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
@@ -431,6 +432,72 @@ const Produtos = () => {
                 <p id='text-region-mes'>Nenhum Produto disponível</p>
               )}
             </article>
+
+            <section id="container-table-products">
+                <table id="table-prod" className="table-debts">
+                  <thead className="head-list-fin">
+                    <tr style={{ paddingBlock: ".5rem" }}>
+                      <td>Produto</td>
+                      <td>Data da Compra</td>
+                      <td>Valor</td>
+                      <td className="action-space">Ações</td>
+                    </tr>
+                  </thead>
+                  <tbody className="body-list-prod debt">
+                    <tr>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">
+                          Geleia
+                        </h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="07/04/2024">
+                          07/04/2024
+                        </h3>
+                      </td>
+                      <td>
+                        <h3 data-toggle="tooltip" title="Cartão(debito)">
+                          10K
+                        </h3>
+                      </td>
+                      <td
+                        className="action-btns"
+                        style={{ display: "flex", gap: "5px" }}
+                      >
+                        <button
+                          className="edit"
+                          style={{
+                            padding: ".6rem .8rem",
+                            height: "2.5rem",
+                            width: "2.5rem",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          
+                        >
+                          <FaCheckSquare />
+                        </button>
+                        <button
+                          className="delete"
+                          style={{
+                            padding: ".6rem .8rem",
+                            height: "2.5rem",
+                            width: "2.5rem",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          
+                        >
+                          <FaTrash />
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+
 
             <section id='search-prod'>
               <div id='search-bar'>

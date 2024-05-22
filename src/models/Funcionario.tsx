@@ -16,9 +16,10 @@ interface Funcionario {
     telefone?: string;
     linkedin?: string;
     github?: string;
+    formacao?: string;
     faturamento: number;
     numVendas: number;
-    usuarioId: string;
+    usuarioId: string;  
 }
 
 export default Funcionario;
