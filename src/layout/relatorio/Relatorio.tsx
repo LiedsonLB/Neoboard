@@ -261,7 +261,7 @@ const Relatorio: React.FC = () => {
           <div id='report-btns'>
 
             <select id="format-select" onChange={handleFormatChange} defaultValue="">
-              <option disabled value="">Baixe o Modelo</option>
+              <option disabled value="">Baixe o Modelo:</option>
               <option className='selection-options' value="xlsx">Excel (.xlsx)</option>
               <option className='selection-options' disabled value="csv">CSV (.csv)- Em breve</option>
               <option className='selection-options' disabled value="txt">Texto (.txt)- Em breve</option>

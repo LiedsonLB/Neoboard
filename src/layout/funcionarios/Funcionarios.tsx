@@ -418,19 +418,20 @@ const Funcionarios = () => {
             </div>
             <div className='search-btns'>
               <select id='filter-staff' onChange={(e) => handleFilterChange(e, funcionarios)}>
-                <option value="" disabled>Ver por:</option>
-                <option value="todos" selected>Todos</option>
-                <optgroup label="Ordenar por">
-                  <option value="mais-vendas">Mais Vendas</option>
+                <optgroup label='Ver por:'>
+                  <option value="todos" selected>Todos</option>
+                </optgroup>
+                <optgroup label="Ordenar por:">
+                  <option value="mais-vendas">Vendas</option>
                   <option value="mais-faturados">Faturamento</option>
                   <option value="alfabetica">Ordem Alfabética</option>
                 </optgroup>
-                <optgroup label="Filtrar por Gênero">
-                  {uniqueGenders.map((gender, index) => (
-                    <option key={index} value={`genero-${gender}`}>{gender}</option>
-                  ))}
+                <optgroup label="Filtrar por Gênero:">
+                  <option value="genero-masculino">masculino</option>
+                  <option value="genero-feminino">feminino</option>
+                  <option value="genero-outro">outro</option>
                 </optgroup>
-                <optgroup label="Filtrar por Cargo">
+                <optgroup label="Filtrar por Cargo:">
                   {uniqueRoles.map((role, index) => (
                     <option key={index} value={`cargo-${role}`}>{role}</option>
                   ))}

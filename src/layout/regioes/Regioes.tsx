@@ -82,25 +82,25 @@ const Regioes = () => {
     try {
       const response = await axios.get(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`);
       setRegioes(response.data);
-  
+
       console.log("loop infinito em regiões");
-  
+
       const categoriasUnicas = new Set(response.data.map((regiao: any) => regiao.cidade));
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
       setCategorias(categoriasUnicasArray);
-  
+
       // Atualiza o estado do produto mais vendido
       const regiaoMaisVendido = encontrarRegiaoMaisVendido(response.data);
       setRegiaoMaisVendido(regiaoMaisVendido);
-  
+
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
     }
   };
-  
+
 
   // Função para encontrar o produto mais vendido
-  const encontrarRegiaoMaisVendido = (regioes : Regiao[]) => {
+  const encontrarRegiaoMaisVendido = (regioes: Regiao[]) => {
     let regiaoMaisVendido = regioes[0];
 
     // Percorre todas as regiões para encontrar o produto com mais vendas
@@ -423,23 +423,23 @@ const Regioes = () => {
 
       {showDeleteModal && <div className='modal-logout'>
         {regioes.map((regiao) => (
-            <div className='container-logout'>
-              <div className="header-logout">
-                <button type="button" className="close-btn" onClick={toggleModalDelete}>&times;</button>
-              </div>
-
-              <h2 className='txt-logout'>Você tem certeza que quer excluir esta região?</h2>
-
-              <hr className='modal-line' style={{ width: '80%', height: '3px', background:'#000', color:'#000'}}/>
-
-              <div className='options-logout'>
-                <button className="logout-yes" onClick={handleDelete(regiao)}>Sim</button>
-                <button className="logout-no" onClick={toggleModalDelete}>Não</button>
-              </div>
+          <div className='container-logout'>
+            <div className="header-logout">
+              <button type="button" className="close-btn" onClick={toggleModalDelete}>&times;</button>
             </div>
-            ))}
+
+            <h2 className='txt-logout'>Você tem certeza que quer excluir esta região?</h2>
+
+            <hr className='modal-line' style={{ width: '80%', height: '3px', background: '#000', color: '#000' }} />
+
+            <div className='options-logout'>
+              <button className="logout-yes" onClick={handleDelete(regiao)}>Sim</button>
+              <button className="logout-no" onClick={toggleModalDelete}>Não</button>
+            </div>
+          </div>
+        ))}
       </div>}
-        
+
 
       <div id='region-container'>
         <div id='region-inside'>
@@ -484,9 +484,11 @@ const Regioes = () => {
               <div className='filter-container-btns'>
                 <select id="filter-expense" value={categoriaSelecionada} onChange={(e) => setCategoriaSelecionada(e.target.value)}>
                   <option value="">Todos</option>
-                  {categorias.map((categoria, index) => (
-                    <option key={index} value={categoria}>{categoria}</option>
-                  ))}
+                  <optgroup label='Filtar por cidade:'>
+                    {categorias.map((categoria, index) => (
+                      <option key={index} value={categoria}>{categoria}</option>
+                    ))}
+                  </optgroup>
                 </select>
 
                 <button id='add-product' onClick={toggleModalClose}>

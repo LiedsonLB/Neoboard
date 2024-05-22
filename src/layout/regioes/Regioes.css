@@ -712,7 +712,7 @@ td {
 
 @media screen and (max-width: 480px) {
     #region-card {
-        width: 95%;
+        width: 100%;
     }
 
     #search-container-region {

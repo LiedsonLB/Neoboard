@@ -95,7 +95,7 @@ model Despesa {
 }
 
 model Venda {
-  ID_venda           Int            @id @default(autoincrement())
+  id                 Int            @id @default(autoincrement())
   Data               String
   funcionarioId      Int
   valor              Float
@@ -106,7 +106,7 @@ model Venda {
   formaPagamento     String
   usuarioId          String?
   relatorioId        Int
-  dividas            VendasEmDivida @relation(fields: [ID_venda], references: [id])
+  dividas            VendasEmDivida @relation(fields: [id], references: [id])
   funcionario        Funcionario    @relation(fields: [funcionarioId], references: [id])
   produto            Produto        @relation(fields: [produtoid], references: [id])
   regiao             Regiao         @relation(fields: [regiaoId], references: [id])

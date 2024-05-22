@@ -472,20 +472,6 @@ input[type="file"] {
     }
 }
 
-#filter-expense option {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: .8rem 1rem;
-    background: transparent;
-    border: 2px solid var(--primary-color);
-    border-radius: 5px;
-    color: var(--primary-color);
-    cursor: pointer;
-    font-family: var(--font-krub);
-    text-align: center;
-}
-
 #filter-expense option:hover {
     background-color: var(--primary-color) !important;
     color: var(--white-color) !important;
