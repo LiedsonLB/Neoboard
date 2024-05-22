@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 // @ts-ignore
 import { storage } from '../../services/firebase.js';
 import "./Funcionarios.css";
-import { IoSearch, IoCaretDownSharp, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
+import { IoSearch, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
 import StaffDoughnout from '../../components/charts/StaffDoughnout.tsx';
 import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 import axios from 'axios';
@@ -21,7 +21,6 @@ const Funcionarios = () => {
   const [filteredFuncionarios, setFilteredFuncionarios] = useState<Funcionario[]>([]);
   const [selectionSession, setSelectionSession] = useState<'info' | 'charts'>('info');
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [userId, setUserId] = useState<string | null>(null)
   const [editandoFuncionario, setEditandoFuncionario] = useState<Funcionario | null>(null);
   const [modalEditOpen, setModalEditOpen] = useState(false);
 
@@ -42,12 +41,6 @@ const Funcionarios = () => {
   const linkedinRef = useRef<HTMLInputElement>(null);
   const githubRef = useRef<HTMLInputElement>(null);
   const descricaoRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    setUserId(localStorage.getItem('userID'))
-
-    fetchFuncionarios();
-  });
 
   const formatDateBr = (dateString: string | undefined) => {
     if (!dateString) return 'Não informado';
@@ -87,8 +80,11 @@ const Funcionarios = () => {
 
   const fetchFuncionarios = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/v3/funcionarios?userId=${userId}`);
+      const response = await axios.get(`http://localhost:4000/v3/funcionarios?userId=${localStorage.getItem('userID')}`);
       const data = response.data;
+
+      console.log("essa função repete infinitamente")
+
       const funcionariosOrdenadosPorVendas = [...data].sort((a: Funcionario, b: Funcionario) => b.numVendas - a.numVendas);
       const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
       const funcionariosOrdenadosPorFaturamento = [...data].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);
@@ -108,11 +104,11 @@ const Funcionarios = () => {
       const dataNascimento = dataNascimentoRef.current?.value;
       const localAtuacao = localAtuacaoRef.current?.value;
       const cargo = cargoRef.current?.value || 'Não informado';
-      const email = emailRef.current?.value;
+      const email = emailRef.current?.value || 'Não informado';
       const telefone = telefoneRef.current?.value;
       const cpf = cpfRef.current?.value;
-      const linkedin = linkedinRef.current?.value;
-      const github = githubRef.current?.value;
+      const linkedin = linkedinRef.current?.value || 'Não informado';
+      const github = githubRef.current?.value || 'Não informado';
       const genero = generoRef.current?.value || 'Não informado';
       const descricao = descricaoRef.current?.value || 'Não informado';
       const dataContratacao = dataContratoRef.current?.value || 'Não informado';
@@ -126,10 +122,10 @@ const Funcionarios = () => {
         picture = downloadURL;
       }
 
-      if (nome && dataNascimento && localAtuacao && email && telefone && cpf && linkedin && github) {
+      if (nome && dataNascimento && localAtuacao && cpf) {
         const novoFuncionario: Funcionario = {
           picture,
-          nameImg: selectedImage ? selectedImage.name : '/img/no_productImg.jpeg',
+          nameImg: selectedImage ? selectedImage.name : '/img/no_profile.png',
           nome,
           email,
           genero,
@@ -142,9 +138,9 @@ const Funcionarios = () => {
           github,
           descricao,
           cargo,
-          usuarioId: userId || '',
-          numVendas: 26,
-          faturamento: 9000,
+          usuarioId: localStorage.getItem('userID') || '',
+          numVendas: 2490,
+          faturamento: 67,
         };
 
         await axios.post('http://localhost:4000/v3/funcionarios', novoFuncionario);
@@ -190,6 +186,10 @@ const Funcionarios = () => {
       hidePopupAfterTimeout();
     }
   };
+
+  useEffect(() => {
+    fetchFuncionarios();
+  }, [localStorage.getItem('userID')]);
 
   const handleDelete = (funcionario: Funcionario) => async () => {
     try {
@@ -309,6 +309,59 @@ const Funcionarios = () => {
     }
   };
 
+  const handleFilterChange = (e, funcionarios) => {
+    const selectedValue = e.target.value;
+    console.log('cliquei em: ' + selectedValue);
+    if (selectedValue.startsWith('genero')) {
+      const selectedGender = selectedValue.split('-')[1];
+      // Filtrar os funcionários por gênero
+      const filteredFuncionarios = funcionarios.filter(funcionario => funcionario.genero === selectedGender);
+      setFilteredFuncionarios(filteredFuncionarios);
+    } else if (selectedValue.startsWith('cargo')) {
+      const selectedRole = selectedValue.split('-')[1];
+      // Filtrar os funcionários por cargo
+      const filteredFuncionarios = funcionarios.filter(funcionario => funcionario.cargo === selectedRole);
+      setFilteredFuncionarios(filteredFuncionarios);
+    } else {
+      // Ordenar os funcionários de acordo com a opção selecionada
+      let sortedFuncionarios;
+      switch (selectedValue) {
+        case 'mais-vendas':
+          sortedFuncionarios = [...funcionarios].sort((a, b) => b.numVendas - a.numVendas);
+          break;
+        case 'mais-faturados':
+          sortedFuncionarios = [...funcionarios].sort((a, b) => b.faturamento - a.faturamento);
+          break;
+        case 'alfabetica':
+          sortedFuncionarios = [...funcionarios].sort((a, b) => a.nome.localeCompare(b.nome));
+          break;
+        default:
+          sortedFuncionarios = funcionarios;
+      }
+      setFilteredFuncionarios(sortedFuncionarios);
+    }
+  };
+
+  // Estado para armazenar os cargos únicos
+  const [uniqueRoles, setUniqueRoles] = useState<string[]>([]);
+
+  // UseEffect para extrair cargos únicos dos funcionários
+  useEffect(() => {
+    const roles = funcionarios.map(funcionario => funcionario.cargo);
+    const uniqueRoles = [...new Set(roles)];
+    setUniqueRoles(uniqueRoles);
+  }, [funcionarios]);
+
+  // Estado para armazenar os gêneros únicos
+  const [uniqueGenders, setUniqueGenders] = useState<string[]>([]);
+
+  // UseEffect para extrair gêneros únicos dos funcionários
+  useEffect(() => {
+    const genders = funcionarios.map(funcionario => funcionario.genero);
+    const uniqueGenders = [...new Set(genders)];
+    setUniqueGenders(uniqueGenders);
+  }, [funcionarios]);
+
   return (
     <div id='staff-container'>
       <div id='staff-inside'>
@@ -364,10 +417,26 @@ const Funcionarios = () => {
               <i id='search-icon'><IoSearch id='icon-staff' /></i>
             </div>
             <div className='search-btns'>
-              <button id='filter-staff'>
-                <p>Classificar</p>
-                <IoCaretDownSharp onClick={() => setFilteredFuncionarios(funcionarios)} />
-              </button>
+              <select id='filter-staff' onChange={(e) => handleFilterChange(e, funcionarios)}>
+                <option value="" disabled>Ver por:</option>
+                <option value="todos" selected>Todos</option>
+                <optgroup label="Ordenar por">
+                  <option value="mais-vendas">Mais Vendas</option>
+                  <option value="mais-faturados">Faturamento</option>
+                  <option value="alfabetica">Ordem Alfabética</option>
+                </optgroup>
+                <optgroup label="Filtrar por Gênero">
+                  {uniqueGenders.map((gender, index) => (
+                    <option key={index} value={`genero-${gender}`}>{gender}</option>
+                  ))}
+                </optgroup>
+                <optgroup label="Filtrar por Cargo">
+                  {uniqueRoles.map((role, index) => (
+                    <option key={index} value={`cargo-${role}`}>{role}</option>
+                  ))}
+                </optgroup>
+              </select>
+
               <button id='add-staff' onClick={toggleModalClose}>
                 + Funcionário
               </button>
@@ -548,7 +617,7 @@ const Funcionarios = () => {
 
               <div className="input-item input-single">
                 <span>
-                  <label htmlFor="description-item">Descrição:</label>
+                  <label htmlFor="description-item">Sobre o funcionário:</label>
                   <textarea
                     name="description-item"
                     className="desc-staff"
@@ -578,9 +647,9 @@ const Funcionarios = () => {
                 <h2 className='nameUserStf'>{selectedUser.nome}</h2>
                 <p className='emailUserStf'>{selectedUser.email}</p>
                 <div className='userStfSocialMidia'>
-                  <a href={`mailto:${selectedUser.email}`} style={{ color: 'var(--purple-color)' }}><i className="fa-solid fa-envelope"></i></a>
-                  <a href={selectedUser.github} style={{ color: 'var(--black-color)' }}><i className="fa-brands fa-github"></i></a>
-                  <a href={selectedUser.linkedin} style={{ color: 'var(--secondy-color)' }}><i className="fa-brands fa-linkedin"></i></a>
+                  <a href={selectedUser.email === 'Não informado' ? '#' : `mailto:${selectedUser.email}`} style={{ color: selectedUser.email === 'Não informado' ? 'grey' : 'var(--purple-color)', pointerEvents: selectedUser.email === 'Não informado' ? 'none' : 'auto' }}><i className="fa-solid fa-envelope"></i></a>
+                  <a href={selectedUser.github} style={{ color: selectedUser.github === 'Não informado' ? 'grey' : 'var(--black-color)', pointerEvents: selectedUser.github === 'Não informado' ? 'none' : 'auto' }}><i className="fa-brands fa-github"></i></a>
+                  <a href={selectedUser.linkedin} style={{ color: selectedUser.linkedin === 'Não informado' ? 'grey' : 'var(--secondy-color)', pointerEvents: selectedUser.linkedin === 'Não informado' ? 'none' : 'auto' }}><i className="fa-brands fa-linkedin"></i></a>
                 </div>
               </div>
 

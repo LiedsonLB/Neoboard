@@ -171,6 +171,9 @@ const Relatorio: React.FC = () => {
   // Ao enviar o relatório, use os dados editados em vez dos dados originais
   const enviarRelatorioVendas = async () => {
     try {
+      // Filtrar as linhas vazias
+      const filteredOutputData = outputData.slice(1).filter((row) => row.some(cell => cell !== null && cell !== ''));
+
       const vendas = editedData.slice().map((row: any) => ({
         Data: row[0],
         Funcionário: row[1],
@@ -181,14 +184,16 @@ const Relatorio: React.FC = () => {
         'Forma de pagamento': row[6],
       }));
 
+      console.log('Dados das vendas a serem enviados:', filteredOutputData);
+
       // Restante do código para enviar o relatório...
     } catch (error) {
       console.error('Erro ao enviar dados para a API:', error);
       setPopupType('warning');
       setPopupTitle('Erro');
       setMensagem('Erro ao enviar dados para a API');
+      hidePopupAfterTimeout();
     }
-    hidePopupAfterTimeout();
   };
 
   const handleFormatChange = (event: any) => {
@@ -219,19 +224,6 @@ const Relatorio: React.FC = () => {
       setMensagem('');
     }, 4000);
   };
-
-  useEffect(() => {
-    const fetchFuncionarios = async () => {
-      try {
-        const response = await axios.get('http://localhost:4000/v2/funcionarios');
-        const data = response.data;
-        setFuncionarios(data);
-      } catch (error) {
-        console.error('Erro ao buscar funcionários:', error);
-      }
-    };
-    fetchFuncionarios();
-  }, []);
 
   return (
     <div id='report-container'>
@@ -270,9 +262,9 @@ const Relatorio: React.FC = () => {
 
             <select id="format-select" onChange={handleFormatChange} defaultValue="">
               <option disabled value="">Baixe o Modelo</option>
-              <option className='selection-options' value="csv">CSV (.csv)</option>
               <option className='selection-options' value="xlsx">Excel (.xlsx)</option>
-              <option className='selection-options' value="txt">Texto (.txt)</option>
+              <option className='selection-options' disabled value="csv">CSV (.csv)- Em breve</option>
+              <option className='selection-options' disabled value="txt">Texto (.txt)- Em breve</option>
             </select>
 
             <div>
@@ -318,7 +310,7 @@ const Relatorio: React.FC = () => {
                 {row.map((cell: any, cellIndex: number) => (
                   <td key={cellIndex}>
                     <input
-                      type="text"
+                      type="search"
                       value={editedData[rowIndex]?.[cellIndex] ?? cell}
                       style={{ width: "100%" }}
                       onChange={(e) => {

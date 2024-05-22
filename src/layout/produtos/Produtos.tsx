@@ -5,11 +5,12 @@ import { IoSearch, IoCamera, IoTrash, IoCreate } from 'react-icons/io5';
 import ProductDoughnut from '../../components/charts/ProductDoughtnout.tsx';
 import axios from 'axios';
 // @ts-ignore
-import { storage } from '../../services/firebase.js';
+import { auth, storage } from '../../services/firebase.js';
 import Popup from '../../components/popup/Popup.tsx';
 import { useNavigate } from 'react-router-dom';
 import Produto from '../../models/Produto.tsx';
 import Loadingprod from '../../components/loading/Loading.tsx';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
@@ -26,6 +27,8 @@ const Produtos = () => {
   const [popupTitle, setPopupTitle] = useState('');
   const [produtoMaisVendido, setProdutoMaisVendido] = useState<Produto>();
   const navigate = useNavigate();
+
+  const [user, loading] = useAuthState(auth);
 
   const nomeRef = useRef<HTMLInputElement>(null);
   const categoriaRef = useRef<HTMLInputElement>(null);
@@ -60,7 +63,7 @@ const Produtos = () => {
   const adicionarProduto = async () => {
     try {
       const userId = localStorage.getItem('userID');
-      
+
       // Obter os valores dos campos
       const nome = nomeRef.current?.value;
       const categoria = categoriaRef.current?.value || 'sem categoria';
@@ -161,34 +164,37 @@ const Produtos = () => {
 
   const fetchProdutos = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`);
-      setProdutos(response.data);
-      const categoriasUnicas = new Set(response.data.map((produto: Produto) => produto.categoria));
-      const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
-      setCategorias(categoriasUnicasArray);
+      if (user) {
+        const responseUser = await axios.get(`http://localhost:4000/v3/users/${user.email}`);
+        const response = await axios.get(`http://localhost:4000/v3/produtos?userId=${responseUser.data.id}`);
+        setProdutos(response.data);
+        // Atualiza o estado do produto mais vendido após definir os produtos
+        const produtoMaisVendidoData = encontrarProdutoMaisVendido(response.data);
+        setProdutoMaisVendido(produtoMaisVendidoData);
 
-      // Função para encontrar o produto mais vendido
-      const encontrarProdutoMaisVendido = () => {
-        let produtoMaisVendido = produtos[0]; // Começa com o primeiro produto na lista
-
-        // Percorre todas as regiões para encontrar o produto com mais vendas
-        produtos.forEach(produto => {
-          if (produto.numVendas > produtoMaisVendido.numVendas) {
-            produtoMaisVendido = produto; // Atualiza o produto mais vendido
-          }
-        });
-
-        return produtoMaisVendido; // Retorna o produto mais vendido encontrado
-      };
-
-      // Atualiza o estado do produto mais vendido
-      const produtoMaisVendido = encontrarProdutoMaisVendido();
-      setProdutoMaisVendido(produtoMaisVendido);
+        const categoriasUnicas = new Set(response.data.map((produto: Produto) => produto.categoria));
+        const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
+        setCategorias(categoriasUnicasArray);
+      }
 
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       hidePopupAfterTimeout();
     }
+  };
+
+  // Função para encontrar o produto mais vendido
+  const encontrarProdutoMaisVendido = (produtos: Produto[]) => {
+    let produtoMaisVendido = produtos[0]; // Começa com o primeiro produto na lista
+
+    // Percorre todas as regiões para encontrar o produto com mais vendas
+    produtos.forEach(produto => {
+      if (produto.numVendas > produtoMaisVendido.numVendas) {
+        produtoMaisVendido = produto; // Atualiza o produto mais vendido
+      }
+    });
+
+    return produtoMaisVendido; // Retorna o produto mais vendido encontrado
   };
 
   const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -214,7 +220,7 @@ const Produtos = () => {
 
   useEffect(() => {
     fetchProdutos();
-  });
+  }, [localStorage.getItem('userID')]);
 
   const produtosFiltrados = produtos.filter((produto: Produto) =>
     produto.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
@@ -351,7 +357,7 @@ const Produtos = () => {
 
                 <span>
                   <label htmlFor="valor-item">Valor Unitário (R$):</label>
-                  <input ref={valorRef} type="text" id='valor-item' name='valor-item' className='full-item'/>
+                  <input ref={valorRef} type="text" id='valor-item' name='valor-item' className='full-item' />
                 </span>
               </div>
 
@@ -381,8 +387,8 @@ const Produtos = () => {
             </div>
 
             <h2 className='txt-logout'>Você tem certeza que quer excluir este produto?</h2>
-             
-            <hr className='modal-line' style={{ width: '80%', height: '3px', background:'#000', color:'#000'}}/>
+
+            <hr className='modal-line' style={{ width: '80%', height: '3px', background: '#000', color: '#000' }} />
 
             <div className='options-logout'>
               <button className="logout-yes" onClick={handleDelete(produto)}>Sim</button>
@@ -400,7 +406,7 @@ const Produtos = () => {
           </header>
 
           <main id='product-main'>
-          <article id='region-card'>
+            <article id='region-card'>
               {produtoMaisVendido ? (
                 <>
                   <p id='text-region-mes'>Produto do Mês</p>
@@ -449,7 +455,7 @@ const Produtos = () => {
             <p id='result-product'>Resultados ({produtosFiltrados.length})</p>
             <section id='products-list'>
 
-            {produtosFiltrados.map((produto: Produto) => (
+              {produtosFiltrados.map((produto: Produto) => (
                 <article key={produto.id} className='prod-card'>
                   <figure className='container-list-img'>
                     <img src={produto.picture} alt={produto.nome} />

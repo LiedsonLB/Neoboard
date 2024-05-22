@@ -82,36 +82,40 @@ const Regioes = () => {
     try {
       const response = await axios.get(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`);
       setRegioes(response.data);
+  
+      console.log("loop infinito em regiões");
+  
       const categoriasUnicas = new Set(response.data.map((regiao: any) => regiao.cidade));
       const categoriasUnicasArray: string[] = Array.from(categoriasUnicas);
       setCategorias(categoriasUnicasArray);
-
-      // Função para encontrar o produto mais vendido
-      const encontrarRegiaoMaisVendido = () => {
-        let regiaoMaisVendido = regioes[0]; // Começa com o primeiro produto na lista
-
-        // Percorre todas as regiões para encontrar o produto com mais vendas
-        regioes.forEach(regiao => {
-          if (regiao.numVendas > regiaoMaisVendido.numVendas) {
-            regiaoMaisVendido = regiao; // Atualiza o produto mais vendido
-          }
-        });
-
-        return regiaoMaisVendido; // Retorna o produto mais vendido encontrado
-      };
-
+  
       // Atualiza o estado do produto mais vendido
-      const regiaoMaisVendido = encontrarRegiaoMaisVendido();
+      const regiaoMaisVendido = encontrarRegiaoMaisVendido(response.data);
       setRegiaoMaisVendido(regiaoMaisVendido);
-
+  
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
     }
   };
+  
+
+  // Função para encontrar o produto mais vendido
+  const encontrarRegiaoMaisVendido = (regioes : Regiao[]) => {
+    let regiaoMaisVendido = regioes[0];
+
+    // Percorre todas as regiões para encontrar o produto com mais vendas
+    regioes.forEach(regiao => {
+      if (regiao.numVendas > regiaoMaisVendido.numVendas) {
+        regiaoMaisVendido = regiao;
+      }
+    });
+
+    return regiaoMaisVendido; // Retorna o produto mais vendido encontrado
+  };
 
   useEffect(() => {
     fetchRegioes();
-  });
+  }, [localStorage.getItem('userID')]);
 
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
