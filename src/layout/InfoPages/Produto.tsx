@@ -138,23 +138,29 @@ const ProdutoInfo = () => {
                                 </tr>
                             </thead>
                             <tbody className="body-list-prod debt" style={{ gap: '0px !importat' }}>
-                                {variacoes.map((variacao, index) => (
-                                    <tr key={index} style={{fontWeight: 'bold'}}>
-                                        <td>{formatarDataBR(variacao.data)}</td>
-                                        <td>R$ {variacao.preco}</td>
-                                        <td>R$ {variacao.preco + variacao.variacao}</td>
-                                        <td style={{ color: getIconAndColor(variacao.variacao).color }}>
-                                            {getIconAndColor(variacao.variacao).icon} {variacao.variacao}
-                                        </td>
+                                {variacoes.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={4} style={{ textAlign: 'center', fontSize: '16px', marginBlock: '.5rem' }}>Não há variações de preço registradas para este produto.</td>
                                     </tr>
-                                ))}
+                                ) : (
+                                    variacoes.map((variacao, index) => (
+                                        <tr key={index} style={{ fontWeight: 'bold' }}>
+                                            <td>{formatarDataBR(variacao.data)}</td>
+                                            <td>R$ {variacao.preco}</td>
+                                            <td>R$ {variacao.preco + variacao.variacao}</td>
+                                            <td style={{ color: getIconAndColor(variacao.variacao).color }}>
+                                                {getIconAndColor(variacao.variacao).icon} {variacao.variacao}
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
                             </tbody>
                         </table>
                     </section>
                 </div>
 
                 <div id='container-more-products'>
-                    
+
                 </div>
             </div >
         </div >

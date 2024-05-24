@@ -76,7 +76,6 @@ model Funcionario {
   telefone        String?
   linkedin        String?
   github          String?
-  formacao        String?
   usuarioId       String
   faturamento     Float?
   numVendas       Int?

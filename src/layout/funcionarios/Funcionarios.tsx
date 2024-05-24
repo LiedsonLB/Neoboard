@@ -37,7 +37,6 @@ const Funcionarios = () => {
   const cargoRef = useRef<HTMLInputElement>(null);
   const telefoneRef = useRef<HTMLInputElement>(null);
   const cpfRef = useRef<HTMLInputElement>(null);
-  const formacaoAcademicaRef = useRef<HTMLInputElement>(null);
   const linkedinRef = useRef<HTMLInputElement>(null);
   const githubRef = useRef<HTMLInputElement>(null);
   const descricaoRef = useRef<HTMLTextAreaElement>(null);
@@ -134,7 +133,6 @@ const Funcionarios = () => {
       const genero = generoRef.current?.value || 'Masculino';
       const descricao = descricaoRef.current?.value || 'Não informado';
       const dataContratacao = dataContratoRef.current?.value || 'Não informado';
-      const formacao = formacaoAcademicaRef.current?.value || 'Não informado';
 
 
       let picture = '/img/no_productImg.jpeg';
@@ -159,7 +157,6 @@ const Funcionarios = () => {
           telefone,
           linkedin,
           github,
-          formacao,
           descricao,
           cargo,
           usuarioId: localStorage.getItem('userID') || '',
@@ -180,7 +177,6 @@ const Funcionarios = () => {
         if (cargoRef.current) cargoRef.current.value = '';
         if (telefoneRef.current) telefoneRef.current.value = '';
         if (cpfRef.current) cpfRef.current.value = '';
-        if (formacaoAcademicaRef.current) formacaoAcademicaRef.current.value = '';
         if (linkedinRef.current) linkedinRef.current.value = '';
         if (githubRef.current) githubRef.current.value = '';
         if (descricaoRef.current) descricaoRef.current.value = '';
@@ -564,10 +560,6 @@ const Funcionarios = () => {
                   <label htmlFor="cpf-item">CPF:</label>
                   <input type="text" name='cpf-item' className='full-item' id='cpf-item' value={editandoFuncionario.cpf} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, cpf: e.target.value })} />
                 </span>
-                <span>
-                  <label htmlFor="formacao-academica-item">Formação Acadêmica:</label>
-                  <input type="text" name='formacao-academica-item' className='full-item' id='formacao-academica-item' value={editandoFuncionario.formacao} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, formacao: e.target.value })} />
-                </span>
               </div>
 
               <div className='input-item input-mult'>
@@ -680,10 +672,6 @@ const Funcionarios = () => {
                   <label htmlFor="cpf-item">CPF:</label>
                   <input type="text" name='cpf-item' className='full-item' id='cpf-item' ref={cpfRef} />
                 </span>
-                <span>
-                  <label htmlFor="formacao-academica-item">Formação Acadêmica:</label>
-                  <input type="text" name='formacao-academica-item' className='full-item' id='formacao-academica-item' ref={formacaoAcademicaRef} />
-                </span>
               </div>
 
               <div className='input-item input-mult'>
@@ -760,7 +748,6 @@ const Funcionarios = () => {
                           <p>Cargo: <span>{selectedUser.cargo}</span></p>
                           <p>Data de Contratação: <span>{formatDateBr(selectedUser.dataContratacao)}</span></p>
                           <p>Telefone: <span>{selectedUser.telefone}</span></p>
-                          <p>Formação Acadêmica: <span>{selectedUser.formacao}</span></p>
                         </div>
                       </div>
                     )}
