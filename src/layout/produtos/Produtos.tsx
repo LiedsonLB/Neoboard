@@ -27,6 +27,7 @@ const Produtos = () => {
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
   const [produtoMaisVendido, setProdutoMaisVendido] = useState<Produto>();
+  const [produtoDelete, setProdutoDelete] = useState<Produto>();
   const navigate = useNavigate();
 
   const [user, loading] = useAuthState(auth);
@@ -48,6 +49,14 @@ const Produtos = () => {
 
   const toggleModalDelete = () => {
     setShowDeleteModal(!showDeleteModal);
+    if (produtoDelete) {
+      setProdutoDelete(produtoDelete);
+    }
+  };
+
+  const openDeleteModal = (produto: Produto) => {
+    setProdutoDelete(produto);
+    toggleModalDelete();
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,27 +137,26 @@ const Produtos = () => {
     }
   };
 
-  const handleDelete = (produto: Produto) => async () => {
+  const handleDelete = async (produto: Produto) => {
     try {
       // Obtenha a URL da imagem associada ao produto
       const imagemURL = produto.NameImg;
-
+  
       // Excluir a imagem do Storage
       if (imagemURL) {
         const imagemRef = ref(storage, `products/${imagemURL}`);
         await deleteObject(imagemRef);
       }
-
+  
       // Faz a requisição DELETE para a rota da API para excluir o produto
       await axios.delete(`http://localhost:4000/v3/produtos/${produto.id}`);
-
-      //Fecha o Modal
-
-      setShowDeleteModal(!showDeleteModal);
-
+  
+      // Fecha o Modal
+      setShowDeleteModal(false);
+  
       // Atualiza a lista de produtos após a exclusão
       fetchProdutos();
-
+  
       // Exibir uma mensagem de sucesso
       setPopupType('sucess');
       setPopupTitle('Produto Excluído');
@@ -380,11 +388,11 @@ const Produtos = () => {
         </div>
       )}
 
-      {showDeleteModal && <div className='modal-logout'>
-        {produtosFiltrados.map((produto: Produto) => (
+      {showDeleteModal && produtoDelete && (
+        <div className='modal-logout'>
           <div className='container-logout'>
             <div className="header-logout">
-              <button type="button" className="close-btn" onClick={toggleModalDelete}>&times;</button>
+              <button type="button" className="close-btn" onClick={() => toggleModalDelete()}>&times;</button>
             </div>
 
             <h2 className='txt-logout'>Você tem certeza que quer excluir este produto?</h2>
@@ -392,12 +400,12 @@ const Produtos = () => {
             <hr className='modal-line' style={{ width: '80%', height: '3px', background: '#000', color: '#000' }} />
 
             <div className='options-logout'>
-              <button className="logout-yes" onClick={handleDelete(produto)}>Sim</button>
-              <button className="logout-no" onClick={toggleModalDelete}>Não</button>
+            <button className="logout-yes" onClick={() => handleDelete(produtoDelete)}>Sim</button>
+              <button className="logout-no" onClick={() => toggleModalDelete()}>Não</button>
             </div>
           </div>
-        ))}
-      </div>}
+        </div>
+      )}
 
       <div id='product-container'>
         <div id='product-inside'>
@@ -451,7 +459,7 @@ const Produtos = () => {
                   + Produto
                 </button>
               </div>
-              
+
             </section>
 
             <p id='result-product'>Resultados ({produtosFiltrados.length})</p>
@@ -470,7 +478,9 @@ const Produtos = () => {
                       <button className='edit-item item-mng' onClick={() => handleEdit(produto)}><IoCreate id='edit-pen' /></button>
                     </div>
                     <div>
-                      <button className='delete-item item-mng' onClick={toggleModalDelete}><IoTrash id='edit-trash' /></button>
+                      <button className='delete-item item-mng' onClick={() => openDeleteModal(produto)}>
+                        <IoTrash id='edit-trash' />
+                      </button>
                     </div>
                   </div>
                 </article>
