@@ -134,6 +134,7 @@ const Funcionarios = () => {
       const genero = generoRef.current?.value || 'Masculino';
       const descricao = descricaoRef.current?.value || 'Não informado';
       const dataContratacao = dataContratoRef.current?.value || 'Não informado';
+      const formacao = formacaoAcademicaRef.current?.value || 'Não informado';
 
 
       let picture = '/img/no_productImg.jpeg';
@@ -158,6 +159,7 @@ const Funcionarios = () => {
           telefone,
           linkedin,
           github,
+          formacao,
           descricao,
           cargo,
           usuarioId: localStorage.getItem('userID') || '',
@@ -270,6 +272,17 @@ const Funcionarios = () => {
     setShowInfoModal(true);
   };
 
+  const handleEdit = (funcionario:Funcionario) => {
+    abrirModalEdicao(funcionario)
+  };
+
+  const abrirModalEdicao = (funcionario: Funcionario) => {
+    if (funcionario) {
+      setEditandoFuncionario(funcionario);
+      setModalEditOpen(true);
+    }
+  };
+
   const fecharModalEdicao = () => {
     setEditandoFuncionario(null);
     setModalEditOpen(false);
@@ -287,33 +300,35 @@ const Funcionarios = () => {
 
   const atualizarFuncionario = async (funcionarioEditado: Funcionario) => {
     try {
-      // Obtenha os dados do funcionario existente
-      const funcionarioExistente = await axios.get(`http://localhost:4000/v3/funcionarios/${funcionarioEditado.id}`);
-
-      // Faça o envio dos novos dados do funcionario para a rota de edição
-      await axios.put(`http://localhost:4000/v3/funcionarios/edit/${funcionarioEditado.id}`, {
+      console.log('ID do funcionário:', funcionarioEditado.id);
+      
+      const funcionarioExistente = await axios.put(`http://localhost:4000/v3/funcionarios/edit/${funcionarioEditado.id}`, {
         ...funcionarioEditado,
-        funcionarioExistente: funcionarioExistente.data // Envie o objeto funcionarioExistente junto com os novos dados
+        // certifique-se de passar os dados corretos para a API de edição
       });
-
+  
+      console.log('Resposta da API:', funcionarioExistente.data); // Verifique a resposta da API
+  
       // Feche o modal de edição após a conclusão
       fecharModalEdicao();
-
+  
       // Atualize a lista de funcionarios após a edição
       fetchFuncionarios();
+  
       // Exibir uma mensagem de sucesso
       setPopupType('sucess');
-      setPopupTitle('funcionario editado');
-      setMensagem('Sucesso ao editar o funcionario');
+      setPopupTitle('Funcionário editado');
+      setMensagem('Sucesso ao editar o funcionário');
       hidePopupAfterTimeout();
     } catch (error) {
-      console.error('Erro ao editar funcionario:', error);
+      console.error('Erro ao editar funcionário:', error);
       setPopupType('warning');
       setPopupTitle('Erro');
-      setMensagem('Erro ao editar o funcionario');
+      setMensagem(`Erro ao editar o funcionário: ${error.message}`);
       hidePopupAfterTimeout();
     }
   };
+  
 
   const handleFilterChange = (e, funcionarios) => {
     const selectedValue = e.target.value;
@@ -474,7 +489,7 @@ const Funcionarios = () => {
                 </div>
                 <button className='see-stf-btn' onClick={() => toggleInfoModal(funcionario)}>Ver detalhes</button>
                 <div className='manager-btn'>
-                  <button className='edit-item item-mng'><IoCreate id='edit-pen' /></button>
+                  <button className='edit-item item-mng' onClick={() => handleEdit(funcionario)}><IoCreate id='edit-pen' /></button>
                   <button className='delete-item item-mng' onClick={handleDelete(funcionario)}><IoTrash id='edit-trash' /></button>
                 </div>
               </article>
@@ -501,8 +516,68 @@ const Funcionarios = () => {
 
               <div className='input-item input-mult'>
                 <span>
+                  <label htmlFor="data-nascimento-item">Data de nascimento:</label>
+                  <input type="date" name='data-nascimento-item' className='full-item' id='data-nascimento-item' value={editandoFuncionario.dataNascimento} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, dataNascimento: e.target.value })} />
+                </span>
+                <span>
                   <label htmlFor="localAtuacao-item">Local de atuação:</label>
                   <input type="text" id='localAtuacao-item' name='localAtuacao-item' className='full-item' value={editandoFuncionario.localAtuacao} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, localAtuacao: e.target.value })} />
+                </span>
+              </div>
+
+              <div className="input-item input-mult">
+                <span>
+                  <label htmlFor="data-contrato-item">Data de Contratação:</label>
+                  <input type="date" name="data-contrato-item" className="full-item" id="data-contrato-item" value={editandoFuncionario.dataContratacao} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, dataContratacao: e.target.value })} />
+                </span>
+                <span>
+                  <label htmlFor="genero-item">Gênero:</label>
+                  <select name="genero-item" className="select-gender" id="genero-item" value={editandoFuncionario.genero} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, genero: e.target.value })} >
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                    <option value="outro">Outro</option>
+                    <option value="prefiro-nao-dizer">Prefiro não dizer</option>
+                  </select>
+                </span>
+              </div>
+
+              <div className='input-item input-single'>
+                <span>
+                  <label htmlFor="email-item">Email:</label>
+                  <input type="text" name='email-item' className='full-item' id='email-item' value={editandoFuncionario.email} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, email: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="cargo-item">Cargo:</label>
+                  <input type="text" name='cargo-item' className='full-item' id='cargo-item' value={editandoFuncionario.cargo} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, cargo: e.target.value })} />
+                </span>
+                <span>
+                  <label htmlFor="telefone-item">Telefone:</label>
+                  <input type="text" name='telefone-item' className='full-item' id='telefone-item' value={editandoFuncionario.telefone} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, telefone: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="cpf-item">CPF:</label>
+                  <input type="text" name='cpf-item' className='full-item' id='cpf-item' value={editandoFuncionario.cpf} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, cpf: e.target.value })} />
+                </span>
+                <span>
+                  <label htmlFor="formacao-academica-item">Formação Acadêmica:</label>
+                  <input type="text" name='formacao-academica-item' className='full-item' id='formacao-academica-item' value={editandoFuncionario.formacao} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, formacao: e.target.value })} />
+                </span>
+              </div>
+
+              <div className='input-item input-mult'>
+                <span>
+                  <label htmlFor="linkedin-item">Linkedin:</label>
+                  <input type="text" name='linkedin-item' className='full-item' id='linkedin-item' value={editandoFuncionario.linkedin} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, linkedin: e.target.value })} />
+                </span>
+                <span>
+                  <label htmlFor="github-item">Github:</label>
+                  <input type="text" name='github-item' className='full-item' id='github-item' value={editandoFuncionario.github} onChange={(e) => setEditandoFuncionario({ ...editandoFuncionario, github: e.target.value })} />
                 </span>
               </div>
 
@@ -685,6 +760,7 @@ const Funcionarios = () => {
                           <p>Cargo: <span>{selectedUser.cargo}</span></p>
                           <p>Data de Contratação: <span>{formatDateBr(selectedUser.dataContratacao)}</span></p>
                           <p>Telefone: <span>{selectedUser.telefone}</span></p>
+                          <p>Formação Acadêmica: <span>{selectedUser.formacao}</span></p>
                         </div>
                       </div>
                     )}

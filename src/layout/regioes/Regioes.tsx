@@ -502,11 +502,11 @@ const Regioes = () => {
               <table>
                 <thead className='theadTableRegions'>
                   <tr>
-                    <td>img</td>
-                    <td>nome</td>
-                    <td>cidade</td>
-                    <td>vendas</td>
-                    <td>faturamento</td>
+                    <td>Foto</td>
+                    <td>Nome </td>
+                    <td>Cidade</td>
+                    <td>Vendas</td>
+                    <td>Faturamento</td>
                     <td className='table-space'></td>
                   </tr>
                 </thead>

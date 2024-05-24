@@ -243,6 +243,7 @@
     margin-bottom: 1rem;
 }
 
+/* Tabela */
 table {
     width: 95%;
     margin: 0 auto;
@@ -250,31 +251,38 @@ table {
     margin: .5rem auto;
     border-collapse: collapse;
     border-radius: 10px;
-}
 
-.tBodyTableRegions tr td {
-    border: 1px solid #ddd;
 }
-
 
 .theadTableRegions tr {
     width: 100%;
     height: 50px;
-    text-align: center;
     background-color: var(--primary-color);
     color: var(--white-color);
     font-weight: bold;
     font-size: .9rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+.theadTableRegions tr td {
+    font-size: 13px;
+    font-family: var(--font-Krona);
 }
 
 tbody {
     max-height: 353px !important;
     overflow-y: auto !important;
+
 }
 
 tbody tr {
     font-size: .9rem;
     background-color: var(--white-color);
+    width: 100%;
+    margin: 0 auto;
 }
 
 .tBodyTableRegions tr td {
@@ -284,9 +292,22 @@ tbody tr {
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     gap: 10px;
     min-width: none !important;
+    border: 1px solid #ddd;
+    padding-left: 30px;
+    font-size: 16px;
+}
+
+
+.tBodyTableRegions tr td p {
+    margin-left: 50px;
+}
+
+.tBodyTableRegions tr td:nth-child(1) {
+    justify-content: center;
+    padding-inline: 0 !important;
 }
 
 tbody tr td button {
@@ -314,6 +335,10 @@ tbody.tBodyTableRegions tr:hover {
     background-color: var(--gray-color);
 }
 
+.table-btns {
+    padding-inline: 10px !important;
+}
+
 .table-regions {
     display: flex;
     flex-direction: column;
@@ -330,7 +355,7 @@ tbody.tBodyTableRegions tr:hover {
 }
 
 .region-pic {
-    width: 130px;
+    width: 80%;
     height: 4rem;
 }
 
@@ -383,7 +408,7 @@ tr {
 /* Estilos para células individuais */
 td {
     flex: 1;
-    padding: 10px;
+    padding: 0;
     /* Outros estilos */
 }
 
@@ -564,7 +589,8 @@ td {
     gap: 1rem;
 }
 
-#add-Region-Btn, #edit-Region-Btn {
+#add-Region-Btn,
+#edit-Region-Btn {
     display: flex;
     padding: .8rem 0;
     justify-content: center;
@@ -578,7 +604,8 @@ td {
     margin-top: 1rem;
 }
 
-#add-Region-Btn:hover, #edit-Region-Btn:hover {
+#add-Region-Btn:hover,
+#edit-Region-Btn:hover {
     background: var(--hover-color);
 }
 
@@ -598,7 +625,7 @@ td {
     }
 }
 
-@media screen and (max-width: 1030px) {
+@media screen and (max-width: 1100px) {
     #region-header {
         text-align: center;
     }
@@ -671,11 +698,21 @@ td {
     .theadTableRegions tr {
         width: 100%;
         height: 50px;
-        text-align: center;
         background-color: var(--primary-color);
         color: var(--white-color);
         font-weight: bold;
         font-size: .9rem;
+        padding: .5rem;
+    }
+
+    .theadTableRegions tr td {
+        font-size: 11px;
+        font-family: var(--font-Krona);
+    }
+
+
+    .tBodyTableRegions tr td {
+        padding-left: 10px;
     }
 
     .edit {
@@ -687,18 +724,35 @@ td {
     }
 
     .table-btns {
+        justify-content: center !important;
         min-width: 100% !important;
     }
 
 }
 
 @media screen and (max-width: 750px) {
+    .region-pic {
+        width: 90%;
+        height: 4rem;
+        border-radius: 100px;
+    }
+
     .input-mult {
         flex-wrap: wrap;
     }
 
     .container-Add-Region {
         width: 80%;
+    }
+
+    .theadTableRegions tr td {
+        font-size: 10px;
+        font-family: var(--font-Krona);
+    }
+
+    .tBodyTableRegions tr td {
+        padding-left: 0;
+        justify-content: center;
     }
 
     .table-space {
@@ -712,7 +766,7 @@ td {
 
 @media screen and (max-width: 480px) {
     #region-card {
-        width: 100%;
+        width: 95%;
     }
 
     #search-container-region {
@@ -723,6 +777,10 @@ td {
     .theadTableRegions tr,
     .tBodyTableRegions td {
         font-size: 11px;
+    }
+
+    .tBodyTableRegions tr td {
+        padding-left: 10px;
     }
 
     tbody tr td {
@@ -746,8 +804,8 @@ td {
     }
 
     .region-pic {
-        width: 45px;
-        height: 45px;
+        width: 100%;
+        height: 100%;
     }
 
     .region-pic img {
