@@ -139,14 +139,18 @@
     flex-direction: column;
     gap: 10px;
     justify-content: center;
+    max-width: 30ch;
 }
 
 #region-desc h1 {
     color: var(--primary-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #region-desc p {
     font-size: 1.2rem;
+    text-overflow: ellipsis;
 }
 
 #region-chart img {
@@ -231,12 +235,6 @@
     border-bottom: 2px solid var(--primary-color);
 }
 
-#container-table-regions {
-    width: 100%;
-    margin: 0 auto;
-    margin-bottom: 2rem;
-}
-
 #result-reg {
     font-weight: bold;
     color: var(--black-color);
@@ -244,6 +242,19 @@
 }
 
 /* Tabela */
+#container-table-regions {
+    width: 100%;
+    height:450px;
+    background: linear-gradient(to right, #fdfdfd, #EBEDF1);
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    overflow-x: hidden;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
 table {
     width: 95%;
     margin: 0 auto;
@@ -251,7 +262,20 @@ table {
     margin: .5rem auto;
     border-collapse: collapse;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10x;
+    overflow-y: auto;
+}
 
+.theadTableRegions {
+    width: 100%;
+    height: 10%;
+    background-color: #fff4;
+    padding: .8rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .theadTableRegions tr {
@@ -263,8 +287,9 @@ table {
     font-size: .9rem;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    margin-top: 1rem;
-    padding: 1rem;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    text-align: center;
 }
 
 .theadTableRegions tr td {
@@ -272,9 +297,15 @@ table {
     font-family: var(--font-Krona);
 }
 
+.theadTableRegions tr td:nth-child(1) {}
+
 tbody {
     max-height: 353px !important;
     overflow-y: auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
 
 }
 
@@ -283,6 +314,7 @@ tbody tr {
     background-color: var(--white-color);
     width: 100%;
     margin: 0 auto;
+    border-radius: 10px;
 }
 
 .tBodyTableRegions tr td {
@@ -292,26 +324,30 @@ tbody tr {
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: start;
+    justify-content: center;
     gap: 10px;
     min-width: none !important;
     border: 1px solid #ddd;
-    padding-left: 30px;
     font-size: 16px;
 }
 
-
 .tBodyTableRegions tr td p {
-    margin-left: 50px;
+    max-width: 10ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    font-family: var(--font-krub);
+    text-align: start;
 }
 
 .tBodyTableRegions tr td:nth-child(1) {
     justify-content: center;
-    padding-inline: 0 !important;
 }
 
 tbody tr td button {
-    padding: .8rem 1rem;
+    width: 40px;
+    height: 40px;
     background: var(--secondy-color);
     border: none;
     border-radius: 5px;
@@ -326,8 +362,30 @@ tbody.tBodyTableRegions tr:hover {
     background: var(--gray-color) !important;
 }
 
-.tBodyTableRegions tr td:nth-child(1) {
+.tBodyTableRegions tr td:nth-child(3) {
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tBodyTableRegions tr td:nth-child(3) .desc-end {
+    color: rgb(105, 105, 105) !important;
+    font-size: 12px !important;
+    max-width: 15ch;
+}
+
+.region-pic {
+    width: 80%;
+    height: 85%;
+}
+
+.region-pic img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
 .tBodyTableRegions tr:hover {
@@ -336,7 +394,7 @@ tbody.tBodyTableRegions tr:hover {
 }
 
 .table-btns {
-    padding-inline: 10px !important;
+    min-width: 10px;
 }
 
 .table-regions {
@@ -352,18 +410,6 @@ tbody.tBodyTableRegions tr:hover {
 
 .delete:hover {
     background-color: #e74c3c;
-}
-
-.region-pic {
-    width: 80%;
-    height: 4rem;
-}
-
-.region-pic img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    object-fit: cover;
 }
 
 .name-table h2 {
@@ -409,7 +455,6 @@ tr {
 td {
     flex: 1;
     padding: 0;
-    /* Outros estilos */
 }
 
 /* Modal */
@@ -689,8 +734,6 @@ td {
     }
 
     table {
-        overflow: hidden;
-        width: 100%;
         display: flex;
         flex-direction: column;
     }
@@ -711,12 +754,14 @@ td {
     }
 
 
-    .tBodyTableRegions tr td {
-        padding-left: 10px;
+    .tBodyTableRegions tr td p{
+        max-width: 10ch;
     }
 
-    .edit {
-        display: flex;
+    .tBodyTableRegions tr td:nth-child(3) .desc-end {
+        color: rgb(105, 105, 105) !important;
+        font-size: 12px !important;
+        max-width: 12ch;
     }
 
     .table-space {
@@ -753,6 +798,17 @@ td {
     .tBodyTableRegions tr td {
         padding-left: 0;
         justify-content: center;
+        max-width: 12ch;
+    }
+
+    .tBodyTableRegions tr td p{
+        max-width: 6ch;
+    }
+
+    .tBodyTableRegions tr td:nth-child(3) .desc-end {
+        color: rgb(105, 105, 105) !important;
+        font-size: 12px !important;
+        max-width: 8ch;
     }
 
     .table-space {

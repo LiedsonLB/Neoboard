@@ -143,10 +143,10 @@ ALTER TABLE "Funcionario" ADD CONSTRAINT "Funcionario_usuarioId_fkey" FOREIGN KE
 ALTER TABLE "Despesa" ADD CONSTRAINT "Despesa_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Venda" ADD CONSTRAINT "Venda_id_fkey" FOREIGN KEY ("id") REFERENCES "VendasEmDivida"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Venda" ADD CONSTRAINT "Venda_funcionarioId_fkey" FOREIGN KEY ("funcionarioId") REFERENCES "Funcionario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Venda" ADD CONSTRAINT "Venda_funcionarioId_fkey" FOREIGN KEY ("funcionarioId") REFERENCES "Funcionario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Venda" ADD CONSTRAINT "Venda_id_fkey" FOREIGN KEY ("id") REFERENCES "VendasEmDivida"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Venda" ADD CONSTRAINT "Venda_produtoid_fkey" FOREIGN KEY ("produtoid") REFERENCES "Produto"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
