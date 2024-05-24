@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Regioes.css";
 import { IoSearch, IoCamera } from 'react-icons/io5';
+import { FaCheckSquare, FaPen, FaTrash } from "react-icons/fa";
 import RegionDoughnout from '../../components/charts/RegionDoughnout.tsx';
 import RegionColumnChart from '../../components/charts/RegionColumnChart.tsx';
 import axios from 'axios';
@@ -356,7 +357,7 @@ const Regioes = () => {
         <div className="Modal-Add">
           <div className="container-Detail-Product">
             <div id="header-modal">
-              <h4 className="modal-title">Informações do Produto</h4>
+              <h4 className="modal-title">Informações da Região</h4>
               <button type="button" className="close-btn" onClick={() => setShowInfoModal(false)}>&times;</button>
             </div>
 
@@ -522,13 +523,15 @@ const Regioes = () => {
                             <img src={regiao.picture} alt={regiao.nome} />
                           </div>
                         </td>
-                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.nome}</td>
-                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.cidade}</td>
-                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.numVendas}</td>
-                        <td onClick={() => handleShowInfoModal(regiao)}>{regiao.faturamento}</td>
+                        <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.nome}</p></td>
+                        <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.cidade}</p>
+                          <p className='desc-end'><span></span> {regiao.endereco}</p>
+                        </td>
+                        <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.numVendas}</p></td>
+                        <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.faturamento}</p></td>
                         <td className='table-btns'>
-                          <button className="edit" onClick={() => handleEdit(regiao)}>Editar</button>
-                          <button className="delete" onClick={toggleModalDelete}>Excluir</button>
+                          <button className="edit" onClick={() => handleEdit(regiao)}><FaPen /></button>
+                          <button className="delete" onClick={toggleModalDelete}><FaTrash /></button>
                         </td>
                       </tr>
                     ))}
