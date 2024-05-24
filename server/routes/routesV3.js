@@ -1,6 +1,6 @@
 import express from 'express';
 import { login, register, getUser, resetSenha, loginGoogle } from '../controllers/userController.js';
-import { addProduto, deleteProduto, editProduto, getInfoProduto, getProduto } from '../controllers/productController.js';
+import { addProduto, deleteProduto, editProduto, getInfoProduto, getProduto, getVariacoesProduto } from '../controllers/productController.js';
 import { addRegion, deleteRegion, editRegion, getInfoRegion, getRegion } from '../controllers/regionController.js';
 import { addFuncionario, deleteFuncionario, editFuncionario, getFuncionarios } from '../controllers/staffController.js';
 import { addDespesa, deleteDespesa, editDespesa, getDespesa } from '../controllers/expenseController.js';
@@ -18,6 +18,7 @@ routerV3.get("/users/:userEmail", getUser);
 // product routers
 routerV3.post("/produtos", addProduto);
 routerV3.get("/produtos", getProduto);
+routerV3.get("/variacoes/:id", getVariacoesProduto);
 routerV3.put("/produtos/edit/:id", editProduto);
 routerV3.delete("/produtos/:id", deleteProduto);
 routerV3.get('/produtos/:id', getInfoProduto);

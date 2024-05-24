@@ -106,8 +106,8 @@ model Venda {
   formaPagamento     String
   usuarioId          String?
   relatorioId        Int
-  dividas            VendasEmDivida @relation(fields: [id], references: [id])
   funcionario        Funcionario    @relation(fields: [funcionarioId], references: [id])
+  dividas            VendasEmDivida @relation(fields: [id], references: [id])
   produto            Produto        @relation(fields: [produtoid], references: [id])
   regiao             Regiao         @relation(fields: [regiaoId], references: [id])
   relatorio          Relatorio      @relation(fields: [relatorioId], references: [id])

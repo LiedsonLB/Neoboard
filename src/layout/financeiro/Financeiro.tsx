@@ -220,7 +220,7 @@ const Financeiro = () => {
 
               <section id="container-table-debts">
                 <table id="table-prod" className="table-debts">
-                  <thead className="head-list-fin">
+                  <thead className="head-list-fin" style={{backgroundColor: 'var(--primary-color)'}}>
                     <tr style={{ paddingBlock: ".5rem" }}>
                       <td>Cliente</td>
                       <td>Data da Compra</td>
@@ -228,7 +228,7 @@ const Financeiro = () => {
                       <td className="action-space">Ações</td>
                     </tr>
                   </thead>
-                  <tbody className="body-list-prod debt">
+                  <tbody className="body-list-prod debt" style={{gap: '5px'}}>
                     <tr>
                       <td>
                         <h3 data-toggle="tooltip" title="Picolé sem cobertura">

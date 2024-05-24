@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { format } from 'date-fns';
+import { IoArrowUpSharp, IoArrowDownSharp } from 'react-icons/io5';
 import ProductColumnChart from '../../components/charts/ProductColumnChart.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../components/loading/Loading.tsx';
@@ -8,27 +10,47 @@ import Produto from '../../models/Produto.tsx';
 const ProdutoInfo = () => {
     const { id } = useParams();
     const [selectedProduct, setSelectedProduct] = useState<Produto | null>(null);
+    const [variacoes, setVariacoes] = useState<any[]>([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProdutoById = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/v3/produtos/${id}`);
-                setSelectedProduct(response.data);
+                const produtoResponse = await axios.get(`http://localhost:4000/v3/produtos/${id}`);
+                setSelectedProduct(produtoResponse.data);
+
+                const variacoesResponse = await axios.get(`http://localhost:4000/v3/variacoes/${id}`);
+                setVariacoes(variacoesResponse.data);
             } catch (error) {
                 console.error('Erro ao buscar detalhes do produto:', error);
                 navigate("/produto_nao_encontrado")
             }
         };
-    
         fetchProdutoById();
     }, [id]);
-    
-    console.log(selectedProduct);   
+
+    console.log(selectedProduct);
 
     if (!selectedProduct) {
         return <Loading />;
     }
+
+    // Função para formatar a data no formato brasileiro
+    const formatarDataBR = (data: string) => {
+        return format(new Date(data), "dd/MM/yyyy"); // Formato "dd/MM/yyyy"
+    };
+
+    // Função para determinar o ícone e a cor com base na variação
+    const getIconAndColor = (variacao: number) => {
+        if (variacao > 0) {
+            return { icon: <IoArrowUpSharp />, color: 'green' }; // Variação positiva (verde)
+        } else if (variacao < 0) {
+            return { icon: <IoArrowDownSharp />, color: 'red' }; // Variação negativa (vermelha)
+        } else {
+            return { icon: null, color: 'inherit' }; // Sem variação (cor padrão)
+        }
+    };
 
     return (
         <div className="" style={{ minHeight: '100vh' }}>
@@ -101,8 +123,38 @@ const ProdutoInfo = () => {
 
                 </div>
 
+                <div id="container-variation-price">
+                    <header>
+                        <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Registro de variações de preço</h3>
+                    </header>
+                    <section id="container-table-infoProduct">
+                        <table id="table-prod" className="table-infoProduct">
+                            <thead className="head-list-fin" style={{ backgroundColor: 'var(--secondy-color)' }}>
+                                <tr style={{ backgroundColor: 'var(--secondy-color) !important' }}>
+                                    <td>Data</td>
+                                    <td>Preço Antigo</td>
+                                    <td>Preço Novo</td>
+                                    <td>Variação</td>
+                                </tr>
+                            </thead>
+                            <tbody className="body-list-prod debt" style={{ gap: '0px !importat' }}>
+                                {variacoes.map((variacao, index) => (
+                                    <tr key={index} style={{fontWeight: 'bold'}}>
+                                        <td>{formatarDataBR(variacao.data)}</td>
+                                        <td>R$ {variacao.preco}</td>
+                                        <td>R$ {variacao.preco + variacao.variacao}</td>
+                                        <td style={{ color: getIconAndColor(variacao.variacao).color }}>
+                                            {getIconAndColor(variacao.variacao).icon} {variacao.variacao}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+
                 <div id='container-more-products'>
-                    ola mundo
+                    
                 </div>
             </div >
         </div >

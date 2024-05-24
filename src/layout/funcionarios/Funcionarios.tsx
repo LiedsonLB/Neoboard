@@ -46,6 +46,8 @@ const Funcionarios = () => {
     if (!dateString) return 'Não informado';
 
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'Não informado';
+
     const day = date.getDate() + 1;
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
@@ -57,6 +59,26 @@ const Funcionarios = () => {
     const monthName = monthNames[month - 1];
 
     return `${day < 10 ? '0' + day : day} de ${monthName} de ${year}`;
+  };
+
+  const calcularIdade = (dataNascimento: string | undefined): string => {
+    if (!dataNascimento) return 'Não informado';
+
+    const hoje = new Date();
+    const dataNasc = new Date(dataNascimento);
+
+    // Verifica se a data de nascimento é inválida
+    if (isNaN(dataNasc.getTime())) return 'Não informado';
+
+    let idade = hoje.getFullYear() - dataNasc.getFullYear();
+    const mesAtual = hoje.getMonth() + 1;
+    const mesNasc = dataNasc.getMonth() + 1;
+
+    if (mesAtual < mesNasc || (mesAtual === mesNasc && hoje.getDate() < dataNasc.getDate())) {
+      idade--;
+    }
+
+    return idade.toString() + ' anos';
   };
 
   const uploadImageToStorage = async (image: File): Promise<string> => {
@@ -101,15 +123,15 @@ const Funcionarios = () => {
   const adicionarFuncionario = async () => {
     try {
       const nome = nomeRef.current?.value;
-      const dataNascimento = dataNascimentoRef.current?.value;
-      const localAtuacao = localAtuacaoRef.current?.value;
+      const dataNascimento = dataNascimentoRef.current?.value || 'Não informado';
+      const localAtuacao = localAtuacaoRef.current?.value || 'Não informado';
       const cargo = cargoRef.current?.value || 'Não informado';
       const email = emailRef.current?.value || 'Não informado';
-      const telefone = telefoneRef.current?.value;
-      const cpf = cpfRef.current?.value;
+      const telefone = telefoneRef.current?.value || 'Não informado';
+      const cpf = cpfRef.current?.value || 'Não informado';
       const linkedin = linkedinRef.current?.value || 'Não informado';
       const github = githubRef.current?.value || 'Não informado';
-      const genero = generoRef.current?.value || 'Não informado';
+      const genero = generoRef.current?.value || 'Masculino';
       const descricao = descricaoRef.current?.value || 'Não informado';
       const dataContratacao = dataContratoRef.current?.value || 'Não informado';
 
@@ -122,7 +144,7 @@ const Funcionarios = () => {
         picture = downloadURL;
       }
 
-      if (nome && dataNascimento && localAtuacao && cpf) {
+      if (nome) {
         const novoFuncionario: Funcionario = {
           picture,
           nameImg: selectedImage ? selectedImage.name : '/img/no_profile.png',
@@ -139,8 +161,8 @@ const Funcionarios = () => {
           descricao,
           cargo,
           usuarioId: localStorage.getItem('userID') || '',
-          numVendas: 2490,
-          faturamento: 67,
+          numVendas: 0,
+          faturamento: 0,
         };
 
         await axios.post('http://localhost:4000/v3/funcionarios', novoFuncionario);
@@ -261,22 +283,6 @@ const Funcionarios = () => {
       setSelectedImage(file);
       reader.readAsDataURL(file);
     }
-  };
-
-  const calcularIdade = (dataNascimento: string | undefined): string => {
-    if (!dataNascimento) return 'Não informado';
-
-    const hoje = new Date();
-    const dataNasc = new Date(dataNascimento);
-    let idade = hoje.getFullYear() - dataNasc.getFullYear();
-    const mesAtual = hoje.getMonth() + 1;
-    const mesNasc = dataNasc.getMonth() + 1;
-
-    if (mesAtual < mesNasc || (mesAtual === mesNasc && hoje.getDate() < dataNasc.getDate())) {
-      idade--;
-    }
-
-    return idade.toString();
   };
 
   const atualizarFuncionario = async (funcionarioEditado: Funcionario) => {
@@ -427,7 +433,7 @@ const Funcionarios = () => {
                   <option value="alfabetica">Ordem Alfabética</option>
                 </optgroup>
                 <optgroup label="Filtrar por Gênero:">
-                  <option value="genero-masculino">masculino</option>
+                  <option value="genero-masculino">Masculino</option>
                   <option value="genero-feminino">feminino</option>
                   <option value="genero-outro">outro</option>
                 </optgroup>
@@ -628,7 +634,7 @@ const Funcionarios = () => {
                 </span>
               </div>
 
-              <button id='add-staff-Btn' onClick={adicionarFuncionario}>Enviar</button>
+              <button id='add-staff-Btn' onClick={() => { adicionarFuncionario(); setShowModal(false) }}>Enviar</button>
             </div>
           </div>
         </div>
@@ -673,11 +679,11 @@ const Funcionarios = () => {
                         </div>
                         <div id="userStfTextInfo">
                           <p>Data de Nascimento: <span>{formatDateBr(selectedUser.dataNascimento)}</span></p>
-                          <p>idade: <span>{calcularIdade(selectedUser.dataNascimento)} anos</span></p>
+                          <p>idade: <span>{calcularIdade(selectedUser.dataNascimento)}</span></p>
                           <p>CPF: <span>{selectedUser.cpf}</span></p>
                           <p>Gênero: <span>{selectedUser.genero}</span></p>
                           <p>Cargo: <span>{selectedUser.cargo}</span></p>
-                          <p>Contratação: <span>{formatDateBr(selectedUser.dataContratacao)}</span></p>
+                          <p>Data de Contratação: <span>{formatDateBr(selectedUser.dataContratacao)}</span></p>
                           <p>Telefone: <span>{selectedUser.telefone}</span></p>
                         </div>
                       </div>

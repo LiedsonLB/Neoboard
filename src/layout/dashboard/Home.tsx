@@ -54,12 +54,16 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                 const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
                     axios.get(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`),
                     axios.get(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`),
-                    axios.get('http://localhost:4000/v3/funcionarios')
+                    axios.get(`http://localhost:4000/v3/funcionarios?userId=${localStorage.getItem('userID')}`)
                 ]);
                 setProdutos(produtosResponse.data.slice(0, 5));
                 setRegions(regionsResponse.data.slice(0, 5));
                 setStaffs(staffsResponse.data.slice(0, 5));
                 setLoading(false);
+
+                console.log(produtos)
+                console.log(regions)
+                console.log(staffs)
             } catch (error) {
                 //console.error('Erro ao buscar dados:', error);
                 setLoading(false);
@@ -225,11 +229,11 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
                     <section id="ranking-container">
                         <header>
-                            <h1>Ranking {dataPeriod}</h1>
+                            <h1>Ranking {dataPeriod} Faturamento</h1>
                         </header>
                         <div id="ranking-types">
                             <div className="ranking">
-                                <p className="ranking-title">Produtos Vendidos</p>
+                                <p className="ranking-title">Produtos</p>
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : produtos.length === 0 ? (
@@ -257,7 +261,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
                             </div>
                             <div className="ranking">
-                                <p className="ranking-title">Arrecadação Regional</p>
+                                <p className="ranking-title">Regiões</p>
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : regions.length === 0 ? (
@@ -383,7 +387,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             <div id="expense-calendar">
                                 <Calendar events={events} />
                                 <div id="calendar-description">
-                                    <p>Clique na data e veja a despesa que você tem naquele dia</p>
+                                    {/* <p>Clique na data e veja a despesa que você tem naquele dia</p> */}
                                 </div>
                             </div>
                         </div>

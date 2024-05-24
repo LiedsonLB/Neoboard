@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function addProduto (req, res) {
+export async function addProduto(req, res) {
     try {
         const novoProdutoData = req.body;
 
@@ -16,7 +16,7 @@ export async function addProduto (req, res) {
     }
 }
 
-export async function getProduto (req, res) {
+export async function getProduto(req, res) {
     try {
         const userId = req.query.userId;
         const produtos = await prisma.produto.findMany({
@@ -110,5 +110,26 @@ export async function editProduto(req, res) {
     } catch (error) {
         console.error('Erro ao editar produto:', error);
         res.status(500).json({ error: 'Erro ao editar produto' });
+    }
+}
+
+export async function getVariacoesProduto(req, res) {
+    const produtoId = parseInt(req.params.id);
+
+    try {
+        // Buscar as variações de preço do produto no banco de dados usando o Prisma
+        const variacoes = await prisma.variacaoPreco.findMany({
+            where: {
+                produtoId: produtoId,
+            },
+            orderBy: {
+                data: 'desc', // Ordena as variações por data em ordem decrescente
+            },
+        });
+
+        res.status(200).json(variacoes);
+    } catch (error) {
+        console.error('Erro ao buscar variações de preço do produto:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' });
     }
 }

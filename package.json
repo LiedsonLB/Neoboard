@@ -33,13 +33,16 @@
     "concurrently": "^7.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run start-front\" \"npm run start-back\" \"npm run start-prisma\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "nodemon server/index.js",
+    "start-front": "react-scripts start",
+    "start-back": "nodemon server/index.js",
+    "start-prisma": "npx prisma studio",
+    "start-docker": "docker-compose up -d",
     "prisma": "npx prisma studio",
-    "dev-all": "concurrently \"npm:start\" \"npm run dev\" \"npm run prisma\""
+    "dev-all": "concurrently \"npm run start-front\" \"npm run start-back\" \"npm run prisma\""
   },
   "eslintConfig": {
     "extends": [

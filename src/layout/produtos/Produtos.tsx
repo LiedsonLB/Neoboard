@@ -450,6 +450,7 @@ const Produtos = () => {
                   + Produto
                 </button>
               </div>
+              
             </section>
 
             <p id='result-product'>Resultados ({produtosFiltrados.length})</p>

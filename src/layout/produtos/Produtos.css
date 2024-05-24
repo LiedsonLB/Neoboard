@@ -202,6 +202,7 @@
 .filter-container-btns {
     display: flex;
     gap: 1rem;
+    position: relative;
 }
 
 #filter-expense:hover {
@@ -872,3 +873,47 @@
         text-overflow: ellipsis;
     }
 }
+
+.categorias-dropdown {
+    position: absolute;
+    background-color: var(--white-color);
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1;
+    top: 2.6rem;
+    left: 1rem;
+}
+
+.categoria-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.categoria-item input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.categoria-item label {
+    margin: 0;
+    cursor: pointer;
+}
+
+#container-variation-price {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    color: var(--white-color);
+    width: 90%;
+    margin: 2rem auto;
+    border-radius: 10px;
+}
+
+#container-table-infoProduct {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.table-infoProduct {}
