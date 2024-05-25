@@ -208,10 +208,11 @@ const LoginPage = () => {
                     </div>
                 </section>
             </main>
-            <footer id='footer-home' style={{padding: '20px', fontSize: '14px !important'}}>
+            <footer id='footer-home'>
                 <div id="container-footer">
-                    <p style={{paddingTop: '0'}}><a href=" ">Termos de Uso</a> | <a href=" ">Política de Privacidade</a> | <a href=" ">Central de Ajuda</a></p>
+                    <p><a href=" ">Termos de Uso</a> | <a href=" ">Política de Privacidade</a> | <a href=" ">Central de Ajuda</a></p>
                 </div>
+                <hr id="lineFooter" />
                 <div id="autoria">
                     <p>&copy; 2024 NeoBoard. Todos os direitos reservados.</p>
                 </div>

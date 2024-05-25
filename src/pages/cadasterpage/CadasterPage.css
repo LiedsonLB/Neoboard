@@ -177,7 +177,7 @@
 @media screen and (max-width: 1000px) {
     .container-sign {
         flex-direction: column-reverse;
-        height: 100vh;
+        height: auto;
     }
 
     .background-color-sign {
