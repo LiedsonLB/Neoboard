@@ -13,6 +13,10 @@
   transform: scale(1.1);
 }
 
+#Neo-Help:active {
+  cursor: grabbing;
+}
+
 #Neo-Help img {
   width: 100%;
   height: 100%;

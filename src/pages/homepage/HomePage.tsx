@@ -29,10 +29,13 @@ const HomePage = () => {
     const [currentComponent, setCurrentComponent] = useState<string>(savedComponent || 'Dashboard');
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState<React.ReactNode>(null);
-    const initialAnimate = sessionStorage.getItem('animateNeoHelp') !== 'false';
-    const [animateNeoHelp, setAnimateNeoHelp] = useState(initialAnimate);
+    const [position, setPosition] = useState({ x: null, y: null });
+    const [dragging, setDragging] = useState(false);
 
     const [user, loading] = useAuthState(auth);
+    const uid = user?.uid;
+    const initialAnimate = localStorage.getItem(`${uid}_animateNeoHelp`) !== 'false';
+    const [animateNeoHelp, setAnimateNeoHelp] = useState(initialAnimate);
 
     useEffect(() => {
         document.title = `${user?.displayName + " | NeoBoard" || "Home"}, bem vindo!!`;
@@ -55,15 +58,51 @@ const HomePage = () => {
     }, []);
 
     useEffect(() => {
-        // Aqui você pode ajustar quando a animação deve ser executada
-        const isAnimationPaused = sessionStorage.getItem('animateNeoHelp') === 'false';
-        setAnimateNeoHelp(!isAnimationPaused);
-    }, []);
+        // Obtém o elemento Neo-Help
+        const helpElement = document.getElementById('Neo-Help');
+        // Verifica se o elemento existe e se as posições não são null
+        if (helpElement && position.x === null && position.y === null) {
+            // Obtém o estilo computado da Neo-Help
+            const computedStyle = window.getComputedStyle(helpElement);
+            // Obtém as posições left e top do estilo computado
+            const initialX = parseFloat(computedStyle.getPropertyValue('left')) || 0;
+            const initialY = parseFloat(computedStyle.getPropertyValue('top')) || 0;
+            // Define as posições iniciais
+            setPosition({ x: initialX, y: initialY });
+        }
+    }, [position]);
+    
 
     useEffect(() => {
-        // Atualiza o sessionStorage quando animateNeoHelp muda
-        sessionStorage.setItem('animateNeoHelp', animateNeoHelp.toString());
-    }, [animateNeoHelp]);
+        if (uid) {
+            const isAnimationPaused = localStorage.getItem(`${uid}_animateNeoHelp`) === 'false';
+            setAnimateNeoHelp(!isAnimationPaused);
+        }
+    }, [uid]);
+
+
+    useEffect(() => {
+        if (uid) {
+            localStorage.setItem(`${uid}_animateNeoHelp`, animateNeoHelp.toString());
+        }
+    }, [animateNeoHelp, uid]);
+
+    useEffect(() => {
+        if (dragging) {
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mouseup', handleMouseUp);
+        } else {
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mouseup', handleMouseUp);
+        }
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mouseup', handleMouseUp);
+        };
+    }, [dragging]); // Adiciona/Remove os listeners baseado no estado de 'dragging'
+
+
 
     const changeComponentStorage = (componentName: string) => {
         sessionStorage.setItem('currentComponent', componentName);
@@ -103,12 +142,13 @@ const HomePage = () => {
         setShowModal(true);
 
         setAnimateNeoHelp(false);
-        sessionStorage.setItem('animateNeoHelp', 'false');
+        if (uid) {
+            localStorage.setItem(`${uid}_animateNeoHelp`, 'false');
+        }
 
         const helpElement = document.getElementById('Neo-Help');
         if (helpElement) {
             helpElement.style.display = 'none';
-       
         }
     };
 
@@ -120,6 +160,30 @@ const HomePage = () => {
             neoElement.style.animation = 'none';
         }
     };
+
+    const handleMouseDown = (event) => {
+        setDragging(true);
+        setPosition({
+            ...position,
+            startX: event.clientX - position.x,
+            startY: event.clientY - position.y
+        });
+    };
+
+    const handleMouseMove = (event) => {
+        if (dragging) {
+            setPosition({
+                ...position,
+                x: event.clientX - position.startX,
+                y: event.clientY - position.startY
+            });
+        }
+    };
+
+    const handleMouseUp = () => {
+        setDragging(false);
+    };
+
 
     const renderComponent = () => {
         switch (currentComponent) {
@@ -149,7 +213,18 @@ const HomePage = () => {
             <div id="homepage">
                 <Aside user={user} changeComponent={(component: string) => changeComponentStorage(component)} />
                 <div id="home-screen">
-                <div id='Neo-Help' onClick={toggleModalOpen} style={{ animation: animateNeoHelp ? 'scaleInSolid 1s ease-in-out infinite alternate' : 'none' }}>
+                    <div
+                        id='Neo-Help'
+                        onClick={toggleModalOpen}
+                        style={{
+                            left: `${position.x}px`,
+                            top: `${position.y}px`,
+                            animation: animateNeoHelp ? 'scaleInSolid 1s ease-in-out infinite alternate' : 'none',
+                            position: 'fixed', // Certifique-se de que é 'fixed' ou 'absolute'
+                            cursor: dragging ? 'grabbing' : 'grab'
+                        }}
+                        onMouseDown={handleMouseDown}
+                    >
                         <img src="/img/NeoHead.png" alt="neo_head" />
                     </div>
 
