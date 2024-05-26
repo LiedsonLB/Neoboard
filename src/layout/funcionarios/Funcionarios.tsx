@@ -268,7 +268,7 @@ const Funcionarios = () => {
     setShowInfoModal(true);
   };
 
-  const handleEdit = (funcionario:Funcionario) => {
+  const handleEdit = (funcionario: Funcionario) => {
     abrirModalEdicao(funcionario)
   };
 
@@ -297,20 +297,20 @@ const Funcionarios = () => {
   const atualizarFuncionario = async (funcionarioEditado: Funcionario) => {
     try {
       console.log('ID do funcionário:', funcionarioEditado.id);
-      
+
       const funcionarioExistente = await axios.put(`http://localhost:4000/v3/funcionarios/edit/${funcionarioEditado.id}`, {
         ...funcionarioEditado,
         // certifique-se de passar os dados corretos para a API de edição
       });
-  
+
       console.log('Resposta da API:', funcionarioExistente.data); // Verifique a resposta da API
-  
+
       // Feche o modal de edição após a conclusão
       fecharModalEdicao();
-  
+
       // Atualize a lista de funcionarios após a edição
       fetchFuncionarios();
-  
+
       // Exibir uma mensagem de sucesso
       setPopupType('sucess');
       setPopupTitle('Funcionário editado');
@@ -324,7 +324,7 @@ const Funcionarios = () => {
       hidePopupAfterTimeout();
     }
   };
-  
+
 
   const handleFilterChange = (e, funcionarios) => {
     const selectedValue = e.target.value;
@@ -625,7 +625,7 @@ const Funcionarios = () => {
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="data-nascimento-item">Data de nascimento:</label>
-                  <input type="date" name='data-nascimento-item' className='full-item' id='data-nascimento-item' ref={dataNascimentoRef} />
+                  <input type="date" name='data-nascimento-item' className='full-item' id='data-nascimento-item' ref={dataNascimentoRef} pattern="\d{2}/\d{2}/\d{4}" value="" />
                 </span>
                 <span>
                   <label htmlFor="local-atuacao-item">Local de atuação:</label>

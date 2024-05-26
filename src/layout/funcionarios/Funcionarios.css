@@ -732,7 +732,7 @@
     font-family: var(--font-Krub);
 }
 
-.input-item span input:focus {
+.desc-staff:focus, .input-item span input:focus {
     border: 2px solid var(--secondy-color);
 }
 

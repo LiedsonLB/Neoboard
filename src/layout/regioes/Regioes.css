@@ -245,7 +245,7 @@
 #container-table-regions {
     width: 100%;
     height:450px;
-    background: linear-gradient(to right, #fdfdfd, #EBEDF1);
+    background: #fdfdfd;
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
     border-radius: .8rem;
@@ -305,15 +305,14 @@ tbody {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-radius: 10px;
-
 }
 
-tbody tr {
+.line-table-regions {
     font-size: .9rem;
     background-color: var(--white-color);
     width: 100%;
     margin: 0 auto;
+    border: 1px solid #ddd;
     border-radius: 10px;
 }
 
@@ -327,7 +326,6 @@ tbody tr {
     justify-content: center;
     gap: 10px;
     min-width: none !important;
-    border: 1px solid #ddd;
     font-size: 16px;
 }
 

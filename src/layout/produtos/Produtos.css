@@ -83,7 +83,7 @@
     margin-top: 1rem
 }
 
-.head-list-fin tr{
+.head-list-fin tr {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
@@ -838,7 +838,7 @@
         margin: 0 auto;
         margin-top: 1rem
     }
-    
+
 }
 
 
@@ -936,3 +936,30 @@
 }
 
 .table-infoProduct {}
+
+.invalid {
+    border: 2px solid #e74c3c !important;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-3px);
+    }
+
+    50% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}

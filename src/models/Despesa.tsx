@@ -5,6 +5,7 @@ interface Despesa {
     tipo: string;
     valor: number;
     usuarioId: number;
+    status: 'Pendente' | 'Pago' | 'Atrasado';
 }
 
 export default Despesa;

@@ -141,22 +141,22 @@ const Produtos = () => {
     try {
       // Obtenha a URL da imagem associada ao produto
       const imagemURL = produto.NameImg;
-  
+
       // Excluir a imagem do Storage
       if (imagemURL) {
         const imagemRef = ref(storage, `products/${imagemURL}`);
         await deleteObject(imagemRef);
       }
-  
+
       // Faz a requisição DELETE para a rota da API para excluir o produto
       await axios.delete(`http://localhost:4000/v3/produtos/${produto.id}`);
-  
+
       // Fecha o Modal
       setShowDeleteModal(false);
-  
+
       // Atualiza a lista de produtos após a exclusão
       fetchProdutos();
-  
+
       // Exibir uma mensagem de sucesso
       setPopupType('sucess');
       setPopupTitle('Produto Excluído');
@@ -278,6 +278,25 @@ const Produtos = () => {
     }
   };
 
+  // Dentro do componente Produtos, adicione um estado para controlar a validade do preço
+  const [precoValido, setPrecoValido] = useState(true);
+
+  // Adicione uma função para validar o preço com base no regex
+  const validarPreco = (valor: string) => {
+    const regex = /^-?\d{1,3}(,\d{3})*(\.\d{1,2})?$/;
+    return regex.test(valor);
+  };
+
+  // Adicione um manipulador de eventos para o campo de preço
+  const handlePrecoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const valor = e.target.value;
+    if (validarPreco(valor)) {
+      setPrecoValido(true);
+    } else {
+      setPrecoValido(false);
+    }
+  };
+
   return (
     <>
       {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
@@ -305,7 +324,18 @@ const Produtos = () => {
 
                 <span>
                   <label htmlFor="valor-item">Valor Unitário (R$):</label>
-                  <input type="text" id='valor-item' name='valor-item' className='full-item' value={editandoProduto.precoAtual} onChange={(e) => setEditandoProduto({ ...editandoProduto, precoAtual: parseFloat(e.target.value) || 0 })} />
+                  <input
+                    ref={valorRef}
+                    type="text"
+                    id='valor-item'
+                    name='valor-item'
+                    className={`full-item ${precoValido ? '' : 'invalid'}`}
+                    value={editandoProduto.precoAtual}
+                    onChange={(e) => {
+                      setEditandoProduto({ ...editandoProduto, precoAtual: parseFloat(e.target.value) || 0 });
+                      handlePrecoChange(e);
+                    }}
+                  />
                 </span>
               </div>
 
@@ -366,7 +396,14 @@ const Produtos = () => {
 
                 <span>
                   <label htmlFor="valor-item">Valor Unitário (R$):</label>
-                  <input ref={valorRef} type="text" id='valor-item' name='valor-item' className='full-item' />
+                  <input
+                    ref={valorRef}
+                    type="text"
+                    id='valor-item'
+                    name='valor-item'
+                    className={`full-item ${precoValido ? '' : 'invalid'}`}
+                    onChange={handlePrecoChange}
+                  />
                 </span>
               </div>
 
@@ -400,7 +437,7 @@ const Produtos = () => {
             <hr className='modal-line' style={{ width: '80%', height: '3px', background: '#000', color: '#000' }} />
 
             <div className='options-logout'>
-            <button className="logout-yes" onClick={() => handleDelete(produtoDelete)}>Sim</button>
+              <button className="logout-yes" onClick={() => handleDelete(produtoDelete)}>Sim</button>
               <button className="logout-no" onClick={() => toggleModalDelete()}>Não</button>
             </div>
           </div>

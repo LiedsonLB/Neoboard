@@ -141,8 +141,8 @@ const Regioes = () => {
         ...regiaoParaAdicionar,
         picture: picture, // Adiciona a URL da imagem aos dados da região
         nameImg: selectedImage ? selectedImage.name : '',
-        faturamento: 0.0,
-        numVendas: 0,
+        faturamento: 35890,
+        numVendas: 243,
         usuarioId: userId,
         clientes: 0,
       });
@@ -525,7 +525,6 @@ const Regioes = () => {
                         </td>
                         <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.nome}</p></td>
                         <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.cidade}</p>
-                          <p className='desc-end'><span></span> {regiao.endereco}</p>
                         </td>
                         <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.numVendas}</p></td>
                         <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.faturamento}</p></td>

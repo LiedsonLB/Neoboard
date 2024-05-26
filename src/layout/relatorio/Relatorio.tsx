@@ -292,7 +292,7 @@ const Relatorio: React.FC = () => {
             ))}
           </tr>
         }
-        <table>
+        <table style={{height: '100% !important'}}>
           <thead>
             {outputData.length > 0 &&
               <tr>

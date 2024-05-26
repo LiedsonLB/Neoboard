@@ -91,7 +91,7 @@ const Financeiro = () => {
         <div className="Modal-Add">
           <div className="container-Add">
             <div id="header-modal">
-              <h4 className="modal-title">Adicionar Funcionário</h4>
+              <h4 className="modal-title">Adicionar Despesa</h4>
               <button
                 type="button"
                 className="close-btn"

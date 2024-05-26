@@ -166,15 +166,19 @@
     height: auto;
     display: flex;
     flex-direction: column;
+    justify-content: start;
+    height: 30rem;
+    background: var(--white-color);
 }
 
-.debt td{
+.debt td {
     min-width: 100px;
 }
 
 .selection-container-debt {
     display: flex;
     justify-content: end;
+    margin-block: 1rem;
 }
 
 .padding- .columns-debt {
@@ -533,8 +537,8 @@
         flex-direction: column;
         justify-content: center;
     }
-    
-    .dbt-card-container{
+
+    .dbt-card-container {
         width: 100%;
         display: flex;
     }
@@ -542,7 +546,7 @@
     .dbt-card {
         width: 100%;
     }
-    
+
     .head-list-fin tr {
         background-color: var(--primary-color);
         color: var(--white-color);
@@ -550,8 +554,8 @@
         text-align: center;
     }
 
-    .action-btns{
-        min-width: none !important;  
+    .action-btns {
+        min-width: none !important;
     }
 }
 
@@ -560,7 +564,7 @@
         max-width: 1fr;
         min-width: 100%;
         max-height: 1fr;
-        min-height:100%;
+        min-height: 100%;
         margin: 0 auto;
         padding-inline: 1rem;
     }
