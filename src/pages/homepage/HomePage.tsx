@@ -31,6 +31,7 @@ const HomePage = () => {
     const [modalContent, setModalContent] = useState<React.ReactNode>(null);
     const [position, setPosition] = useState({ x: null, y: null });
     const [dragging, setDragging] = useState(false);
+    const [mouseMoved, setMouseMoved] = useState(false);
 
     const [user, loading] = useAuthState(auth);
     const uid = user?.uid;
@@ -162,28 +163,43 @@ const HomePage = () => {
     };
 
     const handleMouseDown = (event) => {
+        event.preventDefault();
+        const { clientX, clientY } = event;
         setDragging(true);
         setPosition({
             ...position,
-            startX: event.clientX - position.x,
-            startY: event.clientY - position.y
+            startX: clientX - position.x,
+            startY: clientY - position.y,
+            mouseX: clientX,
+            mouseY: clientY
         });
     };
-
+    
     const handleMouseMove = (event) => {
+        event.preventDefault();
         if (dragging) {
+            const { clientX, clientY } = event;
             setPosition({
                 ...position,
-                x: event.clientX - position.startX,
-                y: event.clientY - position.startY
+                x: clientX - position.startX,
+                y: clientY - position.startY,
+                mouseX: clientX,
+                mouseY: clientY
             });
+            // Define a flag de movimento do mouse como true
+            setMouseMoved(true);
         }
     };
-
+    
     const handleMouseUp = () => {
         setDragging(false);
+        // Se não houve movimento significativo do mouse, não abre o modal
+        if (!mouseMoved) {
+            toggleModalOpen();
+        }
+        // Reseta a flag de movimento do mouse
+        setMouseMoved(false);
     };
-
 
     const renderComponent = () => {
         switch (currentComponent) {
@@ -224,6 +240,7 @@ const HomePage = () => {
                             cursor: dragging ? 'grabbing' : 'grab'
                         }}
                         onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
                     >
                         <img src="/img/NeoHead.png" alt="neo_head" />
                     </div>
