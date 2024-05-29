@@ -43,7 +43,7 @@ export async function deleteDespesa (req, res) {
 export async function editDespesa (req, res) {
     try {
         const despesaId = parseInt(req.params.id);
-        const novosDadosDespesa = req.body; // Certifique-se de que os campos que podem ser atualizados estão presentes no corpo da solicitação
+        const novosDadosDespesa = req.body;
         const updatedDespesa = await prisma.despesa.update({
             where: { id: despesaId },
             data: novosDadosDespesa

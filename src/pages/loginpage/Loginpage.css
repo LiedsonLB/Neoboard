@@ -168,6 +168,14 @@
   transition: .8s;
   font-weight: bold;
   font-family: var(--font-Krub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.login-google svg {
+  font-size: 1rem;
 }
 
 .login-btn:hover {

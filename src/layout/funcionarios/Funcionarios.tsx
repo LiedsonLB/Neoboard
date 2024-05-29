@@ -60,6 +60,10 @@ const Funcionarios = () => {
     return `${day < 10 ? '0' + day : day} de ${monthName} de ${year}`;
   };
 
+  useEffect(() => {
+    fetchFuncionarios();
+  }, [localStorage.getItem('userID')]);
+
   const calcularIdade = (dataNascimento: string | undefined): string => {
     if (!dataNascimento) return 'Não informado';
 
@@ -206,10 +210,6 @@ const Funcionarios = () => {
       hidePopupAfterTimeout();
     }
   };
-
-  useEffect(() => {
-    fetchFuncionarios();
-  }, [localStorage.getItem('userID')]);
 
   const handleDelete = (funcionario: Funcionario) => async () => {
     try {

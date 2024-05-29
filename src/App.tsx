@@ -22,9 +22,6 @@ const App = () => {
           if (response.data && response.data.id) {
             localStorage.setItem('userID', response.data.id);
           } else {
-            console.log(response.data)
-            console.log(response.data.id)
-            console.error('User not found');
             localStorage.setItem('userID', 'User not found');
 
           }

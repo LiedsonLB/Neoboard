@@ -65,7 +65,7 @@ const ProdutoInfo = () => {
                     }}>Informações do Produto</h4>
                 </div>
 
-                <div id='Product-Info-Container' style={{ minHeight: '100vh', overflowX: 'inherit', paddingInline: '1rem' }}>
+                <div id='Product-Info-Container' style={{ minHeight: '100vh', overflowX: 'inherit', paddingInline: '1rem', paddingBlock: '3rem' }}>
                     <div id='infoprod-popup' style={{ height: 'auto' }}>
                         <div id='prodInfo-popup'>
                             <img src={selectedProduct.picture} alt="product-avatar" />
@@ -75,7 +75,7 @@ const ProdutoInfo = () => {
                                 <p><span>Valor:</span> R$ {selectedProduct.precoAtual.toFixed(2)}</p>
                                 <p><span>Descrição:</span> {selectedProduct.descricao}</p>
                                 <div className='userStfSocialMidia' style={{ gap: '2rem' }}>
-                                    <p><span>Código:</span> {selectedProduct.id}</p> <a href={"/product/" + selectedProduct.id}><i className="fa-solid fa-share-nodes"></i></a>
+                                    <p><span>Código:</span> {selectedProduct.id}</p>
                                 </div>
                             </div>
                         </div>
@@ -146,10 +146,10 @@ const ProdutoInfo = () => {
                                     variacoes.map((variacao, index) => (
                                         <tr key={index} style={{ fontWeight: 'bold' }}>
                                             <td>{formatarDataBR(variacao.data)}</td>
-                                            <td>R$ {variacao.preco}</td>
-                                            <td>R$ {variacao.preco + variacao.variacao}</td>
+                                            <td>R$ {variacao.preco.toFixed(2)}</td>
+                                            <td>R$ {(variacao.preco + variacao.variacao).toFixed(2)}</td>
                                             <td style={{ color: getIconAndColor(variacao.variacao).color }}>
-                                                {getIconAndColor(variacao.variacao).icon} {variacao.variacao}
+                                                {getIconAndColor(variacao.variacao).icon} {variacao.variacao.toFixed(2)}
                                             </td>
                                         </tr>
                                     ))

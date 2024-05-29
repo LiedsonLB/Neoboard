@@ -44,13 +44,13 @@ export async function getInfoProduto(req, res) {
 
         // Verifica se o produto foi encontrado
         if (produto) {
-            res.status(200).json(produto); // Retorna os dados do produto em formato JSON
+            res.status(200).json(produto);
         } else {
-            res.status(404).json({ error: 'Produto não encontrado' }); // Retorna um status 404 se o produto não foi encontrado
+            res.status(404).json({ error: 'Produto não encontrado' });
         }
     } catch (error) {
         console.error('Erro ao buscar produto:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' }); // Retorna um status 500 em caso de erro interno do servidor
+        res.status(500).json({ error: 'Erro interno do servidor' });
     }
 }
 
@@ -84,13 +84,11 @@ export async function editProduto(req, res) {
         const produtoId = parseInt(req.params.id);
         const { precoAtual, variacoesPreco, produtoExistente, ...novosDadosProduto } = req.body;
         let updateData = { ...novosDadosProduto };
-        // Verificar se o preço atual foi alterado
         if (precoAtual !== produtoExistente.precoAtual) {
-            // Calcular a variação de preço
             const variacaoPreco = {
                 produtoId: produtoId,
-                data: new Date(), // Data da alteração do preço
-                variacao: precoAtual - produtoExistente.precoAtual, // Variação de preço
+                data: new Date(),
+                variacao: precoAtual - produtoExistente.precoAtual,
                 preco: produtoExistente.precoAtual
             };
             // Salvar a variação de preço
@@ -117,13 +115,12 @@ export async function getVariacoesProduto(req, res) {
     const produtoId = parseInt(req.params.id);
 
     try {
-        // Buscar as variações de preço do produto no banco de dados usando o Prisma
         const variacoes = await prisma.variacaoPreco.findMany({
             where: {
                 produtoId: produtoId,
             },
             orderBy: {
-                data: 'desc', // Ordena as variações por data em ordem decrescente
+                data: 'desc',
             },
         });
 

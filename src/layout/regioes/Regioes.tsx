@@ -141,10 +141,14 @@ const Regioes = () => {
         ...regiaoParaAdicionar,
         picture: picture, // Adiciona a URL da imagem aos dados da região
         nameImg: selectedImage ? selectedImage.name : '',
-        faturamento: 35890,
-        numVendas: 243,
+        faturamento: 0,
+        numVendas: 0,
         usuarioId: userId,
         clientes: 0,
+        endereco: regiaoParaAdicionar.endereco  || 'Não informado',
+        descricao: regiaoParaAdicionar.descricao  || 'Não informado',
+        responsavel: regiaoParaAdicionar.responsavel  || 'Não informado',
+        cidade: regiaoParaAdicionar.cidade  || 'Não informado',
       });
 
       // Exibir uma mensagem de sucesso

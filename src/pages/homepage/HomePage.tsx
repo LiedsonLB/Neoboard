@@ -32,6 +32,8 @@ const HomePage = () => {
     const [position, setPosition] = useState({ x: null, y: null });
     const [dragging, setDragging] = useState(false);
     const [mouseMoved, setMouseMoved] = useState(false);
+    const [isClick, setIsClick] = useState(true); // Flag to differentiate click and drag
+    const clickThreshold = 5; // Distance in pixels to consider as drag
 
     const [user, loading] = useAuthState(auth);
     const uid = user?.uid;
@@ -103,8 +105,6 @@ const HomePage = () => {
         };
     }, [dragging]); // Adiciona/Remove os listeners baseado no estado de 'dragging'
 
-
-
     const changeComponentStorage = (componentName: string) => {
         sessionStorage.setItem('currentComponent', componentName);
         setCurrentComponent(componentName); // Defina o estado com o novo valor
@@ -164,6 +164,7 @@ const HomePage = () => {
 
     const handleMouseDown = (event) => {
         event.preventDefault();
+        setIsClick(true); // Set as a click initially
         const { clientX, clientY } = event;
         setDragging(true);
         setPosition({
@@ -179,6 +180,11 @@ const HomePage = () => {
         event.preventDefault();
         if (dragging) {
             const { clientX, clientY } = event;
+            const deltaX = clientX - position.mouseX;
+            const deltaY = clientY - position.mouseY;
+            if (Math.abs(deltaX) > clickThreshold || Math.abs(deltaY) > clickThreshold) {
+                setIsClick(false); // Set as a drag if moved significantly
+            }
             setPosition({
                 ...position,
                 x: clientX - position.startX,
@@ -186,7 +192,6 @@ const HomePage = () => {
                 mouseX: clientX,
                 mouseY: clientY
             });
-            // Define a flag de movimento do mouse como true
             setMouseMoved(true);
         }
     };
@@ -194,7 +199,7 @@ const HomePage = () => {
     const handleMouseUp = () => {
         setDragging(false);
         // Se não houve movimento significativo do mouse, não abre o modal
-        if (!mouseMoved) {
+        if (isClick) {
             toggleModalOpen();
         }
         // Reseta a flag de movimento do mouse
@@ -231,7 +236,6 @@ const HomePage = () => {
                 <div id="home-screen">
                     <div
                         id='Neo-Help'
-                        onClick={toggleModalOpen}
                         style={{
                             left: `${position.x}px`,
                             top: `${position.y}px`,

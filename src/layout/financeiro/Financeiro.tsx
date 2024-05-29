@@ -59,7 +59,9 @@ const Financeiro = () => {
     fetchDespesas();
   }, []);
 
-  const adicionarDespesa = () => {};
+  const adicionarDespesa = () => {
+    
+  };
 
   const handleDelete = (despesa: any) => async () => {
     try {

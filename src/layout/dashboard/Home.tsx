@@ -71,7 +71,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
         };
 
         fetchData();
-    }, []);
+    }, [localStorage.getItem('userID')]);
 
     const dataCards = {
         faturamento: 0,

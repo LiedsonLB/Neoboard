@@ -268,7 +268,7 @@ input[type="file"] {
 #output table {
     width: 100%;
     margin: 0 auto;
-    height: 50% !important;
+    height: 100% !important;
     overflow: auto;
 }
 
@@ -282,6 +282,15 @@ input[type="file"] {
     color: var(--white-color);
     font-size: .7rem;
     text-align: center;
+}
+
+.output-input-fild {
+    outline: none;
+    font-family: var(--font-Krub);
+}
+
+.output-input-fild:focus {
+    border: 2px solid var(--hover-color);
 }
 
 #output table thead {
@@ -476,4 +485,27 @@ input[type="file"] {
     background-color: var(--primary-color) !important;
     color: var(--white-color) !important;
     border: 1px solid var(--primary-color);
+}
+
+.valid-options-list {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  width: 95%;
+  min-width: 20ch;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.valid-options-list li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.valid-options-list li:hover {
+  background-color: #eee;
 }

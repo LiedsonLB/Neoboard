@@ -7,35 +7,73 @@ import './Relatorio.css';
 import LoadingComponent from '../../components/loading/LoadingComponent.tsx';
 import Popup from '../../components/popup/Popup.tsx';
 
+interface Venda {
+  Data: string;
+  Funcionário: string;
+  Produto: string;
+  'Qtd. Comprada': number;
+  Comprador: string;
+  Região: string;
+  'Forma de pagamento': string;
+}
+
+interface Produto {
+  id: number;
+  nome: string;
+}
+
+interface Funcionario {
+  id: number;
+  nome: string;
+}
+
+interface Regiao {
+  id: number;
+  nome: string;
+}
+
 const Relatorio: React.FC = () => {
   const [outputData, setOutputData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
-  const [vendas, setvendas] = useState([]);
-  const [funcionarios, setFuncionarios] = useState([]);
+  const [vendas, setVendas] = useState<Venda[]>([]);
+  const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
+  const [regioes, setRegioes] = useState<Regiao[]>([]);
+  const [produtos, setProdutos] = useState<Produto[]>([]);
   const [editedData, setEditedData] = useState<any[][]>([]);
+  const [invalidCells, setInvalidCells] = useState<{ [key: string]: boolean }>({});
 
   const dateNow = new Date();
   const day = dateNow.getDate();
   const month = dateNow.getMonth() + 1;
   const year = dateNow.getFullYear();
 
+  useEffect(() => {
+    fetchData();
+  }, [localStorage.getItem('userID')]);
+
+  const fetchData = async () => {
+    try {
+      const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
+        axios.get<Produto[]>(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`),
+        axios.get<Regiao[]>(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`),
+        axios.get<Funcionario[]>(`http://localhost:4000/v3/funcionarios?userId=${localStorage.getItem('userID')}`)
+      ]);
+      setProdutos(produtosResponse.data);
+      setRegioes(regionsResponse.data);
+      setFuncionarios(staffsResponse.data);
+
+    } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+      setLoading(false);
+    }
+  };
+
   const displayData = (data: any) => {
     setOutputData(data);
     setLoading(false);
-  };
-
-  const fetchVendas = async () => {
-    try {
-      const response = await axios.get('http://localhost:4000/v2/vendas');
-      setvendas(response.data);
-      console.log(response.data)
-      //const categoriasUnicas = new Set(response.data.map((produto: any) => produto.categoria));
-    } catch (error) {
-      console.error('Erro ao buscar vendas:', error);
-    }
   };
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +85,6 @@ const Relatorio: React.FC = () => {
         if (Array.isArray(data)) {
           displayData(data);
         } else if (typeof data === 'object') {
-          // Se os dados são um objeto, convertemos para array de valores
           const dataArray = Object.values(data);
           displayData(dataArray);
         } else {
@@ -94,13 +131,11 @@ const Relatorio: React.FC = () => {
     const dateColumnIndex = headerRow.indexOf('Data');
 
     if (dateColumnIndex !== -1) {
-      // converte as datas para strings
       const formattedData = jsonData.map((row: any, rowIndex: number) => {
         if (rowIndex === 0) return row;
         return row.map((cell: any, cellIndex: number) => {
           if (cellIndex === dateColumnIndex) {
             if (typeof cell === 'number') {
-              // caso a celula seja um número de série do excel ele converte para uma data (Liedson)
               const serialDate = cell;
               const millisecondsSince1900 = (serialDate - 1 - 2) * 24 * 60 * 60 * 1000;
               const date = new Date(1900, 0, 1 + Math.floor(serialDate) - 2, 0, 0, 0, millisecondsSince1900 % 1000);
@@ -123,7 +158,6 @@ const Relatorio: React.FC = () => {
           return cell;
         });
       });
-      // formata todos os dados com data convertida
       return formattedData;
     }
     return jsonData;
@@ -168,38 +202,66 @@ const Relatorio: React.FC = () => {
     }
   }
 
-  // Ao enviar o relatório, use os dados editados em vez dos dados originais
   const enviarRelatorioVendas = async () => {
     try {
-      // Filtrar as linhas vazias
       const filteredOutputData = outputData.slice(1).filter((row) => row.some(cell => cell !== null && cell !== ''));
 
-      const vendas = editedData.slice().map((row: any) => ({
-        Data: row[0],
-        Funcionário: row[1],
-        Produto: row[2],
-        'Qtd. Comprada': row[3],
-        Comprador: row[4],
-        Região: row[5],
-        'Forma de pagamento': row[6],
-      }));
+      const newInvalidCells: { [key: string]: boolean } = {};
+      const vendas = filteredOutputData.map((row: any, rowIndex: number) => {
+        const funcionario = row[1].trim();
+        const produto = row[2].trim();
+        const regiao = row[5].trim();
 
-      console.log('Dados das vendas a serem enviados:', filteredOutputData);
+        if (!funcionarios.some(f => f.nome === funcionario)) {
+          newInvalidCells[`${rowIndex}-1`] = true;
+        }
+        if (!produtos.some(p => p.nome === produto)) {
+          newInvalidCells[`${rowIndex}-2`] = true;
+        }
+        if (!regioes.some(r => r.nome === regiao)) {
+          newInvalidCells[`${rowIndex}-5`] = true;
+        }
 
-      // Restante do código para enviar o relatório...
+        return {
+          Data: row[0],
+          Funcionário: funcionario,
+          Produto: produto,
+          'Qtd. Comprada': row[3],
+          Comprador: row[4],
+          Região: regiao,
+          'Forma de pagamento': row[6],
+        };
+      });
+
+      setInvalidCells(newInvalidCells);
+
+      if (Object.keys(newInvalidCells).length === 0) {
+        setVendas(vendas);
+        console.log('Celulas Invalidas: ', invalidCells)
+        console.log('Dados das vendas a serem enviados:', vendas);
+        console.log('Vendas Totais: ', vendas)
+
+      } else {
+        console.log('Existem dados inválidos, por favor corrija-os antes de enviar.');
+        setPopupType('warning');
+        setPopupTitle('Campos Inválidos:');
+        setMensagem('O relatório apresenta dados inexistentes');
+        hidePopupAfterTimeout();
+      }
+
+      console.log(filteredOutputData)
+
     } catch (error) {
       console.error('Erro ao enviar dados para a API:', error);
       setPopupType('warning');
-      setPopupTitle('Erro');
-      setMensagem('Erro ao enviar dados para a API');
+      setPopupTitle('Relatório Incompatível:');
+      setMensagem('Use algum dos modelos para baixar');
       hidePopupAfterTimeout();
     }
   };
 
   const handleFormatChange = (event: any) => {
     const selectedFormat = event.target.value;
-
-    // URL do modelo para download
     let downloadUrl = '';
 
     if (selectedFormat === 'csv') {
@@ -210,7 +272,6 @@ const Relatorio: React.FC = () => {
       downloadUrl = './planilhaVazia/neoboardPlanilha.txt';
     }
 
-    // Criando um link temporário para download
     const link = document.createElement('a');
     link.href = downloadUrl;
     link.download = `Relatorio_de_vendas_${day}-${month}-${year}.${selectedFormat}`;
@@ -225,6 +286,14 @@ const Relatorio: React.FC = () => {
     }, 4000);
   };
 
+  const [showValidOptions, setShowValidOptions] = useState<{ [key: string]: boolean }>({});
+  const [validOptions, setValidOptions] = useState<{ [key: string]: string[] }>({});
+
+  const changeComponentStorage = (componentName: string) => {
+    sessionStorage.setItem('currentComponent', componentName);
+    window.location.reload();
+  };
+
   return (
     <div id='report-container'>
       {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
@@ -234,7 +303,6 @@ const Relatorio: React.FC = () => {
 
       <main id='report-main'>
         <section id='report-right'>
-
           <div id="drop-area"
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -259,7 +327,6 @@ const Relatorio: React.FC = () => {
           <hr id='report-line' />
 
           <div id='report-btns'>
-
             <select id="format-select" onChange={handleFormatChange} defaultValue="">
               <option disabled value="">Baixe o Modelo:</option>
               <option className='selection-options' value="xlsx">Excel (.xlsx)</option>
@@ -287,12 +354,12 @@ const Relatorio: React.FC = () => {
           <tr>
             {vendas.map((header: any, index: number) => (
               <td key={index}>
-                <h3>{vendas}</h3>
+                <h3>{header}</h3>
               </td>
             ))}
           </tr>
         }
-        <table style={{height: '100% !important'}}>
+        <table style={{ height: '100% !important' }}>
           <thead>
             {outputData.length > 0 &&
               <tr>
@@ -307,21 +374,81 @@ const Relatorio: React.FC = () => {
           <tbody>
             {outputData.slice(1).map((row, rowIndex) => (
               <tr key={rowIndex}>
-                {row.map((cell: any, cellIndex: number) => (
-                  <td key={cellIndex}>
-                    <input
-                      type="search"
-                      value={editedData[rowIndex]?.[cellIndex] ?? cell}
-                      style={{ width: "100%" }}
-                      onChange={(e) => {
-                        const newData = [...editedData];
-                        if (!newData[rowIndex]) newData[rowIndex] = [];
-                        newData[rowIndex][cellIndex] = e.target.value;
-                        setEditedData(newData);
-                      }}
-                    />
-                  </td>
-                ))}
+                {row.map((cell: any, cellIndex: number) => {
+                  const cellKey = `${rowIndex}-${cellIndex}`;
+                  const isInvalid = invalidCells[cellKey];
+                  const showOptions = showValidOptions[cellKey];
+
+                  let options: string[] = [];
+                  if (cellIndex === 1) {
+                    options = funcionarios.map(f => f.nome);
+                  } else if (cellIndex === 2) {
+                    options = produtos.map(p => p.nome);
+                  } else if (cellIndex === 5) {
+                    options = regioes.map(r => r.nome);
+                  }
+
+                  return (
+                    <td key={cellIndex} style={{ position: 'relative' }}>
+                      <input
+                        className={`output-input-fild ${isInvalid ? 'invalid' : ''}`}
+                        type="search"
+                        value={editedData[rowIndex]?.[cellIndex] ?? cell}
+                        style={{ width: "100%" }}
+                        onFocus={() => {
+                          if (isInvalid) {
+                            setValidOptions({ ...validOptions, [cellKey]: options });
+                            setShowValidOptions({ ...showValidOptions, [cellKey]: true });
+                          }
+                        }}
+                        onChange={(e) => {
+                          const newData = [...editedData];
+                          if (!newData[rowIndex]) newData[rowIndex] = [];
+                          newData[rowIndex][cellIndex] = e.target.value;
+                          setEditedData(newData);
+                          if (isInvalid) {
+                            setValidOptions({ ...validOptions, [cellKey]: options });
+                            setShowValidOptions({ ...showValidOptions, [cellKey]: true });
+                          }
+                        }}
+                        onBlur={() => {
+                          setTimeout(() => {
+                            setShowValidOptions({ ...showValidOptions, [cellKey]: false });
+                          }, 200); // Delay to allow clicking on options
+                        }}
+                      />
+                      {isInvalid && showOptions && (
+                        <ul className="valid-options-list">
+                          {validOptions[cellKey]?.map(option => (
+                            <li key={option} onMouseDown={() => {
+                              const newData = [...editedData];
+                              if (!newData[rowIndex]) newData[rowIndex] = [];
+                              newData[rowIndex][cellIndex] = option;
+                              setEditedData(newData);
+                              setShowValidOptions({ ...showValidOptions, [cellKey]: false });
+                            }}>
+                              {option}
+                            </li>
+                          ))}
+                          <li
+                            style={{ backgroundColor: 'var(--primary-color)', color: 'var(--white-color)' }}
+                            onMouseDown={() => {
+                              if (cellIndex === 1) {
+                                changeComponentStorage('Funcionarios');
+                              } else if (cellIndex === 2) {
+                                changeComponentStorage('Produtos');
+                              } else if (cellIndex === 5) {
+                                changeComponentStorage('Regioes');
+                              }
+                            }}
+                          >
+                            Criar Opção
+                          </li>
+                        </ul>
+                      )}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
@@ -329,6 +456,6 @@ const Relatorio: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Relatorio;
