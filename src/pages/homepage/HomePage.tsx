@@ -164,7 +164,7 @@ const HomePage = () => {
 
     const handleMouseDown = (event) => {
         event.preventDefault();
-        setIsClick(true); // Set as a click initially
+        setIsClick(true);
         const { clientX, clientY } = event;
         setDragging(true);
         setPosition({
@@ -183,7 +183,7 @@ const HomePage = () => {
             const deltaX = clientX - position.mouseX;
             const deltaY = clientY - position.mouseY;
             if (Math.abs(deltaX) > clickThreshold || Math.abs(deltaY) > clickThreshold) {
-                setIsClick(false); // Set as a drag if moved significantly
+                setIsClick(false);
             }
             setPosition({
                 ...position,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   IoAddCircleOutline,
   IoCamera,
@@ -14,13 +14,10 @@ import axios from "axios";
 import FinancialColumnChart from "../../components/charts/FinancialColumnChart.tsx";
 import FinancialLineChart from "../../components/charts/FinancialLineChart.tsx";
 import { FaCheckSquare, FaTrash } from "react-icons/fa";
-
-interface Despesa {
-  nome: string;
-  tipo: string;
-  descricao: string;
-  valor: number;
-}
+import Popup from "../../components/popup/Popup.tsx";
+import Despesa from "../../models/Despesa.tsx";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Financeiro = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -28,7 +25,11 @@ const Financeiro = () => {
   const [showModal, setShowModal] = useState(false);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
   const [categorias, setCategorias] = useState<string[]>([]);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const [mensagem, setMensagem] = useState('');
+  const [popupType, setPopupType] = useState('');
+  const [popupTitle, setPopupTitle] = useState('');
 
   const expenseIcons: { [key: string]: string } = {
     Salario: "fas fa-dollar-sign",
@@ -46,24 +47,103 @@ const Financeiro = () => {
     Manutencao: "#5B7FFF",
   };
 
-  useEffect(() => {
-    const fetchDespesas = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/v3/despesas");
-        setDespesas(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar despesas:", error);
-      }
-    };
+  const nomeRef = useRef<HTMLInputElement>(null);
+  const dataRef = useRef<HTMLInputElement>(null);
+  const tipoRef = useRef<HTMLInputElement>(null);
+  const valorRef = useRef<HTMLInputElement>(null);
+  const descricaoRef = useRef<HTMLTextAreaElement>(null);
 
-    fetchDespesas();
+  useEffect(() => {
+    fetchDespesas()
   }, []);
 
-  const adicionarDespesa = () => {
-    
+  const hidePopupAfterTimeout = () => {
+    setTimeout(() => {
+      setMensagem('');
+    }, 4500);
   };
 
-  const handleDelete = (despesa: any) => async () => {
+  const fetchDespesas = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/v3/despesas");
+      setDespesas(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar despesas:", error);
+    }
+  };
+
+  fetchDespesas();
+
+  const adicionarDespesa = async () => {
+    try {
+      const userId = localStorage.getItem('userID');
+
+      // Obter os valores dos campos
+      const nome = nomeRef.current?.value || '';
+      const data = dataRef.current?.value || '';
+      const tipo = tipoRef.current?.value || '';
+      const valor = parseFloat(valorRef.current?.value || '0');
+      const descricao = descricaoRef.current?.value || '';
+
+      console.log(nome)
+      console.log(data)
+      console.log(tipo)
+      console.log(valor)
+      console.log(descricao)
+
+      // Validar os campos (por exemplo, verificar se estão preenchidos)
+      if (!nome || !data || !tipo || !valor || !descricao) {
+        console.error('Por favor, preencha todos os campos.');
+        return;
+      }
+
+      // Definir o status com base na data
+      const hoje = new Date().toISOString().split('T')[0];
+      let status = '';
+      if (!data || data === hoje) {
+        status = 'Paga';
+      } else if (data < hoje) {
+        status = 'Atrasada';
+      } else {
+        status = 'Pendente';
+      }
+
+      // Criar a nova despesa
+      const novaDespesa: Despesa = {
+        nome,
+        data,
+        tipo,
+        valor,
+        descricao,
+        status,
+        usuarioId: userId || '',
+      };
+
+      // Enviar a requisição para adicionar a nova despesa
+      await axios.post('http://localhost:4000/v3/despesas', novaDespesa);
+
+      // Limpar os campos do formulário e redefinir o estado do modal
+      nomeRef.current!.value = '';
+      dataRef.current!.value = '';
+      tipoRef.current!.value = '';
+      valorRef.current!.value = '';
+      descricaoRef.current!.value = '';
+
+      // Atualizar a lista de despesas após adição
+      fetchDespesas();
+
+      // Exibir uma mensagem de sucesso
+      setPopupType('sucess');
+      setPopupTitle('Produto adicionado');
+      setMensagem('Sucesso ao adicionar o produto');
+      hidePopupAfterTimeout();
+
+    } catch (error) {
+      console.error("Erro ao adicionar despesa:", error);
+    }
+  };
+
+  const handleDelete = (despesa: Despesa) => async () => {
     try {
       // Faz a requisição DELETE para a rota da API para excluir o despesas
       await axios.delete(`http://localhost:4000/v3/despesas/${despesa.nome}`);
@@ -71,7 +151,7 @@ const Financeiro = () => {
       // Atualiza a lista de despesas após a exclusão
       const updatedDespesas = despesas.filter((d) => d.nome !== despesa.nome);
       setDespesas(updatedDespesas);
-      //setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
+      //setFiltroPesquisa('');
     } catch (error) {
       console.error("Erro ao excluir despesa:", error);
     }
@@ -84,14 +164,34 @@ const Financeiro = () => {
   const handleEdit = (despesa: any) => {
     // Define os dados do despesa selecionado para edição
     console.log(despesa);
-    //setDespesaParaEditar(despesa); // Aqui você está definindo os dados do região selecionado para edição
+    //setDespesaParaEditar(despesa);
+  };
+
+  // Dentro do componente Produtos, adicione um estado para controlar a validade do preço
+  const [precoValido, setPrecoValido] = useState(true);
+
+  // Adicione uma função para validar o preço com base no regex
+  const validarPreco = (valor: string) => {
+    const regex = /^-?\d{1,3}(,\d{3})*(\.\d{1,2})?$/;
+    return regex.test(valor);
+  };
+
+  // Adicione um manipulador de eventos para o campo de preço
+  const handlePrecoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const valor = e.target.value;
+    if (validarPreco(valor)) {
+      setPrecoValido(true);
+    } else {
+      setPrecoValido(false);
+    }
   };
 
   return (
     <>
+      {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
       {showModal && (
         <div className="Modal-Add">
-          <div className="container-Add">
+          <div className="container-Add" style={{ height: 'auto', maxHeight: '90%' }}>
             <div id="header-modal">
               <h4 className="modal-title">Adicionar Despesa</h4>
               <button
@@ -112,6 +212,7 @@ const Financeiro = () => {
                     name="name-item"
                     className="full-item"
                     id="name-item"
+                    ref={nomeRef}
                   />
                 </span>
               </div>
@@ -121,11 +222,11 @@ const Financeiro = () => {
                   <label htmlFor="data-nascimento-item">
                     Data da despesa:
                   </label>
-                  <input
-                    type="text"
-                    name="data-nascimento-item"
-                    className="full-item"
-                    id="data-nascimento-item"
+                  <DatePicker
+                    selected={selectedDate}
+                    onChange={(date) => setSelectedDate(date)}
+                    dateFormat="dd/MM/yyyy"
+                    ref={dataRef}
                   />
                 </span>
                 <span>
@@ -135,21 +236,22 @@ const Financeiro = () => {
                     name="local-atuacao-item"
                     className="full-item"
                     id="local-atuacao-item"
+                    ref={tipoRef}
                   />
                 </span>
-              </div>
 
-              <div className="input-item input-single">
                 <span>
                   <label htmlFor="email-item">Valor:</label>
                   <input
                     type="text"
                     name="email-item"
-                    className="full-item"
+                    className={`full-item ${precoValido ? '' : 'invalid'}`}
                     id="email-item"
+                    onChange={(e) => { handlePrecoChange(e) }}
+                    ref={valorRef}
                   />
                 </span>
-              </div>             
+              </div>
 
               <div className="input-item input-single">
                 <span>
@@ -159,10 +261,11 @@ const Financeiro = () => {
                     name="description-item"
                     className="desc-staff"
                     id="description-item"
+                    ref={descricaoRef}
                   />
                 </span>
-              </div>                    
-              
+              </div>
+
               <button id="add-staff-Btn" onClick={adicionarDespesa}>
                 Enviar
               </button>
@@ -222,7 +325,7 @@ const Financeiro = () => {
 
               <section id="container-table-debts">
                 <table id="table-prod" className="table-debts">
-                  <thead className="head-list-fin" style={{backgroundColor: 'var(--primary-color)'}}>
+                  <thead className="head-list-fin" style={{ backgroundColor: 'var(--primary-color)' }}>
                     <tr style={{ paddingBlock: ".5rem" }}>
                       <td>Cliente</td>
                       <td>Data da Compra</td>
@@ -230,7 +333,7 @@ const Financeiro = () => {
                       <td className="action-space">Ações</td>
                     </tr>
                   </thead>
-                  <tbody className="body-list-prod debt" style={{gap: '5px'}}>
+                  <tbody className="body-list-prod debt" style={{ gap: '5px' }}>
                     <tr>
                       <td>
                         <h3 data-toggle="tooltip" title="Picolé sem cobertura">

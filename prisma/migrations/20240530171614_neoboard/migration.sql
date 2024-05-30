@@ -80,10 +80,11 @@ CREATE TABLE "Funcionario" (
 CREATE TABLE "Despesa" (
     "id" SERIAL NOT NULL,
     "nome" TEXT NOT NULL,
-    "data" TIMESTAMP(3) NOT NULL,
-    "descricao" TEXT,
+    "data" TEXT NOT NULL,
     "tipo" TEXT NOT NULL,
     "valor" DOUBLE PRECISION NOT NULL,
+    "descricao" TEXT,
+    "status" TEXT NOT NULL,
     "usuarioId" TEXT,
 
     CONSTRAINT "Despesa_pkey" PRIMARY KEY ("id")

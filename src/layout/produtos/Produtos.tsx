@@ -12,6 +12,7 @@ import Produto from '../../models/Produto.tsx';
 import Loadingprod from '../../components/loading/Loading.tsx';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FaCheckSquare, FaTrash } from 'react-icons/fa';
+import Loading from '../../components/loading/Loading.tsx';
 
 const Produtos = () => {
   const [showModal, setShowModal] = useState(false);
@@ -31,6 +32,7 @@ const Produtos = () => {
   const navigate = useNavigate();
 
   const [user, loading] = useAuthState(auth);
+  const [loadingProdutos, setLoadingProdutos] = useState(true);
 
   const nomeRef = useRef<HTMLInputElement>(null);
   const categoriaRef = useRef<HTMLInputElement>(null);
@@ -90,6 +92,9 @@ const Produtos = () => {
           // Definir a URL da imagem obtida
           picture = downloadURL;
         }
+
+        console.log('valor: ', valor)
+        console.log('tipo do valor: ', typeof (valor))
 
         // Criar o novo produto
         const novoProduto: Produto = {
@@ -189,6 +194,8 @@ const Produtos = () => {
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       hidePopupAfterTimeout();
+    } finally {
+      setLoadingProdutos(false); // Indicando que os produtos terminaram de ser carregados
     }
   };
 
@@ -256,6 +263,7 @@ const Produtos = () => {
       // Faça o envio dos novos dados do produto para a rota de edição
       await axios.put(`http://localhost:4000/v3/produtos/edit/${produtoEditado.id}`, {
         ...produtoEditado,
+        precoAtual: parseFloat(produtoEditado.precoAtual),
         produtoExistente: produtoExistente.data // Envie o objeto produtoExistente junto com os novos dados
       });
 
@@ -297,6 +305,8 @@ const Produtos = () => {
     }
   };
 
+  if (loadingProdutos) return <Loading />;
+
   return (
     <>
       {mensagem && <Popup type={popupType} title={popupTitle} text={mensagem} />}
@@ -330,9 +340,9 @@ const Produtos = () => {
                     id='valor-item'
                     name='valor-item'
                     className={`full-item ${precoValido ? '' : 'invalid'}`}
-                    value={editandoProduto.precoAtual}
+                    value={editandoProduto.precoAtual.toString()}
                     onChange={(e) => {
-                      setEditandoProduto({ ...editandoProduto, precoAtual: parseFloat(e.target.value) || 0 });
+                      setEditandoProduto({ ...editandoProduto, precoAtual: e.target.value || '' });
                       handlePrecoChange(e);
                     }}
                   />
@@ -508,7 +518,7 @@ const Produtos = () => {
                     <img src={produto.picture} alt={produto.nome} />
                   </figure>
                   <p className='name-product'>{produto.nome}</p>
-                  <p className='prod-name'>R$ {produto.precoAtual.toFixed(2)}</p>
+                  <p className='prod-name'>R$ {Number(produto.precoAtual).toFixed(2)}</p>
                   <button className='see-prod-btn' onClick={() => navigate(`/product/${produto.id}`, { state: { user: produto } })}>Ver produto</button>
                   <div className='manager-btn'>
                     <div>

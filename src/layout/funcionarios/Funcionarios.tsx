@@ -9,6 +9,7 @@ import StaffColumnChart from '../../components/charts/StaffColumnChart.tsx';
 import axios from 'axios';
 import Funcionario from '../../models/Funcionario.tsx';
 import Popup from '../../components/popup/Popup.tsx';
+import Loading from '../../components/loading/Loading.tsx';
 
 const Funcionarios = () => {
   const [showModal, setShowModal] = useState(false);
@@ -23,6 +24,8 @@ const Funcionarios = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [editandoFuncionario, setEditandoFuncionario] = useState<Funcionario | null>(null);
   const [modalEditOpen, setModalEditOpen] = useState(false);
+
+  const [loadingFuncionarios, setLoadingFuncionarios] = useState(true);
 
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
@@ -120,6 +123,8 @@ const Funcionarios = () => {
       setFuncionariosDestaqueFaturamento(funcionarioDestaqueFaturamento);
     } catch (error) {
       console.error('Erro ao buscar funcionários:', error);
+    } finally {
+      setLoadingFuncionarios(false);
     }
   };
 
@@ -378,6 +383,8 @@ const Funcionarios = () => {
     const uniqueGenders = [...new Set(genders)];
     setUniqueGenders(uniqueGenders);
   }, [funcionarios]);
+
+  if (loadingFuncionarios) return <Loading />;
 
   return (
     <div id='staff-container'>

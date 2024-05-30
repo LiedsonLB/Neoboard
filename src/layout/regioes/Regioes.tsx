@@ -12,6 +12,7 @@ import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from "firebas
 import { storage } from '../../services/firebase';
 import Popup from '../../components/popup/Popup.tsx';
 import Regiao from '../../models/Regiao.tsx';
+import Loading from '../../components/loading/Loading.tsx';
 
 const Regioes = () => {
   const [showModal, setShowModal] = useState(false);
@@ -27,6 +28,7 @@ const Regioes = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [regiaoParaEditar, setRegiaoParaEditar] = useState<any>({});
   const [regiaoParaAdicionar, setRegiaoParaAdicionar] = useState<any>({});
+  const [regiaoDelete, setRegiaoDelete] = useState<Regiao>();
   const [regiaoMaisVendido, setRegiaoMaisVendido] = useState<Regiao>();
 
   //popup
@@ -35,6 +37,7 @@ const Regioes = () => {
   const [popupTitle, setPopupTitle] = useState('');
 
   const userId = localStorage.getItem('userID');
+  const [loadingRegioes, setLoadingRegioes] = useState(true);
 
   const toggleModalClose = () => {
     setShowModal(!showModal);
@@ -96,6 +99,8 @@ const Regioes = () => {
 
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
+    } finally {
+      setLoadingRegioes(false); // Indicando que os produtos terminaram de ser carregados
     }
   };
 
@@ -212,8 +217,16 @@ const Regioes = () => {
     setShowInfoModal(true);
   };
 
+  const openDeleteModal = (regiao: Regiao) => {
+    setRegiaoDelete(regiao);
+    toggleModalDelete();
+  };
+
   const toggleModalDelete = () => {
     setShowDeleteModal(!showDeleteModal);
+    if (regiaoDelete) {
+      setRegiaoDelete(regiaoDelete);
+    }
   };
 
   const handleEdit = (regiao: any) => {
@@ -223,6 +236,8 @@ const Regioes = () => {
     // Abre o modal de edição
     setShowEditModal(true);
   };
+
+  if (loadingRegioes) return <Loading />;
 
   return (
     <>
@@ -357,7 +372,6 @@ const Regioes = () => {
       )}
 
       {showInfoModal && (
-
         <div className="Modal-Add">
           <div className="container-Detail-Product">
             <div id="header-modal">
@@ -425,7 +439,6 @@ const Regioes = () => {
         </div>
       )}
 
-
       {showDeleteModal && <div className='modal-logout'>
         {regioes.map((regiao) => (
           <div className='container-logout'>
@@ -438,7 +451,7 @@ const Regioes = () => {
             <hr className='modal-line' style={{ width: '80%', height: '3px', background: '#000', color: '#000' }} />
 
             <div className='options-logout'>
-              <button className="logout-yes" onClick={handleDelete(regiao)}>Sim</button>
+              <button className="logout-yes" onClick={handleDelete(regiaoDelete)}>Sim</button>
               <button className="logout-no" onClick={toggleModalDelete}>Não</button>
             </div>
           </div>
@@ -534,7 +547,7 @@ const Regioes = () => {
                         <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.faturamento}</p></td>
                         <td className='table-btns'>
                           <button className="edit" onClick={() => handleEdit(regiao)}><FaPen /></button>
-                          <button className="delete" onClick={toggleModalDelete}><FaTrash /></button>
+                          <button className="delete" onClick={() => openDeleteModal(regiao)}><FaTrash /></button>
                         </td>
                       </tr>
                     ))}

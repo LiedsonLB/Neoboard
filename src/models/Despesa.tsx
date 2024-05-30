@@ -1,11 +1,12 @@
 interface Despesa {
-    id: number;
+    id?: number;
     nome: string;
-    data: Date;
+    data: string;
     tipo: string;
     valor: number;
-    usuarioId: number;
-    status: 'Pendente' | 'Pago' | 'Atrasado';
+    descricao: string;
+    status: string;
+    usuarioId: string;
 }
 
 export default Despesa;

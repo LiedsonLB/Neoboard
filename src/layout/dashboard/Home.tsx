@@ -237,7 +237,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : produtos.length === 0 ? (
-                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline' }}>Nenhum produto encontrado</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline', marginBottom: '1rem' }}>Nenhum produto encontrado</p>
                                 ) : (
                                     <ul>
                                         {produtos.map(produto => (
@@ -265,7 +265,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : regions.length === 0 ? (
-                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline'}}>Nenhuma região encontrada</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline', marginBottom: '1rem'}}>Nenhuma região encontrada</p>
                                 ) : (
                                     <ul>
                                         {regions.map(region => (
@@ -292,7 +292,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : staffs.length === 0 ? (
-                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline' }}>Nenhum funcionário encontrado</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline', marginBottom: '1rem' }}>Nenhum funcionário encontrado</p>
                                 ) : (
                                     <ul>
                                         {staffs.map(staff => (

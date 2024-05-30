@@ -86,10 +86,11 @@ model Funcionario {
 model Despesa {
   id        Int      @id @default(autoincrement())
   nome      String
-  data      DateTime
-  descricao String?
+  data      String
   tipo      String
   valor     Float
+  descricao String?
+  status    String
   usuarioId String?
   usuario   Usuario? @relation(fields: [usuarioId], references: [id])
 }

@@ -5,7 +5,7 @@ interface Produto {
   NameImg: string;
   descricao: string;
   categoria: string;
-  precoAtual: number;
+  precoAtual: string | number;
   faturamento: number;
   numVendas: number;
   usuarioId: string | null;
