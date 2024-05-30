@@ -56,9 +56,8 @@
   align-items: center;
   object-fit: cover;
   height: 100%;
-  width: 100%;
+  width: 90%;
   margin-bottom: 1em;
-  animation: floatAnimation 4s ease-in-out infinite alternate;
 }
 
 .title {

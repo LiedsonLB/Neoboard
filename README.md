@@ -138,20 +138,34 @@ NeoBoard é uma plataforma de dashboard empresarial projetada para gerenciar inf
 
 - Release v1.0 ✅
 - Release v2.0 ✅
+- Release v2.0.1 ✅
 - Release v3.0 ❌
 
 ## Imagens do Projeto
 
 ### Dashboard Geral
-![Dashboard Geral](./public/img/readme_img/neoboardDash.png)
-![Dashboard Geral](./public/img/readme_img/neoboardDash2.png)
+![Dashboard Geral](./public/img/readme_img/homeImg.png)
+![Gráficos Interativos](./public/img/readme_img/homegraficsImg.png)
+
 
 ### Dashboard Produtos
-![Gráficos Interativos](./public/img/readme_img/neoboard_products.png)
+![Gráficos Interativos](./public/img/readme_img/productsImg.png)
+
+### Dashboard Regiões
+![Gráficos Interativos](./public/img/readme_img/regionsImg.png)
+
+### Dashboard Funcionarios
+![Gráficos Interativos](./public/img/readme_img/staffsImg.png)
+
+### Dashboard Relatorio
+![Gráficos Interativos](./public/img/readme_img/relatorioImg.png)
+
+### Dashboard Fala Conosco
+![Gráficos Interativos](./public/img/readme_img/contatusImg.png)
 
 ### Interface de Login e Cadastro 
-![Interface do Usuário](./public/img/readme_img/neoboardLogin.png)
-![Interface do Usuário](./public/img/readme_img/neoboardCadaster.png)
+![Dashboard Geral](./public/img/readme_img/loginImg.png)
+![Dashboard Geral](./public/img/readme_img/cadasterImg.png)
 
 ## Licença
 

@@ -170,8 +170,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 100%;
-    animation: floatAnimation 4s ease-in-out infinite alternate;
+    width: 80%;
 }
 
 @media screen and (max-width: 1000px) {
