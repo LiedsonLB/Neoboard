@@ -369,7 +369,7 @@
     width: 40px;
     height: 40px;
     background: var(--white-color);
-    border-radius: 10px;
+    border-radius: 100px;
     border: 1px solid var(--secondy-color);
     cursor: pointer;
     display: flex;
@@ -379,6 +379,7 @@
 
 .edit-expense-btn:focus {
     border: 1px solid transparent;
+    background-color: var(--gray-color);
 }
 
 .edit-expense-btn svg {
@@ -478,7 +479,7 @@
 }
 
 .fa-square {
-    color: 388E3C;
+    color: #388E3C;
 
 }
 
@@ -506,7 +507,7 @@
 }
 
 .fa-stack .fa-square {
-    color: 1B2947;
+    color: #1B2947;
 }
 
 .fa-stack .fa-circle {

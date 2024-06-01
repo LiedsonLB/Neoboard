@@ -31,6 +31,16 @@ const Financeiro = () => {
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
 
+  const paymentData = [
+    { tipo: "Dinheiro", cor: "#2ecc71", porcentagem: 90 },
+    { tipo: "Pix", cor: "#3498db", porcentagem: 70},
+    { tipo: "Cartão (Crédito)", cor: "red", porcentagem: 30 },
+    { tipo: "Boleto", cor: "orange", porcentagem: 5 },
+    { tipo: "Cheque", cor: "purple", porcentagem: 10 },
+    { tipo: "Transferência", cor: "#1abc9c", porcentagem: 0 },
+    { tipo: "Em Dívida", cor: "var(--black-color)", porcentagem: 30 },
+  ];
+
   const validOptions = [
     "Salario",
     "Aluguel",
@@ -466,158 +476,28 @@ const Financeiro = () => {
                 <div className="ranking">
                   <p className="debt-title">Nomes no SPC</p>
                   <ul>
-                    <li style={{ width: "300px", background: "none" }}>
-                      <div className="product-name">
-                        <p style={{ color: "var(--black-color)" }}>Dinheiro</p>
-                        <div
-                          className="scale-container"
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <div className="product-scale">
-                            <div
-                              className="scale"
-                              style={{ width: `50%`, background: "#2ecc71" }}
-                            ></div>
+                    {paymentData.map((payment, index) => (
+                      <li key={index} style={{ width: "300px", background: "none" }}>
+                        <div className="product-name">
+                          <p style={{ color: "var(--black-color)" }}>{payment.tipo}</p>
+                          <div
+                            className="scale-container"
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <div className="product-scale">
+                              <div
+                                className="scale"
+                                style={{ width: `${payment.porcentagem}%`, background: payment.cor }}
+                              ></div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </li>
-
-                    <li style={{ width: "300px", background: "none" }}>
-                      <div className="product-name">
-                        <p style={{ color: "var(--black-color)" }}>Pix</p>
-                        <div
-                          className="scale-container"
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <div className="product-scale">
-                            <div
-                              className="scale"
-                              style={{ width: `50%`, background: "#3498db" }}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li style={{ width: "300px", background: "none" }}>
-                      <div className="product-name">
-                        <p style={{ color: "var(--black-color)" }}>
-                          Cartão (Crédito)
-                        </p>
-                        <div
-                          className="scale-container"
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <div className="product-scale">
-                            <div
-                              className="scale"
-                              style={{ width: `50%`, background: "red" }}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li style={{ width: "300px", background: "none" }}>
-                      <div className="product-name">
-                        <p style={{ color: "var(--black-color)" }}>Boleto</p>
-                        <div
-                          className="scale-container"
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <div className="product-scale">
-                            <div
-                              className="scale"
-                              style={{ width: `50%`, background: "orange" }}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li style={{ width: "300px", background: "none" }}>
-                      <div className="product-name">
-                        <p style={{ color: "var(--black-color)" }}>Cheque</p>
-                        <div
-                          className="scale-container"
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <div className="product-scale">
-                            <div
-                              className="scale"
-                              style={{ width: `50%`, background: "purple" }}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li
-                      style={{
-                        width: "300px",
-                        background: "none",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <div className="product-name">
-                        <p style={{ color: "var(--black-color)" }}>
-                          Transferência
-                        </p>
-                        <div className="scale-container">
-                          <div className="product-scale">
-                            <div
-                              className="scale"
-                              style={{ width: `50%`, background: "#1abc9c" }}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li style={{ width: "300px", background: "none" }}>
-                      <div className="product-name">
-                        <p style={{ color: "var(--black-color)" }}>Em Dívida</p>
-                        <div
-                          className="scale-container"
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <div className="product-scale">
-                            <div
-                              className="scale"
-                              style={{
-                                width: `50%`,
-                                background: "var(--black-color)",
-                              }}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -860,7 +740,7 @@ const Financeiro = () => {
 
             <section id="exp-cards">
               {despesas.length === 0 ? (
-                <p style={{textAlign: 'center', paddingBlock: '1rem'}}>Não há despesas.</p>
+                <p style={{ textAlign: 'center', paddingBlock: '1rem' }}>Não há despesas.</p>
               ) : (
                 despesas
                   .filter(
@@ -888,13 +768,13 @@ const Financeiro = () => {
                         </span>
                         <p>{expense.nome}</p>
                         <p className="exp-desc">{expense.descricao}</p>
-                        <p className="exp-desc" style={{color: 'var(--primary-color)'}}><FaCalendarDay/> {formatDate(expense.data)}</p>
+                        <p className="exp-desc" style={{ color: 'var(--primary-color)' }}><FaCalendarDay /> {formatDate(expense.data)}</p>
                         <p className={`exp-desc payment-status ${getStatusClass(expense.status)}`}>{expense.status}</p>
-                        <p className="exp-desc" style={{fontWeight: 'bold'}}>R$ {expense.valor.toFixed(2)}</p>
+                        <p className="exp-desc" style={{ fontWeight: 'bold' }}>R$ {expense.valor.toFixed(2)}</p>
                         <div className="manager-btn">
                           <div>
                             <button className="payment-item-mng">
-                              <FaCheckSquare id="edit-pen" style={{color: 'var(--white-color)'}}/> <p>Efetuado</p>
+                              <FaCheckSquare id="edit-pen" style={{ color: 'var(--white-color)' }} /> <p>Efetuado</p>
                             </button>
                           </div>
                           <div>
