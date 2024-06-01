@@ -13,6 +13,7 @@ import Loading from '../../components/loading/Loading.tsx';
 
 const Funcionarios = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [funcionariosDestaqueVendas, setFuncionariosDestaqueVendas] = useState<Funcionario[]>([]);
@@ -24,8 +25,10 @@ const Funcionarios = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [editandoFuncionario, setEditandoFuncionario] = useState<Funcionario | null>(null);
   const [modalEditOpen, setModalEditOpen] = useState(false);
+  const [funcionarioDelete, setFuncionarioDelete] = useState<Funcionario>();
 
   const [loadingFuncionarios, setLoadingFuncionarios] = useState(true);
+
 
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
@@ -235,6 +238,8 @@ const Funcionarios = () => {
       await axios.delete(`http://localhost:4000/v3/funcionarios/${funcionario.id}`);
       console.log('Funcionário excluído com sucesso!');
 
+      setShowDeleteModal(false);
+
       // Atualiza a lista de funcionários após a exclusão
       const updatedFuncionarios = funcionarios.filter(f => f.id !== funcionario.id);
       setFuncionarios(updatedFuncionarios);
@@ -271,6 +276,18 @@ const Funcionarios = () => {
   const toggleInfoModal = (funcionario: Funcionario) => {
     setSelectedUser(funcionario);
     setShowInfoModal(true);
+  };
+
+  const openDeleteModal = (funcionario) => {
+    setFuncionarioDelete(funcionario);
+    setShowDeleteModal(true);
+  };
+
+  const toggleModalDelete = () => {
+    setShowDeleteModal(!showDeleteModal);
+    if (funcionarioDelete) {
+      setFuncionarioDelete(funcionarioDelete);
+    }
   };
 
   const handleEdit = (funcionario: Funcionario) => {
@@ -495,13 +512,31 @@ const Funcionarios = () => {
                 <button className='see-stf-btn' onClick={() => toggleInfoModal(funcionario)}>Ver detalhes</button>
                 <div className='manager-btn'>
                   <button className='edit-item item-mng' onClick={() => handleEdit(funcionario)}><IoCreate id='edit-pen' /></button>
-                  <button className='delete-item item-mng' onClick={handleDelete(funcionario)}><IoTrash id='edit-trash' /></button>
+                  <button className='delete-item item-mng' onClick={() => openDeleteModal(funcionario)}><IoTrash id='edit-trash' /></button>
                 </div>
               </article>
             )))}
           </section>
         </main>
       </div>
+
+      {showDeleteModal && funcionarioDelete && 
+      <div className='modal-logout-stf'>
+          <div className='container-logout'>
+            <div className="header-logout">
+              <button type="button" className="close-btn" onClick={toggleModalDelete}>&times;</button>
+            </div>
+
+            <h2 className='txt-logout'>Você tem certeza que quer excluir este funcionário?</h2>
+
+            <hr className='modal-line' style={{ width: '80%', height: '3px', background: '#000', color: '#000' }} />
+
+            <div className='options-logout'>
+              <button className="logout-yes" onClick={handleDelete(funcionarioDelete)}>Sim</button>
+              <button className="logout-no" onClick={toggleModalDelete}>Não</button>
+            </div>
+          </div>
+      </div>}
 
       {modalEditOpen && editandoFuncionario && (
         <div className="Modal-Add">

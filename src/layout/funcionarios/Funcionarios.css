@@ -192,6 +192,7 @@
     cursor: pointer;
     font-family: var(--font-krub);
     display: flex;
+    align-items: center;
 }
 
 #add-staff:hover {
@@ -732,7 +733,8 @@
     font-family: var(--font-Krub);
 }
 
-.desc-staff:focus, .input-item span input:focus {
+.desc-staff:focus,
+.input-item span input:focus {
     border: 2px solid var(--secondy-color);
 }
 
@@ -777,6 +779,39 @@
 #add-staff-Btn:hover,
 #edit-product-Btn:hover {
     background: var(--hover-color);
+}
+
+/* Delete modal */
+
+.modal-logout-stf {
+    width: 100%;
+    z-index: 1;
+    height: 100%;
+    backdrop-filter: brightness(0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    position: fixed;
+    top: 0;
+}
+
+.container-delete{
+    background: var(--white-color);
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+  flex-direction: column;
+  min-width: 30%;
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  height: 20rem;
+  width: 25rem;
+  justify-content: space-between;
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 @media screen and (max-width: 1030px) {
