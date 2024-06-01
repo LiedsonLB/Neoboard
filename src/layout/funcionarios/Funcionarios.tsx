@@ -144,7 +144,7 @@ const Funcionarios = () => {
       const dataContratacao = dataContratoRef.current?.value || 'Não informado';
 
 
-      let picture = '/img/no_productImg.jpeg';
+      let picture = '/img/no_profile.png';
       if (selectedImage) {
         // Fazer upload da imagem para o Firebase Storage
         const downloadURL = await uploadImageToStorage(selectedImage);

@@ -359,6 +359,35 @@
     flex-wrap: wrap;
     margin-bottom: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    position: relative;
+}
+
+.edit-expense-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: var(--white-color);
+    border-radius: 10px;
+    border: 1px solid var(--secondy-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-expense-btn:focus {
+    border: 1px solid transparent;
+}
+
+.edit-expense-btn svg {
+    color: var(--secondy-color);
+    font-size: 1rem;
+}
+
+.edit-expense-btn:hover {
+    background-color: var(--gray-color);
 }
 
 .exp-card {
@@ -396,6 +425,30 @@
 
 .exp-desc {
     font-weight: 400;
+}
+
+.manager-btn button p {
+    font-family: var(--font-Krub);
+    font-weight: bold;
+    margin-left: .5rem;
+    color: var(--white-color);
+}
+
+.payment-item-mng {
+    width: 100%;
+    height: 30px;
+    background: var(--white-color);
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondy-color);
+}
+
+.payment-item-mng:hover {
+    background-color: var(--hover-color);
 }
 
 .payment-status {

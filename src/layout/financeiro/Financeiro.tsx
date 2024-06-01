@@ -13,7 +13,7 @@ import FinancialDoughnut from "../../components/charts/FinancialDoughnut.tsx";
 import axios from "axios";
 import FinancialColumnChart from "../../components/charts/FinancialColumnChart.tsx";
 import FinancialLineChart from "../../components/charts/FinancialLineChart.tsx";
-import { FaCheckSquare, FaTrash } from "react-icons/fa";
+import { FaCalendar, FaCalendarDay, FaCheckSquare, FaPen, FaTrash } from "react-icons/fa";
 import Popup from "../../components/popup/Popup.tsx";
 import Despesa from "../../models/Despesa.tsx";
 import DatePicker from 'react-datepicker';
@@ -872,6 +872,7 @@ const Financeiro = () => {
                     const color = expenseColors[expense.tipo] || expenseColors.Default;
                     return (
                       <button key={index} className="exp-card">
+                        <button className="edit-expense-btn" onClick={() => handleEdit(expense)}><FaPen /></button>
                         <span className="fa-stack">
                           <div className="stack-container">
                             <i
@@ -887,13 +888,13 @@ const Financeiro = () => {
                         </span>
                         <p>{expense.nome}</p>
                         <p className="exp-desc">{expense.descricao}</p>
-                        <p className="exp-desc">{formatDate(expense.data)}</p>
+                        <p className="exp-desc" style={{color: 'var(--primary-color)'}}><FaCalendarDay/> {formatDate(expense.data)}</p>
                         <p className={`exp-desc payment-status ${getStatusClass(expense.status)}`}>{expense.status}</p>
-                        <p className="exp-desc">R$ {expense.valor.toFixed(2)}</p>
+                        <p className="exp-desc" style={{fontWeight: 'bold'}}>R$ {expense.valor.toFixed(2)}</p>
                         <div className="manager-btn">
                           <div>
-                            <button className="edit-item item-mng" style={{backgroundColor: 'var(--primary-color)', color: 'var(--white-color)'}}>
-                              <FaCheckSquare id="edit-pen" />
+                            <button className="payment-item-mng">
+                              <FaCheckSquare id="edit-pen" style={{color: 'var(--white-color)'}}/> <p>Efetuado</p>
                             </button>
                           </div>
                           <div>

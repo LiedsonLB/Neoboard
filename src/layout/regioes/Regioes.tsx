@@ -534,7 +534,7 @@ const Regioes = () => {
                     <p style={{ textAlign: 'center', paddingBlock: '1rem', width: '100%', height: '100%' }}>Não há Regiões.</p>
                   ) : (regioes
                     .filter((regiao) => regiao.nome && regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()))
-                    .filter((regiao) => categoriaSelecionada ? regiao.cidade === categoriaSelecionada : true) // Filtrar por categoria selecionada
+                    .filter((regiao) => categoriaSelecionada ? regiao.cidade === categoriaSelecionada : true)
                     .map((regiao, index) => (
                       <tr key={index} className="region-row">
                         <td onClick={() => handleShowInfoModal(regiao)}>
