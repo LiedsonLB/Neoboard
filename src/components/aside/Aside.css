@@ -213,6 +213,39 @@ aside ul li:hover {
   border-left: 5px solid var(--hover-color);
 }
 
+.active-aside {
+  border-left: 5px solid var(--hover-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.active-aside::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--hover-color);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+  z-index: -1;
+}
+
+.active-aside p {
+  position: relative;
+  z-index: 1;
+}
+
+.active-aside p {
+  color: white;
+}
+
+.active-aside::before {
+  animation: loadingAside .3s ease forwards;
+}
+
 #logoutBtn {
   transition: .5s;
   margin-top: 4rem;

@@ -71,20 +71,16 @@ const Produtos = () => {
     }
   };
 
-  // Função para adicionar um produto
   const adicionarProduto = async () => {
     try {
       const userId = localStorage.getItem('userID');
 
-      // Obter os valores dos campos
       const nome = nomeRef.current?.value;
       const categoria = categoriaRef.current?.value || 'sem categoria';
       const valor = parseFloat(valorRef.current?.value || '0');
       const descricao = descricaoRef.current?.value || 'sem descrição';
 
-      // Verificar se os campos de nome e preço estão preenchidos
       if (nome && valor) {
-        // Verificar se uma imagem foi selecionada
         let picture = '/img/no_productImg.jpeg';
         if (selectedImage) {
           // Fazer upload da imagem para o Firebase Storage
@@ -96,7 +92,6 @@ const Produtos = () => {
         console.log('valor: ', valor)
         console.log('tipo do valor: ', typeof (valor))
 
-        // Criar o novo produto
         const novoProduto: Produto = {
           nome,
           categoria,
@@ -109,7 +104,6 @@ const Produtos = () => {
           numVendas: 0,
         };
 
-        // Enviar a requisição para adicionar o novo produto
         await axios.post('http://localhost:4000/v3/produtos', novoProduto);
 
         // Limpar os campos do formulário e redefinir o estado do modal

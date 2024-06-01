@@ -33,7 +33,7 @@ const Financeiro = () => {
 
   const paymentData = [
     { tipo: "Dinheiro", cor: "#2ecc71", porcentagem: 90 },
-    { tipo: "Pix", cor: "#3498db", porcentagem: 70},
+    { tipo: "Pix", cor: "#3498db", porcentagem: 70 },
     { tipo: "Cartão (Crédito)", cor: "red", porcentagem: 30 },
     { tipo: "Boleto", cor: "orange", porcentagem: 5 },
     { tipo: "Cheque", cor: "purple", porcentagem: 10 },
@@ -88,7 +88,7 @@ const Financeiro = () => {
 
   useEffect(() => {
     fetchDespesas()
-  }, []);
+  }, [localStorage.getItem('userID')]);
 
   const hidePopupAfterTimeout = () => {
     setTimeout(() => {
@@ -111,29 +111,18 @@ const Financeiro = () => {
     return localDate.toISOString().split('T')[0];
   };
 
-  fetchDespesas();
-
   const adicionarDespesa = async () => {
     try {
       const userId = localStorage.getItem('userID');
 
       // Obter os valores dos campos
       const nome = nomeRef.current?.value;
-      const tipo = tipoRef.current?.value || 'Sem Tipo';
+      const tipo = tipoRef.current?.value || 'Outros';
       const valor = parseFloat(valorRef.current?.value || '0');
       const descricao = descricaoRef.current?.value || 'Sem Descrição';
 
-      console.log(nome)
-      console.log(tipo)
-      console.log(valor)
-      console.log(descricao)
-
       // Validar os campos (por exemplo, verificar se estão preenchidos)
       if (!nome || !valor) {
-        console.log(nome)
-        console.log(tipo)
-        console.log(valor)
-        console.log(descricao)
         console.error('Por favor, preencha todos os campos.');
         // Exibir uma mensagem de sucesso
         setPopupType('warning');
@@ -146,9 +135,6 @@ const Financeiro = () => {
       // Definir o status com base na data
       const hoje = toLocalISOString(new Date());
       let status = '';
-
-      console.log(hoje)
-      console.log(selectedDate)
 
       if (!toLocalISOString(selectedDate) || toLocalISOString(selectedDate) === hoje) {
         status = 'Paga';
@@ -172,15 +158,15 @@ const Financeiro = () => {
       // Enviar a requisição para adicionar a nova despesa
       await axios.post('http://localhost:4000/v3/despesas', novaDespesa);
 
+      // Atualizar a lista de despesas após adição
+      fetchDespesas();
+
       // Limpar os campos do formulário e redefinir o estado do modal
       nomeRef.current!.value = '';
       tipoRef.current!.value = '';
       valorRef.current!.value = '';
       descricaoRef.current!.value = '';
       setSelectedDate(new Date())
-
-      // Atualizar a lista de despesas após adição
-      fetchDespesas();
 
       // Exibir uma mensagem de sucesso
       setPopupType('sucess');
@@ -195,13 +181,9 @@ const Financeiro = () => {
 
   const handleDelete = (despesa: Despesa) => async () => {
     try {
-      // Faz a requisição DELETE para a rota da API para excluir o despesas
-      await axios.delete(`http://localhost:4000/v3/despesas/${despesa.nome}`);
-      console.log("despesa excluído com sucesso!");
-      // Atualiza a lista de despesas após a exclusão
-      const updatedDespesas = despesas.filter((d) => d.nome !== despesa.nome);
-      setDespesas(updatedDespesas);
-      //setFiltroPesquisa('');
+      await axios.delete(`http://localhost:4000/v3/despesas/${despesa.id}`);
+      console.log("Despesa excluída com sucesso!");
+      setDespesas(despesas.filter((d) => d.id !== despesa.id));
     } catch (error) {
       console.error("Erro ao excluir despesa:", error);
     }
@@ -367,7 +349,7 @@ const Financeiro = () => {
                     <IoPerson className="debt-icon" />
                   </circle>
                   <div className="dbt-card card-1">
-                    <h1>340K</h1>
+                    <h2>340K</h2>
                     <p>
                       <strong>Dívidas</strong> de clientes
                     </p>
@@ -379,7 +361,7 @@ const Financeiro = () => {
                     <IoCashOutline className="debt-icon" />
                   </circle>
                   <div className="dbt-card card-2">
-                    <h1>500K</h1>
+                    <h2>R$500K</h2>
                     <p>
                       em <strong>Dívidas</strong> pendentes
                     </p>
@@ -772,11 +754,13 @@ const Financeiro = () => {
                         <p className={`exp-desc payment-status ${getStatusClass(expense.status)}`}>{expense.status}</p>
                         <p className="exp-desc" style={{ fontWeight: 'bold' }}>R$ {expense.valor.toFixed(2)}</p>
                         <div className="manager-btn">
-                          <div>
-                            <button className="payment-item-mng">
-                              <FaCheckSquare id="edit-pen" style={{ color: 'var(--white-color)' }} /> <p>Efetuado</p>
-                            </button>
-                          </div>
+                          {expense.status !== "Paga" && (
+                            <div>
+                              <button className="payment-item-mng">
+                                <FaCheckSquare id="edit-pen" style={{ color: 'var(--white-color)' }} /> <p>Efetuado</p>
+                              </button>
+                            </div>
+                          )}
                           <div>
                             <button
                               className="delete-item item-mng"
