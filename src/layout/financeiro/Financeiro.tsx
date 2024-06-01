@@ -25,11 +25,19 @@ const Financeiro = () => {
   const [showModal, setShowModal] = useState(false);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
   const [categorias, setCategorias] = useState<string[]>([]);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
   const [popupTitle, setPopupTitle] = useState('');
+
+  const validOptions = [
+    "Salario",
+    "Aluguel",
+    "Fornecedor",
+    "Imposto",
+    "Manutencao"
+  ];
 
   const expenseIcons: { [key: string]: string } = {
     Salario: "fas fa-dollar-sign",
@@ -37,6 +45,7 @@ const Financeiro = () => {
     Fornecedor: "fas fa-truck",
     Imposto: "fas fa-money-bill-alt",
     Manutencao: "fas fa-tools",
+    Default: "fas fa-ellipsis-h",
   };
 
   const expenseColors: { [key: string]: string } = {
@@ -45,6 +54,20 @@ const Financeiro = () => {
     Fornecedor: "#C62828",
     Imposto: "#FFC107",
     Manutencao: "#5B7FFF",
+    Default: "#808080",
+  };
+
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'Paga':
+        return 'status-paga';
+      case 'Pendente':
+        return 'status-pendente';
+      case 'Atrasada':
+        return 'status-atrasada';
+      default:
+        return 'status-paga';
+    }
   };
 
   const nomeRef = useRef<HTMLInputElement>(null);
@@ -72,6 +95,12 @@ const Financeiro = () => {
     }
   };
 
+  const toLocalISOString = (date) => {
+    const offset = date.getTimezoneOffset();
+    const localDate = new Date(date.getTime() - (offset * 60 * 1000));
+    return localDate.toISOString().split('T')[0];
+  };
+
   fetchDespesas();
 
   const adicionarDespesa = async () => {
@@ -79,30 +108,41 @@ const Financeiro = () => {
       const userId = localStorage.getItem('userID');
 
       // Obter os valores dos campos
-      const nome = nomeRef.current?.value || '';
-      const data = dataRef.current?.value || '';
-      const tipo = tipoRef.current?.value || '';
+      const nome = nomeRef.current?.value;
+      const tipo = tipoRef.current?.value || 'Sem Tipo';
       const valor = parseFloat(valorRef.current?.value || '0');
-      const descricao = descricaoRef.current?.value || '';
+      const descricao = descricaoRef.current?.value || 'Sem Descrição';
 
       console.log(nome)
-      console.log(data)
       console.log(tipo)
       console.log(valor)
       console.log(descricao)
 
       // Validar os campos (por exemplo, verificar se estão preenchidos)
-      if (!nome || !data || !tipo || !valor || !descricao) {
+      if (!nome || !valor) {
+        console.log(nome)
+        console.log(tipo)
+        console.log(valor)
+        console.log(descricao)
         console.error('Por favor, preencha todos os campos.');
+        // Exibir uma mensagem de sucesso
+        setPopupType('warning');
+        setPopupTitle('Campos Vazios');
+        setMensagem('Preenncha todos os campos de nome e valor');
+        hidePopupAfterTimeout();
         return;
       }
 
       // Definir o status com base na data
-      const hoje = new Date().toISOString().split('T')[0];
+      const hoje = toLocalISOString(new Date());
       let status = '';
-      if (!data || data === hoje) {
+
+      console.log(hoje)
+      console.log(selectedDate)
+
+      if (!toLocalISOString(selectedDate) || toLocalISOString(selectedDate) === hoje) {
         status = 'Paga';
-      } else if (data < hoje) {
+      } else if (toLocalISOString(selectedDate) < hoje) {
         status = 'Atrasada';
       } else {
         status = 'Pendente';
@@ -111,7 +151,7 @@ const Financeiro = () => {
       // Criar a nova despesa
       const novaDespesa: Despesa = {
         nome,
-        data,
+        data: toLocalISOString(selectedDate),
         tipo,
         valor,
         descricao,
@@ -124,10 +164,10 @@ const Financeiro = () => {
 
       // Limpar os campos do formulário e redefinir o estado do modal
       nomeRef.current!.value = '';
-      dataRef.current!.value = '';
       tipoRef.current!.value = '';
       valorRef.current!.value = '';
       descricaoRef.current!.value = '';
+      setSelectedDate(new Date())
 
       // Atualizar a lista de despesas após adição
       fetchDespesas();
@@ -172,8 +212,13 @@ const Financeiro = () => {
 
   // Adicione uma função para validar o preço com base no regex
   const validarPreco = (valor: string) => {
-    const regex = /^-?\d{1,3}(,\d{3})*(\.\d{1,2})?$/;
+    const regex = /^-?\d+(\.\d{1,2})?$/;
     return regex.test(valor);
+  };
+
+  const formatDate = (dateString) => {
+    const dateParts = dateString.split('-');
+    return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
   };
 
   // Adicione um manipulador de eventos para o campo de preço
@@ -185,6 +230,8 @@ const Financeiro = () => {
       setPrecoValido(false);
     }
   };
+
+  const [typeSugetions, setTypeSugetions] = useState(false)
 
   return (
     <>
@@ -229,15 +276,37 @@ const Financeiro = () => {
                     ref={dataRef}
                   />
                 </span>
-                <span>
+                <span style={{ position: 'relative' }}>
                   <label htmlFor="local-atuacao-item">Tipo:</label>
                   <input
+                    style={{ position: 'relative' }}
                     type="text"
                     name="local-atuacao-item"
                     className="full-item"
                     id="local-atuacao-item"
                     ref={tipoRef}
+                    onFocus={() => {
+                      setTypeSugetions(true)
+                    }}
+                    onBlur={() => {
+                      setTypeSugetions(false)
+                    }}
                   />
+                  {validOptions.length > 0 && typeSugetions && (
+                    <ul className="valid-options-list" style={{ top: '70px', width: '100%' }}>
+                      {validOptions.map(option => (
+                        <li
+                          key={option}
+                          onMouseDown={() => {
+                            tipoRef.current!.value = option;
+                            setTypeSugetions(false)
+                          }}
+                        >
+                          {option}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </span>
 
                 <span>
@@ -266,7 +335,7 @@ const Financeiro = () => {
                 </span>
               </div>
 
-              <button id="add-staff-Btn" onClick={adicionarDespesa}>
+              <button id="add-staff-Btn" onClick={() => { adicionarDespesa(); setShowModal(false) }}>
                 Enviar
               </button>
             </div>
@@ -765,76 +834,81 @@ const Financeiro = () => {
                 </i>
               </div>
 
-              <select
-                id="filter-expense"
-                value={selectedOption}
-                onChange={handleOptionSelect}
-              >
-                <option value="">Todos</option>
-                <option value="opcao1">Salário</option>
-                <option value="opcao2">Aluguel</option>
-                <option value="opcao3">Fornecedor</option>
-                <option value="opcao4">Imposto</option>
-                <option value="opcao5">Manutenção</option>
-              </select>
+              <div className='filter-container-btns'>
+                <button id='add-product'
+                  onClick={() => {
+                    setShowModal(true);
+                  }}>
+                  + Despesa
+                </button>
+                <select
+                  id="filter-expense"
+                  value={selectedOption}
+                  onChange={handleOptionSelect}
+                >
+                  <option value="">Todos</option>
+                  <option value="opcao1">Salário</option>
+                  <option value="opcao2">Aluguel</option>
+                  <option value="opcao3">Fornecedor</option>
+                  <option value="opcao4">Imposto</option>
+                  <option value="opcao5">Manutenção</option>
+                </select>
+              </div>
             </section>
 
             <p id="result-expense">Resultados ({despesas.length})</p>
 
             <section id="exp-cards">
-              <button
-                className="exp-card"
-                id="add-exp-card"
-                onClick={() => {
-                  setShowModal(true);
-                }}
-              >
-                <i>
-                  <IoAddCircleOutline />
-                </i>
-                <p>Adicionar despesa</p>
-              </button>
-
-              {despesas
-                .filter(
-                  (expense) =>
-                    selectedOption === "" || expense.tipo === selectedOption
-                )
-                .map((expense, index) => (
-                  <button key={index} className="exp-card">
-                    <span className="fa-stack">
-                      <div className="stack-container">
-                        <i
-                          className="fas fa-square"
-                          style={{ color: expenseColors[expense.tipo] }}
-                        ></i>
-                        <i className="fas fa-circle"></i>
-                        <i
-                          className={expenseIcons[expense.tipo]}
-                          style={{ color: expenseColors[expense.tipo] }}
-                        ></i>
-                      </div>
-                    </span>
-                    <p>{expense.nome}</p>
-                    <p className="exp-desc">{expense.descricao}</p>
-                    <p className="exp-desc">R$ {expense.valor}</p>
-                    <div className="manager-btn">
-                      <div>
-                        <button className="edit-item item-mng">
-                          <IoCreate id="edit-pen" />
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          className="delete-item item-mng"
-                          onClick={handleDelete(expense)}
-                        >
-                          <IoTrash id="edit-trash" />
-                        </button>
-                      </div>
-                    </div>
-                  </button>
-                ))}
+              {despesas.length === 0 ? (
+                <p style={{textAlign: 'center', paddingBlock: '1rem'}}>Não há despesas.</p>
+              ) : (
+                despesas
+                  .filter(
+                    (expense) =>
+                      selectedOption === "" || expense.tipo === selectedOption
+                  )
+                  .map((expense, index) => {
+                    const icon = expenseIcons[expense.tipo] || expenseIcons.Default;
+                    const color = expenseColors[expense.tipo] || expenseColors.Default;
+                    return (
+                      <button key={index} className="exp-card">
+                        <span className="fa-stack">
+                          <div className="stack-container">
+                            <i
+                              className="fas fa-square icon"
+                              style={{ color }}
+                            ></i>
+                            <i className="fas fa-circle"></i>
+                            <i
+                              className={icon}
+                              style={{ color }}
+                            ></i>
+                          </div>
+                        </span>
+                        <p>{expense.nome}</p>
+                        <p className="exp-desc">{expense.descricao}</p>
+                        <p className="exp-desc">{formatDate(expense.data)}</p>
+                        <p className={`exp-desc payment-status ${getStatusClass(expense.status)}`}>{expense.status}</p>
+                        <p className="exp-desc">R$ {expense.valor.toFixed(2)}</p>
+                        <div className="manager-btn">
+                          <div>
+                            <button className="edit-item item-mng" style={{backgroundColor: 'var(--primary-color)', color: 'var(--white-color)'}}>
+                              <FaCheckSquare id="edit-pen" />
+                            </button>
+                          </div>
+                          <div>
+                            <button
+                              className="delete-item item-mng"
+                              onClick={handleDelete(expense)}
+                            >
+                              <IoTrash id="edit-trash" />
+                            </button>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })
+              )}
             </section>
           </section>
         </main>

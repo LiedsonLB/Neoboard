@@ -398,6 +398,25 @@
     font-weight: 400;
 }
 
+.payment-status {
+    padding: .2rem 1rem;
+    border-radius: 100px;
+    font-family: var(--font-Krub);
+    color: var(--white-color);
+}
+
+.status-paga {
+    background-color: #2ecc71;
+}
+
+.status-pendente {
+    background-color: #f1c40f;
+}
+
+.status-atrasada {
+    background-color: #e74c3c;
+}
+
 .stack-container {
     position: relative;
     display: flex;
@@ -414,14 +433,14 @@
     position: absolute;
     color: white;
     font-size: 2.2rem !important;
-
 }
 
 .fa-dollar-sign,
 .fa-building,
 .fa-truck,
 .fa-money-bill-alt,
-.fa-tools {
+.fa-tools,
+.fa-ellipsis-h {
     position: absolute;
     font-size: 1.4rem !important;
 }

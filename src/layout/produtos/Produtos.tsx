@@ -512,7 +512,9 @@ const Produtos = () => {
             <p id='result-product'>Resultados ({produtosFiltrados.length})</p>
             <section id='products-list'>
 
-              {produtosFiltrados.map((produto: Produto) => (
+              {produtos.length === 0 ? (
+                <p style={{ textAlign:'center', paddingBlock: '1rem', width: '100%', gridColumn: 'span 4'  }}>Não há Produtos.</p>
+              ) : (produtosFiltrados.map((produto: Produto) => (
                 <article key={produto.id} className='prod-card'>
                   <figure className='container-list-img'>
                     <img src={produto.picture} alt={produto.nome} />
@@ -531,7 +533,7 @@ const Produtos = () => {
                     </div>
                   </div>
                 </article>
-              ))}
+              )))}
             </section>
           </main>
         </div>

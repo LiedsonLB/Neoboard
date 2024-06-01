@@ -150,10 +150,10 @@ const Regioes = () => {
         numVendas: 0,
         usuarioId: userId,
         clientes: 0,
-        endereco: regiaoParaAdicionar.endereco  || 'Não informado',
-        descricao: regiaoParaAdicionar.descricao  || 'Não informado',
-        responsavel: regiaoParaAdicionar.responsavel  || 'Não informado',
-        cidade: regiaoParaAdicionar.cidade  || 'Não informado',
+        endereco: regiaoParaAdicionar.endereco || 'Não informado',
+        descricao: regiaoParaAdicionar.descricao || 'Não informado',
+        responsavel: regiaoParaAdicionar.responsavel || 'Não informado',
+        cidade: regiaoParaAdicionar.cidade || 'Não informado',
       });
 
       // Exibir uma mensagem de sucesso
@@ -530,7 +530,9 @@ const Regioes = () => {
                 </thead>
                 <tbody className='tBodyTableRegions'>
 
-                  {regioes
+                  {regioes.length === 0 ? (
+                    <p style={{ textAlign: 'center', paddingBlock: '1rem', width: '100%', height: '100%' }}>Não há Regiões.</p>
+                  ) : (regioes
                     .filter((regiao) => regiao.nome && regiao.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()))
                     .filter((regiao) => categoriaSelecionada ? regiao.cidade === categoriaSelecionada : true) // Filtrar por categoria selecionada
                     .map((regiao, index) => (
@@ -550,7 +552,7 @@ const Regioes = () => {
                           <button className="delete" onClick={() => openDeleteModal(regiao)}><FaTrash /></button>
                         </td>
                       </tr>
-                    ))}
+                    )))}
 
                 </tbody>
               </table>

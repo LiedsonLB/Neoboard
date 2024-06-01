@@ -414,7 +414,7 @@ const Relatorio: React.FC = () => {
                         onBlur={() => {
                           setTimeout(() => {
                             setShowValidOptions({ ...showValidOptions, [cellKey]: false });
-                          }, 200); // Delay to allow clicking on options
+                          }, 200);
                         }}
                       />
                       {isInvalid && showOptions && (

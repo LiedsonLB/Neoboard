@@ -139,7 +139,7 @@ const LoginPage = () => {
                             value={resetEmail}
                             onChange={(e) => setResetEmail(e.target.value)}
                         />
-                        <button className='send-reset' onClick={handleResetSenha}>Enviar</button>
+                        <button className='send-reset' onClick={() => { handleResetSenha(); setShowModal(false)} }>Enviar</button>
                     </div>
                     <button className='cancel-reset' onClick={() => setShowModal(false)}>Cancelar</button>
                 </div>

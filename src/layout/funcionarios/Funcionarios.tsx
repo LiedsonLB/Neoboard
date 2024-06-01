@@ -471,7 +471,9 @@ const Funcionarios = () => {
           <p id='result-staff'>Resultados ({filteredFuncionarios.length})</p>
 
           <section id='staff-list'>
-            {filteredFuncionarios.map(funcionario => (
+            {funcionarios.length === 0 ? (
+              <p style={{ textAlign: 'center', paddingBlock: '1rem', width: '100%', gridColumn: 'span 4' }}>Não há Funcionarios.</p>
+            ) : (filteredFuncionarios.map(funcionario => (
               <article className='stf-card' key={funcionario.id}>
                 <figure className='staff-img'>
                   <img src={funcionario.picture} alt="stf-img" />
@@ -496,7 +498,7 @@ const Funcionarios = () => {
                   <button className='delete-item item-mng' onClick={handleDelete(funcionario)}><IoTrash id='edit-trash' /></button>
                 </div>
               </article>
-            ))}
+            )))}
           </section>
         </main>
       </div>
