@@ -445,31 +445,6 @@ input[type="file"] {
 
     }
 
-    #exp-form {
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        padding: 0 !important;
-    }
-
-    #search-expense {
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    #filter-expense {
-        width: 100%;
-        text-align: center !important;
-    }
-
-    #exp-cards {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 1rem;
-        margin: 0 auto;
-        margin-bottom: 2rem;
-    }
-
     #output {
         margin-bottom: 2rem;
     }

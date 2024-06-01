@@ -358,7 +358,7 @@
     width: 100%;
     flex-wrap: wrap;
     margin-bottom: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 320px));
 }
 
 .exp-card {
@@ -549,6 +549,22 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    #search-expense {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #exp-cards {
+        display: grid;
+        gap: 1rem;
+        margin: 0 auto;
+        width: 100%;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+        justify-content: center;
+    }
 }
 
 @media screen and (max-width:749px) {
@@ -575,6 +591,31 @@
 
     .action-btns {
         min-width: none !important;
+    }
+
+    #exp-form {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 0 !important;
+    }
+
+    #search-expense {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #filter-expense {
+        width: 100%;
+        text-align: center !important;
+    }
+
+    #exp-cards {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+        margin: 0 auto;
+        margin-bottom: 2rem;
     }
 }
 

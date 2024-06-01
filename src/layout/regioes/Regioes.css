@@ -244,7 +244,7 @@
 /* Tabela */
 #container-table-regions {
     width: 100%;
-    height:450px;
+    height: 450px;
     background: #fdfdfd;
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
@@ -316,6 +316,13 @@ tbody {
     border-radius: 10px;
 }
 
+.tBodyTableRegions tr {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
 .tBodyTableRegions tr td {
     text-align: center;
     height: 80px;
@@ -357,7 +364,7 @@ tbody tr td button {
 
 tbody.tBodyTableRegions tr:hover {
     cursor: pointer;
-    background: var(--gray-color) !important;
+    background-color: #F1F1F1 !important; 
 }
 
 .tBodyTableRegions tr td:nth-child(3) {
@@ -447,6 +454,16 @@ tr {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+}
+
+.region-row:nth-child(even) {
+    background-color: var(--gray-color);  
+}
+
+/* Hover para linha par (cinza) */
+.region-row:nth-child(even):hover td,
+.region-row:nth-child(odd):hover td {
+  color: var(--primary-color) !important;
 }
 
 /* Estilos para células individuais */
@@ -752,7 +769,7 @@ td {
     }
 
 
-    .tBodyTableRegions tr td p{
+    .tBodyTableRegions tr td p {
         max-width: 10ch;
     }
 
@@ -799,7 +816,7 @@ td {
         max-width: 12ch;
     }
 
-    .tBodyTableRegions tr td p{
+    .tBodyTableRegions tr td p {
         max-width: 6ch;
     }
 
@@ -828,9 +845,19 @@ td {
         width: 100%;
     }
 
-    .theadTableRegions tr,
+    .theadTableRegions tr{
+       padding-left: 1rem;
+    }
+
     .tBodyTableRegions td {
         font-size: 11px;
+    }
+
+    .theadTableRegions tr td{
+        max-width: 5.5ch;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;  
     }
 
     .tBodyTableRegions tr td {
@@ -846,16 +873,12 @@ td {
         align-items: center;
         justify-content: center;
         min-width: 10px !important;
+        font-size: 13px !important;
     }
 
     tbody tr td div {
         width: 100%;
-    }
-
-    .edit {
-        display: flex;
-        justify-content: center;
-    }
+    }   
 
     .region-pic {
         width: 100%;
