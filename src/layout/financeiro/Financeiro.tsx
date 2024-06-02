@@ -21,11 +21,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const Financeiro = () => {
   const [selectedOption, setSelectedOption] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [despesas, setDespesas] = useState<Despesa[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
   const [categorias, setCategorias] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [modalEditOpen, setModalEditOpen] = useState(false);
+  const [editandoDespesa, setEditandoDespesa] = useState<Despesa | null>(null);
+  const [despesaDelete, setDespesaDelete] = useState<Despesa>();
+  const [filtroPesquisa, setFiltroPesquisa] = useState('');
 
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
@@ -179,11 +184,44 @@ const Financeiro = () => {
     }
   };
 
+  const atualizarDespesa = async (despesaEditada: Despesa) => {
+    try {
+      console.log('ID do funcionário:', despesaEditada.id);
+
+      const despesaExistente = await axios.put(`http://localhost:4000/v3/despesas/${despesaEditada.id}`, {
+        ...despesaEditada,
+        // certifique-se de passar os dados corretos para a API de edição
+      });
+
+      console.log('Resposta da API:', despesaExistente.data); // Verifique a resposta da API
+
+      // Feche o modal de edição após a conclusão
+      fecharModalEdicao();
+
+      // Atualize a lista de despesas após a edição
+      fetchDespesas();
+
+      // Exibir uma mensagem de sucesso
+      setPopupType('sucess');
+      setPopupTitle('Funcionário editado');
+      setMensagem('Sucesso ao editar o despesa');
+      hidePopupAfterTimeout();
+    } catch (error) {
+      console.error('Erro ao editar despesa', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem(`Erro ao editar o despesa: ${error.message}`);
+      hidePopupAfterTimeout();
+    }
+  };
+
+
   const handleDelete = (despesa: Despesa) => async () => {
     try {
       await axios.delete(`http://localhost:4000/v3/despesas/${despesa.id}`);
       console.log("Despesa excluída com sucesso!");
       setDespesas(despesas.filter((d) => d.id !== despesa.id));
+      setShowDeleteModal(false);
     } catch (error) {
       console.error("Erro ao excluir despesa:", error);
     }
@@ -193,9 +231,37 @@ const Financeiro = () => {
     setSelectedOption(event.target.value);
   };
 
-  const handleEdit = (despesa: any) => {
+  const despesasFiltradas = despesas.filter((expense: Despesa) =>
+    expense.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
+    (categoriaSelecionada ? expense.tipo === categoriaSelecionada : true)
+  );
+
+  const openDeleteModal = (expense) => {
+    setDespesaDelete(expense);
+    setShowDeleteModal(true);
+  };
+
+  const toggleModalDelete = () => {
+    setShowDeleteModal(!showDeleteModal);
+    if (despesaDelete) {
+      setDespesaDelete(despesaDelete);
+    }
+  };
+
+  const abrirModalEdicao = (expense: Despesa) => {
+    if (expense) {
+      setEditandoDespesa(expense);
+      setModalEditOpen(true);
+    }
+  };
+
+  const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltroPesquisa(e.target.value);
+  };
+
+  const handleEdit = (expense: Despesa) => {
     // Define os dados do despesa selecionado para edição
-    console.log(despesa);
+    abrirModalEdicao(expense);
     //setDespesaParaEditar(despesa);
   };
 
@@ -221,6 +287,11 @@ const Financeiro = () => {
     } else {
       setPrecoValido(false);
     }
+  };
+
+  const fecharModalEdicao = () => {
+    setEditandoDespesa(null);
+    setModalEditOpen(false);
   };
 
   const [typeSugetions, setTypeSugetions] = useState(false)
@@ -334,6 +405,135 @@ const Financeiro = () => {
           </div>
         </div>
       )}
+
+      {modalEditOpen && editandoDespesa && (
+        <div className="Modal-Add">
+          <div className="container-Add" style={{ height: 'auto', maxHeight: '90%' }}>
+            <div id="header-modal">
+              <h4 className="modal-title">Editar Despesa: {editandoDespesa?.nome}</h4>
+              <button
+                type="button"
+                className="close-btn"
+                onClick={() => setModalEditOpen(false)}
+              >
+                &times;
+              </button>
+            </div>
+
+            <div className="Add-Item-container">
+              <div className="input-item input-single">
+                <span>
+                  <label htmlFor="name-item">Nome:</label>
+                  <input
+                    type="text"
+                    name="name-item"
+                    className="full-item"
+                    id="name-item"
+                    value={editandoDespesa.nome}
+                    onChange={(e) => setEditandoDespesa({ ...editandoDespesa, nome: e.target.value })}
+                  />
+                </span>
+              </div>
+
+              <div className="input-item input-mult">
+                <span>
+                  <label htmlFor="data-despesa-item">Data da despesa:</label>
+                  <DatePicker
+                    selected={selectedDate}
+                    value={editandoDespesa.data}
+                    onChange={date => setEditandoDespesa({ ...editandoDespesa, data: date })}
+                    dateFormat="dd/MM/yyyy"
+                  />
+                </span>
+                <span style={{ position: 'relative' }}>
+                  <label htmlFor="tipo-despesa-item">Tipo:</label>
+                  <input
+                    type="text"
+                    name="tipo-despesa-item"
+                    className="full-item"
+                    id="tipo-despesa-item"
+                    value={editandoDespesa.tipo}
+                    onChange={(e) => setEditandoDespesa({ ...editandoDespesa, tipo: e.target.value })}
+                    onFocus={() => setTypeSugetions(true)}
+                    onBlur={() => setTypeSugetions(false)}
+                  />
+                  {validOptions.length > 0 && typeSugetions && (
+                    <ul className="valid-options-list" style={{ top: '70px', width: '100%' }}>
+                      {validOptions.map(option => (
+                        <li
+                          key={option}
+                          onMouseDown={() => {
+                            setEditandoDespesa(prev => ({ ...prev, tipo: option }));
+                            setTypeSugetions(false);
+                          }}
+                        >
+                          {option}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </span>
+
+                <span>
+                  <label htmlFor="valor-item">Valor:</label>
+                  <input
+                    type="text"
+                    name="valor-item"
+                    className={`full-item ${precoValido ? '' : 'invalid'}`}
+                    id="valor-item"
+                    value={editandoDespesa.valor.toString()}
+                    onChange={(e) => {
+                      const valorNum = parseFloat(e.target.value);
+                      if (!isNaN(valorNum) && valorNum >= 0) {
+                        setEditandoDespesa({ ...editandoDespesa, valor: valorNum });
+                        setPrecoValido(true);
+                      } else {
+                        setPrecoValido(false);
+                      }
+                    }}
+                  />
+                </span>
+              </div>
+
+              <div className="input-item input-single">
+                <span>
+                  <label htmlFor="descricao-item">Descrição:</label>
+                  <textarea
+                    name="descricao-item"
+                    className="desc-prod"
+                    id="descricao-item"
+                    value={editandoDespesa.descricao}
+                    onChange={(e) => setEditandoDespesa({ ...editandoDespesa, descricao: e.target.value })}
+                  />
+                </span>
+              </div>
+
+              <button id="add-staff-Btn" onClick={() => atualizarDespesa(editandoDespesa)}>
+                Salvar Alterações
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showDeleteModal && despesaDelete &&
+        <div className='modal-logout-stf'>
+          <div className='container-logout'>
+            <div className="header-logout">
+              <button type="button" className="close-btn" onClick={toggleModalDelete}>&times;</button>
+            </div>
+
+            <h2 className='txt-logout'>Você tem certeza que quer excluir esta despesa?</h2>
+
+            <hr className='modal-line' style={{ width: '80%', height: '3px', background: '#000', color: '#000' }} />
+
+            <div className='options-logout'>
+              <button className="logout-yes" onClick={handleDelete(despesaDelete)}>Sim</button>
+              <button className="logout-no" onClick={toggleModalDelete}>Não</button>
+            </div>
+          </div>
+        </div>}
+
 
       <div id="financial-container">
         <header id="financial-header">
@@ -690,6 +890,8 @@ const Financeiro = () => {
                   id="search-exp"
                   placeholder="Pesquisar despesa"
                   aria-label="Buscar"
+                  value={filtroPesquisa}
+                  onChange={handleFiltroChange}
                 />
                 <i id="search-icon">
                   <IoSearch id="icon-exp" />
@@ -725,11 +927,13 @@ const Financeiro = () => {
                 <p style={{ textAlign: 'center', paddingBlock: '1rem' }}>Não há despesas.</p>
               ) : (
                 despesas
+                  .filter((expense) => expense.nome && expense.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()))
                   .filter(
                     (expense) =>
                       selectedOption === "" || expense.tipo === selectedOption
                   )
-                  .map((expense, index) => {
+                  .filter((expense) => categoriaSelecionada ? expense.nome === categoriaSelecionada : true)
+                    .map((expense, index) => {
                     const icon = expenseIcons[expense.tipo] || expenseIcons.Default;
                     const color = expenseColors[expense.tipo] || expenseColors.Default;
                     return (
@@ -764,7 +968,7 @@ const Financeiro = () => {
                           <div>
                             <button
                               className="delete-item item-mng"
-                              onClick={handleDelete(expense)}
+                              onClick={() => openDeleteModal(expense)}
                             >
                               <IoTrash id="edit-trash" />
                             </button>
