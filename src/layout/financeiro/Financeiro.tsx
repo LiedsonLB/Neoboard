@@ -31,6 +31,7 @@ const Financeiro = () => {
   const [editandoDespesa, setEditandoDespesa] = useState<Despesa | null>(null);
   const [despesaDelete, setDespesaDelete] = useState<Despesa>();
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
+  const [selectedEditDate, setSelectedEditDate] = useState(new Date());
 
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
@@ -439,9 +440,11 @@ const Financeiro = () => {
                 <span>
                   <label htmlFor="data-despesa-item">Data da despesa:</label>
                   <DatePicker
-                    selected={selectedDate}
-                    value={editandoDespesa.data}
-                    onChange={date => setEditandoDespesa({ ...editandoDespesa, data: date })}
+                    selected={selectedEditDate}
+                    onChange={(date) => {
+                      setSelectedEditDate(date);
+                      setEditandoDespesa({ ...editandoDespesa, data: toLocalISOString(date) });
+                    }}
                     dateFormat="dd/MM/yyyy"
                   />
                 </span>
@@ -933,7 +936,7 @@ const Financeiro = () => {
                       selectedOption === "" || expense.tipo === selectedOption
                   )
                   .filter((expense) => categoriaSelecionada ? expense.nome === categoriaSelecionada : true)
-                    .map((expense, index) => {
+                  .map((expense, index) => {
                     const icon = expenseIcons[expense.tipo] || expenseIcons.Default;
                     const color = expenseColors[expense.tipo] || expenseColors.Default;
                     return (
