@@ -102,17 +102,16 @@ CREATE TABLE "Venda" (
     "regiaoId" INTEGER NOT NULL,
     "formaPagamento" TEXT NOT NULL,
     "usuarioId" TEXT,
-    "relatorioId" INTEGER NOT NULL,
+    "relatorioId" TEXT NOT NULL,
 
     CONSTRAINT "Venda_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Relatorio" (
-    "id" SERIAL NOT NULL,
     "Data" TEXT NOT NULL,
 
-    CONSTRAINT "Relatorio_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Relatorio_pkey" PRIMARY KEY ("Data")
 );
 
 -- CreateTable
@@ -143,7 +142,7 @@ ALTER TABLE "Funcionario" ADD CONSTRAINT "Funcionario_usuarioId_fkey" FOREIGN KE
 ALTER TABLE "Despesa" ADD CONSTRAINT "Despesa_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Venda" ADD CONSTRAINT "Venda_relatorioId_fkey" FOREIGN KEY ("relatorioId") REFERENCES "Relatorio"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Venda" ADD CONSTRAINT "Venda_Data_fkey" FOREIGN KEY ("Data") REFERENCES "Relatorio"("Data") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Venda" ADD CONSTRAINT "Venda_funcionarioId_fkey" FOREIGN KEY ("funcionarioId") REFERENCES "Funcionario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

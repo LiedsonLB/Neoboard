@@ -3,68 +3,55 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function addVenda(req, res) {
+    const {
+        Data,
+        funcionarioId,
+        produtoid,
+        quantidadeProdutos,
+        valor,
+        comprador,
+        regiaoId,
+        formaPagamento,
+        usuarioId,
+    } = req.body;
+
     try {
-        const novaVendaData = req.body;
+        // Verifica se já existe um relatório para a data especificada
+        let relatorio = await prisma.relatorio.findUnique({
+            where: { Data },
+        });
 
-        // Verificando se a forma de pagamento é "Divida"
-        if (novaVendaData.formaPagamento === 'Divida') {
-            // Se a forma de pagamento for "Divida", cria a venda e a adiciona a VendasEmDivida
-            const vendaCriada = await prisma.venda.create({
-                data: novaVendaData,
-                include: {
-                    relatorio: true
-                }
-            });
-
-            // Adicionando a venda à tabela VendasEmDivida
-            const vendaEmDivida = await prisma.vendasEmDivida.create({
+        // Se não existir, cria um novo relatório
+        if (!relatorio) {
+            relatorio = await prisma.relatorio.create({
                 data: {
-                    idVenda: vendaCriada.id,
-                    pago: false  // Definindo como não pago por padrão
-                }
+                    Data,
+                },
             });
-
-            res.status(201).json(vendaCriada);
-        } else {
-            // Se a forma de pagamento não for "Divida", cria apenas a venda
-            const usuario = await prisma.usuario.findUnique({
-                where: { id: novaVendaData.usuarioId }
-            });
-
-            if (!usuario) {
-                throw new Error('Usuário não encontrado');
-            }
-
-            const vendaCriada = await prisma.venda.create({
-                data: {
-                    ...novaVendaData,
-                    funcionario: { connect: { id: novaVendaData.funcionario } },
-                    produto: { connect: { id: novaVendaData.produto } },
-                    regiao: { connect: { id: novaVendaData.regiao } },
-                    usuario: { connect: { id: novaVendaData.usuarioId } },
-                    relatorio: {
-                        connectOrCreate: {
-                            where: { Data: novaVendaData.Data },
-                            create: {
-                                Data: novaVendaData.Data,
-                                Venda: {
-                                    create: {
-                                        id: novaVendaData.id
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            res.status(201).json(vendaCriada);
         }
+
+        // Adiciona a venda ao relatório
+        const venda = await prisma.venda.create({
+            data: {
+                Data,
+                funcionarioId,
+                valor,
+                quantidadeProdutos,
+                comprador,
+                produtoid,
+                regiaoId,
+                formaPagamento,
+                usuarioId,
+                relatorioId: relatorio.Data,
+            },
+        });
+
+        return res.status(200).json({ success: true, venda });
     } catch (error) {
         console.error('Erro ao adicionar venda:', error);
-        res.status(500).json({ error: 'Erro ao adicionar venda' });
+        return res.status(500).json({ success: false, error: 'Erro ao adicionar venda' });
     }
-};
+}
 
 // Route to get all sales
 export async function getVenda(req, res) {

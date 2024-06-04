@@ -106,18 +106,17 @@ model Venda {
   regiaoId           Int
   formaPagamento     String
   usuarioId          String?
-  relatorioId        Int
+  relatorioId        String
+  relatorio          Relatorio        @relation(fields: [Data], references: [Data])
   funcionario        Funcionario      @relation(fields: [funcionarioId], references: [id])
   produto            Produto          @relation(fields: [produtoid], references: [id])
   regiao             Regiao           @relation(fields: [regiaoId], references: [id])
-  relatorio          Relatorio        @relation(fields: [relatorioId], references: [id])
   usuario            Usuario?         @relation(fields: [usuarioId], references: [id])
   dividas            VendasEmDivida[]
 }
 
 model Relatorio {
-  id     Int     @id @default(autoincrement())
-  Data   String
+  Data   String  @id
   Vendas Venda[]
 }
 
