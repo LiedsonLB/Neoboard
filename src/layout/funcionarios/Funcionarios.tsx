@@ -114,8 +114,6 @@ const Funcionarios = () => {
       const response = await axios.get(`http://localhost:4000/v3/funcionarios?userId=${localStorage.getItem('userID')}`);
       const data = response.data;
 
-      console.log("essa função repete infinitamente")
-
       const funcionariosOrdenadosPorVendas = [...data].sort((a: Funcionario, b: Funcionario) => b.numVendas - a.numVendas);
       const funcionarioDestaqueVendas = funcionariosOrdenadosPorVendas.slice(0, 1);
       const funcionariosOrdenadosPorFaturamento = [...data].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);

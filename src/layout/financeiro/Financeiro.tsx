@@ -215,7 +215,6 @@ const Financeiro = () => {
     }
   };
 
-
   const handleDelete = (despesa: Despesa) => async () => {
     try {
       await axios.delete(`http://localhost:4000/v3/despesas/${despesa.id}`);
@@ -224,6 +223,17 @@ const Financeiro = () => {
       setShowDeleteModal(false);
     } catch (error) {
       console.error("Erro ao excluir despesa:", error);
+    }
+  };
+
+  const markDespesaAsPaid = async (id) => {
+    try {
+      const response = await axios.put(`http://localhost:4000/v3/despesas/efetuado/${id}`);
+
+      // Atualizar a lista de despesas após adição
+      fetchDespesas();
+    } catch (error) {
+      console.error('Erro ao marcar despesa como paga:', error);
     }
   };
 
@@ -441,7 +451,7 @@ const Financeiro = () => {
                   <DatePicker
                     selected={selectedDate}
                     value={editandoDespesa.data}
-                    onChange={date => setEditandoDespesa({ ...editandoDespesa, data: date })}
+                    onChange={date => setEditandoDespesa({ ...editandoDespesa, data: toLocalISOString(date) })}
                     dateFormat="dd/MM/yyyy"
                   />
                 </span>
@@ -933,7 +943,7 @@ const Financeiro = () => {
                       selectedOption === "" || expense.tipo === selectedOption
                   )
                   .filter((expense) => categoriaSelecionada ? expense.nome === categoriaSelecionada : true)
-                    .map((expense, index) => {
+                  .map((expense, index) => {
                     const icon = expenseIcons[expense.tipo] || expenseIcons.Default;
                     const color = expenseColors[expense.tipo] || expenseColors.Default;
                     return (
@@ -960,7 +970,7 @@ const Financeiro = () => {
                         <div className="manager-btn">
                           {expense.status !== "Paga" && (
                             <div>
-                              <button className="payment-item-mng">
+                              <button className="payment-item-mng" onClick={() => markDespesaAsPaid(expense.id)}>
                                 <FaCheckSquare id="edit-pen" style={{ color: 'var(--white-color)' }} /> <p>Efetuado</p>
                               </button>
                             </div>

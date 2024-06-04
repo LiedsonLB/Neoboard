@@ -1,5 +1,3 @@
-// saleController.js
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -8,50 +6,67 @@ export async function addVenda(req, res) {
     try {
         const novaVendaData = req.body;
 
-        // Obtenha a data atual
-        const dataAtual = new Date().toISOString().split('T')[0];
-
-        // Verifique se já existe um relatório para a data atual
-        let relatorio = await prisma.relatorio.findUnique({
-            where: { Data: dataAtual }
-        });
-
-        // Se não houver um relatório para a data atual, crie um novo
-        if (!relatorio) {
-            relatorio = await prisma.relatorio.create({
-                data: {
-                    Data: dataAtual,
-                    vendas: {
-                        create: [novaVendaData]
-                    }
-                },
+        // Verificando se a forma de pagamento é "Divida"
+        if (novaVendaData.formaPagamento === 'Divida') {
+            // Se a forma de pagamento for "Divida", cria a venda e a adiciona a VendasEmDivida
+            const vendaCriada = await prisma.venda.create({
+                data: novaVendaData,
                 include: {
-                    vendas: true
+                    relatorio: true
                 }
             });
+
+            // Adicionando a venda à tabela VendasEmDivida
+            const vendaEmDivida = await prisma.vendasEmDivida.create({
+                data: {
+                    idVenda: vendaCriada.id,
+                    pago: false  // Definindo como não pago por padrão
+                }
+            });
+
+            res.status(201).json(vendaCriada);
         } else {
-            // Se já houver um relatório, adicione a nova venda ao relatório existente
-            relatorio = await prisma.relatorio.update({
-                where: { id: relatorio.id },
+            // Se a forma de pagamento não for "Divida", cria apenas a venda
+            const usuario = await prisma.usuario.findUnique({
+                where: { id: novaVendaData.usuarioId }
+            });
+
+            if (!usuario) {
+                throw new Error('Usuário não encontrado');
+            }
+
+            const vendaCriada = await prisma.venda.create({
                 data: {
-                    vendas: {
-                        create: [novaVendaData]
+                    ...novaVendaData,
+                    funcionario: { connect: { id: novaVendaData.funcionario } },
+                    produto: { connect: { id: novaVendaData.produto } },
+                    regiao: { connect: { id: novaVendaData.regiao } },
+                    usuario: { connect: { id: novaVendaData.usuarioId } },
+                    relatorio: {
+                        connectOrCreate: {
+                            where: { Data: novaVendaData.Data },
+                            create: {
+                                Data: novaVendaData.Data,
+                                Venda: {
+                                    create: {
+                                        id: novaVendaData.id
+                                    }
+                                }
+                            }
+                        }
                     }
-                },
-                include: {
-                    vendas: true
                 }
             });
-        }
 
-        res.status(201).json(relatorio);
+            res.status(201).json(vendaCriada);
+        }
     } catch (error) {
         console.error('Erro ao adicionar venda:', error);
         res.status(500).json({ error: 'Erro ao adicionar venda' });
     }
 };
 
-// Rota para obter todas as vendas
+// Route to get all sales
 export async function getVenda(req, res) {
     try {
         const vendas = await prisma.venda.findMany();
@@ -62,8 +77,8 @@ export async function getVenda(req, res) {
     }
 };
 
-// Rota para excluir uma venda
-export async function deleteVenda (req, res) {
+// Route to delete a sale
+export async function deleteVenda(req, res) {
     try {
         const vendaId = parseInt(req.params.id);
         await prisma.venda.delete({ where: { id: vendaId } });
@@ -74,8 +89,8 @@ export async function deleteVenda (req, res) {
     }
 };
 
-// Rota para editar uma venda
-export async function editVenda (req, res) {
+// Route to edit a sale
+export async function editVenda(req, res) {
     try {
         const vendaId = parseInt(req.params.id);
         const novosDadosVenda = req.body;

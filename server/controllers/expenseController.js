@@ -54,3 +54,18 @@ export async function editDespesa (req, res) {
         res.status(500).json({ error: 'Erro ao atualizar despesa' });
     }
 };
+
+// Função para marcar uma despesa como paga
+export async function markDespesaAsPaid (req, res) {
+    try {
+        const despesaId = parseInt(req.params.id);
+        const updatedDespesa = await prisma.despesa.update({
+            where: { id: despesaId },
+            data: { status: 'Paga' }
+        });
+        res.status(200).json(updatedDespesa);
+    } catch (error) {
+        console.error('Erro ao marcar despesa como paga:', error);
+        res.status(500).json({ error: 'Erro ao marcar despesa como paga' });
+    }
+};

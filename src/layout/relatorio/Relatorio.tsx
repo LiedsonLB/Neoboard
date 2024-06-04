@@ -203,6 +203,11 @@ const Relatorio: React.FC = () => {
   }
 
   const enviarRelatorioVendas = async () => {
+    if (produtos.length === 0 || regioes.length === 0 || funcionarios.length === 0) {
+      console.log('sem dados ainda')
+      return;
+    }
+    
     try {
       const filteredOutputData = outputData.slice(1).filter((row) => row.some(cell => cell !== null && cell !== ''));
 
@@ -230,32 +235,40 @@ const Relatorio: React.FC = () => {
           Comprador: row[4],
           Região: regiao,
           'Forma de pagamento': row[6],
+          usuarioId: localStorage.getItem('userID'),
         };
       });
 
       setInvalidCells(newInvalidCells);
 
-      if (Object.keys(newInvalidCells).length === 0) {
-        setVendas(vendas);
-        console.log('Celulas Invalidas: ', invalidCells)
-        console.log('Dados das vendas a serem enviados:', vendas);
-        console.log('Vendas Totais: ', vendas)
+      const hasInvalidCells = Object.keys(newInvalidCells).length > 0;
 
-      } else {
-        console.log('Existem dados inválidos, por favor corrija-os antes de enviar.');
+      if (hasInvalidCells) {
         setPopupType('warning');
-        setPopupTitle('Campos Inválidos:');
-        setMensagem('O relatório apresenta dados inexistentes');
+        setPopupTitle('Erro');
+        setMensagem('Por favor, corrija os dados inválidos.');
         hidePopupAfterTimeout();
+        return;
       }
 
-      console.log(filteredOutputData)
+      setLoading(true);
 
+      console.log(vendas)
+
+      await axios.post(`http://localhost:4000/v3/vendas`, vendas);
+
+      setLoading(false);
+      setPopupType('sucess');
+      setPopupTitle('Sucesso');
+      setMensagem('Relatório enviado com sucesso!');
+      hidePopupAfterTimeout();
+      setOutputData([]);
     } catch (error) {
-      console.error('Erro ao enviar dados para a API:', error);
+      console.error('Erro ao enviar relatório:', error);
+      setLoading(false);
       setPopupType('warning');
-      setPopupTitle('Relatório Incompatível:');
-      setMensagem('Use algum dos modelos para baixar');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao enviar o relatório.');
       hidePopupAfterTimeout();
     }
   };
@@ -291,6 +304,7 @@ const Relatorio: React.FC = () => {
 
   const changeComponentStorage = (componentName: string) => {
     sessionStorage.setItem('currentComponent', componentName);
+    sessionStorage.setItem('activeItem', componentName);
     window.location.reload();
   };
 
