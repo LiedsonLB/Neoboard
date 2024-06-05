@@ -49,4 +49,9 @@ routerV3.get("/vendas", getVenda);
 routerV3.delete("/vendas/:id", deleteVenda);
 routerV3.put("/vendas/:id", editVenda);
 
+// debt routers
+routerV3.get("/dividas", getVenda);
+routerV3.delete("/dividas/:id", deleteVenda);
+routerV3.put("/dividas/:id", editVenda);
+
 export default routerV3;

@@ -99,7 +99,7 @@ model Venda {
   id                 Int              @id @default(autoincrement())
   Data               String
   funcionarioId      Int
-  valor              Float
+  valor              Float?
   quantidadeProdutos Int
   comprador          String
   produtoid          Int

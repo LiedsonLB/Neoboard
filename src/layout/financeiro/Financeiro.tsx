@@ -18,6 +18,7 @@ import Popup from "../../components/popup/Popup.tsx";
 import Despesa from "../../models/Despesa.tsx";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Divida from "../../models/Divida.tsx";
 
 const Financeiro = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -31,6 +32,7 @@ const Financeiro = () => {
   const [editandoDespesa, setEditandoDespesa] = useState<Despesa | null>(null);
   const [despesaDelete, setDespesaDelete] = useState<Despesa>();
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
+  const [dividas, setDividas] = useState<Divida[]>([]);
 
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
@@ -99,6 +101,16 @@ const Financeiro = () => {
     setTimeout(() => {
       setMensagem('');
     }, 4500);
+  };
+
+  // Atualize a função fetchDividas para armazenar as dívidas no estado
+  const fetchDividas = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/v3/dividas");
+      setDividas(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar dívidas:", error);
+    }
   };
 
   const fetchDespesas = async () => {
@@ -594,6 +606,7 @@ const Financeiro = () => {
                 </select>
               </div>
 
+
               <section id="container-table-debts">
                 <table id="table-prod" className="table-debts">
                   <thead className="head-list-fin" style={{ backgroundColor: 'var(--primary-color)' }}>
@@ -605,56 +618,49 @@ const Financeiro = () => {
                     </tr>
                   </thead>
                   <tbody className="body-list-prod debt" style={{ gap: '5px' }}>
-                    <tr>
-                      <td>
-                        <h3 data-toggle="tooltip" title="Picolé sem cobertura">
-                          Mario
-                        </h3>
-                      </td>
-                      <td>
-                        <h3 data-toggle="tooltip" title="07/04/2024">
-                          07/04/2024
-                        </h3>
-                      </td>
-                      <td>
-                        <h3 data-toggle="tooltip" title="Cartão(debito)">
-                          10K
-                        </h3>
-                      </td>
-                      <td
-                        className="action-btns"
-                        style={{ display: "flex", gap: "5px" }}
-                      >
-                        <button
-                          className="edit"
-                          style={{
-                            padding: ".6rem .8rem",
-                            height: "2.5rem",
-                            width: "2.5rem",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                          onClick={() => handleEdit()}
-                        >
-                          <FaCheckSquare />
-                        </button>
-                        <button
-                          className="delete"
-                          style={{
-                            padding: ".6rem .8rem",
-                            height: "2.5rem",
-                            width: "2.5rem",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                          onClick={handleDelete()}
-                        >
-                          <FaTrash />
-                        </button>
-                      </td>
-                    </tr>
+                    {dividas.map((divida, index) => (
+                      <tr key={index}>
+                        <td>
+                          <h3>{divida.cliente}</h3>
+                        </td>
+                        <td>
+                          <h3>{divida.dataCompra}</h3>
+                        </td>
+                        <td>
+                          <h3>{divida.valor}</h3>
+                        </td>
+                        <td className="action-btns" style={{ display: "flex", gap: "5px" }}>
+                          <button
+                            className="edit"
+                            style={{
+                              padding: ".6rem .8rem",
+                              height: "2.5rem",
+                              width: "2.5rem",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            onClick={() => handleEdit(divida)}
+                          >
+                            <FaCheckSquare />
+                          </button>
+                          <button
+                            className="delete"
+                            style={{
+                              padding: ".6rem .8rem",
+                              height: "2.5rem",
+                              width: "2.5rem",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            onClick={() => openDeleteModal(divida)}
+                          >
+                            <FaTrash />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </section>

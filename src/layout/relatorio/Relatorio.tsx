@@ -204,40 +204,50 @@ const Relatorio: React.FC = () => {
 
   const enviarRelatorioVendas = async () => {
     if (produtos.length === 0 || regioes.length === 0 || funcionarios.length === 0) {
-      console.log('sem dados ainda')
+      console.log('Sem dados ainda');
       return;
     }
-    
+
     try {
       const filteredOutputData = outputData.slice(1).filter((row) => row.some(cell => cell !== null && cell !== ''));
 
-      const newInvalidCells: { [key: string]: boolean } = {};
-      const vendas = filteredOutputData.map((row: any, rowIndex: number) => {
-        const funcionario = row[1].trim();
-        const produto = row[2].trim();
-        const regiao = row[5].trim();
+      const newInvalidCells = {};
+      const vendas = filteredOutputData.map((row, rowIndex) => {
+        const funcionario = funcionarios.find(f => f.nome === row[1].trim());
+        const produto = produtos.find(p => p.nome === row[2].trim());
+        const regiao = regioes.find(r => r.nome === row[5].trim());
 
-        if (!funcionarios.some(f => f.nome === funcionario)) {
+        if (!funcionario) {
           newInvalidCells[`${rowIndex}-1`] = true;
         }
-        if (!produtos.some(p => p.nome === produto)) {
+        if (!produto) {
           newInvalidCells[`${rowIndex}-2`] = true;
         }
-        if (!regioes.some(r => r.nome === regiao)) {
+        if (!regiao) {
           newInvalidCells[`${rowIndex}-5`] = true;
         }
 
+        const [day, month, year] = row[0].split('/');
+        const formattedDate = `${year}-${month}-${day}`;
+
+        console.log('Data formatada:', formattedDate);
+        console.log('Funcionario:', funcionario);
+        console.log('Produto:', produto);
+        console.log('Regiao:', regiao);
+
         return {
-          Data: row[0],
-          Funcionário: funcionario,
-          Produto: produto,
-          'Qtd. Comprada': row[3],
-          Comprador: row[4],
-          Região: regiao,
-          'Forma de pagamento': row[6],
+          Data: formattedDate,
+          funcionarioId: funcionario ? funcionario.id : undefined,
+          produtoid: produto ? produto.id : undefined,
+          quantidadeProdutos: row[3],
+          comprador: row[4],
+          regiaoId: regiao ? regiao.id : undefined,
+          formaPagamento: row[6],
           usuarioId: localStorage.getItem('userID'),
         };
       });
+
+      console.log('Vendas preparadas:', vendas);
 
       setInvalidCells(newInvalidCells);
 
@@ -253,9 +263,9 @@ const Relatorio: React.FC = () => {
 
       setLoading(true);
 
-      console.log(vendas)
+      console.log('Enviando vendas:', vendas); // Log para verificar os dados sendo enviados
 
-      await axios.post(`http://localhost:4000/v3/vendas`, vendas);
+      await axios.post('http://localhost:4000/v3/vendas', vendas);
 
       setLoading(false);
       setPopupType('sucess');
