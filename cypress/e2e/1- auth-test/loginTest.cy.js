@@ -136,9 +136,9 @@ describe('Test login page', () => {
         cy.get('#link-cadaster')
         .click()
     })
-    it('Test successful login', () => {
-        const newEmail = 'liedsonbarros123@gmail.com'
-        const newPassword = 'kleberson2014'
+    it.only('Test successful login', () => {
+        const newEmail = 'kaiosimeao@gmail.com'
+        const newPassword = 'kaio1234'
 
         cy.get('.email')
         .type(newEmail)
@@ -151,5 +151,7 @@ describe('Test login page', () => {
         cy.get('.login-btn').click()
 
         cy.wait(3000)
+
+        cy.get('#logo-aside').should('be.visible')
     })
 })
