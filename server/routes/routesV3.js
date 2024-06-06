@@ -5,6 +5,7 @@ import { addRegion, deleteRegion, editRegion, getInfoRegion, getRegion } from '.
 import { addFuncionario, deleteFuncionario, editFuncionario, getFuncionarios } from '../controllers/staffController.js';
 import { addDespesa, deleteDespesa, editDespesa, getDespesa, markDespesaAsPaid } from '../controllers/expenseController.js';
 import { addVenda, deleteVenda, editVenda, getVenda } from '../controllers/saleController.js';
+import { getRelatorioPeriod } from '../controllers/RelatorioController.js';
 
 const routerV3 = express.Router();
 
@@ -53,5 +54,8 @@ routerV3.put("/vendas/:id", editVenda);
 routerV3.get("/dividas", getVenda);
 routerV3.delete("/dividas/:id", deleteVenda);
 routerV3.put("/dividas/:id", editVenda);
+
+//relatorio routers
+routerV3.get("/relatorio", getRelatorioPeriod);
 
 export default routerV3;

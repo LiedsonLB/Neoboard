@@ -117,6 +117,7 @@ model Venda {
 
 model Relatorio {
   Data   String  @id
+  Total  Float
   Vendas Venda[]
 }
 

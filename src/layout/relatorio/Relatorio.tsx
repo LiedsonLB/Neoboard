@@ -203,46 +203,59 @@ const Relatorio: React.FC = () => {
   }
 
   const enviarRelatorioVendas = async () => {
-    if (produtos.length === 0 || regioes.length === 0 || funcionarios.length === 0) {
-      console.log('Sem dados ainda');
-      return;
-    }
-
     try {
       const filteredOutputData = outputData.slice(1).filter((row) => row.some(cell => cell !== null && cell !== ''));
 
       const newInvalidCells = {};
       const vendas = filteredOutputData.map((row, rowIndex) => {
-        const funcionario = funcionarios.find(f => f.nome === row[1].trim());
-        const produto = produtos.find(p => p.nome === row[2].trim());
-        const regiao = regioes.find(r => r.nome === row[5].trim());
+        // Remove espaços em branco extras das células relevantes
+        const trimmedRow = row.map(cell => (typeof cell === 'string' ? cell.trim() : cell));
 
+        // Verifica o conteúdo da linha após trim
+        console.log(`Linha ${rowIndex + 1}:`, trimmedRow);
+
+        // Função de comparação para ignorar maiúsculas/minúsculas e espaços
+        const compareStrings = (str1, str2) => str1.toLowerCase().trim() === str2.toLowerCase().trim();
+
+        const funcionario = funcionarios.find(f => compareStrings(f.nome, trimmedRow[1]));
+        const produto = produtos.find(p => compareStrings(p.nome, trimmedRow[2]));
+        const regiao = regioes.find(r => compareStrings(r.nome, trimmedRow[5]));
+
+        // Adiciona logs para verificar se os dados foram encontrados corretamente
         if (!funcionario) {
+          console.warn(`Funcionario não encontrado: ${trimmedRow[1]}`);
           newInvalidCells[`${rowIndex}-1`] = true;
-        }
-        if (!produto) {
-          newInvalidCells[`${rowIndex}-2`] = true;
-        }
-        if (!regiao) {
-          newInvalidCells[`${rowIndex}-5`] = true;
+        } else {
+          console.log(`Funcionario encontrado: ${funcionario.nome}`);
         }
 
-        const [day, month, year] = row[0].split('/');
+        if (!produto) {
+          console.warn(`Produto não encontrado: ${trimmedRow[2]}`);
+          newInvalidCells[`${rowIndex}-2`] = true;
+        } else {
+          console.log(`Produto encontrado: ${produto.nome}`);
+        }
+
+        if (!regiao) {
+          console.warn(`Regiao não encontrada: ${trimmedRow[5]}`);
+          newInvalidCells[`${rowIndex}-5`] = true;
+        } else {
+          console.log(`Regiao encontrada: ${regiao.nome}`);
+        }
+
+        const [day, month, year] = trimmedRow[0].split('/');
         const formattedDate = `${year}-${month}-${day}`;
 
         console.log('Data formatada:', formattedDate);
-        console.log('Funcionario:', funcionario);
-        console.log('Produto:', produto);
-        console.log('Regiao:', regiao);
 
         return {
           Data: formattedDate,
           funcionarioId: funcionario ? funcionario.id : undefined,
           produtoid: produto ? produto.id : undefined,
-          quantidadeProdutos: row[3],
-          comprador: row[4],
+          quantidadeProdutos: trimmedRow[3],
+          comprador: trimmedRow[4],
           regiaoId: regiao ? regiao.id : undefined,
-          formaPagamento: row[6],
+          formaPagamento: trimmedRow[6],
           usuarioId: localStorage.getItem('userID'),
         };
       });

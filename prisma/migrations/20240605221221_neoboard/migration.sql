@@ -95,7 +95,7 @@ CREATE TABLE "Venda" (
     "id" SERIAL NOT NULL,
     "Data" TEXT NOT NULL,
     "funcionarioId" INTEGER NOT NULL,
-    "valor" DOUBLE PRECISION NOT NULL,
+    "valor" DOUBLE PRECISION,
     "quantidadeProdutos" INTEGER NOT NULL,
     "comprador" TEXT NOT NULL,
     "produtoid" INTEGER NOT NULL,
@@ -110,6 +110,7 @@ CREATE TABLE "Venda" (
 -- CreateTable
 CREATE TABLE "Relatorio" (
     "Data" TEXT NOT NULL,
+    "Total" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "Relatorio_pkey" PRIMARY KEY ("Data")
 );

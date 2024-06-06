@@ -42,16 +42,6 @@ export async function addVenda(req, res) {
 
             console.log('Relatório encontrado:', relatorio);
 
-            // Se não existir, cria um novo relatório
-            if (!relatorio) {
-                relatorio = await prisma.relatorio.create({
-                    data: {
-                        Data,
-                    },
-                });
-                console.log('Novo relatório criado:', relatorio);
-            }
-
             // Busca o produto pelo produtoid
             const produto = await prisma.produto.findUnique({
                 where: { id: produtoid },
@@ -64,7 +54,28 @@ export async function addVenda(req, res) {
 
             // Calcula o valor total da venda
             const valor = quantidadeProdutos * produto.precoAtual;
-            console.log(relatorio)
+
+            // Se não existir um relatório, cria um novo relatório
+            if (!relatorio) {
+                relatorio = await prisma.relatorio.create({
+                    data: {
+                        Data,
+                        Total: valor, // Inicializa o total com o valor da primeira venda
+                    },
+                });
+                console.log('Novo relatório criado:', relatorio);
+            } else {
+                // Atualiza o total do relatório existente
+                await prisma.relatorio.update({
+                    where: { Data },
+                    data: {
+                        Total: {
+                            increment: valor, // Incrementa o valor total
+                        },
+                    },
+                });
+                console.log('Relatório atualizado com novo total');
+            }
 
             // Adiciona a venda ao relatório
             const novaVenda = await prisma.venda.create({

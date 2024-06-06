@@ -283,11 +283,10 @@ const Produtos = () => {
   // Dentro do componente Produtos, adicione um estado para controlar a validade do preço
   const [precoValido, setPrecoValido] = useState(true);
 
-  // Adicione uma função para validar o preço com base no regex
   const validarPreco = (valor: string) => {
-    const regex = /^-?\d{1,3}(,\d{3})*(\.\d{1,2})?$/;
+    const regex = /^-?\d+(\.\d{1,2})?$/;
     return regex.test(valor);
-  };
+};
 
   // Adicione um manipulador de eventos para o campo de preço
   const handlePrecoChange = (e: React.ChangeEvent<HTMLInputElement>) => {

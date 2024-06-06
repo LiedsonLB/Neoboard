@@ -39,6 +39,18 @@ interface Event {
     description: string;
 }
 
+interface Venda {
+    Data: string;
+    funcionarioId: number;
+    produtoid: number;
+    quantidadeProdutos: number;
+    valorTotal: number; // Certifique-se de que a resposta da API contenha esse campo
+    comprador: string;
+    regiaoId: number;
+    formaPagamento: string;
+    usuarioId: string;
+}
+
 const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [dataPeriod, setDataPeriod] = useState("Mensal");
     const [produtos, setProdutos] = useState<Product[]>([]);
@@ -47,37 +59,46 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [events, setEvents] = useState<Event[]>([]);
+    const [vendas, setVendas] = useState<Venda[]>([]);
+    const [dataCards, setDataCards] = useState({ faturamento: 0, despesas: 0, lucro: 0 });
+
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
+                axios.get(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`),
+                axios.get(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`),
+                axios.get(`http://localhost:4000/v3/funcionarios?userId=${localStorage.getItem('userID')}`),
+            ]);
+
+            setProdutos(produtosResponse.data.slice(0, 5));
+            setRegions(regionsResponse.data.slice(0, 5));
+            setStaffs(staffsResponse.data.slice(0, 5));
+
+            const vendasResponse = await axios.get(`http://localhost:4000/v3/relatorio?period=${dataPeriod}`);
+            console.log("Vendas Response:", vendasResponse.data);
+
+            setVendas(vendasResponse.data)
+            console.log("chegou da API: ", vendas)
+
+            const totalFaturamento = vendasResponse.data._sum.valorTotal || 0;
+
+            setDataCards(prevDataCards => ({ ...prevDataCards, faturamento: totalFaturamento }));
+
+            setLoading(false);
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error);
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
-                    axios.get(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`),
-                    axios.get(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`),
-                    axios.get(`http://localhost:4000/v3/funcionarios?userId=${localStorage.getItem('userID')}`)
-                ]);
-                setProdutos(produtosResponse.data.slice(0, 5));
-                setRegions(regionsResponse.data.slice(0, 5));
-                setStaffs(staffsResponse.data.slice(0, 5));
-                setLoading(false);
-
-                console.log(produtos)
-                console.log(regions)
-                console.log(staffs)
-            } catch (error) {
-                //console.error('Erro ao buscar dados:', error);
-                setLoading(false);
-            }
-        };
-
         fetchData();
-    }, [localStorage.getItem('userID')]);
+    }, [dataPeriod, localStorage.getItem('userID')]);
 
-    const dataCards = {
-        faturamento: 0,
-        despesas: 0,
-        lucro: 0,
-    };
+    useEffect(() => {
+        console.log("Atualizado vendas:", vendas);
+    }, [vendas]);
 
     const AnimatedNumber = ({ value }: { value: number }) => {
         const props = useSpring({ value, from: { value: 0 }, reset: true });
@@ -87,16 +108,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
     const handlePeriodClick = (period: string) => {
         setDataPeriod(period);
-        updateCharts(period);
     };
-
-    const updateCharts = (period: string) => {
-        console.log(`Atualizando gráficos para o período: ${period}`);
-    };
-
-    useEffect(() => {
-        updateCharts(dataPeriod);
-    }, [dataPeriod]);
 
     const toggleModalOpen = () => {
         setShowModal(true);
@@ -258,14 +270,13 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                         ))}
                                     </ul>
                                 )}
-
                             </div>
                             <div className="ranking">
                                 <p className="ranking-title">Regiões</p>
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : regions.length === 0 ? (
-                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline', marginBottom: '1rem'}}>Nenhuma região encontrada</p>
+                                    <p style={{ color: 'var(--primary-color)', textAlign: 'center', textDecoration: 'underline', marginBottom: '1rem' }}>Nenhuma região encontrada</p>
                                 ) : (
                                     <ul>
                                         {regions.map(region => (
