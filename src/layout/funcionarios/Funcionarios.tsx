@@ -251,8 +251,18 @@ const Funcionarios = () => {
       const funcionariosOrdenadosPorFaturamento = [...updatedFuncionarios].sort((a: Funcionario, b: Funcionario) => b.faturamento - a.faturamento);
       const funcionarioDestaqueFaturamento = funcionariosOrdenadosPorFaturamento.slice(0, 1);
       setFuncionariosDestaqueFaturamento(funcionarioDestaqueFaturamento);
+    
+      setSearchTerm(''); 
+      setPopupType('sucess');
+      setPopupTitle('Funcionário Excluído');
+      setMensagem('Sucesso ao excluir o funcionário');
+      hidePopupAfterTimeout();
     } catch (error) {
-      console.error('Erro ao excluir funcionário:', error);
+      console.error('Erro ao excluir o funcionário:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao excluir o funcionário:');
+      hidePopupAfterTimeout();
     }
   };
 
@@ -495,7 +505,7 @@ const Funcionarios = () => {
                 </figure>
                 <p className='staff-nick'>{funcionario.nome}</p>
                 <span>
-                  <p><i className="fas fa-thumbtack"></i> {funcionario.cargo}</p>
+                  <p className='cargo-stf'><i className="fas fa-thumbtack"></i> {funcionario.cargo}</p>
                 </span>
                 <div className='stf-desc'>
                   <span>
