@@ -203,8 +203,16 @@ const Regioes = () => {
       const updatedregiaos = regioes.filter(r => r.id !== regiao.id);
       setRegioes(updatedregiaos);
       setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
+      setPopupType('sucess');
+      setPopupTitle('Região Excluída');
+      setMensagem('Sucesso ao excluir a região');
+      hidePopupAfterTimeout();
     } catch (error) {
       console.error('Erro ao excluir regiao:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao excluir a região');
+      hidePopupAfterTimeout();
     }
   };
 
@@ -254,13 +262,13 @@ const Regioes = () => {
               <div className='input-item input-mult'>
                 <span>
                   <label htmlFor="name-item">Nome da Região:</label>
-                  <input type="text" name='name-item' className='full-item'
+                  <input type="text" name='name-item' className='full-item' id='name-region'
                     value={regiaoParaEditar.nome}
                     onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, nome: e.target.value })} />
                 </span>
                 <span>
                   <label htmlFor="name-item">Cidade:</label>
-                  <input type="text" name='name-item' className='full-item'
+                  <input type="text" name='name-item' className='full-item' id='cidade-region'
                     value={regiaoParaEditar.cidade}
                     onChange={(e) => { setRegiaoParaEditar({ ...regiaoParaEditar, cidade: e.target.value }); console.log(regiaoParaEditar) }} />
                 </span>
@@ -269,7 +277,7 @@ const Regioes = () => {
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Endereço:</label>
-                  <input type="text" name='name-item' className='full-item'
+                  <input type="text" name='name-item' className='full-item' id='endereco-region'
                     value={regiaoParaEditar.endereco}
                     onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, endereco: e.target.value })} />
                 </span>
@@ -278,7 +286,7 @@ const Regioes = () => {
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Vendedor Responsável:</label>
-                  <input type="text" name='name-item' className='full-item'
+                  <input type="text" name='name-item' className='full-item'  id='responsavel-region'
                     value={regiaoParaEditar.responsavel}
                     onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, responsavel: e.target.value })} />
                 </span>
@@ -290,6 +298,7 @@ const Regioes = () => {
                   <textarea
                     name="message"
                     className="desc-prod"
+                    id='descricao-region'
                     value={regiaoParaEditar.descricao}
                     onChange={(e) => setRegiaoParaEditar({ ...regiaoParaEditar, descricao: e.target.value })}
                   />
@@ -328,26 +337,27 @@ const Regioes = () => {
             <div className="Add-Item-container">
               <div className='input-item input-mult'>
                 <span>
+ 
                   <label htmlFor="name-item">Nome da Região:</label>
-                  <input type="text" name='name-item' className='full-item' value={regiaoParaAdicionar.nome} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, nome: e.target.value })} />
+                  <input type="text" name='name-item' className='full-item' id='name-region' value={regiaoParaAdicionar.nome} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, nome: e.target.value })} />
                 </span>
                 <span>
                   <label htmlFor="name-item">Cidade:</label>
-                  <input type="text" name='name-item' className='full-item' value={regiaoParaAdicionar.cidade} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, cidade: e.target.value })} />
+                  <input type="text" name='name-item' className='full-item' id='cidade-region' value={regiaoParaAdicionar.cidade} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, cidade: e.target.value })} />
                 </span>
               </div>
 
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Endereço:</label>
-                  <input type="text" name='name-item' className='full-item' value={regiaoParaAdicionar.endereco} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, endereco: e.target.value })} />
+                  <input type="text" name='name-item' className='full-item' id='endereco-region' value={regiaoParaAdicionar.endereco} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, endereco: e.target.value })} />
                 </span>
               </div>
 
               <div className='input-item input-single'>
                 <span>
                   <label htmlFor="name-item">Vendedor Responsável:</label>
-                  <input type="text" name='name-item' className='full-item' value={regiaoParaAdicionar.responsavel} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, responsavel: e.target.value })} />
+                  <input type="text" name='name-item' className='full-item' id='responsavel-region' value={regiaoParaAdicionar.responsavel} onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, responsavel: e.target.value })} />
                 </span>
               </div>
 
@@ -357,6 +367,7 @@ const Regioes = () => {
                   <textarea
                     name="message"
                     className="desc-prod"
+                    id='descricao-region'
                     value={regiaoParaAdicionar.descricao}
                     onChange={(e) => setRegiaoParaAdicionar({ ...regiaoParaAdicionar, descricao: e.target.value })}
                   />
@@ -542,7 +553,7 @@ const Regioes = () => {
                             <img src={regiao.picture} alt={regiao.nome} />
                           </div>
                         </td>
-                        <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.nome}</p></td>
+                        <td onClick={() => handleShowInfoModal(regiao)}><p className='region-name'>{regiao.nome}</p></td>
                         <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.cidade}</p>
                         </td>
                         <td onClick={() => handleShowInfoModal(regiao)}><p>{regiao.numVendas}</p></td>
