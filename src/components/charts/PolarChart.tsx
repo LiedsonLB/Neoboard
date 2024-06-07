@@ -1,25 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 
-const PaymentMethodsChart = () => {
-    const [paymentData, setPaymentData] = useState({
-        labels: ['Dinheiro', 'Pix', 'Cartão (Crédito)', 'Cartão (Débito)', 'Boleto', 'Cheque', 'Transferência', 'Em Dívida'],
+interface Venda {
+    Data: string;
+    funcionarioId: number;
+    produtoid: number;
+    quantidadeProdutos: number;
+    valor: number;
+    comprador: string;
+    regiaoId: number;
+    formaPagamento: string;
+    usuarioId: string;
+}
+
+const PaymentMethodsChart = ({ salesData }: { salesData: Venda[] }) => {
+    const [paymentData, setPaymentData] = useState<{
+        labels: string[];
+        datasets: {
+            data: number[];
+            backgroundColor: string[];
+        }[];
+    }>({
+        labels: [],
         datasets: [
             {
-                data: [2000, 1500, 3000, 2500, 1000, 2000, 400, 800],
-                backgroundColor: [
-                    '#2ecc71',
-                    '#3498db',
-                    '#e74c3c',
-                    '#f39c12',
-                    '#9b59b6',
-                    '#f1c40f',
-                    '#1abc9c',
-                    '#1f1f1f',
-                ],
+                data: [],
+                backgroundColor: [],
             },
         ],
     });
+
+    useEffect(() => {
+        const calculatePaymentData = () => {
+            const salesByPaymentMethod = salesData.reduce((acc, venda) => {
+                const paymentMethod = venda.formaPagamento;
+                acc[paymentMethod] = (acc[paymentMethod] || 0) + venda.valor;
+                return acc;
+            }, {});
+
+            const uniquePaymentMethods = Object.keys(salesByPaymentMethod);
+
+            // Definindo cores personalizadas para cada forma de pagamento
+            const paymentColors: Record<string, string> = {
+                Dinheiro: '#2ecc71',
+                'À vista': '#2ecc71',
+                Pix: '#3498db',
+                'Cartão (Crédito)': '#e74c3c',
+                'Cartão (Débito)': '#f39c12',
+                'Cartão': '#f39c12',
+                Boleto: '#9b59b6',
+                Cheque: '#f1c40f',
+                Transferência: '#1abc9c',
+                Dívida: '#1f1f1f',
+            };
+
+            // Atualizar os dados do gráfico com as formas de pagamento e cores personalizadas
+            setPaymentData(prevData => ({
+                ...prevData,
+                labels: uniquePaymentMethods,
+                datasets: [{
+                    ...prevData.datasets[0],
+                    data: uniquePaymentMethods.map(method => salesByPaymentMethod[method]),
+                    backgroundColor: uniquePaymentMethods.map(method => paymentColors[method]),
+                }],
+            }));
+        };
+
+        calculatePaymentData();
+    }, [salesData]);
 
     const options = {
         cutout: '0%',

@@ -3,7 +3,7 @@ import { login, register, getUser, resetSenha, loginGoogle } from '../controller
 import { addProduto, deleteProduto, editProduto, getInfoProduto, getProduto, getVariacoesProduto } from '../controllers/productController.js';
 import { addRegion, deleteRegion, editRegion, getInfoRegion, getRegion } from '../controllers/regionController.js';
 import { addFuncionario, deleteFuncionario, editFuncionario, getFuncionarios } from '../controllers/staffController.js';
-import { addDespesa, deleteDespesa, editDespesa, getDespesa, markDespesaAsPaid } from '../controllers/expenseController.js';
+import { addDespesa, deleteDespesa, editDespesa, getDespesa, markDespesaAsPaid, getDespesaPeriod } from '../controllers/expenseController.js';
 import { addVenda, deleteVenda, editVenda, getVenda, updateVendasFuncionario, updateVendasProduto, updateVendasRegiao } from '../controllers/saleController.js';
 import { getDividas, deleteDividas, efetiveDividas } from '../controllers/debtController.js';
 import { getRelatorioPeriod } from '../controllers/RelatorioController.js';
@@ -44,6 +44,7 @@ routerV3.get("/despesas", getDespesa);
 routerV3.delete("/despesas/:id", deleteDespesa);
 routerV3.put("/despesas/:id", editDespesa);
 routerV3.put("/despesas/efetuado/:id", markDespesaAsPaid);
+routerV3.get("/despesas/period", getDespesaPeriod);
 
 // Sale routers
 routerV3.post("/vendas", addVenda);

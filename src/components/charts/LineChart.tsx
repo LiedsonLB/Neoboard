@@ -1,58 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, registerables } from 'chart.js';
+import { format } from 'date-fns';
 ChartJS.register(...registerables);
 
-interface MesInfo {
-  mes: string;
+interface Venda {
+  Data: string;
   valor: number;
-  color: string;
 }
 
-const LineChart = () => {
-  const [meses, setMeses] = useState<MesInfo[]>([]);
+const LineChart = ({ vendas }: { vendas: Venda[] }) => {
+  const [dadosVendas, setDadosVendas] = useState<number[]>([]);
 
   useEffect(() => {
-    const info: MesInfo[] = [
-      {
-        mes: 'Janeiro',
-        valor: 1000,
-        color: 'pink',
-      },
-      {
-        mes: 'Fevereiro',
-        valor: 7000,
-        color: 'blue',
-      },
-      {
-        mes: 'Março',
-        valor: 3000,
-        color: 'yellow',
-      },
-      {
-        mes: 'Abril',
-        valor: 7000,
-        color: 'green',
-      },
-      {
-        mes: 'Maio',
-        valor: 1000,
-        color: 'red',
-      },
-    ];
+    // Extrair os valores das vendas para os dados do gráfico
+    const valoresVendas = vendas.map((venda) => venda.valor);
+    setDadosVendas(valoresVendas);
+  }, [vendas]);
 
-    setMeses(info);
-  }, []);
-
-  const labels = meses.map((item) => item.mes);
-  const valores = meses.map((item) => item.valor);
+  const labels = vendas.map((venda) => format(new Date(venda.Data), 'dd/MM'));
 
   const data = {
     labels: labels,
     datasets: [
       {
         label: 'Valores Mensais',
-        data: valores,
+        data: dadosVendas,
         fill: true,
         backgroundColor: 'rgba(91, 127, 255, 0.3)',
         borderColor: '#5B7FFF',

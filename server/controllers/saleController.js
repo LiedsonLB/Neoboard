@@ -203,44 +203,45 @@ export async function updateVendasRegiao(req, res) {
 
 export async function updateVendasProduto(req, res) {
     const { oldProduto, newProdutoIdName } = req.body;
-    // oldProduto = produto.id
-    // newProdutoIdName = 'Produto Padrão'
 
-    console.log('oldProduto: ', oldProduto)
-    console.log('newProdutoIdName: ', newProdutoIdName)
+    console.log('oldProduto: ', oldProduto);
+    console.log('newProdutoIdName: ', newProdutoIdName);
 
     if (oldProduto == null || newProdutoIdName == null) {
         return res.status(400).json({ success: false, error: 'O ID do produto antigo e o nome do novo produto são necessários' });
     }
 
     try {
-        // Encontrar o ID do produto antigo pelo nome
+        // Encontrar o ID do novo produto pelo nome
         const newProduto = await prisma.produto.findUnique({
-            where: {
-                nome: newProdutoIdName,
-            },
+            where: { nome: newProdutoIdName },
         });
 
         if (!newProduto) {
             return res.status(404).json({ success: false, error: `Produto com nome '${newProdutoIdName}' não encontrado` });
         }
 
-        console.log('oldProduto: ', oldProduto)
-        console.log('newProduto: ', newProduto)
+        console.log('newProduto ID: ', newProduto.id);
 
-        const updatedVendas = await prisma.venda.updateMany({
+        // Atualizar todas as vendas que referenciam o produto antigo pelo novo produto
+        await prisma.sale.updateMany({
             where: {
-                produtoid: oldProduto,
+                productId: oldProduto
             },
             data: {
-                produtoid: newProduto,
-            },
+                productId: newProduto.id
+            }
         });
 
-        res.status(200).json({ success: true, updatedVendas });
+        // Agora, deletar o produto antigo
+        await prisma.produto.delete({
+            where: { id: oldProduto },
+        });
+
+        res.status(200).json({ success: true });
     } catch (error) {
-        console.error('Erro ao atualizar vendas:', error);
-        res.status(500).json({ success: false, error: 'Erro ao atualizar vendas' });
+        console.error('Erro ao atualizar vendas ou excluir produto:', error);
+        res.status(500).json({ success: false, error: 'Erro ao atualizar vendas ou excluir produto' });
     }
 }
 
@@ -256,8 +257,7 @@ async function createDefaultData() {
                 data: {
                     id: '0',
                     nome: 'Usuário Excluído',
-                    email: 'usuarioexcluido@example.com', // Altere o e-mail conforme necessário
-                    // outros campos do usuário
+                    email: 'Usuário Excluído',
                 },
             });
             console.log('Usuário padrão criado');

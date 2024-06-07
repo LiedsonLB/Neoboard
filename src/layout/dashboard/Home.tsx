@@ -63,48 +63,27 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     const [showModal, setShowModal] = useState(false);
     const [events, setEvents] = useState<Event[]>([]);
     const [vendas, setVendas] = useState<Venda[]>([]);
+    const [vendasAgrupadasGrafico, setVendasAgrupadasGrafico] = useState<Venda[]>([]);
     const [dataCards, setDataCards] = useState({ faturamento: 0, despesas: 0, lucro: 0 });
 
     const fetchData = async () => {
         setLoading(true);
         try {
-            const [produtosResponse, regionsResponse, staffsResponse] = await Promise.all([
+            const [produtosResponse, regionsResponse, staffsResponse, vendasResponse] = await Promise.all([
                 axios.get(`http://localhost:4000/v3/produtos?userId=${localStorage.getItem('userID')}`),
                 axios.get(`http://localhost:4000/v3/regioes?userId=${localStorage.getItem('userID')}`),
                 axios.get(`http://localhost:4000/v3/funcionarios?userId=${localStorage.getItem('userID')}`),
+                axios.get(`http://localhost:4000/v3/relatorio?period=${dataPeriod}`)
             ]);
-
+    
             setProdutos(produtosResponse.data.slice(0, 5));
             setRegions(regionsResponse.data.slice(0, 5));
             setStaffs(staffsResponse.data.slice(0, 5));
 
-            const vendasResponse = await axios.get(`http://localhost:4000/v3/relatorio?period=${dataPeriod}`);
-            console.log("Vendas Response:", vendasResponse.data);
-
-            const response = await axios.get("http://localhost:4000/v3/despesas");
-            const despesas = response.data;
-
-            // Filtrar despesas pendentes e atrasadas
-            const despesasPendentesAtrasadas = despesas.filter(despesa => despesa.status === 'Pendente' || despesa.status === 'Atrasada');
-
-            // Calcular o total das despesas pendentes e atrasadas
-            const totalDespesas = despesasPendentesAtrasadas.reduce((acc, despesa) => acc + despesa.valor, 0);
-
-            setVendas(vendasResponse.data)
-            console.log("chegou da API: ", vendas)
-
-            console.log("Total das despesas pendentes e atrasadas:", totalDespesas);
-            setDataCards(prevDataCards => ({ ...prevDataCards, despesas: totalDespesas }));
-
-            // Calcular o faturamento total somando os valores das vendas
             const totalFaturamento = vendasResponse.data.reduce((acc: number, venda: Venda) => acc + venda.valor, 0);
-            console.log(totalFaturamento)
+            console.log(totalFaturamento);
 
             setDataCards(prevDataCards => ({ ...prevDataCards, faturamento: totalFaturamento }));
-
-            // Calcular o lucro (faturamento - despesas)
-            const lucro = totalFaturamento - totalDespesas;
-            setDataCards(prevDataCards => ({ ...prevDataCards, lucro }));
 
             const produtosComPorcentagens = calcularPorcentagensProdutos(vendasResponse.data, produtosResponse.data);
             setProdutos(produtosComPorcentagens);
@@ -114,13 +93,55 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
 
             const funcionariosComPorcentagens = calcularPorcentagensFuncionarios(vendasResponse.data, staffsResponse.data);
             setStaffs(funcionariosComPorcentagens);
-
+    
+            // Processar os dados de vendas para agrupar por data e somar os valores
+            const vendasData = vendasResponse.data;
+            const vendasAgrupadas = vendasData.reduce((acc: any, venda: any) => {
+                const data = venda.Data;
+                if (!acc[data]) {
+                    acc[data] = venda;
+                } else {
+                    acc[data].valor += venda.valor;
+                }
+                return acc;
+            }, {});
+    
+            // Convertendo o objeto de volta para um array
+            const vendasAgrupadasArray: Venda[] = Object.values(vendasAgrupadas);
+    
+            setVendas(vendasAgrupadasArray);
+    
+            const response = await axios.get(`http://localhost:4000/v3/despesas/period?period=${dataPeriod}`);
+            const despesas = response.data;
+    
+            console.log(`Despesas por ${dataPeriod}: `, despesas)
+    
+            // Filtra despesas com pendentes e atrasadas
+            const despesasPendentesAtrasadas = despesas.filter(despesa => despesa.status === 'Pendente' || despesa.status === 'Atrasada');
+    
+            // Calcula o total das despesas pendentes e atrasadas
+            const totalDespesas = despesasPendentesAtrasadas.reduce((acc, despesa) => acc + despesa.valor, 0);
+    
+            console.log("Despesas pendentes e atrasadas:", despesasPendentesAtrasadas);
+            console.log("Total das despesas pendentes e atrasadas:", totalDespesas);
+    
+            setDataCards(prevDataCards => ({ ...prevDataCards, despesas: totalDespesas }));
+    
+            setDataCards(prevDataCards => ({ ...prevDataCards, faturamento: totalFaturamento }));
+    
+            // Calcular o lucro (faturamento - despesas)
+            const lucro = totalFaturamento - totalDespesas;
+            setDataCards(prevDataCards => ({ ...prevDataCards, lucro }));
+    
+            // Atualizar o estado de vendas agrupadas para o gráfico
+            setVendasAgrupadasGrafico(vendasAgrupadasArray);
+    
             setLoading(false);
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
             setLoading(false);
         }
-    };
+    };    
 
     useEffect(() => {
         fetchData();
@@ -306,7 +327,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                         </header>
                         <div id="charts-main">
                             <div id="column-chart">
-                                <LineChart />
+                                <LineChart vendas={vendasAgrupadasGrafico} />
                             </div>
                             <div id="pie-chart">
                                 <DoughnutChart />
@@ -456,7 +477,7 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                             </ul>
                             <div id="payments-chart">
                                 <div id='chart-payment'>
-                                    <PaymentMethodsChart />
+                                    <PaymentMethodsChart salesData={vendas} />
                                 </div>
                             </div>
                         </div>
