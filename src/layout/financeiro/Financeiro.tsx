@@ -33,6 +33,7 @@ const Financeiro = () => {
   const [despesaDelete, setDespesaDelete] = useState<Despesa>();
   const [filtroPesquisa, setFiltroPesquisa] = useState('');
   const [dividas, setDividas] = useState<Divida[]>([]);
+  const [filteredResultsCount, setFilteredResultsCount] = useState(0);
 
   const [mensagem, setMensagem] = useState('');
   const [popupType, setPopupType] = useState('');
@@ -49,11 +50,11 @@ const Financeiro = () => {
   ];
 
   const validOptions = [
-    "Salario",
+    "Salário",
     "Aluguel",
     "Fornecedor",
     "Imposto",
-    "Manutencao"
+    "Manutenção"
   ];
 
   const expenseIcons: { [key: string]: string } = {
@@ -144,7 +145,7 @@ const Financeiro = () => {
         // Exibir uma mensagem de sucesso
         setPopupType('warning');
         setPopupTitle('Campos Vazios');
-        setMensagem('Preenncha todos os campos de nome e valor');
+        setMensagem('Preencha todos os campos de nome e valor');
         hidePopupAfterTimeout();
         return;
       }
@@ -233,8 +234,18 @@ const Financeiro = () => {
       console.log("Despesa excluída com sucesso!");
       setDespesas(despesas.filter((d) => d.id !== despesa.id));
       setShowDeleteModal(false);
+
+      setFiltroPesquisa(''); // Limpar o filtro de pesquisa após a exclusão
+      setPopupType('sucess');
+      setPopupTitle('Despesa Excluída');
+      setMensagem('Sucesso ao excluir a despesa');
+      hidePopupAfterTimeout();
     } catch (error) {
-      console.error("Erro ao excluir despesa:", error);
+      console.error('Erro ao excluir a despesa:', error);
+      setPopupType('warning');
+      setPopupTitle('Erro');
+      setMensagem('Erro ao excluir a despesa');
+      hidePopupAfterTimeout();
     }
   };
 
@@ -249,6 +260,16 @@ const Financeiro = () => {
     }
   };
 
+  const updateFilteredResults = (search, option, categoria) => { // Linha adicionada
+    const results = despesas.filter((expense) =>  // Linha adicionada
+      expense.nome.toLowerCase().includes(search.toLowerCase()) && // Linha adicionada
+      (option === "" || expense.tipo === option) && // Linha adicionada
+      (categoria ? expense.tipo === categoria : true) // Linha adicionada
+    ); // Linha adicionada
+    setFilteredResultsCount(results.length); // Linha adicionada
+  }; // Linha adicionada
+
+
   const handleOptionSelect = (event: any) => {
     setSelectedOption(event.target.value);
   };
@@ -257,6 +278,10 @@ const Financeiro = () => {
     expense.nome.toLowerCase().includes(filtroPesquisa.toLowerCase()) &&
     (categoriaSelecionada ? expense.tipo === categoriaSelecionada : true)
   );
+
+  useEffect(() => {
+    updateFilteredResults(filtroPesquisa, selectedOption, categoriaSelecionada); // Linha adicionada
+  }, [despesas, filtroPesquisa, selectedOption, categoriaSelecionada]); 
 
   const openDeleteModal = (expense) => {
     setDespesaDelete(expense);
@@ -277,9 +302,11 @@ const Financeiro = () => {
     }
   };
 
-  const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFiltroChange = (e) => {
     setFiltroPesquisa(e.target.value);
+    updateFilteredResults(e.target.value, selectedOption, categoriaSelecionada); // Linha adicionada
   };
+
 
   const handleEdit = (expense: Despesa) => {
     // Define os dados do despesa selecionado para edição
@@ -355,6 +382,7 @@ const Financeiro = () => {
                     Data da despesa:
                   </label>
                   <DatePicker
+                    id='data-despesa'
                     selected={selectedDate}
                     onChange={(date) => setSelectedDate(date)}
                     dateFormat="dd/MM/yyyy"
@@ -927,16 +955,16 @@ const Financeiro = () => {
                   onChange={handleOptionSelect}
                 >
                   <option value="">Todos</option>
-                  <option value="opcao1">Salário</option>
-                  <option value="opcao2">Aluguel</option>
-                  <option value="opcao3">Fornecedor</option>
-                  <option value="opcao4">Imposto</option>
-                  <option value="opcao5">Manutenção</option>
+                  <option value="Salário">Salário</option>
+                  <option value="Aluguel">Aluguel</option>
+                  <option value="Fornecedor">Fornecedor</option>
+                  <option value="Imposto">Imposto</option>
+                  <option value="Manutenção">Manutenção</option>
                 </select>
               </div>
             </section>
 
-            <p id="result-expense">Resultados ({despesas.length})</p>
+            <p id="result-expense">Resultados ({filteredResultsCount})</p>
 
             <section id="exp-cards">
               {despesas.length === 0 ? (
@@ -948,7 +976,7 @@ const Financeiro = () => {
                     (expense) =>
                       selectedOption === "" || expense.tipo === selectedOption
                   )
-                  .filter((expense) => categoriaSelecionada ? expense.nome === categoriaSelecionada : true)
+                  .filter((expense) => categoriaSelecionada ? expense.tipo === categoriaSelecionada : true)
                   .map((expense, index) => {
                     const icon = expenseIcons[expense.tipo] || expenseIcons.Default;
                     const color = expenseColors[expense.tipo] || expenseColors.Default;
@@ -1003,3 +1031,4 @@ const Financeiro = () => {
 };
 
 export default Financeiro;
+
