@@ -22,7 +22,7 @@ model Produto {
   id             Int             @id @default(autoincrement())
   picture        String
   NameImg        String
-  nome           String
+  nome           String          @unique
   descricao      String
   categoria      String
   precoAtual     Float
@@ -47,7 +47,7 @@ model Regiao {
   id          Int     @id @default(autoincrement())
   picture     String?
   nameImg     String?
-  nome        String
+  nome        String  @unique
   descricao   String
   responsavel String
   endereco    String?
@@ -64,7 +64,7 @@ model Funcionario {
   id              Int     @id @default(autoincrement())
   picture         String?
   nameImg         String?
-  nome            String
+  nome            String  @unique
   dataNascimento  String?
   email           String?
   descricao       String?

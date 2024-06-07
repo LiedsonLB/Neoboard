@@ -14,3 +14,23 @@ export async function getDividas(req, res) {
         res.status(500).json({ error: 'Erro ao obter dívidas' });
     }
 }
+// Rota para obter todas as dívidas
+export async function deleteDividas(req, res) {
+    try {
+        const dividas = await prisma.vendasEmDivida.findMany();
+        res.status(200).json(dividas);
+    } catch (error) {
+        console.error('Erro ao obter dívidas:', error);
+        res.status(500).json({ error: 'Erro ao obter dívidas' });
+    }
+}
+// Rota para obter todas as dívidas
+export async function efetiveDividas(req, res) {
+    try {
+        const dividas = await prisma.vendasEmDivida.findMany();
+        res.status(200).json(dividas);
+    } catch (error) {
+        console.error('Erro ao obter dívidas:', error);
+        res.status(500).json({ error: 'Erro ao obter dívidas' });
+    }
+}

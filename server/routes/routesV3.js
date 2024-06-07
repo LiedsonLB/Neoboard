@@ -4,7 +4,8 @@ import { addProduto, deleteProduto, editProduto, getInfoProduto, getProduto, get
 import { addRegion, deleteRegion, editRegion, getInfoRegion, getRegion } from '../controllers/regionController.js';
 import { addFuncionario, deleteFuncionario, editFuncionario, getFuncionarios } from '../controllers/staffController.js';
 import { addDespesa, deleteDespesa, editDespesa, getDespesa, markDespesaAsPaid } from '../controllers/expenseController.js';
-import { addVenda, deleteVenda, editVenda, getVenda } from '../controllers/saleController.js';
+import { addVenda, deleteVenda, editVenda, getVenda, updateVendasFuncionario, updateVendasProduto, updateVendasRegiao } from '../controllers/saleController.js';
+import { getDividas, deleteDividas, efetiveDividas } from '../controllers/debtController.js';
 import { getRelatorioPeriod } from '../controllers/RelatorioController.js';
 
 const routerV3 = express.Router();
@@ -49,11 +50,14 @@ routerV3.post("/vendas", addVenda);
 routerV3.get("/vendas", getVenda);
 routerV3.delete("/vendas/:id", deleteVenda);
 routerV3.put("/vendas/:id", editVenda);
+routerV3.put('/vendas/updateFuncionario', updateVendasFuncionario);
+routerV3.put('/vendas/updateRegiao', updateVendasRegiao);
+routerV3.put('/vendas/updateProduto', updateVendasProduto);
 
 // debt routers
-routerV3.get("/dividas", getVenda);
-routerV3.delete("/dividas/:id", deleteVenda);
-routerV3.put("/dividas/:id", editVenda);
+routerV3.get("/dividas", getDividas);
+routerV3.delete("/dividas/:id", deleteDividas);
+routerV3.put("/dividas/:id", efetiveDividas);
 
 //relatorio routers
 routerV3.get("/relatorio", getRelatorioPeriod);

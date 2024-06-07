@@ -147,6 +147,8 @@ const Produtos = () => {
         await deleteObject(imagemRef);
       }
 
+      await axios.put(`http://localhost:4000/v3/vendas/updateProduto`, { oldProduto: produto.id, newProdutoIdName: 'Produto Padrão' });
+
       // Faz a requisição DELETE para a rota da API para excluir o produto
       await axios.delete(`http://localhost:4000/v3/produtos/${produto.id}`);
 

@@ -152,3 +152,214 @@ export async function editVenda(req, res) {
         res.status(500).json({ error: 'Erro ao editar venda' });
     }
 };
+
+export async function updateVendasFuncionario(req, res) {
+    const { oldFuncionarioId, newFuncionarioId } = req.body;
+
+    if (oldFuncionarioId == null || newFuncionarioId == null) {
+        return res.status(400).json({ success: false, error: 'Os IDs dos funcionários são necessários' });
+    }
+
+    try {
+        const updatedVendas = await prisma.venda.updateMany({
+            where: {
+                funcionarioId: oldFuncionarioId,
+            },
+            data: {
+                funcionarioId: newFuncionarioId,
+            },
+        });
+
+        res.status(200).json({ success: true, updatedVendas });
+    } catch (error) {
+        console.error('Erro ao atualizar vendas:', error);
+        res.status(500).json({ success: false, error: 'Erro ao atualizar vendas' });
+    }
+}
+
+export async function updateVendasRegiao(req, res) {
+    const { oldRegiaoId, newRegiaoId } = req.body;
+
+    if (oldRegiaoId == null || newRegiaoId == null) {
+        return res.status(400).json({ success: false, error: 'Os IDs das regiões são necessários' });
+    }
+
+    try {
+        const updatedVendas = await prisma.venda.updateMany({
+            where: {
+                regiaoId: oldRegiaoId,
+            },
+            data: {
+                regiaoId: newRegiaoId,
+            },
+        });
+
+        res.status(200).json({ success: true, updatedVendas });
+    } catch (error) {
+        console.error('Erro ao atualizar vendas:', error);
+        res.status(500).json({ success: false, error: 'Erro ao atualizar vendas' });
+    }
+}
+
+export async function updateVendasProduto(req, res) {
+    const { oldProduto, newProdutoIdName } = req.body;
+    // oldProduto = produto.id
+    // newProdutoIdName = 'Produto Padrão'
+
+    console.log('oldProduto: ', oldProduto)
+    console.log('newProdutoIdName: ', newProdutoIdName)
+
+    if (oldProduto == null || newProdutoIdName == null) {
+        return res.status(400).json({ success: false, error: 'O ID do produto antigo e o nome do novo produto são necessários' });
+    }
+
+    try {
+        // Encontrar o ID do produto antigo pelo nome
+        const newProduto = await prisma.produto.findUnique({
+            where: {
+                nome: newProdutoIdName,
+            },
+        });
+
+        if (!newProduto) {
+            return res.status(404).json({ success: false, error: `Produto com nome '${newProdutoIdName}' não encontrado` });
+        }
+
+        console.log('oldProduto: ', oldProduto)
+        console.log('newProduto: ', newProduto)
+
+        const updatedVendas = await prisma.venda.updateMany({
+            where: {
+                produtoid: oldProduto,
+            },
+            data: {
+                produtoid: newProduto,
+            },
+        });
+
+        res.status(200).json({ success: true, updatedVendas });
+    } catch (error) {
+        console.error('Erro ao atualizar vendas:', error);
+        res.status(500).json({ success: false, error: 'Erro ao atualizar vendas' });
+    }
+}
+
+async function createDefaultData() {
+    try {
+        const usuarioPadrao = await prisma.usuario.findUnique({
+            where: { id: '0' },
+        });
+
+        // Se o usuário padrão não existir, cria um novo
+        if (!usuarioPadrao) {
+            await prisma.usuario.create({
+                data: {
+                    id: '0',
+                    nome: 'Usuário Excluído',
+                    email: 'usuarioexcluido@example.com', // Altere o e-mail conforme necessário
+                    // outros campos do usuário
+                },
+            });
+            console.log('Usuário padrão criado');
+        }
+
+        // Se o usuário padrão não existir, cria um novo
+        if (!usuarioPadrao) {
+            await prisma.funcionario.create({
+                data: {
+                    id: 0,
+                    nome: 'Usuário Excluído',
+                    genero: "Outro",
+                    cpf: "000.000.000-00",
+                    usuario: {
+                        connect: {
+                            id: '0'
+                        }
+                    }
+                },
+            });
+            console.log('Usuário padrão criado');
+        }
+
+        // Verifica se o funcionário padrão existe
+        const funcionarioPadrao = await prisma.funcionario.findUnique({
+            where: { nome: 'Usuário Excluído' },
+        });
+
+        // Se o funcionário padrão não existir, cria um novo
+        if (!funcionarioPadrao) {
+            await prisma.funcionario.create({
+                data: {
+                    nome: 'Usuário Excluído',
+                    genero: "Outro",
+                    cpf: "000.000.000-00",
+                    usuario: {
+                        connect: {
+                            id: '0'
+                        }
+                    }
+                },
+            });
+            console.log('Funcionário padrão criado');
+        }
+
+        // Verifica se o produto padrão existe
+        const produtoPadrao = await prisma.produto.findUnique({
+            where: { nome: 'Produto Padrão' },
+        });
+
+        // Se o produto padrão não existir, cria um novo
+        if (!produtoPadrao) {
+            await prisma.produto.create({
+                data: {
+                    nome: 'Produto Padrão',
+                    precoAtual: 0,
+                    picture: '/img/no_productImg.jpeg',
+                    NameImg: '',
+                    descricao: '',
+                    categoria: '',
+                    faturamento: 0,
+                    numVendas: 0,
+                    usuario: {
+                        connect: {
+                            id: '0'
+                        }
+                    },
+                },
+            });
+            console.log('Produto padrão criado');
+        }
+
+        // Verifica se a região padrão existe
+        const regiaoPadrao = await prisma.regiao.findUnique({
+            where: { nome: 'Região Padrão' },
+        });
+
+        // Se a região padrão não existir, cria uma nova
+        if (!regiaoPadrao) {
+            await prisma.regiao.create({
+                data: {
+                    nome: 'Região Padrão',
+                    descricao: '',
+                    responsavel: '',
+                    cidade: '',
+                    faturamento: 0,
+                    numVendas: 0,
+                    clientes: 0,
+                    usuario: {
+                        connect: {
+                            id: '0'
+                        }
+                    },
+                },
+            });
+            console.log('Região padrão criada');
+        }
+    } catch (error) {
+        console.error('Erro ao criar dados padrão:', error);
+    } finally {
+        await prisma.$disconnect();
+    }
+}
+
+createDefaultData();

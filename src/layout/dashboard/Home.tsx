@@ -16,6 +16,7 @@ interface Product {
     nome: string;
     picture: string;
     vendido: number;
+    porcentagem?: string;
 }
 
 interface Region {
@@ -24,6 +25,7 @@ interface Region {
     nome: string;
     picture: string;
     vendido: number;
+    porcentagem?: string;
 }
 
 interface Staff {
@@ -32,6 +34,7 @@ interface Staff {
     nome: string;
     picture: string;
     vendido: number;
+    porcentagem?: string;
 }
 
 interface Event {
@@ -44,7 +47,7 @@ interface Venda {
     funcionarioId: number;
     produtoid: number;
     quantidadeProdutos: number;
-    valorTotal: number; // Certifique-se de que a resposta da API contenha esse campo
+    valor: number;
     comprador: string;
     regiaoId: number;
     formaPagamento: string;
@@ -78,12 +81,39 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
             const vendasResponse = await axios.get(`http://localhost:4000/v3/relatorio?period=${dataPeriod}`);
             console.log("Vendas Response:", vendasResponse.data);
 
+            const response = await axios.get("http://localhost:4000/v3/despesas");
+            const despesas = response.data;
+
+            // Filtrar despesas pendentes e atrasadas
+            const despesasPendentesAtrasadas = despesas.filter(despesa => despesa.status === 'Pendente' || despesa.status === 'Atrasada');
+
+            // Calcular o total das despesas pendentes e atrasadas
+            const totalDespesas = despesasPendentesAtrasadas.reduce((acc, despesa) => acc + despesa.valor, 0);
+
             setVendas(vendasResponse.data)
             console.log("chegou da API: ", vendas)
 
-            const totalFaturamento = vendasResponse.data._sum.valorTotal || 0;
+            console.log("Total das despesas pendentes e atrasadas:", totalDespesas);
+            setDataCards(prevDataCards => ({ ...prevDataCards, despesas: totalDespesas }));
+
+            // Calcular o faturamento total somando os valores das vendas
+            const totalFaturamento = vendasResponse.data.reduce((acc: number, venda: Venda) => acc + venda.valor, 0);
+            console.log(totalFaturamento)
 
             setDataCards(prevDataCards => ({ ...prevDataCards, faturamento: totalFaturamento }));
+
+            // Calcular o lucro (faturamento - despesas)
+            const lucro = totalFaturamento - totalDespesas;
+            setDataCards(prevDataCards => ({ ...prevDataCards, lucro }));
+
+            const produtosComPorcentagens = calcularPorcentagensProdutos(vendasResponse.data, produtosResponse.data);
+            setProdutos(produtosComPorcentagens);
+
+            const regioesComPorcentagens = calcularPorcentagensRegioes(vendasResponse.data, regionsResponse.data);
+            setRegions(regioesComPorcentagens);
+
+            const funcionariosComPorcentagens = calcularPorcentagensFuncionarios(vendasResponse.data, staffsResponse.data);
+            setStaffs(funcionariosComPorcentagens);
 
             setLoading(false);
         } catch (error) {
@@ -99,6 +129,51 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
     useEffect(() => {
         console.log("Atualizado vendas:", vendas);
     }, [vendas]);
+
+    const calcularPorcentagensProdutos = (vendas: Venda[], produtos: Product[]) => {
+        const totalFaturamento = vendas.reduce((acc, venda) => acc + venda.valor, 0);
+
+        const produtosComPorcentagens = produtos.map(produto => {
+            const totalVendidoProduto = vendas
+                .filter(venda => venda.produtoid === produto.id)
+                .reduce((acc, venda) => acc + venda.valor, 0);
+            const porcentagem = totalFaturamento ? (totalVendidoProduto / totalFaturamento) * 100 : 0;
+            return { ...produto, porcentagem: porcentagem.toFixed(1) };
+        });
+
+        // Ordenar os produtos do maior para o menor em porcentagem
+        return produtosComPorcentagens.sort((a, b) => parseFloat(b.porcentagem!) - parseFloat(a.porcentagem!));
+    };
+
+    const calcularPorcentagensRegioes = (vendas: Venda[], regioes: Region[]) => {
+        const totalFaturamento = vendas.reduce((acc, venda) => acc + venda.valor, 0);
+
+        const regioesComPorcentagens = regioes.map(regiao => {
+            const totalVendidoRegiao = vendas
+                .filter(venda => venda.regiaoId === regiao.id)
+                .reduce((acc, venda) => acc + venda.valor, 0);
+            const porcentagem = totalFaturamento ? (totalVendidoRegiao / totalFaturamento) * 100 : 0;
+            return { ...regiao, porcentagem: porcentagem.toFixed(1) };
+        });
+
+        // Ordenar as regiões do maior para o menor em porcentagem
+        return regioesComPorcentagens.sort((a, b) => parseFloat(b.porcentagem!) - parseFloat(a.porcentagem!));
+    };
+
+    const calcularPorcentagensFuncionarios = (vendas: Venda[], funcionarios: Staff[]) => {
+        const totalFaturamento = vendas.reduce((acc, venda) => acc + venda.valor, 0);
+
+        const funcionariosComPorcentagens = funcionarios.map(funcionario => {
+            const totalVendidoFuncionario = vendas
+                .filter(venda => venda.funcionarioId === funcionario.id)
+                .reduce((acc, venda) => acc + venda.valor, 0);
+            const porcentagem = totalFaturamento ? (totalVendidoFuncionario / totalFaturamento) * 100 : 0;
+            return { ...funcionario, porcentagem: porcentagem.toFixed(1) };
+        });
+
+        // Ordenar os funcionários do maior para o menor em porcentagem
+        return funcionariosComPorcentagens.sort((a, b) => parseFloat(b.porcentagem!) - parseFloat(a.porcentagem!));
+    };
 
     const AnimatedNumber = ({ value }: { value: number }) => {
         const props = useSpring({ value, from: { value: 0 }, reset: true });
@@ -258,10 +333,10 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                                     <img src={produto.picture} alt={produto.nome} />
                                                 </div>
                                                 <div className="product-name">
-                                                    <p>{produto.nome}: {produto.vendido}%</p>
+                                                    <p>{produto.nome}: {produto.porcentagem}%</p>
                                                     <div className="scale-container">
                                                         <div className="product-scale">
-                                                            <div className="scale" style={{ width: `${produto.vendido}%` }}>
+                                                            <div className="scale" style={{ width: `${produto.porcentagem}%` }}>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -285,11 +360,10 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                                     <img src={region.picture} alt={region.nome} />
                                                 </div>
                                                 <div className="product-name">
-                                                    <p>{region.nome}: {region.vendido}%</p>
+                                                    <p>{region.nome}: {region.porcentagem}%</p>
                                                     <div className="scale-container">
                                                         <div className="product-scale">
-                                                            <div className="scale" style={{ width: `${region.vendido}%` }}>
-                                                            </div>
+                                                            <div className="scale" style={{ width: `${region.porcentagem}%` }}></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -312,11 +386,10 @@ const Home = ({ user }: { user?: { displayName?: string } }) => {
                                                     <img src={staff.picture} alt={staff.nome} />
                                                 </div>
                                                 <div className="product-name">
-                                                    <p>{staff.nome}: {staff.vendido}%</p>
+                                                    <p>{staff.nome}: {staff.porcentagem}%</p>
                                                     <div className="scale-container">
                                                         <div className="product-scale">
-                                                            <div className="scale" style={{ width: `${staff.vendido}%` }}>
-                                                            </div>
+                                                            <div className="scale" style={{ width: `${staff.porcentagem}%` }}></div>
                                                         </div>
                                                     </div>
                                                 </div>

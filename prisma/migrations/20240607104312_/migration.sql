@@ -127,6 +127,15 @@ CREATE TABLE "VendasEmDivida" (
 -- CreateIndex
 CREATE UNIQUE INDEX "Usuario_email_key" ON "Usuario"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Produto_nome_key" ON "Produto"("nome");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Regiao_nome_key" ON "Regiao"("nome");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Funcionario_nome_key" ON "Funcionario"("nome");
+
 -- AddForeignKey
 ALTER TABLE "Produto" ADD CONSTRAINT "Produto_usuarioId_fkey" FOREIGN KEY ("usuarioId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
