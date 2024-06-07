@@ -1,7 +1,7 @@
 // expenseController.js
 
 import { PrismaClient } from '@prisma/client';
-import { subDays, subMonths, subYears, startOfDay, endOfDay } from 'date-fns';
+import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } from 'date-fns'
 
 const prisma = new PrismaClient();
 
@@ -75,31 +75,49 @@ export async function getDespesaPeriod(req, res) {
     const { period } = req.query;
 
     let startDate;
-    const endDate = new Date();
+    let endDate = new Date();
 
     switch (period) {
         case 'Semanal':
-            startDate = subDays(endDate, 7);
+            startDate = startOfWeek(endDate);
             break;
         case 'Mensal':
-            startDate = subMonths(endDate, 1);
+            startDate = startOfMonth(endDate);
             break;
         case 'Anual':
-            startDate = subYears(endDate, 1);
+            startDate = startOfYear(endDate);
             break;
         default:
             return res.status(400).json({ error: 'Período inválido' });
     }
 
     try {
-        const despesas = await prisma.Despesa.findMany({
-            where: {
-                data: {
-                    gte: startOfDay(startDate).toISOString(),
-                    lte: endOfDay(endDate).toISOString(),
+        let despesas;
+
+        // Se o período for semanal, mensal ou anual, busca despesas dentro desse período
+        if (period === 'Semanal' || period === 'Mensal' || period === 'Anual') {
+            despesas = await prisma.Despesa.findMany({
+                where: {
+                    AND: [
+                        {
+                            data: {
+                                gte: startOfDay(startDate).toISOString(),
+                                lte: endOfDay(endDate).toISOString(),
+                            },
+                        },
+                        {
+                            OR: [
+                                { status: 'Pendente' },
+                                { status: 'Atrasada' },
+                            ],
+                        },
+                    ],
                 },
-            },
-        });
+            });
+        } else {
+            return res.status(400).json({ error: 'Período inválido' });
+        }
+
         res.status(200).json(despesas);
     } catch (error) {
         console.error('Erro ao obter despesas:', error);

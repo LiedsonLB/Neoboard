@@ -11,6 +11,7 @@ const ProdutoInfo = () => {
     const { id } = useParams();
     const [selectedProduct, setSelectedProduct] = useState<Produto | null>(null);
     const [variacoes, setVariacoes] = useState<any[]>([]);
+    const [vendas, setVendas] = useState<any[]>([]);
 
     const navigate = useNavigate();
 
@@ -22,24 +23,39 @@ const ProdutoInfo = () => {
 
                 const variacoesResponse = await axios.get(`http://localhost:4000/v3/variacoes/${id}`);
                 setVariacoes(variacoesResponse.data);
+
+                // Busca as vendas relacionadas ao produto
+                const vendasResponse = await axios.get(`http://localhost:4000/v3/vendas?userId=${localStorage.getItem('userID')}&produtoid=${id}`);
+                setVendas(vendasResponse.data);
+                console.log(vendas)
             } catch (error) {
                 console.error('Erro ao buscar detalhes do produto:', error);
                 navigate("/produto_nao_encontrado")
             }
         };
-        fetchProdutoById();
+        if (id) {
+            fetchProdutoById();
+        }
     }, [id]);
 
-    console.log(selectedProduct);
+    useEffect(() => {
+        console.log("Atualizado vendas:", vendas);
+    }, [vendas]);
 
     if (!selectedProduct) {
         return <Loading />;
     }
 
     // Função para formatar a data no formato brasileiro
+    // Função para formatar a data no formato brasileiro
     const formatarDataBR = (data: string) => {
+        // Verifica se a data é válida
+        if (!data) {
+            return ''; // Retorna uma string vazia se a data for inválida
+        }
         return format(new Date(data), "dd/MM/yyyy"); // Formato "dd/MM/yyyy"
     };
+
 
     // Função para determinar o ícone e a cor com base na variação
     const getIconAndColor = (variacao: number) => {
@@ -99,23 +115,25 @@ const ProdutoInfo = () => {
                                     </tr>
                                 </thead>
                                 <tbody className='body-list-prod'>
-                                    <tr>
-                                        <td>
-                                            <h3 data-toggle="tooltip" title="Picolé sem cobertura">Picolé sem cobertura</h3>
-                                        </td>
-                                        <td>
-                                            <h3 data-toggle="tooltip" title="Piripiri">Piripiri</h3>
-                                        </td>
-                                        <td>
-                                            <h3 data-toggle="tooltip" title="5">5</h3>
-                                        </td>
-                                        <td>
-                                            <h3 data-toggle="tooltip" title="07/04/2024">07/04/2024</h3>
-                                        </td>
-                                        <td>
-                                            <h3 data-toggle="tooltip" title="Cartão(debito)">Cartão (debito)</h3>
-                                        </td>
-                                    </tr>
+                                    {vendas.map((venda, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <h3 data-toggle="tooltip" title={venda.nome}>{venda.produto}</h3>
+                                            </td>
+                                            <td>
+                                                <h3 data-toggle="tooltip" title={venda.picture}>{venda.regiao}</h3>
+                                            </td>
+                                            <td>
+                                                <h3 data-toggle="tooltip" title={venda.numVendas}>{venda.quantidade}</h3>
+                                            </td>
+                                            <td>
+                                                <h3 data-toggle="tooltip" title={formatarDataBR(venda.data)}>{formatarDataBR(venda.data)}</h3>
+                                            </td>
+                                            <td>
+                                                <h3 data-toggle="tooltip" title={venda.pagamento}>{venda.pagamento}</h3>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </section>
@@ -137,7 +155,7 @@ const ProdutoInfo = () => {
                                     <td>Variação</td>
                                 </tr>
                             </thead>
-                            <tbody className="body-list-prod debt" style={{ gap: '0px !importat' }}>
+                            <tbody className="body-list-prod debt" style={{ gap: '0px !important' }}>
                                 {variacoes.length === 0 ? (
                                     <tr>
                                         <td colSpan={4} style={{ textAlign: 'center', fontSize: '16px', marginBlock: '.5rem' }}>Não há variações de preço registradas para este produto.</td>

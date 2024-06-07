@@ -50,7 +50,7 @@ const PaymentMethodsChart = ({ salesData }: { salesData: Venda[] }) => {
                 'Cartão': '#f39c12',
                 Boleto: '#9b59b6',
                 Cheque: '#f1c40f',
-                Transferência: '#1abc9c',
+                'Transferência': '#1abc9c',
                 Dívida: '#1f1f1f',
             };
 

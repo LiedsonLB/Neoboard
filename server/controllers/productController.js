@@ -16,20 +16,20 @@ export async function addProduto(req, res) {
     }
 }
 
-export async function getProduto(req, res) {
+export async function getVenda(req, res) {
     try {
         const userId = req.query.userId;
-        const produtos = await prisma.produto.findMany({
+        const vendas = await prisma.venda.findMany({
             where: {
                 usuarioId: userId
             }
         });
-        res.status(200).json(produtos);
+        res.status(200).json(vendas);
     } catch (error) {
-        console.error('Erro ao obter produtos:', error);
-        res.status(500).json({ error: 'Erro ao obter produtos' });
+        console.error('Erro ao obter vendas:', error);
+        res.status(500).json({ error: 'Erro ao obter vendas' });
     }
-}
+};
 
 export async function getInfoProduto(req, res) {
     const produtoId = parseInt(req.params.id);
