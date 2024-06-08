@@ -139,7 +139,7 @@ NeoBoard é uma plataforma de dashboard empresarial projetada para gerenciar inf
 - Release v1.0 ✅
 - Release v2.0 ✅
 - Release v2.0.1 ✅
-- Release v3.0 ❌
+- Release v3.0 ✅
 
 ## Imagens do Projeto
 
